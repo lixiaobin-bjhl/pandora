@@ -1,8 +1,8 @@
 <template>
   <section class="foot">
     <mt-field placeholder="请输入消息" class="con"></mt-field>
-    <span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa fa-smile-o" aria-hidden="true"></i></span>
-    <span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'fa-minus-circle':'fa-plus-circle'"></i></span>
+    <span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa icon-smile-o" aria-hidden="true"></i></span>
+    <span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'icon-minus-circle':'icon-plus-circle'"></i></span>
     <section class="selbox" :class="showSelBox>0?'show':'hide'">
       <section v-if="showSelBox==1" class="face-box">
         <mt-swipe :auto="0">

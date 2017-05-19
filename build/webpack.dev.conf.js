@@ -26,9 +26,16 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
+      filename: 'chat.html',
+      template: 'chat.html',
+      chunks: ['chat'],
       inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'bindTel.html',
+      template: 'bindTel.html',
+      inject: true,
+      chunks: ['bindTel']
     })
   ]
 })

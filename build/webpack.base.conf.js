@@ -12,7 +12,8 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    chat: './src/m/chat.js',
+    bindTel: ['./src/m/bindTel.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -90,5 +91,9 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
+  },
+    babel: {
+        presets: ['es2015'],
+        plugins: ['transform-vue-jsx', 'transform-runtime']
+    }
 }

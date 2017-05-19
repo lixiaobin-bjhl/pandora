@@ -5,14 +5,14 @@
                 <ul>
                     <template v-for="item in records">
                         <li class="chat-mine" v-if="item.type==1">
-                            <div class="chat-user"><img src="../assets/user.png"></div>
+                            <div class="chat-user"><img src="../../assets/user.png"></div>
                             <div class="time"><cite><i>{{item.time}}</i>{{item.name}}</cite></div>
-                            <div class="chat-text" v-html="replaceFace(item.content)"></div>
+                            <pre class="chat-text" v-html="replaceFace(item.content)"></pre>
                         </li>
                         <li v-if="item.type==2">
-                            <div class="chat-user"><img src="../assets/default.png"></div>
+                            <div class="chat-user"><img src="../../assets/default.png"></div>
                             <div class="time"><cite>{{item.name}}<i>{{item.time}}</i></cite></div>
-                            <div class="chat-text" v-html="replaceFace(item.content)"></div>
+                            <pre class="chat-text" v-html="replaceFace(item.content)"></pre>
                         </li>
                     </template>
                 </ul>
@@ -20,9 +20,9 @@
         </section>
 
         <section class="foot">
-            <mt-field id="txtContent" placeholder="请输入消息" class="con" v-model="content"></mt-field>
-            <span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa fa-smile-o" aria-hidden="true"></i></span>
-            <span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'fa-minus-circle':'fa-plus-circle'"></i></span>
+            <textarea :maxlength="100" autofocus ref="message-input" placeholder="请输入消息" class="con" v-model="content"></textarea>
+            <span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa icon-smile-o" aria-hidden="true"></i></span>
+            <span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'icon-minus-circle':'icon-plus-circle'"></i></span>
             <span class="btn btn-send" v-on:click="sendMsg">发送</span>
             <section class="selbox" :class="showSelBox>0?'show':'hide'">
                 <section v-show="showSelBox==1" class="face-box">
@@ -34,7 +34,9 @@
                         </mt-swipe-item>
                     </mt-swipe>
                 </section>
-                <div v-show="showSelBox==2">{{selOther}}</div>
+                <div v-show="showSelBox==2">
+                    <span class="picture-btn icon-picture-o"></span>
+                </div>
             </section>
         </section>
 
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-import util from '../common/util'
+import util from '../../common/util'
 import { Toast } from 'mint-ui';
 
 export default {
@@ -176,6 +178,29 @@ export default {
         getEXP: function (pageNow,pageSize) {
             return this.EXPS.slice((pageNow - 1) * pageSize, pageSize * pageNow)
         },
+        /**
+         * 初始化socket
+         */
+        initScoket () {
+            var wsServer = 'ws://localhost:8888/Demo'; 
+            var websocket = new WebSocket(wsServer); 
+            websocket.onopen = function (evt) { onOpen(evt) };
+            websocket.onclose = function (evt) { onClose(evt) };
+            websocket.onmessage = function (evt) { onMessage(evt) };
+            websocket.onerror = function (evt) { onError(evt) };
+            function onOpen(evt) { 
+                console.log("Connected to WebSocket server."); 
+            } 
+            function onClose(evt) { 
+                console.log("Disconnected"); 
+            } 
+            function onMessage(evt) { 
+                console.log('Retrieved data from server: ' + evt.data); 
+            } 
+            function onError(evt) { 
+                console.log('Error occured: ' + evt.data); 
+            }
+        },
         //发送消息
         sendMsg: function(){
             var _this=this;
@@ -204,12 +229,13 @@ export default {
             this.content='';
 
             this.scrollToBottom();
-            //this.focusTxtContent();//聚焦输入框
         
         },
         //聚焦输入框
-        focusTxtContent:function(){
-            document.querySelector("#txtContent input").focus();
+        focusTxtContent:function() {
+            setTimeout(()=> {
+                this.$refs['message-input'].focus();
+            }, 1000);
         },
         //滚动条滚动到底部
         scrollToBottom:function(){
@@ -258,9 +284,10 @@ export default {
             }, 1500);
         }
     },
-    mounted:function(){
+    mounted: function(){
         this.scrollToBottom();
         this.focusTxtContent();
+        // this.initScoket();
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -271,12 +298,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
     .chatlist {
+        width: 100%;
+        box-sizing: border-box;
         position: absolute;
         top: 60px;
         bottom: 48px;
         left: 0px;
         right: 0px;
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         padding: 10px;
     }
@@ -417,13 +446,23 @@ export default {
         position: fixed;
         bottom: 0px;
         left: 0px;
+        border-top: 1px solid #DDD;
         background-color: #F8F8F8;
     }
     
     .foot .con {
         position: absolute;
-        left: 66px;
+        left: 70px;
         right: 40px;
+        height: 48px;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+        padding: 15px 120px 5px 5px;
+        resize: none;
+        border: 0;
+        border-left: 1px solid #EEE;
     }
     
     .foot .btn-plus {
@@ -431,7 +470,6 @@ export default {
         padding: 9px 3px;
         position: absolute;
         left: 0px;
-        border-left: 1px solid #d9d9d9;
     }
     
     .foot .btn-plus i {
@@ -491,7 +529,7 @@ export default {
         font-size: 14px;
         line-height: 32px;
         margin-left: 5px;
-        padding: 0 6px;
+        padding: 0 10px;
         background-color: #33DF83;
         color: #fff;
         border-radius: 3px;
@@ -499,7 +537,13 @@ export default {
     
     .btn-send {
         position: absolute;
-        right: 0px;
+        right: 8px;
         top: 8px;
+    }
+    .picture-btn {
+        font-size: 24px;
+        color: #666;
+        padding: 10px;
+        display: inline-block;
     }
 </style>
