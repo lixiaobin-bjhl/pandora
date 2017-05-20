@@ -7,8 +7,8 @@
 
 import Vue from 'vue';
 import FastClick from 'fastclick'
-import './bindTel.scss'
-import BindTel from './components/BindTel.vue'
+import './card.scss'
+import Card from './components/Card.vue'
 import Toast from 'mint-ui/lib/toast'
 import 'mint-ui/lib/toast/style.css'
 
@@ -21,7 +21,7 @@ const app = new Vue({
                     <div class = "logo-wrapper">
                         <div class = "logo"></div>
                     </div>
-                    <BindTel></BindTel> 
+                    <Card></Card> 
                 </div>
         )
     }

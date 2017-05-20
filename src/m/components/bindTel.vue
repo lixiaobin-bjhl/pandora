@@ -12,7 +12,7 @@
 			</mt-field>
 		</div>
 		<mt-button type="default" :disabled="submiting" @click.native="bind">绑定</mt-button>
-		<p class="ta">无法绑定？ 请联系闻道教育 <a href="tel:400-027-8589">400-027-8589</a></p>
+		<p class="ta">无法绑定？ 请联系pandora <a href="tel:400-027-8589">400-812-8589</a></p>
 	</div>
 </template>
 <script>
@@ -22,8 +22,7 @@
 	import 'mint-ui/lib/button/style.css';
 	import 'mint-ui/lib/field/style.css';
 	import 'mint-ui/lib/toast/style.css';
-	// import getUrlSearch from '../../../common/function/getUrlSearch';
-	// import redirect from '../../../common/function/redirect';
+	import  {bindTel} from '../request';
 	export default {
 		data() {
 			return {
@@ -39,7 +38,7 @@
 			}
 		},
 		created() {
-			this.query = getUrlSearch();
+			// this.query = getUrlSearch();
 		},
 		methods: {
 			timeStep() {
@@ -89,18 +88,18 @@
 				}
 			},
 			bind() {
-				if (this.mobile == '') {
-					Toast('手机号不能为空');
-					return;
-				}
-				if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
-					Toast('请输入正确的手机号');
-					return;
-				}
-				if (this.code == '') {
-					Toast('请输入验证码');
-					return;
-				}
+				// if (this.mobile == '') {
+				// 	Toast('手机号不能为空');
+				// 	return;
+				// }
+				// if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
+				// 	Toast('请输入正确的手机号');
+				// 	return;
+				// }
+				// if (this.code == '') {
+				// 	Toast('请输入验证码');
+				// 	return;
+				// }
 				this.submiting = true;
 				let params = {
 					mobile: this.mobile,
@@ -108,14 +107,14 @@
 					openId: this.query.openId,
 					userRole: this.query.userRole
 				}
-				bind(params)
+				bindTel(params)
 					.then((res) => {
 						Toast('绑定成功');
-						redirect(res.data.url);
+						// redirect(res.data.url);
 					})
-					.always(() => {
+					.catch(() => {
 						this.submiting = false;
-					})
+					});
 				
 			}
 		},

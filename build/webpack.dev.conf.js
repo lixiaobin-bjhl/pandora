@@ -36,6 +36,12 @@ module.exports = merge(baseWebpackConfig, {
       template: 'bindTel.html',
       inject: true,
       chunks: ['bindTel']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'card.html',
+      template: 'card.html',
+      inject: true,
+      chunks: ['card']
     })
   ]
 })

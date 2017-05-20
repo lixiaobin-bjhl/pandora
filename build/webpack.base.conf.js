@@ -13,7 +13,8 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 module.exports = {
   entry: {
     chat: './src/m/chat.js',
-    bindTel: ['./src/m/bindTel.js']
+    bindTel: ['./src/m/bindTel.js'],
+    card: ['./src/m/card.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -84,6 +85,9 @@ module.exports = {
   eslint: {
     formatter: require('eslint-friendly-formatter')
   },
+  node: {
+    fs: "empty"
+},
   vue: {
     loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
     postcss: [

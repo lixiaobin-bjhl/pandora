@@ -1,13 +1,19 @@
+
 import Vue from 'vue'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import App from './App'
+import Card from './components/Card';
 
 Vue.use(MintUI)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App }
-})
+  render(h) {
+        return (<div id = "app" class = "app">
+                    
+                    <Card></Card> 
+                </div>
+        )
+    },
+  components: { Chat }
+}).$mount('#app');

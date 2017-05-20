@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Heads from './components/Heads'
-import ChatList from './components/ChatList'
+import Heads from './Heads'
+import ChatList from './ChatList'
 
 export default {
   name: 'app',
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style>
-  @import "../../static/css/icomoon/style.css";
+  @import "../../../static/css/icomoon/style.css";
   
   body {
     /*background-color: #324057;*/
