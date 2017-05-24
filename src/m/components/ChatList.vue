@@ -3,17 +3,14 @@
         <section class="chatlist" :class="showSelBox>0?'chatlist-bottom-collapse':'chatlist-bottom'">
             <mt-loadmore :top-method="loadTop" top-pull-text="加载更多" top-drop-text="释放加载" @top-status-change="handleTopChange" ref="loadmore">
                 <ul>
-                    <template v-for="item in records">
-                        <li class="chat-mine" v-if="item.type==1">
+                    <template v-for="item in list">
+                        <p>{{item.formattedTime}}</p>
+                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == 1}">
                             <div class="chat-user"><img src="../../assets/user.png"></div>
-                            <div class="time"><cite><i>{{item.time}}</i>{{item.name}}</cite></div>
-                            <pre class="chat-text" v-html="replaceFace(item.content)"></pre>
+                            <div class="time"><cite>{{chat.fromUserName}}</cite></div>
+                            <pre class="chat-text" v-html="replaceFace(chat.msgContent.content)"></pre>
                         </li>
-                        <li v-if="item.type==2">
-                            <div class="chat-user"><img src="../../assets/default.png"></div>
-                            <div class="time"><cite>{{item.name}}<i>{{item.time}}</i></cite></div>
-                            <pre class="chat-text" v-html="replaceFace(item.content)"></pre>
-                        </li>
+                       
                     </template>
                 </ul>
             </mt-loadmore>
@@ -39,14 +36,13 @@
                 </div>
             </section>
         </section>
-
-
     </div>
 </template>
 
 <script>
 import util from '../../common/util'
 import { Toast } from 'mint-ui';
+import formatChatTime from '../../common/function/formatChatTime';
 
 export default {
     name: 'chatlist',
@@ -57,18 +53,46 @@ export default {
             selOther: '其他功能',
             content:'',
             topStatus: '',
+            list: [],
             //聊天记录
-            records: [{
-                type: 1,
-                time: util.formatDate.format(new Date(),'yyyy-MM-dd hh:mm:ss'),
-                name: '游客',
-                content: '你好！'
-            }, {
-                type: 2,
-                time: util.formatDate.format(new Date(),'yyyy-MM-dd hh:mm:ss'),
-                name: '客户MM',
-                content: '这里是<a target="_blank" href="https://github.com/taylorchen709/vue-chat">源码</a>'
-            }],
+            records: [
+                {
+                    fromUserName:"客户A",
+                    fromUserId: 1,
+                    toUserName: "护士-A",
+                    toUserId: 1,
+                    createTime: 1463961600000,
+                    msgType: "TEXT",
+                    msgId: 1231321321,
+                    msgContent: {
+                        content: '这是文本消息1'
+                    }
+                },
+                {
+                    fromUserName:"客户A",
+                    fromUserId: 1,
+                    toUserName: "护士-B",
+                    toUserId: 1,
+                    createTime: 1495625410435,
+                    msgType: "TEXT",
+                    msgId: 1231321321,
+                    msgContent: {
+                        content: '这是文本消息2'
+                    }
+                },
+                {
+                    fromUserName:"客户A",
+                    fromUserId: 2,
+                    toUserName: "护士-周希",
+                    toUserId: 2,
+                    createTime: 1495625676338,
+                    msgType: "TEXT",
+                    msgId: 1231321321,
+                    msgContent: {
+                        content: '这是文本消息3'
+                    }
+                }
+            ],
             // 表情
             EXPS: [
                 { file: '100.gif', code: '/::)', title: '微笑',reg:/\/::\)/g },
@@ -175,14 +199,70 @@ export default {
         }
     },
     methods: {
+    
         getEXP: function (pageNow,pageSize) {
             return this.EXPS.slice((pageNow - 1) * pageSize, pageSize * pageNow)
         },
+
+        /**
+         * 获取到一组消息体
+         */
+        msgGroupItem () {
+            return {
+                formattedTime: '',
+                timeStamp: 0,
+                list: [] 
+            };
+        },
+
+        /**
+         * 创建一个消息群组
+         */
+        createGroupMsg (msg) {
+            var msgGroupItem = this.msgGroupItem();
+            msgGroupItem.formattedTime = formatChatTime(msg.createTime);
+            msgGroupItem.timeStamp = msg.createTime;
+            msgGroupItem.list = msgGroupItem.list.concat(msg);
+            return msgGroupItem;
+        },
+
+        /**
+         * 将时间戳转成时间
+         */
+        timeStampToMinute (timeStamp) {
+            return ('' + timeStamp).slice(0, 10);
+        },
+
+        insertMsg (msg) {
+            var result = null;
+            var list = this.list;
+            var listLength =  list.length;
+            var lastMsgGroup = listLength ? list[listLength - 1] : null;
+
+            // 有最后一组条消息
+            if (lastMsgGroup) {
+                // 最后一组消息的时间绰和当前消息的时间戳对比，大于等于5分钟就不要合并，生成一个新的msgGroupItem
+                if (this.timeStampToMinute(msg.createTime) - this.timeStampToMinute(lastMsgGroup.timeStamp) >= 300) {
+                   result = this.createGroupMsg(msg);
+                // 如果在5分钟内就合并一下
+                } else {
+                    lastMsgGroup.list = lastMsgGroup.list.concat(msg);
+                }
+            } else {
+                result = this.createGroupMsg(msg);
+            }
+            return result;
+        },
+
+        /**
+         * 格式化消息时间
+         */
+        formatChatTime: formatChatTime,
         /**
          * 初始化socket
          */
         initScoket () {
-            var wsServer = 'ws://localhost:8888/Demo'; 
+            var wsServer = 'ws://chat.ws'; 
             var websocket = new WebSocket(wsServer); 
             websocket.onopen = function (evt) { onOpen(evt) };
             websocket.onclose = function (evt) { onClose(evt) };
@@ -195,7 +275,7 @@ export default {
                 console.log("Disconnected"); 
             } 
             function onMessage(evt) { 
-                console.log('Retrieved data from server: ' + evt.data); 
+                
             } 
             function onError(evt) { 
                 console.log('Error occured: ' + evt.data); 
@@ -220,7 +300,7 @@ export default {
             setTimeout(function(){
                 _this.records.push({
                     type: 2,
-                    time: util.formatDate.format(new Date(),'yyyy-MM-dd hh:mm:ss'),
+                    time: util.formatDate.format(new Date(), 'yyyy-MM-dd hh:mm:ss'),
                     name: '客服MM',
                     content: '你好！'
                 });
@@ -230,6 +310,19 @@ export default {
 
             this.scrollToBottom();
         
+        },
+        /**
+         * 接收消息
+         * @param {Array|Object} 来了一条或多条消息
+         */
+        receiveMessage(data) {
+            var data = [].concat(data);
+            data.forEach((item)=> {
+                var msgGroupItem = this.insertMsg(item);
+                if (msgGroupItem) {
+                    this.list = this.list.concat(msgGroupItem);
+                }
+            });
         },
         //聚焦输入框
         focusTxtContent:function() {
@@ -276,8 +369,8 @@ export default {
                 });
 
                 setTimeout(function(){
-                    var newHeight=chatlist.scrollHeight;
-                    chatlist.scrollTop=newHeight-oldHeight;
+                    var newHeight = chatlist.scrollHeight;
+                    chatlist.scrollTop = newHeight - oldHeight;
                 },100);
 
                 this.$refs.loadmore.onTopLoaded(id);
@@ -288,6 +381,43 @@ export default {
         this.scrollToBottom();
         this.focusTxtContent();
         // this.initScoket();
+
+        // mock获取历史消息
+
+        this.receiveMessage( this.records);
+
+        // mock 两秒钟后来了两条新消息
+        setTimeout(()=> {
+            this.receiveMessage({
+                    fromUserName:"客户A",
+                    fromUserId: 2,
+                    toUserName: "护士-周希",
+                    toUserId: 2,
+                    createTime: 1495642392172,
+                    msgType: "TEXT",
+                    msgId: 1231321321,
+                    msgContent: {
+                        content: '这是文本消息5'
+                    }
+                });
+        }, 2000);
+
+        // mock 两秒钟后来了两条新消息
+        setTimeout(()=> {
+            this.receiveMessage([{
+                fromUserName:"客户A",
+                fromUserId: 2,
+                toUserName: "护士-周希",
+                toUserId: 2,
+                createTime: 1495642398371,
+                msgType: "TEXT",
+                msgId: 1231321321,
+                msgContent: {
+                    content: '这是文本消息6'
+                }
+            }]);
+        }, 3000)
+
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -359,7 +489,7 @@ export default {
         border-radius: 100%;
     }
     
-    .time {
+    .createTime {
         width: 100%;
     }
     

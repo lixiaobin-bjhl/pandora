@@ -1,7 +1,9 @@
 <template>
   <div id="app">
+  <!--
     <Heads>
     </Heads>
+    -->
     <ChatList>
     </ChatList>
   </div>

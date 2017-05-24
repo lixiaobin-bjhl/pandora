@@ -2,7 +2,11 @@
 import Vue from 'vue'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import Card from './components/Card';
+import Chat from './components/Chat';
+
+// filter
+
+require('../common/filter/date');
 
 Vue.use(MintUI)
 
@@ -11,7 +15,7 @@ new Vue({
   render(h) {
         return (<div id = "app" class = "app">
                     
-                    <Card></Card> 
+                    <chat></chat> 
                 </div>
         )
     },
