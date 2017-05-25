@@ -233,7 +233,34 @@ export default {
             return ('' + timeStamp).slice(0, 10);
         },
 
-        insertMsg (msg) {
+        /**
+         * 向前插入消息
+         */
+         insertBefore(msg) {
+            var result = null;
+            var list = this.list;
+            var listLength =  list.length;
+            var firstMsgGroup = listLength ? list[0] : null;
+
+            // 有第一组条消息
+            if (firstMsgGroup) {
+                // 第一组消息的时间绰和当前消息的时间戳对比，大于等于5分钟就不要合并，生成一个新的msgGroupItem
+                if (this.timeStampToMinute(firstMsgGroup.timeStamp) - this.timeStampToMinute(msg.createTime) >= 300) {
+                   result = this.createGroupMsg(msg);
+                // 如果在5分钟内就合并一下
+                } else {
+                    firstMsgGroup.list = [].concat(msg).concat(firstMsgGroup.list);
+                }
+            } else {
+                result = this.createGroupMsg(msg);
+            }
+            return result;
+         },
+
+        /**
+         * 向后插入消息
+         */
+        appendMsg (msg) {
             var result = null;
             var list = this.list;
             var listLength =  list.length;
@@ -318,12 +345,27 @@ export default {
         receiveMessage(data) {
             var data = [].concat(data);
             data.forEach((item)=> {
-                var msgGroupItem = this.insertMsg(item);
+                var msgGroupItem = this.appendMsg(item);
                 if (msgGroupItem) {
                     this.list = this.list.concat(msgGroupItem);
                 }
             });
         },
+        /**
+         * load历史消息
+         */ 
+        loadMessage (data) {
+            var data = [].concat(data);
+
+            // 倒序把消息加到顶部
+            for (var i = data.length - 1; i >= 0; i--) {
+                var msgGroupItem = this.insertBefore(data[i]);
+                if (msgGroupItem) {
+                    this.list = [].concat(msgGroupItem).concat(this.list);
+                }
+            }
+        },
+
         //聚焦输入框
         focusTxtContent:function() {
             setTimeout(()=> {
@@ -381,11 +423,24 @@ export default {
         this.scrollToBottom();
         this.focusTxtContent();
         // this.initScoket();
-
+        this.receiveMessage(this.records);
+        
         // mock获取历史消息
-
-        this.receiveMessage( this.records);
-
+        setTimeout(()=> {
+            this.loadMessage({
+                fromUserName:"客户A",
+                fromUserId: 2,
+                toUserName: "护士-周希",
+                toUserId: 2,
+                createTime: 1432252800000,
+                msgType: "TEXT",
+                msgId: 1231321321,
+                msgContent: {
+                    content: '这是文本消息7'
+                }
+            });
+        }, 5000)
+    
         // mock 两秒钟后来了两条新消息
         setTimeout(()=> {
             this.receiveMessage({
