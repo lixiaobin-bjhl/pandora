@@ -2,17 +2,27 @@
     @import "../../../static/css/icomoon/style.css";  
 </style>
 <template>
-	<div class="login-form">
-		<div class="form-control">
-			<mt-field class="mobile-field" v-model="mobile" label="+86" placeholder="请输入手机号" type="tel"></mt-field>
+	<div>
+		<div class="profile">
+			<img width="60" height="60" src="../../assets/user.png">
+			<ul>
+				<li class="name">白求恩</li>
+				<li>武汉协和整形外科医院</li>
+			</ul>
 		</div>
-		<div class="form-control">
-			<mt-field label="" class="code-field" v-model="code">
-				<span :class="{'disabled': getCoding}" @click="getCode">{{codeTip}}</span>
-			</mt-field>
+		<div class="notice">
+			<ol>
+				<p>请填写真实信息，便于医院：</p>
+				<li>联系您</li>
+				<li>对您的术后情况作出更准确评估</li>
+			</ol>
 		</div>
-		<mt-button type="default" :disabled="submiting" @click.native="bind">绑定</mt-button>
-		<p class="ta">无法绑定？ 请联系pandora <a href="tel:400-027-8589">400-812-8589</a></p>
+		<div class="login-form">
+			<mt-field class="mobile-field"  v-model="name" placeholder="姓名" type="tel"></mt-field>
+			<mt-field class="mobile-field"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
+			<mt-field class="mobile-field"  v-model="age" placeholder="年龄"></mt-field>
+			<mt-button type="primary" :disabled="submiting" @click.native="bind">确定</mt-button>
+		</div>
 	</div>
 </template>
 <script>
@@ -27,13 +37,9 @@
 		data() {
 			return {
 				mobile: '',
-				code: '',
-				count: 60,
-				query: {},
-				getCoding: false,
+				name: '',
+				age: '',
 				submiting: false,
-				waiting: false,
-				codeTip: '获取验证码',
 				timer: null
 			}
 		},

@@ -1,7 +1,19 @@
 
+body {
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
 .none-list {
     font-size: 20rpx;
     color: $gray-999;
     padding: 50rpx;
     text-align: center;
+}
+.app {
+    .mint-button--primary {
+        background-color: $brand;
+    }
+}
+li {
+    list-style: none;
 }

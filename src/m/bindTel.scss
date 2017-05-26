@@ -1,57 +1,62 @@
 
-$theme-color: #33ccff;
+@import 'src/assets/scss/common/vendor.scss';
 
-.logo-wrapper{
-	text-align: center;
-	padding-top: 6rem;
-	.logo {
-		height: 6.7rem;
-		width: 21rem;
-		background-size: 100% 100%;
-		margin: 0 auto;
-		background-image: url('../assets/logo.png');
-	}
-	p {
-		text-align: center;
-		color: #393d40;
-		font-size: 1.6rem;
-	}
-}
+
 .login-form {
-	margin: 3rem 2rem;
-	.form-control {
-		margin-bottom: 1.5rem;
-	}
+	text-align: center;
 	> button {
-		width: 100%;
-	}
-	.ta {
-		text-align: center;
-		color: #9c9e9f;
+		width: 95%;
+		margin: 20px auto;
 	}
 	.mobile-field {
 		.mint-cell-title {
-			width: 4rem;
+			width: 70px;
 		}
 		.mint-cell-text {
-			color: $theme-color;
-		}
-		.mint-cell-value {
-			border-left: 1px solid #f5f6f7;
-			padding-left: 1rem;
+			color: $gray-999;
 		}
 	}
-	.code-field {
-		.mint-field-other {
-			top: 1.4rem;
-			right: 1rem;
-			span {
-				color: $theme-color;
-				font-size: 1.4rem;
-				&.disabled {
-					color: #9c9e9f;
-				}
-			}
+}
+.app {
+	padding: 0 10px;
+	.mint-cell-wrapper {
+		background-image: none;
+	}
+	.mint-field-core {
+		background:#f5f5f5;
+		border:1px solid #ebf1fa;
+		height: 50px;
+		border-radius: 4px;
+		margin-bottom: 10px;
+		padding: 0 10px;
+		&:focus {
+			background:#f5f5f5;
+			border:1px solid #5a9ae4;
+			box-shadow:0 0 6px 0 rgba(73,143,225,0.41);
+		}
+	}
+	.profile {
+		@include clearfix;
+		.name {
+			font-size: 20px;
+			margin: 5px 0 5px 0;
+		}
+		margin: 50px;
+		img {
+			border-radius: 5px;
+			float: left;
+			margin-right: 10px;
+		}
+	}
+	.notice {
+		color: $gray-999;
+		margin: 50px 50px 30px 50px;
+		p {
+			margin-bottom: 10px;
+		}
+		li {
+			margin-left: 20px;
+			list-style: circle;
 		}
 	}
 }
