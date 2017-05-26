@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import 'src/assets/scss/common/vendor.scss'
 import Chat from './components/Chat';
 
 // filter
