@@ -33,6 +33,7 @@
 	import 'mint-ui/lib/field/style.css';
 	import 'mint-ui/lib/toast/style.css';
 	import  {bindTel} from '../request';
+
 	export default {
 		data() {
 			return {

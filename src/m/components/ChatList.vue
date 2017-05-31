@@ -17,11 +17,17 @@
         <section class="foot">
             <textarea :maxlength="100" autofocus ref="message-input" placeholder="请输入消息" class="con" v-model="content"></textarea>
             <!--<span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa icon-smile-o" aria-hidden="true"></i></span>-->
-            <span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'icon-minus-circle':'icon-plus-circle'"></i></span>
+            <!--<span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'icon-minus-circle':'icon-plus-circle'"></i></span>-->
+            
+            <upload @change="changePicture">
+                <div style="height: 32px;"></div>
+                <span class="icon-picture"></span>
+            </upload>
+            
             <span class="btn btn-send" v-on:click="sendMsg">发送</span>
+            <!--
             <section class="selbox" :class="showSelBox>0?'show':'hide'">
                 <section v-show="showSelBox==1" class="face-box">
-                    <!--                
                     <mt-swipe :auto="0" :continuous="false">
                         <mt-swipe-item v-for="n in Math.ceil(EXPS.length/18)">
                             <li v-for="(item, index) in getEXP(n,18)">
@@ -29,11 +35,12 @@
                             </li>
                         </mt-swipe-item>
                     </mt-swipe>
-                    -->
                 </section>
+               
                 <div>
                     <span class="picture-btn icon-picture-o"></span>
                 </div>
+                 -->
             </section>
         </section>
     </div>
@@ -42,7 +49,9 @@
 <script>
 import util from '../../common/util'
 import { Toast } from 'mint-ui';
+import {uptoken, upload} from '../request';
 import formatChatTime from '../../common/function/formatChatTime';
+import Upload from '../../common/components/Upload.vue';
 
 export default {
     name: 'chatlist',
@@ -97,6 +106,34 @@ export default {
         }
     },
     methods: {
+
+        /**
+         * 改变聊天图片
+         */
+        changePicture (files) {
+            if (!files) {
+                return;
+            }
+            var file = files[0];
+            var fd = new FormData();    
+            
+            fd.append('file', file);
+            uptoken()
+                .then((res)=> {
+                    var token = res.data.token;
+                    fd.append('token', token);
+                    this.loading = true;
+                    upload(fd)
+                        .then((res)=> {
+                            this.form.storageIds.push(res.key);
+                            this.loading = false;
+                            toast('图片上传成功', 'success');
+                        })
+                        .catch(()=> {
+                            this.loading = false;
+                        });
+                });
+        },
 
         /**
          * 获取到一组消息体
@@ -294,6 +331,9 @@ export default {
                 this.$refs.loadmore.onTopLoaded(id);
             }, 1500);
         }
+    },
+    components: {
+        Upload
     },
     mounted: function(){
         this.scrollToBottom();
@@ -552,16 +592,13 @@ export default {
         border-left: 1px solid #EEE;
     }
     
-    .foot .btn-plus {
+    .foot .icon-picture {
         width: 28px;
         padding: 9px 3px;
+        font-size: 20px;
         position: absolute;
         left: 5px;
-    }
-    
-    .foot .btn-plus i {
-        font-size: 2em;
-        color: #ccc;
+        top: 3px;
     }
     
     .foot .btn-face {
