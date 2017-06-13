@@ -234,21 +234,35 @@ export default {
                 console.log("Disconnected"); 
             } 
             function onMessage(evt) { 
-                
+                console.log(evt);
             } 
             function onError(evt) { 
                 console.log('Error occured: ' + evt.data); 
             }
         },
-        //发送消息
+        /**
+         * 发送消息
+         */
         sendMsg: function() {
             var websocket = this.websocket;
-            console.log(this.content);
-            if (websocket) {
-                websocket.send('message', {
+            var content = this.content.trim();
 
-                });
+            if (!content) {
+                toast('请输入消息内容')
+                return;
             }
+            if (!websocket) {
+                toast('socket没有连接成功');
+                return;
+            }
+            
+            websocket.send({
+                msgType: 'TEXT',
+                msgContent: {
+                    content: content
+                }
+            });
+
             this.scrollToBottom();
         },
         /**
@@ -305,29 +319,49 @@ export default {
         handleTopChange(status) {
             this.topStatus = status;
         },
+        /**
+         * 获取第一条消息的时间，用于下拉更多消息使用 
+         */
+        getFirstMsgId () {
+            var list = this.list;
+            if (!list.length) {
+                return null;
+            }
+            var firstGroup = list[0];
+            var firstGroupList = firstGroup.list;
+            if (!firstGroupList || !firstGroupList.length) {
+                return '';
+            }
+            return firstGroupList[0].msgId;
+
+        },
         loadTop(id) {
-            var _this=this;
+
+            var websocket = this.websocket;
+
+            if (websocket) {
+                websocket.send({
+                    length: 10,
+                    firstMsgID: this.getFirstMsgId()
+                });
+            }
+
             setTimeout(() => {
                 var chatlist = document.getElementsByClassName('chatlist')[0];
                 var oldHeight=chatlist.scrollHeight;
 
-                _this.records.unshift({
-                    type: 1,
-                    time: util.formatDate.format(new Date(),'yyyy-MM-dd hh:mm:ss'),
-                    name: '游客',
-                    content: '你好！13213'
-                }, {
-                    type: 2,
-                    time: util.formatDate.format(new Date(),'yyyy-MM-dd hh:mm:ss'),
-                    name: '客户MM',
-                    content: '这里是<a target="_blank" href="https://github.com/taylorchen709/vue-chat">源码</a>13213'
+                this.loadMessage({
+                    fromUserName:"客户A",
+                    fromUserId: 2,
+                    toUserName: "护士-周希",
+                    toUserId: 2,
+                    createTime: 1432252800000,
+                    msgType: "TEXT",
+                    msgId: 1231321321,
+                    msgContent: {
+                        content: '这是文本消息7'
+                    }
                 });
-
-                setTimeout(function(){
-                    var newHeight = chatlist.scrollHeight;
-                    chatlist.scrollTop = newHeight - oldHeight;
-                },100);
-
                 this.$refs.loadmore.onTopLoaded(id);
             }, 1500);
         }
@@ -343,18 +377,7 @@ export default {
         
         // mock获取历史消息
         setTimeout(()=> {
-            this.loadMessage({
-                fromUserName:"客户A",
-                fromUserId: 2,
-                toUserName: "护士-周希",
-                toUserId: 2,
-                createTime: 1432252800000,
-                msgType: "TEXT",
-                msgId: 1231321321,
-                msgContent: {
-                    content: '这是文本消息7'
-                }
-            });
+           
         }, 5000)
     
         // mock 两秒钟后来了两条新消息
@@ -495,6 +518,11 @@ export default {
         text-align: left;
         background-color: $brand;
         color: #fff;
+    }
+
+    .mint-loadmore {
+        height: 100%;
+        overflow: auto;
     }
     
     .chat-text {

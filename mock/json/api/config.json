@@ -1,0 +1,492 @@
+{
+    "code": 0,
+    "data": {
+        "nodes":[{
+            "id": 1,
+            "level": 0,
+            "name": "总部",
+            "nodeType": 0,
+            "children": [{
+                "name": "华南区",
+                "nodeType": 1,
+                "id": 11,
+                "level": 1,
+                "children": [
+                    {
+                        "name": "湖南",
+                        "nodeType": 2,
+                        "id": 111,
+                        "level": 2,
+                        "status": true,
+                        "children": [{
+                            "name": "长沙",
+                             "nodeType": 3,
+                            "id": 1111,
+                            "level": 5,
+                            "children": [{
+                                "name": "九门校区",
+                                 "nodeType": 4,
+                                "id": 11111,
+                                "level": 6,
+                                "children": [{
+                                    "name": "佛爷府教学点",
+                                     "nodeType": 5,
+                                    "id": 11111,
+                                    "level": 6
+                                }]
+                            }]
+                        }]
+                    },
+                    {
+                        "name": "湖南1",
+                         "nodeType": 2,
+                        "id": 111,
+                        "level": 10,
+                        "children": [{
+                            "name": "长沙",
+                             "nodeType": 3,
+                            "id": 1111,
+                            "level": 5,
+                            "children": [{
+                                "name": "九门校区",
+                                 "nodeType": 4,
+                                "id": 11111,
+                                "level": 6,
+                                "children": [{
+                                    "name": "佛爷府教学点",
+                                     "nodeType": 5,
+                                    "id": 11111,
+                                    "level": 6
+                                }]
+                            }]
+                        }]
+                    }
+                ]
+            }, {
+                "name": "华中区",
+                "id": 3,
+                 "nodeType": 1,
+                "level": 1,
+                "children": [{
+                    "name": "湖北",
+                     "nodeType": 2,
+                    "id": 5,
+                    "level": 4,
+                    "children": [{
+                        "name": "武汉",
+                         "nodeType": 3,
+                        "id": 7,
+                        "level": 5,
+                        "children": [{
+                            "name": "街道口校区",
+                            "nodeType": 4,
+                            "id": 9,
+                            "level": 6,
+                            "children": [{
+                                "name": "群光教学点",
+                                "id": 11,
+                                "level": 7
+                            }]
+                        }]
+                    }]
+                }]
+            }]
+        }],
+        "course": 
+        [
+            {
+                "id": 1,
+                "level": 0,
+                "name":"少儿英语基础",
+                "children": []
+            },
+            {
+                "id": 2,
+                "level": 0,
+                "name":"少儿数学基础",
+                "startAge": 12,
+                "children": []
+            }
+        ],
+        "payTypes":[
+            {
+              "id": 1,
+              "name": "现金",
+              "needTradeNo": false
+            },
+            {
+              "id": 2,
+              "name": "余额宝",
+              "needTradeNo": false
+            },
+            {
+              "id": 3,
+              "name": "支付宝",
+              "needTradeNo": true
+            },
+            {
+              "id": 4,
+              "name": "微信",
+              "needTradeNo": true
+            }
+        ],
+        "courses": 
+        [
+            {
+            "id": 1,
+            "level": 0,
+            "name": "小学",
+            "children": 
+                [
+                    {
+                        "name": "语文",
+                        "id": 11,
+                        "level": 1
+                    },
+                    {
+                        "name": "数学",
+                        "id": 12,
+                        "level": 1
+                    },
+                    {
+                        "name": "英语",
+                        "id": 13,
+                        "level": 1
+                    },
+                    {
+                        "name": "物理",
+                        "id": 14,
+                        "level": 1
+                    }
+                ]
+            },
+            {
+                "name": "大学",
+                "id": 3,
+                "level": 0,
+                "children": 
+                [
+                    {
+                        "name": "高数",
+                        "id": 15,
+                        "level": 1
+                    },
+                    {
+                        "name": "C++",
+                        "id": 25,
+                        "level": 1
+                    },
+                    {
+                        "name": "编译原理",
+                        "id": 35,
+                        "level": 1
+                    },
+                    {
+                        "name": "网络工程",
+                        "id": 45,
+                        "level": 1
+                    }
+                ]
+            },
+            {
+                "name": "这个类目的名字非常非常非常长",
+                "id": 3,
+                "level": 0,
+                "children": 
+                [
+                    {
+                        "name": "就是要长一点",
+                        "id": 151,
+                        "level": 1
+                    },
+                    {
+                        "name": "C++",
+                        "id": 251,
+                        "level": 1
+                    },
+                    {
+                        "name": "就是要这个效果",
+                        "id": 351,
+                        "level": 1
+                    },
+                    {
+                        "name": "呵呵哒棒棒哒",
+                        "id": 451,
+                        "level": 1
+                    }
+                ]
+            },
+            {
+                "name": "少儿英语",
+                "id": 39,
+                "level": 0,
+                "children": 
+                [
+                    {
+                        "name": "英语兴趣班",
+                        "id": 89,
+                        "level": 1
+                    },
+                    {
+                        "name": "英语初级班",
+                        "id": 49,
+                        "level": 1
+                    },
+                    {
+                        "name": "英语中级班",
+                        "id": 59,
+                        "level": 1
+                    },
+                    {
+                        "name": "英语高级班",
+                        "id": 69,
+                        "level": 1
+                    },
+                    {
+                        "name": "英语特级班",
+                        "id": 79,
+                        "level": 1
+                    }
+                ]
+            }
+        ],
+        "subjects": [{
+            "id": 1,
+            "name": "数学",
+            "subjectLevels": [{
+                "id": 1,
+                "name": "一级（笑傲江湖）"
+            }, {
+                "id": 2,
+                "name": "二级（独孤求败）"
+            }]
+        }, {
+            "id": 6,
+            "name": "英语",
+            "subjectLevels": [{
+                "id": 11,
+                "name": "新生"
+            }]
+        }, {
+            "id": 61,
+            "name": "思修",
+            "subjectLevels": [{
+                "id": 11,
+                "name": "新生"
+            }]
+        }, {
+            "id": 62,
+            "name": "品德",
+            "subjectLevels": [{
+                "id": 11,
+                "name": "新生"
+            }]
+        }, {
+            "id": 63,
+            "name": "化学",
+            "subjectLevels": [{
+                "id": 11,
+                "name": "新生"
+            }]
+        }, {
+            "id": 64,
+            "name": "物理",
+            "subjectLevels": [{
+                "id": 11,
+                "name": "新生"
+            }]
+        }, {
+            "id": 2,
+            "name": "语文",
+            "subjectLevels": [{
+                "id": 1,
+                "name": "一级（藐视群雄）"
+            }, {
+                "id": 2,
+                "name": "二级（但求一败）"
+            }, {
+                "id": 3,
+                "name": "三级（无法无天）"
+            }]
+        }],
+        "classTypeGroups": [{
+            "id": 12,
+            "name": "长期班"
+        }, {
+            "id": 15,
+            "name": "中期班",
+            "classTypes": []
+        }],
+        "timeRanges": [{
+            "id": 1,
+            "startTime": "12:00",
+            "endTime": "13:00",
+            "name": "时间段1"
+        }, {
+            "id": 2,
+            "startTime": "13:00",
+            "endTime": "14:00",
+            "name": "时间段2"
+        }],
+        "courseTypes": [{
+            "id": 1,
+            "name": "长期班",
+            "classTypes": [{
+                "name": "奥数班1",
+                "id": 1
+            }, {
+                "name": "奥数班2",
+                "id": 2
+            }]
+        }, {
+            "id": 2,
+            "name": "短期班",
+            "classTypes": [{
+                "name": "奥数班3",
+                "id": 3
+            }, {
+                "name": "奥数班4",
+                "id": 4
+            }]
+        }],
+        "marketChannels": [{
+            "name": "转介绍",
+            "id": 1,
+            "children": [{
+                "name": "网络推广",
+                "id": 1
+            }]
+        }, {
+            "name": "网络推广",
+            "id": 2,
+            "children": [{
+                "name": "网络推广",
+                "id": 1
+            }]
+        }],
+        "devices": [{
+            "id": 1,
+            "name": "白板"
+        }, {
+            "id": 2,
+            "name": "投影仪"
+        }, {
+            "id": 3,
+            "name": "电脑"
+        }, {
+            "id": 4,
+            "name": "麦克风"
+        }, {
+            "id": 5,
+            "name": "无线网络"
+        }],
+        "positions": [{
+            "id": 3,
+            "name": "教务",
+            "permissions": {
+                "1": 100,
+                "2": 100
+            },
+            "menuIds": [1, 2, 3],
+            "staffCount": 2
+        },{
+            "id": 2,
+            "name": "管理员",
+            "permissions": {
+                "1": 100,
+                "2": 100
+            },
+            "menuIds": [1, 2, 3],
+            "staffCount": 2
+        },{
+            "id": 1,
+            "name": "校长",
+            "permissions": {
+                "1": 100,
+                "2": 100
+            },
+            "menuIds": [1, 2, 3],
+            "staffCount": 2
+        }],
+        "roleList": [{
+            "id": 1,
+            "name": "校长"
+        }, {
+            "id": 2,
+            "name": "管理员"
+        },{
+            "id": 3,
+            "name": "超级管理员"
+        }],
+        "positionTypes":[
+            {
+                "id":1,
+                "name":"销售"
+            },
+            {
+                "id":2,
+                "name":"主管"
+            }
+        ],
+        "agreements": [{
+            "id": 1,
+            "branchOfficeId": 11,
+            "name": "新签",
+            "content": "",
+            "continueClass": false,
+            "delStatus": false,
+            "createTime": 1486290121000,
+            "updateTime": 1486290121000
+        }, {
+            "id": 2,
+            "branchOfficeId": 11,
+            "name": "转费",
+            "content": "",
+            "continueClass": true,
+            "delStatus": false,
+            "createTime": 1486290121000,
+            "updateTime": 1486290121000
+        }, {
+            "id": 3,
+            "branchOfficeId": 11,
+            "name": "续费",
+            "content": "",
+            "continueClass": true,
+            "delStatus": false,
+            "createTime": 1486290121000,
+            "updateTime": 1486290121000
+        }, {
+            "id": 4,
+            "branchOfficeId": 11,
+            "name": "拓项",
+            "content": "",
+            "continueClass": false,
+            "delStatus": false,
+            "createTime": 1486290121000,
+            "updateTime": 1486290121000
+        }, {
+            "id": 5,
+            "branchOfficeId": 11,
+            "name": "其他",
+            "content": "",
+            "continueClass": false,
+            "delStatus": false,
+            "createTime": 1486290121000,
+            "updateTime": 1486290121000
+        }],
+        "arrangeStatus": [
+            {"code": 0, "message": "未排课"},
+            {"code": 2, "message": "排课中"},
+            {"code": 3, "message": "已排完"}
+        ],
+        "periods": [
+            {"code": 0, "message": "-"},
+            {"code": 1, "message": "一期"},
+            {"code": 2, "message": "二期"},
+            {"code": 3, "message": "三期"},
+            {"code": 4, "message": "四期"},
+            {"code": 5, "message": "五期"},
+            {"code": 6, "message": "六期"}
+        ]
+    }
+}

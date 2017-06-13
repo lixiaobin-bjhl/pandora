@@ -19,6 +19,6 @@ export default function formatChatTime(ms) {
     let hour = time.getHours();
     let minute = time.getMinutes();
     let timeTag = hour > 12 ? ' 下午 ' : ' 上午 ';
-    let formattedTime = year + '年' + month + '月' + day + '日' + timeTag + padZero(hour) + ':' + padZero(minute);
+    let formattedTime = year + '/' + month + '/' + day + '/' + timeTag + padZero(hour) + ':' + padZero(minute);
     return formattedTime;
 };
