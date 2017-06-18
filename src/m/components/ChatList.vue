@@ -372,7 +372,7 @@ export default {
     mounted: function(){
         this.scrollToBottom();
         this.focusTxtContent();
-        // this.initScoket();
+        this.initScoket();
         this.receiveMessage(this.records);
         
         // mock获取历史消息
