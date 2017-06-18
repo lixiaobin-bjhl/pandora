@@ -12,6 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
+    vendor: ['vue'],
     chat: './src/m/chat.js',
     bindTel: ['./src/m/bindTel.js'],
     card: ['./src/m/card.js']
