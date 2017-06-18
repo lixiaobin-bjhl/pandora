@@ -220,7 +220,7 @@ export default {
          * 初始化socket
          */
         initScoket () {
-            var wsServer = 'ws://chat.ws'; 
+            var wsServer = 'ws://xm.56xg.com'; 
             var websocket = new WebSocket(wsServer);
             this.websocket = websocket;
             websocket.onopen = function (evt) { onOpen(evt) };
