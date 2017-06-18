@@ -61,7 +61,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'chat.html',
       template: 'chat.html',
-      chunks: ['chat'],
+      chunks: ['vendor', 'chat'],
       inject: true,
       minify: {
         removeComments: true,
@@ -73,14 +73,14 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: 'bindTel.html',
       template: 'bindTel.html',
       inject: true,
-      chunks: ['bindTel'],
+      chunks: ['vendor', 'bindTel'],
       
     }),
     new HtmlWebpackPlugin({
       filename: 'card.html',
       template: 'card.html',
       inject: true,
-      chunks: ['card']
+      chunks: ['vendor', 'card']
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
