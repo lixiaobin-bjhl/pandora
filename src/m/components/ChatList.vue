@@ -10,7 +10,7 @@
                                 <img :src="chat.fromUserAvatar">
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'TEXT'" v-text="chat.msgContent.content"></pre>
-                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'IMAGE'"><img :src="chat.msgContent.picUrl"></pre>
+                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'IMAGE'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" :src="chat.msgContent.picUrl"></pre>
                         </li>
                     </template>
                 </ul>
@@ -56,8 +56,10 @@ import formatChatTime from '../../common/function/formatChatTime';
 import Upload from '../../common/components/Upload.vue';
 import getUrlSearch from '../../common/function/getUrlSearch';
 import { Indicator } from 'mint-ui';
+import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
 
 export default {
+    mixins: [wechatJsSignMixin],
     name: 'chatlist',
     data() {
         return {
@@ -337,19 +339,32 @@ export default {
             }
         },
 
-        //聚焦输入框
+        /**
+         * 聚焦输入框
+         */
         focusTxtContent:function() {
             setTimeout(()=> {
                 this.$refs['message-input'].focus();
             }, 1000);
         },
-        //滚动条滚动到底部
+    
+        /**
+         * 滚动条滚动到底部
+         */
         scrollToBottom:function(){
             setTimeout(function(){
                 var chatlist = document.getElementsByClassName('chatlist')[0];
                 chatlist.scrollTop = chatlist.scrollHeight;
-            },100);
+            }, 100);
         },
+
+        /**
+          * 预览图片 
+          */
+        previewImg(m) {
+            this.previewImage(m, document.querySelectorAll('.chat-pic'));
+        },
+
         // //替换表情代码
         // replaceFace:function(con){
         //     var _this=this;
@@ -424,7 +439,7 @@ export default {
         this.focusTxtContent();
         this.initScoket();
         this.receiveMessage(this.records);
-        
+        this.getWechatJsSign();
     
         // // mock 两秒钟后来了两条新消息
         setTimeout(()=> {
