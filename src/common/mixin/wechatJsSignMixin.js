@@ -36,7 +36,7 @@ export default {
          */
         previewImage(current, imgs) {
             var urls = [];
-            imgs.forEach((img, index)=> {
+            imgs.forEach((img, index) => {
                 urls.push(img.dataset.url)
             });
             wx.previewImage({

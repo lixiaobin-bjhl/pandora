@@ -246,12 +246,17 @@ export default {
         initScoket () {
             var search = getUrlSearch();
             var openId = search.openId;
+            var chatUserId = search.chatUserId;
+            var chatUserRole = search.chatUserRole;
             var self = this;
             if (!openId) {
                 toast('没有openId');
                 return;
             }
-            var wsServer = 'ws://xm.56xg.com/chat.ws?openId=' + openId; 
+            var wsServer = 'ws://xm.56xg.com/chat.ws?openId=' + openId 
+                + '&chatUserId=' + chatUserId 
+                + '&chatUserRole=' + chatUserRole; 
+                
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
