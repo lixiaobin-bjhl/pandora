@@ -26,7 +26,7 @@ export function uptoken () {
  * @param {Object} params.file 上传图片本身
  */
 export function upload (params) {
-    return post('http://up-z2.qiniu.com', params)
+    return post('/storage/upload.json', params)
 }
 
 

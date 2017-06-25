@@ -9,7 +9,8 @@
                             <div class="chat-user">
                                 <img :src="chat.fromUserAvatar">
                             </div>
-                            <pre class="chat-text" v-html="chat.msgContent.content"></pre>
+                            <pre class="chat-text" v-if="chat.msgType == 'TEXT'" v-text="chat.msgContent.content"></pre>
+                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'IMAGE'"><img :src="chat.msgContent.picUrl"></pre>
                         </li>
                     </template>
                 </ul>
@@ -54,6 +55,7 @@ import {uptoken, upload} from '../request';
 import formatChatTime from '../../common/function/formatChatTime';
 import Upload from '../../common/components/Upload.vue';
 import getUrlSearch from '../../common/function/getUrlSearch';
+import { Indicator } from 'mint-ui';
 
 export default {
     name: 'chatlist',
@@ -130,21 +132,29 @@ export default {
             var fd = new FormData();    
             
             fd.append('file', file);
-            uptoken()
-                .then((res)=> {
-                    var token = res.data.token;
-                    fd.append('token', token);
-                    this.loading = true;
+            // uptoken()
+            //     .then((res)=> {
+            //         var token = res.data.token;
+            //         fd.append('token', token);
+                    Indicator.open('加载中…');
                     upload(fd)
                         .then((res)=> {
                             this.form.storageIds.push(res.key);
-                            this.loading = false;
-                            toast('图片上传成功', 'success');
+                            toast('图片上传成功');
+                            websocket.send(JSON.stringify({
+                                type: 'CHAT',
+                                msgType: 'IMAGE',
+                                msgContent: {
+                                    picUrl: res.data.url
+                                }
+                            }));
+                            Indicator.close();
                         })
                         .catch(()=> {
                             this.loading = false;
+                            Indicator.close();
                         });
-                });
+                // });
         },
 
         /**
@@ -318,7 +328,6 @@ export default {
          */ 
         loadMessage (data) {
             var data = [].concat(data);
-
             // 倒序把消息加到顶部
             for (var i = data.length - 1; i >= 0; i--) {
                 var msgGroupItem = this.insertBefore(data[i]);
@@ -390,10 +399,10 @@ export default {
             //         toUserName: "护士-周希",
             //         toUserId: 2,
             //         createTime: 1432252800000,
-            //         msgType: "TEXT",
+            //         msgType: "IMAGE",
             //         msgId: 1231321321,
             //         msgContent: {
-            //             content: '这是文本消息7'
+            //             picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
             //         }
             //     });
             //     this.$refs.loadmore.onTopLoaded(id);
@@ -434,22 +443,22 @@ export default {
                 });
         }, 2000);
 
-        // // mock 两秒钟后来了两条新消息
-        // setTimeout(()=> {
-        //     this.receiveMessage([{
-        //         fromUserName:"客户A",
-        //         fromUserId: 2,
-        //         toUserName: "护士-周希",
-        //         toUserId: 2,
-        //         createTime: 1495642398371,
-        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //         msgType: "TEXT",
-        //         msgId: 1231321321,
-        //         msgContent: {
-        //             content: '这是文本消息6'
-        //         }
-        //     }]);
-        // }, 3000)
+        // mock 两秒钟后来了两条新消息
+        setTimeout(()=> {
+            this.receiveMessage([{
+                fromUserName: '客户A',
+                fromUserId: 2,
+                toUserName: '护士-周希',
+                toUserId: 2,
+                createTime: 1495642398371,
+                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                msgType: 'IMAGE',
+                msgId: 1231321321,
+                msgContent: {
+                    picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
+                }
+            }]);
+        }, 3000)
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -581,14 +590,21 @@ export default {
         display: inline-block;
         vertical-align: top;
         font-size: 14px;
-        white-space:pre-wrap;
-         max-width: 80%;
-        white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;
+        white-space: pre-wrap;
+        max-width: 80%;
+        white-space: -moz-pre-wrap;white-space:-pre-wrap;
+        white-space: -o-pre-wrap;word-wrap:break-word;
     }
     
     .chat-text img {
         max-width: 100%;
         vertical-align: middle;
+    }
+
+    .chat-image {
+        padding: 5px;
+        max-width: 50%;
+        overflow: hidden;
     }
     
     .chat-user {
