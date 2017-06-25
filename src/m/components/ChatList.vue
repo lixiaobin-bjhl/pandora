@@ -72,48 +72,48 @@ export default {
             },
             //聊天记录
             records: [
-                {
-                    fromUserName:"客户A",
-                    fromUserId: 2,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserName: "护士-A",
-                    toUserId: 1,
-                    createTime: 1463961600000,
-                    msgType: "TEXT",
-                    msgId: 1231321321,
-                    msgContent: {
-                        content: '这是文本消息1'
-                    }
-                },
-                {
-                    fromUserName:"客户A",
-                    fromUserId: 1,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserName: "护士-A",
-                    toUserId: 2,
-                    createTime: 1495625410435,
-                    msgType: "TEXT",
-                    msgId: 1231321321,
-                    msgContent: {
-                        content: '这是文本消息2'
-                    }
-                },
-                {
-                    fromUserName:"客户A",
-                    fromUserId: 1,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                    toUserName: "护士-A",
-                    toUserId: 2,
-                    createTime: 1495625676338,
-                    msgType: "TEXT",
-                    msgId: 1231321321,
-                    msgContent: {
-                        content: '这是文本消息3'
-                    }
-                }
+                // {
+                //     fromUserName:"客户A",
+                //     fromUserId: 2,
+                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserName: "护士-A",
+                //     toUserId: 1,
+                //     createTime: 1463961600000,
+                //     msgType: "TEXT",
+                //     msgId: 1231321321,
+                //     msgContent: {
+                //         content: '这是文本消息1'
+                //     }
+                // },
+                // {
+                //     fromUserName:"客户A",
+                //     fromUserId: 1,
+                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserName: "护士-A",
+                //     toUserId: 2,
+                //     createTime: 1495625410435,
+                //     msgType: "TEXT",
+                //     msgId: 1231321321,
+                //     msgContent: {
+                //         content: '这是文本消息2'
+                //     }
+                // },
+                // {
+                //     fromUserName:"客户A",
+                //     fromUserId: 1,
+                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                //     toUserName: "护士-A",
+                //     toUserId: 2,
+                //     createTime: 1495625676338,
+                //     msgType: "TEXT",
+                //     msgId: 1231321321,
+                //     msgContent: {
+                //         content: '这是文本消息3'
+                //     }
+                // }
             ]
         }
     },
@@ -235,13 +235,18 @@ export default {
             var search = getUrlSearch();
             var openId = search.openId;
             var self = this;
+            if (!openId) {
+                toast('没有openId');
+                return;
+            }
             var wsServer = 'ws://xm.56xg.com/chat.ws?openId=' + openId; 
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
-            websocket.onopen = function (evt) { onOpen(evt) };
-            websocket.onclose = function (evt) { onClose(evt) };
-            websocket.onmessage = this.processMessage;
+            websocket.addEventListener('open', onOpen);
+            websocket.addEventListener('close', onClose);
+            websocket.addEventListener('error', onError);
+            websocket.addEventListener('message', this.processMessage)
             websocket.onerror = function (evt) { onError(evt) };
             function onOpen(evt) { 
                 console.log("Connected to WebSocket server."); 
@@ -398,6 +403,13 @@ export default {
     },
     components: {
         Upload
+    },
+    beforeDestroy() {
+        console.log(123);
+        var websocket = this.websocket;
+        if (websocket) {
+            websocket.close();
+        }
     },
     mounted: function(){
         this.scrollToBottom();
