@@ -243,11 +243,7 @@ export default {
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
-            websocket.addEventListener('open', onOpen);
-            websocket.addEventListener('close', onClose);
-            websocket.addEventListener('error', onError);
-            websocket.addEventListener('message', this.processMessage)
-            websocket.onerror = function (evt) { onError(evt) };
+           
             function onOpen(evt) { 
                 console.log("Connected to WebSocket server."); 
             } 
@@ -258,13 +254,16 @@ export default {
             function onError(evt) { 
                 console.log('Error occured: ' + evt.data); 
             }
+            websocket.addEventListener('open', onOpen);
+            websocket.addEventListener('close', onClose);
+            websocket.addEventListener('error', onError);
+            websocket.addEventListener('message', this.processMessage);
         },
 
         /**
          * 处理接受的信息 
          */
         processMessage (event) {
-            console.log(event);
             this.sending = false;
             var data = JSON.parse(event.data);
             if (data.type == 'CHAT') {
@@ -374,38 +373,37 @@ export default {
             var websocket = this.websocket;
             if (websocket) {
                 websocket.send(JSON.stringify({
-                    type:"CHAT_HISTORY",
+                    type: 'CHAT_HISTORY',
                     length: 10,
                     firstMsgID: this.getFirstMsgId()
                 }));
             }
+            // setTimeout(() => {
+            //     var chatlist = document.getElementsByClassName('chatlist')[0];
+            //     var oldHeight=chatlist.scrollHeight;
 
-            setTimeout(() => {
-                var chatlist = document.getElementsByClassName('chatlist')[0];
-                var oldHeight=chatlist.scrollHeight;
-
-                this.loadMessage({
-                    fromUserName:"客户A",
-                    fromUserId: 2,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                    toUserName: "护士-周希",
-                    toUserId: 2,
-                    createTime: 1432252800000,
-                    msgType: "TEXT",
-                    msgId: 1231321321,
-                    msgContent: {
-                        content: '这是文本消息7'
-                    }
-                });
-                this.$refs.loadmore.onTopLoaded(id);
-            }, 1500);
+            //     this.loadMessage({
+            //         fromUserName:"客户A",
+            //         fromUserId: 1,
+            //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+            //         toUserName: "护士-周希",
+            //         toUserId: 2,
+            //         createTime: 1432252800000,
+            //         msgType: "TEXT",
+            //         msgId: 1231321321,
+            //         msgContent: {
+            //             content: '这是文本消息7'
+            //         }
+            //     });
+            //     this.$refs.loadmore.onTopLoaded(id);
+            // }, 1500);
         }
     },
     components: {
         Upload
     },
     beforeDestroy() {
-        console.log(123);
+        console.log('destroy');
         var websocket = this.websocket;
         if (websocket) {
             websocket.close();
@@ -417,12 +415,8 @@ export default {
         this.initScoket();
         this.receiveMessage(this.records);
         
-        // mock获取历史消息
-        setTimeout(()=> {
-           
-        }, 5000)
     
-        // mock 两秒钟后来了两条新消息
+        // // mock 两秒钟后来了两条新消息
         setTimeout(()=> {
             this.receiveMessage({
                     fromUserName:"客户A",
@@ -434,28 +428,27 @@ export default {
                     msgType: "TEXT",
                     msgId: 1231321321,
                     msgContent: {
-                        content: '这是文本消息5'
+                        content: 'this is test message'
                     }
                 });
         }, 2000);
 
-        // mock 两秒钟后来了两条新消息
-        setTimeout(()=> {
-            this.receiveMessage([{
-                fromUserName:"客户A",
-                fromUserId: 1,
-                toUserName: "护士-周希",
-                toUserId: 2,
-                createTime: 1495642398371,
-                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                msgType: "TEXT",
-                msgId: 1231321321,
-                msgContent: {
-                    content: '这是文本消息6'
-                }
-            }]);
-        }, 3000)
-
+        // // mock 两秒钟后来了两条新消息
+        // setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName:"客户A",
+        //         fromUserId: 2,
+        //         toUserName: "护士-周希",
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         msgType: "TEXT",
+        //         msgId: 1231321321,
+        //         msgContent: {
+        //             content: '这是文本消息6'
+        //         }
+        //     }]);
+        // }, 3000)
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -587,6 +580,9 @@ export default {
         display: inline-block;
         vertical-align: top;
         font-size: 14px;
+        white-space:pre-wrap;
+         max-width: 80%;
+        white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;
     }
     
     .chat-text img {
