@@ -267,6 +267,7 @@ export default {
             this.sending = false;
             var data = JSON.parse(event.data);
             if (data.type == 'CHAT') {
+                this.$refs.loadmore.onTopLoaded();
                 this.appendMsg(data);
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
