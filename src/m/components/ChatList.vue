@@ -260,10 +260,11 @@ export default {
          */
         processMessage (event) {
             console.log(event);
-            if (event.type == 'CHAT') {
-                this.appendMsg(event);
-            } else if (event.type == 'LOGIN_INFO') {
-                this.userInfo = event.userInfo;
+            var data = JSON.parse(event.data);
+            if (data.type == 'CHAT') {
+                this.appendMsg(data);
+            } else if (data.type == 'LOGIN_INFO') {
+                this.userInfo = data.userInfo;
             }
         },
 
