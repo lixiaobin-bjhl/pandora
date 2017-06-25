@@ -284,13 +284,13 @@ export default {
                 return;
             }
             
-            websocket.send({
+            websocket.send(JSON.stringify({
                 type: 'CHAT',
                 msgType: 'TEXT',
                 msgContent: {
                     content: content
                 }
-            });
+            }));
 
             this.scrollToBottom();
         },
@@ -367,11 +367,11 @@ export default {
         loadTop(id) {
             var websocket = this.websocket;
             if (websocket) {
-                websocket.send({
+                websocket.send(JSON.stringify({
                     type:"CHAT_HISTORY",
                     length: 10,
                     firstMsgID: this.getFirstMsgId()
-                });
+                }));
             }
 
             setTimeout(() => {
