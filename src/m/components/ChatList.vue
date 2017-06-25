@@ -5,8 +5,10 @@
                 <ul>
                     <template v-for="item in list">
                         <p class="time">{{item.formattedTime}}</p>
-                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == 1}">
-                            <div class="chat-user"><img src="../../assets/user.png"></div>
+                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == userInfo.id}">
+                            <div class="chat-user">
+                                <img :src="chat.fromUserAvatar">
+                            </div>
                             <pre class="chat-text" v-html="chat.msgContent.content"></pre>
                         </li>
                     </template>
@@ -52,6 +54,7 @@ import { Toast } from 'mint-ui';
 import {uptoken, upload} from '../request';
 import formatChatTime from '../../common/function/formatChatTime';
 import Upload from '../../common/components/Upload.vue';
+import getUrlSearch from '../../common/function/getUrlSearch';
 
 export default {
     name: 'chatlist',
@@ -64,11 +67,16 @@ export default {
             websocket: null,
             topStatus: '',
             list: [],
+            userInfo: {
+                id: 1
+            },
             //聊天记录
             records: [
                 {
                     fromUserName:"客户A",
-                    fromUserId: 1,
+                    fromUserId: 2,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
                     toUserName: "护士-A",
                     toUserId: 1,
                     createTime: 1463961600000,
@@ -81,8 +89,10 @@ export default {
                 {
                     fromUserName:"客户A",
                     fromUserId: 1,
-                    toUserName: "护士-B",
-                    toUserId: 1,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                    toUserName: "护士-A",
+                    toUserId: 2,
                     createTime: 1495625410435,
                     msgType: "TEXT",
                     msgId: 1231321321,
@@ -92,8 +102,10 @@ export default {
                 },
                 {
                     fromUserName:"客户A",
-                    fromUserId: 2,
-                    toUserName: "护士-周希",
+                    fromUserId: 1,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                    toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
+                    toUserName: "护士-A",
                     toUserId: 2,
                     createTime: 1495625676338,
                     msgType: "TEXT",
@@ -220,26 +232,41 @@ export default {
          * 初始化socket
          */
         initScoket () {
-            var wsServer = 'ws://xm.56xg.com/chat.ws'; 
+            var search = getUrlSearch();
+            var openId = search.openId;
+            var self = this;
+            var wsServer = 'ws://xm.56xg.com/chat.ws?openId=' + openId; 
             var websocket = new WebSocket(wsServer);
+            
             this.websocket = websocket;
             websocket.onopen = function (evt) { onOpen(evt) };
             websocket.onclose = function (evt) { onClose(evt) };
-            websocket.onmessage = function (evt) { onMessage(evt) };
+            websocket.onmessage = this.processMessage;
             websocket.onerror = function (evt) { onError(evt) };
             function onOpen(evt) { 
                 console.log("Connected to WebSocket server."); 
             } 
             function onClose(evt) { 
+                self.websocket = null;
                 console.log("Disconnected"); 
-            } 
-            function onMessage(evt) { 
-                console.log(evt);
             } 
             function onError(evt) { 
                 console.log('Error occured: ' + evt.data); 
             }
         },
+
+        /**
+         * 处理接受的信息 
+         */
+        processMessage (event) {
+            console.log(event);
+            if (event.type == 'CHAT') {
+                this.appendMsg(event);
+            } else if (event.type == 'LOGIN_INFO') {
+                this.userInfo = event.userInfo;
+            }
+        },
+
         /**
          * 发送消息
          */
@@ -257,6 +284,7 @@ export default {
             }
             
             websocket.send({
+                type: 'CHAT',
                 msgType: 'TEXT',
                 msgContent: {
                     content: content
@@ -303,7 +331,7 @@ export default {
         scrollToBottom:function(){
             setTimeout(function(){
                 var chatlist = document.getElementsByClassName('chatlist')[0];
-                chatlist.scrollTop=chatlist.scrollHeight;
+                chatlist.scrollTop = chatlist.scrollHeight;
             },100);
         },
         // //替换表情代码
@@ -336,11 +364,10 @@ export default {
 
         },
         loadTop(id) {
-
             var websocket = this.websocket;
-
             if (websocket) {
                 websocket.send({
+                    type:"CHAT_HISTORY",
                     length: 10,
                     firstMsgID: this.getFirstMsgId()
                 });
@@ -353,6 +380,7 @@ export default {
                 this.loadMessage({
                     fromUserName:"客户A",
                     fromUserId: 2,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
                     toUserName: "护士-周希",
                     toUserId: 2,
                     createTime: 1432252800000,
@@ -384,10 +412,11 @@ export default {
         setTimeout(()=> {
             this.receiveMessage({
                     fromUserName:"客户A",
-                    fromUserId: 2,
+                    fromUserId: 1,
                     toUserName: "护士-周希",
                     toUserId: 2,
                     createTime: 1495642392172,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
                     msgType: "TEXT",
                     msgId: 1231321321,
                     msgContent: {
@@ -400,10 +429,11 @@ export default {
         setTimeout(()=> {
             this.receiveMessage([{
                 fromUserName:"客户A",
-                fromUserId: 2,
+                fromUserId: 1,
                 toUserName: "护士-周希",
                 toUserId: 2,
                 createTime: 1495642398371,
+                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
                 msgType: "TEXT",
                 msgId: 1231321321,
                 msgContent: {

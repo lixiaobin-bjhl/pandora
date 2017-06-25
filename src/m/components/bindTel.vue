@@ -13,8 +13,8 @@
 		<div class="notice">
 			<ol>
 				<p>请填写真实信息，便于医院：</p>
-				<li>联系您</li>
-				<li>对您的术后情况作出更准确评估</li>
+				<li>① 联系您</li>
+				<li>② 对您的术后情况作出更准确评估</li>
 			</ol>
 		</div>
 		<div class="login-form">
