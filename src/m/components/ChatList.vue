@@ -25,8 +25,7 @@
                 <div style="height: 32px;"></div>
                 <span class="icon-picture"></span>
             </upload>
-            
-            <span class="btn btn-send" v-on:click="sendMsg">发送</span>
+            <mt-button class="btn btn-send" :disabled="sending"  v-on:click="sendMsg" type="primary">发送</mt-button>
             <!--
             <section class="selbox" :class="showSelBox>0?'show':'hide'">
                 <section v-show="showSelBox==1" class="face-box">
@@ -66,6 +65,7 @@ export default {
             content:'',
             websocket: null,
             topStatus: '',
+            sending: false,
             list: [],
             userInfo: {
                 id: 1
@@ -260,6 +260,7 @@ export default {
          */
         processMessage (event) {
             console.log(event);
+            this.sending = false;
             var data = JSON.parse(event.data);
             if (data.type == 'CHAT') {
                 this.appendMsg(data);
@@ -283,7 +284,7 @@ export default {
                 toast('socket没有连接成功');
                 return;
             }
-            
+            this.sending = true;
             websocket.send(JSON.stringify({
                 type: 'CHAT',
                 msgType: 'TEXT',
@@ -722,6 +723,9 @@ export default {
         position: absolute;
         right: 8px;
         top: 8px;
+        height: 32px;
+        line-height: 32px;
+        box-sizing: border-box;
     }
     .picture-btn {
         font-size: 24px;
