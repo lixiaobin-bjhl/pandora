@@ -253,10 +253,15 @@ export default {
                 toast('没有openId');
                 return;
             }
-            var wsServer = 'ws://xm.56xg.com/chat.ws?openId=' + openId 
-                + '&chatUserId=' + chatUserId 
-                + '&chatUserRole=' + chatUserRole; 
-                
+            var params = 'openId=' + openId;
+            if (chatUserId) {
+                params += '&chatUserId=' + chatUserId;
+            }
+            if (chatUserRole) {
+                 params += '&chatUserRole=' + chatUserRole;
+            }
+            var wsServer = 'ws://xm.56xg.com/chat.ws?' + params;
+
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
