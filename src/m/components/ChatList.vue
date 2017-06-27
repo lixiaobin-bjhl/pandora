@@ -349,6 +349,9 @@ export default {
          */ 
         loadMessage (data) {
             var data = [].concat(data);
+            if (!data.length) {
+                return;
+            }
             // 倒序把消息加到顶部
             for (var i = data.length - 1; i >= 0; i--) {
                 var msgGroupItem = this.insertBefore(data[i]);
@@ -638,7 +641,6 @@ export default {
     .chat-image {
         padding: 5px;
         max-width: 50%;
-        overflow: hidden;
     }
     
     .chat-user {
