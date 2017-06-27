@@ -300,7 +300,7 @@ export default {
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
             } else if (data.type == 'CHAT_HISTORY') {
-                this.loadMessage(data);
+                this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
             }
         },
@@ -349,9 +349,6 @@ export default {
          */ 
         loadMessage (data) {
             var data = [].concat(data);
-            if (!data.length) {
-                return;
-            }
             // 倒序把消息加到顶部
             for (var i = data.length - 1; i >= 0; i--) {
                 var msgGroupItem = this.insertBefore(data[i]);
