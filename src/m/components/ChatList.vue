@@ -142,7 +142,7 @@ export default {
                     Indicator.open('加载中…');
                     upload(fd)
                         .then((res)=> {
-                            this.form.storageIds.push(res.key);
+                            Indicator.close();
                             toast('图片上传成功');
                             console.log(JSON.stringify({
                                 type: 'CHAT',
@@ -158,10 +158,8 @@ export default {
                                     picUrl: res.data.url
                                 }
                             }));
-                            Indicator.close();
                         })
                         .catch(()=> {
-                            this.loading = false;
                             Indicator.close();
                         });
                 // });
@@ -298,10 +296,12 @@ export default {
             var data = JSON.parse(event.data);
             console.log(data);
             if (data.type == 'CHAT') {
-                this.$refs.loadmore.onTopLoaded();
                 this.appendMsg(data);
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
+            } else if (data.type == 'CHAT_HISTORY') {
+                this.loadMessage(data);
+                this.$refs.loadmore.onTopLoaded();
             }
         },
 
