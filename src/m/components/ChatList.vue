@@ -9,8 +9,8 @@
                             <div class="chat-user">
                                 <img :src="chat.fromUserAvatar">
                             </div>
-                            <pre class="chat-text" v-if="chat.msgType == 'TEXT'" v-text="chat.msgContent.content"></pre>
-                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'IMAGE'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" :src="chat.msgContent.picUrl"></pre>
+                            <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
+                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" :src="chat.msgContent.picUrl"></pre>
                         </li>
                     </template>
                 </ul>
@@ -84,7 +84,7 @@ export default {
                 //     toUserName: "护士-A",
                 //     toUserId: 1,
                 //     createTime: 1463961600000,
-                //     msgType: "TEXT",
+                //     msgType: "text",
                 //     msgId: 1231321321,
                 //     msgContent: {
                 //         content: '这是文本消息1'
@@ -98,7 +98,7 @@ export default {
                 //     toUserName: "护士-A",
                 //     toUserId: 2,
                 //     createTime: 1495625410435,
-                //     msgType: "TEXT",
+                //     msgType: "text",
                 //     msgId: 1231321321,
                 //     msgContent: {
                 //         content: '这是文本消息2'
@@ -112,7 +112,7 @@ export default {
                 //     toUserName: "护士-A",
                 //     toUserId: 2,
                 //     createTime: 1495625676338,
-                //     msgType: "TEXT",
+                //     msgType: "text",
                 //     msgId: 1231321321,
                 //     msgContent: {
                 //         content: '这是文本消息3'
@@ -132,6 +132,7 @@ export default {
             }
             var file = files[0];
             var fd = new FormData();    
+            var websocket = this.websocket;
             
             fd.append('file', file);
             // uptoken()
@@ -145,9 +146,9 @@ export default {
                             toast('图片上传成功');
                             websocket.send(JSON.stringify({
                                 type: 'CHAT',
-                                msgType: 'IMAGE',
+                                msgType: 'image',
                                 msgContent: {
-                                    picUrl: res.data.url
+                                    picUrl: res.data.list[0].url
                                 }
                             }));
                             Indicator.close();
@@ -314,12 +315,12 @@ export default {
             this.sending = true;
             websocket.send(JSON.stringify({
                 type: 'CHAT',
-                msgType: 'TEXT',
+                msgType: 'text',
                 msgContent: {
                     content: content
                 }
             }));
-
+            this.content = '';
             this.scrollToBottom();
         },
         /**
@@ -424,7 +425,7 @@ export default {
             //         toUserName: "护士-周希",
             //         toUserId: 2,
             //         createTime: 1432252800000,
-            //         msgType: "IMAGE",
+            //         msgType: "image",
             //         msgId: 1231321321,
             //         msgContent: {
             //             picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
@@ -460,7 +461,7 @@ export default {
                     toUserId: 2,
                     createTime: 1495642392172,
                     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                    msgType: "TEXT",
+                    msgType: "text",
                     msgId: 1231321321,
                     msgContent: {
                         content: 'this is test message'
@@ -477,7 +478,7 @@ export default {
                 toUserId: 2,
                 createTime: 1495642398371,
                 fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                msgType: 'IMAGE',
+                msgType: 'image',
                 msgId: 1231321321,
                 msgContent: {
                     picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
