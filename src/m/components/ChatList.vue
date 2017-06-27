@@ -133,7 +133,7 @@ export default {
             var file = files[0];
             var fd = new FormData();    
             var websocket = this.websocket;
-            
+
             fd.append('file', file);
             // uptoken()
             //     .then((res)=> {
@@ -144,11 +144,18 @@ export default {
                         .then((res)=> {
                             this.form.storageIds.push(res.key);
                             toast('图片上传成功');
+                            console.log(JSON.stringify({
+                                type: 'CHAT',
+                                msgType: 'image',
+                                msgContent: {
+                                    picUrl: res.data.url
+                                }
+                            }));
                             websocket.send(JSON.stringify({
                                 type: 'CHAT',
                                 msgType: 'image',
                                 msgContent: {
-                                    picUrl: res.data.list[0].url
+                                    picUrl: res.data.url
                                 }
                             }));
                             Indicator.close();
@@ -289,6 +296,7 @@ export default {
         processMessage (event) {
             this.sending = false;
             var data = JSON.parse(event.data);
+            console.log(data);
             if (data.type == 'CHAT') {
                 this.$refs.loadmore.onTopLoaded();
                 this.appendMsg(data);
