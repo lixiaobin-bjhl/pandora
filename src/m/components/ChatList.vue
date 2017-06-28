@@ -419,7 +419,7 @@ export default {
                 websocket.send(JSON.stringify({
                     type: 'CHAT_HISTORY',
                     length: 10,
-                    firstMsgID: this.getFirstMsgId()
+                    firstMsgId: this.getFirstMsgId()
                 }));
             }
             // setTimeout(() => {
