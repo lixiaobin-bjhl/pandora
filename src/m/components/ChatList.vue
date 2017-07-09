@@ -271,9 +271,13 @@ export default {
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
+            var self = this;
            
             function onOpen(evt) { 
-                console.log("Connected to WebSocket server."); 
+                console.log("Connected to WebSocket server.");
+                setTimeout(()=> {
+                    self.getWechatJsSign();
+                });
             } 
             function onClose(evt) { 
                 self.websocket = null;
@@ -458,7 +462,6 @@ export default {
         this.focusTxtContent();
         this.initScoket();
         this.receiveMessage(this.records);
-        this.getWechatJsSign();
     
         // // mock 两秒钟后来了两条新消息
         setTimeout(()=> {
