@@ -271,13 +271,9 @@ export default {
             var websocket = new WebSocket(wsServer);
             
             this.websocket = websocket;
-            var self = this;
            
             function onOpen(evt) { 
                 console.log("Connected to WebSocket server.");
-                setTimeout(()=> {
-                    self.getWechatJsSign();
-                });
             } 
             function onClose(evt) { 
                 self.websocket = null;
@@ -303,6 +299,9 @@ export default {
                 this.appendMsg(data);
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
+                setTimeout(()=> {
+                    this.getWechatJsSign();
+                });
             } else if (data.type == 'CHAT_HISTORY') {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
