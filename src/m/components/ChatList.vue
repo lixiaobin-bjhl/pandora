@@ -299,7 +299,7 @@ export default {
             var data = JSON.parse(event.data);
             console.log(data);
             if (data.type == 'CHAT') {
-                this.appendMsg(data);
+                this.receiveMessage(data);
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
                 setTimeout(()=> {
@@ -313,6 +313,7 @@ export default {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
             }
+            this.scrollToBottom();
         },
 
         /**
@@ -380,8 +381,8 @@ export default {
         /**
          * 滚动条滚动到底部
          */
-        scrollToBottom:function(){
-            setTimeout(function(){
+        scrollToBottom: function() {
+            setTimeout(function() {
                 var chatlist = document.getElementsByClassName('chatlist')[0];
                 chatlist.scrollTop = chatlist.scrollHeight;
             }, 100);
@@ -425,7 +426,6 @@ export default {
         },
         loadHistory () {
             var websocket = this.websocket;
-            console.log('load history');
             if (websocket) {
                 websocket.send(JSON.stringify({
                     type: 'CHAT_HISTORY',
@@ -436,25 +436,7 @@ export default {
         },
         loadTop(id) {
             this.loadHistory();
-            // setTimeout(() => {
-            //     var chatlist = document.getElementsByClassName('chatlist')[0];
-            //     var oldHeight=chatlist.scrollHeight;
-
-            //     this.loadMessage({
-            //         fromUserName:"客户A",
-            //         fromUserId: 1,
-            //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-            //         toUserName: "护士-周希",
-            //         toUserId: 2,
-            //         createTime: 1432252800000,
-            //         msgType: "image",
-            //         msgId: 1231321321,
-            //         msgContent: {
-            //             picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
-            //         }
-            //     });
-            //     this.$refs.loadmore.onTopLoaded(id);
-            // }, 1500);
+            // this.$refs.loadmore.onTopLoaded(id);
         }
     },
     components: {
@@ -472,24 +454,42 @@ export default {
         this.scrollToBottom();
         this.focusTxtContent();
         this.initScoket();
-        this.receiveMessage(this.records);
-    
+        // this.receiveMessage(this.records);
+
+
+        
+        setTimeout(()=> {
+            this.receiveMessage({
+                    fromUserName:"客户A",
+                    fromUserId: 1,
+                    toUserName: "护士-周希",
+                    toUserId: 2,
+                    createTime: 1499582302000,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                    msgType: "text",
+                    msgId: 0,
+                    msgContent: {
+                        content: 'this is test message'
+                    }
+                });
+        }, 1000);
+
         // // mock 两秒钟后来了两条新消息
-        // setTimeout(()=> {
-        //     this.receiveMessage({
-        //             fromUserName:"客户A",
-        //             fromUserId: 1,
-        //             toUserName: "护士-周希",
-        //             toUserId: 2,
-        //             createTime: 1495642392172,
-        //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //             msgType: "text",
-        //             msgId: 0,
-        //             msgContent: {
-        //                 content: 'this is test message'
-        //             }
-        //         });
-        // }, 2000);
+        setTimeout(()=> {
+            this.receiveMessage({
+                    fromUserName:"客户A",
+                    fromUserId: 1,
+                    toUserName: "护士-周希",
+                    toUserId: 2,
+                    createTime: 1499586934741,
+                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                    msgType: "text",
+                    msgId: 0,
+                    msgContent: {
+                        content: 'this is test message'
+                    }
+                });
+        }, 2000);
 
         // mock 两秒钟后来了两条新消息
         // setTimeout(()=> {
