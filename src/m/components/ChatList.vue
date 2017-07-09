@@ -10,7 +10,7 @@
                                 <img :src="chat.fromUserAvatar">
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
-                            <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
+                            <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" data-url="chat.msgContent.picUrl" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
                         </li>
                     </template>
                 </ul>
@@ -470,7 +470,7 @@ export default {
                     createTime: 1495642392172,
                     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
                     msgType: "text",
-                    msgId: 1231321321,
+                    msgId: 0,
                     msgContent: {
                         content: 'this is test message'
                     }
@@ -487,7 +487,7 @@ export default {
                 createTime: 1495642398371,
                 fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
                 msgType: 'image',
-                msgId: 1231321321,
+                msgId: 0,
                 msgContent: {
                     picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
                 }
