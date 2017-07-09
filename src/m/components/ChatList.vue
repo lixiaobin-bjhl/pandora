@@ -3,14 +3,15 @@
         <section class="chatlist" :class="showSelBox>0?'chatlist-bottom-collapse':'chatlist-bottom'">
             <mt-loadmore :top-method="loadTop" top-pull-text="加载更多" top-drop-text="释放加载" @top-status-change="handleTopChange" ref="loadmore">
                 <ul>
-                    <template v-for="item in list">
+                    <template v-for="item in list" >
                         <p class="time">{{item.formattedTime}}</p>
-                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == userInfo.id, 'chat-image': chat.msgType == 'image'}">
+                        <li v-for="(chat, index) in item.list" :key="index" :class="{'chat-mine': chat.fromUserId == userInfo.id && chat.fromUserRole == userInfo.roleType, 'chat-image': chat.msgType == 'image', 'chat-voice': chat.msgType == 'voice'}">
                             <div class="chat-user">
                                 <img :src="chat.fromUserAvatar">
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
                             <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" :data-url="chat.msgContent.picUrl" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
+                            <pre class="chat-text text-voice" v-else-if="chat.msgType == 'voice'"><audio-player :seconds="chat.seconds || 60.12" :url="chat.msgContent.voiceUrl"></audio-player></pre>
                         </li>
                     </template>
                 </ul>
@@ -54,6 +55,7 @@ import { Toast } from 'mint-ui';
 import {uptoken, upload} from '../request';
 import formatChatTime from '../../common/function/formatChatTime';
 import Upload from '../../common/components/Upload.vue';
+import AudioPlayer from '../../common/components/AudioPlayer.vue';
 import getUrlSearch from '../../common/function/getUrlSearch';
 import { Indicator } from 'mint-ui';
 import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
@@ -72,7 +74,8 @@ export default {
             sending: false,
             list: [],
             userInfo: {
-                id: 1
+                id: 1,
+                roleType: 2
             },
             //聊天记录
             records: [
@@ -302,8 +305,10 @@ export default {
                 setTimeout(()=> {
                     this.getWechatJsSign();
                 });
-                // 加载一次hisotry
-                this.loadHistory();
+                // 首次一下hisotry
+                setTimeout(()=>{
+                    this.loadHistory();
+                });
             } else if (data.type == 'CHAT_HISTORY') {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
@@ -420,6 +425,7 @@ export default {
         },
         loadHistory () {
             var websocket = this.websocket;
+            console.log('load history');
             if (websocket) {
                 websocket.send(JSON.stringify({
                     type: 'CHAT_HISTORY',
@@ -452,7 +458,8 @@ export default {
         }
     },
     components: {
-        Upload
+        Upload,
+        AudioPlayer
     },
     beforeDestroy() {
         console.log('destroy');
@@ -500,6 +507,43 @@ export default {
         //         }
         //     }]);
         // }, 3000)
+
+        //  setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName: '客户A',
+        //         fromUserId: 2,
+        //         toUserName: '护士-周希',
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         fromUserRole: 1,
+        //         msgType: 'voice',
+        //         msgId: 0,
+        //         msgContent: {
+        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+        //         }
+        //     }]);
+        // }, 1000)
+
+
+        //  setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName: '客户A',
+        //         fromUserId: 1,
+        //         toUserName: '护士-周希',
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserRole: 2,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         msgType: 'voice',
+        //         msgId: 0,
+        //         msgContent: {
+        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+        //         }
+        //     }]);
+        // }, 1500)
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -648,6 +692,10 @@ export default {
     }
 
     .text-image {
+        padding: 0;
+        max-width: 50%;
+    }
+    .text-voice {
         padding: 0;
         max-width: 50%;
     }
