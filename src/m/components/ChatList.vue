@@ -300,6 +300,7 @@ export default {
             console.log(data);
             if (data.type == 'CHAT') {
                 this.receiveMessage(data);
+                this.scrollToBottom();
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
                 setTimeout(()=> {
@@ -313,7 +314,6 @@ export default {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
             }
-            this.scrollToBottom();
         },
 
         /**
@@ -340,7 +340,6 @@ export default {
                 }
             }));
             this.content = '';
-            this.scrollToBottom();
         },
         /**
          * 接收消息
@@ -451,7 +450,6 @@ export default {
         }
     },
     mounted: function(){
-        this.scrollToBottom();
         this.focusTxtContent();
         this.initScoket();
         // this.receiveMessage(this.records); 
