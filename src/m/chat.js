@@ -13,6 +13,7 @@ window.toast = function(msg) {
 // filter
 
 require('../common/filter/date');
+require('../common/filter/compressImage');
 
 Vue.use(MintUI)
 

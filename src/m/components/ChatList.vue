@@ -5,12 +5,12 @@
                 <ul>
                     <template v-for="item in list">
                         <p class="time">{{item.formattedTime}}</p>
-                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == userInfo.id}">
+                        <li v-for="chat in item.list" :class="{'chat-mine': chat.fromUserId == userInfo.id, 'chat-image': chat.msgType == 'image'}">
                             <div class="chat-user">
                                 <img :src="chat.fromUserAvatar">
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
-                            <pre class="chat-text chat-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" :src="chat.msgContent.picUrl"></pre>
+                            <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
                         </li>
                     </template>
                 </ul>
@@ -601,6 +601,10 @@ export default {
         color: #fff;
     }
 
+    .mine-image .chat-text {
+        background-color: #FFF;
+    }
+
     .mint-loadmore {
         height: 100%;
         overflow: auto;
@@ -617,6 +621,8 @@ export default {
         color: #333;
         word-break: break-all;
         max-width: 462px\9;
+        white-space: -moz-pre-wrap;white-space:-pre-wrap;
+        white-space: -o-pre-wrap;word-wrap:break-word;
     }
     
     .chat-text,
@@ -626,17 +632,16 @@ export default {
         font-size: 14px;
         white-space: pre-wrap;
         max-width: 80%;
-        white-space: -moz-pre-wrap;white-space:-pre-wrap;
-        white-space: -o-pre-wrap;word-wrap:break-word;
     }
     
     .chat-text img {
         max-width: 100%;
         vertical-align: middle;
+        border-radius: 5px;
     }
 
-    .chat-image {
-        padding: 5px;
+    .text-image {
+        padding: 0;
         max-width: 50%;
     }
     
@@ -683,6 +688,11 @@ export default {
         right: -11px;
         border-right-color: transparent;
         border-left-color: #DDD;
+    }
+
+    .chat-image .chat-text:before,
+    .chat-image .chat-text:after {
+        border-color: transparent;
     }
     
     .foot {
