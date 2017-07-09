@@ -538,9 +538,6 @@ export default {
         bottom: 48px;
         left: 0px;
         right: 0px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 10px;
     }
     .time {
         text-align: center;
