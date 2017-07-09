@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="chatlist" :class="showSelBox>0?'chatlist-bottom-collapse':'chatlist-bottom'">
+        <section class="chatlist">
             <mt-loadmore :top-method="loadTop" top-pull-text="加载更多" top-drop-text="释放加载" @top-status-change="handleTopChange" ref="loadmore">
                 <ul>
                     <template v-for="item in list" >
@@ -383,7 +383,7 @@ export default {
          */
         scrollToBottom: function() {
             setTimeout(function() {
-                var chatlist = document.getElementsByClassName('chatlist')[0];
+                var chatlist = document.getElementsByClassName('mint-loadmore')[0];
                 chatlist.scrollTop = chatlist.scrollHeight;
             }, 100);
         },
@@ -454,42 +454,7 @@ export default {
         this.scrollToBottom();
         this.focusTxtContent();
         this.initScoket();
-        // this.receiveMessage(this.records);
-
-
-        
-        setTimeout(()=> {
-            this.receiveMessage({
-                    fromUserName:"客户A",
-                    fromUserId: 1,
-                    toUserName: "护士-周希",
-                    toUserId: 2,
-                    createTime: 1499582302000,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                    msgType: "text",
-                    msgId: 0,
-                    msgContent: {
-                        content: 'this is test message'
-                    }
-                });
-        }, 1000);
-
-        // // mock 两秒钟后来了两条新消息
-        setTimeout(()=> {
-            this.receiveMessage({
-                    fromUserName:"客户A",
-                    fromUserId: 1,
-                    toUserName: "护士-周希",
-                    toUserId: 2,
-                    createTime: 1499586934741,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                    msgType: "text",
-                    msgId: 0,
-                    msgContent: {
-                        content: 'this is test message'
-                    }
-                });
-        }, 2000);
+        // this.receiveMessage(this.records); 
 
         // mock 两秒钟后来了两条新消息
         // setTimeout(()=> {
@@ -506,7 +471,7 @@ export default {
         //             picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
         //         }
         //     }]);
-        // }, 3000)
+        // }, 1000)
 
         //  setTimeout(()=> {
         //     this.receiveMessage([{
