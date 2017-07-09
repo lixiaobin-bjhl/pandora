@@ -8,7 +8,7 @@
         <div class="upload-btn">
             <slot></slot>
             <form onsubmit="return false" ref="form">
-                <input type="file"  ref="inputFile" @change="fileInputChange" :accept="accept" :multiple="multiple">
+                <input type="file" capture="camera" ref="inputFile" @change="fileInputChange" :accept="accept" :multiple="multiple">
             </form>
         </div>
     </div>
@@ -19,7 +19,7 @@
         props: {
             accept: {
                 type: String,
-                default: 'image/gif, image/jpg, image/jpeg, image/png'
+                default: 'image/*'
             },
             multiple: {
                 type: Boolean,

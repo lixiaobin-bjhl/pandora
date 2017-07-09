@@ -3,7 +3,7 @@
         <section class="chatlist">
             <mt-loadmore :top-method="loadTop" top-pull-text="加载更多" top-drop-text="释放加载" @top-status-change="handleTopChange" ref="loadmore">
                 <ul>
-                    <template v-for="item in list" >
+                    <template v-for="item in list">
                         <p class="time">{{item.formattedTime}}</p>
                         <li v-for="(chat, index) in item.list" :key="index" :class="{'chat-mine': chat.fromUserId == userInfo.id && chat.fromUserRole == userInfo.roleType, 'chat-image': chat.msgType == 'image', 'chat-voice': chat.msgType == 'voice'}">
                             <div class="chat-user">
@@ -303,6 +303,7 @@ export default {
                 this.scrollToBottom();
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
+                this.setTitle(data.chatUser.name || '');
                 setTimeout(()=> {
                     this.getWechatJsSign();
                 });
@@ -310,6 +311,7 @@ export default {
                 setTimeout(()=>{
                     this.loadHistory();
                 });
+                this.scrollToBottom();
             } else if (data.type == 'CHAT_HISTORY') {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
@@ -322,7 +324,6 @@ export default {
         sendMsg: function() {
             var websocket = this.websocket;
             var content = this.content.trim();
-
             if (!content) {
                 toast('请输入消息内容')
                 return;
@@ -436,6 +437,18 @@ export default {
         loadTop(id) {
             this.loadHistory();
             // this.$refs.loadmore.onTopLoaded(id);
+        },
+        setTitle (t) {
+            document.title = t;
+            var i = document.createElement('iframe');
+            i.src = '//m.baidu.com/favicon.ico';
+            i.style.display = 'none';
+            i.onload = function() {
+                setTimeout(function(){
+                i.remove();
+                }, 9)
+            }
+            document.body.appendChild(i);
         }
     },
     components: {
