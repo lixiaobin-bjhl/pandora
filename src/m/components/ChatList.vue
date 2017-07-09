@@ -302,6 +302,8 @@ export default {
                 setTimeout(()=> {
                     this.getWechatJsSign();
                 });
+                // 加载一次hisotry
+                this.loadHistory();
             } else if (data.type == 'CHAT_HISTORY') {
                 this.loadMessage(data.msgList);
                 this.$refs.loadmore.onTopLoaded();
@@ -416,7 +418,7 @@ export default {
             return firstGroupList[0].msgId;
 
         },
-        loadTop(id) {
+        loadHistory () {
             var websocket = this.websocket;
             if (websocket) {
                 websocket.send(JSON.stringify({
@@ -425,6 +427,9 @@ export default {
                     firstMsgId: this.getFirstMsgId()
                 }));
             }
+        },
+        loadTop(id) {
+            this.loadHistory();
             // setTimeout(() => {
             //     var chatlist = document.getElementsByClassName('chatlist')[0];
             //     var oldHeight=chatlist.scrollHeight;
