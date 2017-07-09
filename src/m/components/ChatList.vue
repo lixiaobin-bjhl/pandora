@@ -463,38 +463,38 @@ export default {
         this.receiveMessage(this.records);
     
         // // mock 两秒钟后来了两条新消息
-        setTimeout(()=> {
-            this.receiveMessage({
-                    fromUserName:"客户A",
-                    fromUserId: 1,
-                    toUserName: "护士-周希",
-                    toUserId: 2,
-                    createTime: 1495642392172,
-                    fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                    msgType: "text",
-                    msgId: 0,
-                    msgContent: {
-                        content: 'this is test message'
-                    }
-                });
-        }, 2000);
+        // setTimeout(()=> {
+        //     this.receiveMessage({
+        //             fromUserName:"客户A",
+        //             fromUserId: 1,
+        //             toUserName: "护士-周希",
+        //             toUserId: 2,
+        //             createTime: 1495642392172,
+        //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //             msgType: "text",
+        //             msgId: 0,
+        //             msgContent: {
+        //                 content: 'this is test message'
+        //             }
+        //         });
+        // }, 2000);
 
         // mock 两秒钟后来了两条新消息
-        setTimeout(()=> {
-            this.receiveMessage([{
-                fromUserName: '客户A',
-                fromUserId: 2,
-                toUserName: '护士-周希',
-                toUserId: 2,
-                createTime: 1495642398371,
-                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-                msgType: 'image',
-                msgId: 0,
-                msgContent: {
-                    picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
-                }
-            }]);
-        }, 3000)
+        // setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName: '客户A',
+        //         fromUserId: 2,
+        //         toUserName: '护士-周希',
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         msgType: 'image',
+        //         msgId: 0,
+        //         msgContent: {
+        //             picUrl: 'http://omh2h1x76.bkt.clouddn.com/user.png'
+        //         }
+        //     }]);
+        // }, 3000)
     }
     // updated:function(){
     //     this.scrollToBottom();
