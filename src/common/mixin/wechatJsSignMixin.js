@@ -23,7 +23,7 @@ export default {
                     signature: data.signature,
                     appId: data.appId || wechatConfig.appId,
                     timestamp: data.timestamp,
-                    nonceStr: data.nonceStr
+                    nonceStr: data.noncestr
                 });
 				window.wx.config(wechatConfig);	
                 return data;
