@@ -14,6 +14,9 @@ body {
         background-color: $brand;
     }
 }
+.clearfix {
+    @include clearfix;
+}
 li {
     list-style: none;
 }

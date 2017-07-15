@@ -18,32 +18,19 @@
             </mt-loadmore>
         </section>
 
-        <section class="foot">
-            <textarea :maxlength="100" autofocus ref="message-input" placeholder="请输入消息" class="con" v-model="content"></textarea>
-            <!--<span class="btn-face" v-on:click="showSelBox=showSelBox==1?0:1"><i class="fa icon-smile-o" aria-hidden="true"></i></span>-->
-            <!--<span class="btn-plus" v-on:click="showSelBox=showSelBox==2?0:2"><i class="fa" aria-hidden="true" :class="showSelBox==2?'icon-minus-circle':'icon-plus-circle'"></i></span>-->
-            
-            <upload @change="changePicture">
-                <div style="height: 32px;"></div>
-                <span class="icon-picture"></span>
+        <section class="foot clearfix">
+            <upload @change="changePicture" class="left upload-wrap">
+                <span class="icon icon-plus"></span>
             </upload>
-            <mt-button class="btn btn-send" :disabled="sending"  v-on:click="sendMsg" type="primary">发送</mt-button>
-            <!--
-            <section class="selbox" :class="showSelBox>0?'show':'hide'">
-                <section v-show="showSelBox==1" class="face-box">
-                    <mt-swipe :auto="0" :continuous="false">
-                        <mt-swipe-item v-for="n in Math.ceil(EXPS.length/18)">
-                            <li v-for="(item, index) in getEXP(n,18)">
-                                <img :src="'static/emotion/'+item.file" alt="" :data="item.code" v-on:click="content+=item.code">
-                            </li>
-                        </mt-swipe-item>
-                    </mt-swipe>
-                </section>
-               
-                <div>
-                    <span class="picture-btn icon-picture-o"></span>
-                </div>
-                 -->
+            <span class="icon icon-voice left" v-if="!isShowKeyboard" @click="isShowKeyboard = !isShowKeyboard"></span>
+            <span class="icon icon-keyboard left" v-if="isShowKeyboard" @click="isShowKeyboard = !isShowKeyboard"></span>
+            <mt-button class="btn btn-send" :disabled="sending"  v-on:click="sendMsg" type="primary">发送</mt-button> 
+            <div class="record-btn" ref="record-btn" @click="record" v-show="isShowKeyboard" :class="{'recording': recording}">
+                {{recording ? '松开 结束' : '按住 说话'}}
+            </div>
+            <div class="con" v-show="!isShowKeyboard">
+                 <textarea :maxlength="100" autofocus ref="message-input" placeholder="请输入消息"  v-model="content"></textarea>
+            </div>
             </section>
         </section>
     </div>
@@ -60,6 +47,8 @@ import getUrlSearch from '../../common/function/getUrlSearch';
 import { Indicator } from 'mint-ui';
 import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
 
+var timer = null;
+
 export default {
     mixins: [wechatJsSignMixin],
     name: 'chatlist',
@@ -69,6 +58,8 @@ export default {
             selFace: '表情',
             selOther: '其他功能',
             content:'',
+            isShowKeyboard: false,
+            recording: false,
             websocket: null,
             topStatus: '',
             sending: false,
@@ -78,54 +69,72 @@ export default {
                 roleType: 2
             },
             //聊天记录
-            records: [
-                // {
-                //     fromUserName:"客户A",
-                //     fromUserId: 2,
-                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserName: "护士-A",
-                //     toUserId: 1,
-                //     createTime: 1463961600000,
-                //     msgType: "text",
-                //     msgId: 1231321321,
-                //     msgContent: {
-                //         content: '这是文本消息1'
-                //     }
-                // },
-                // {
-                //     fromUserName:"客户A",
-                //     fromUserId: 1,
-                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserName: "护士-A",
-                //     toUserId: 2,
-                //     createTime: 1495625410435,
-                //     msgType: "text",
-                //     msgId: 1231321321,
-                //     msgContent: {
-                //         content: '这是文本消息2'
-                //     }
-                // },
-                // {
-                //     fromUserName:"客户A",
-                //     fromUserId: 1,
-                //     fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png',
-                //     toUserName: "护士-A",
-                //     toUserId: 2,
-                //     createTime: 1495625676338,
-                //     msgType: "text",
-                //     msgId: 1231321321,
-                //     msgContent: {
-                //         content: '这是文本消息3'
-                //     }
-                // }
-            ]
+            records: []
         }
     },
     methods: {
-
+        /**
+         * 录音 
+         */
+        record (status) {
+            var recording = this.recording;
+            // 不是录音中，就开始录音
+            if (status) {
+                if (!recording) {
+                    wx.startRecord();
+                    this.recording = true;
+                }
+            // 如果是在录音中，就停止录音
+            } else {
+                this.recording = false; 
+                wx.stopRecord({
+                    success: (res)=> {
+                        this.sendVoiceMsg(localId); 
+                    }
+                });
+            }
+        },
+        /**
+         * 发送语音信息 
+         */
+        sendVoiceMsg (localId) {
+            var websocket = this.wesocket;
+            console.log(localId);
+            websocket.send(JSON.stringify({
+                type: 'CHAT',
+                msgType: 'VOICE',
+                msgContent: {
+                    mediaId: localId
+                }
+            }));
+        },
+        bindEvent () {
+            this.$refs['record-btn'].addEventListener('touchstart', this.touchStartHandler, false);
+            this.$refs['record-btn'].addEventListener('touchend', this.touchEndHandler, false);
+            setTimeout(()=> {
+                // 微信录音超过1分钟自动结束
+                wx.onVoicePlayEnd({
+                    success: (res) => {
+                        this.sendVoiceMsg(localId); 
+                    }
+                });
+            });
+        },
+        touchStartHandler (event) {
+            event.preventDefault();
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                console.log('start voice');
+                this.record(1);
+            }, 1000);
+        },
+        touchEndHandler (event) {
+            clearTimeout(timer);
+            console.log('end voice');
+            this.record(0);
+        },
         /**
          * 改变聊天图片
          */
@@ -317,9 +326,8 @@ export default {
                 this.$refs.loadmore.onTopLoaded();
             }
         },
-
         /**
-         * 发送消息
+         * 发送文字消息
          */
         sendMsg: function() {
             var websocket = this.websocket;
@@ -465,6 +473,7 @@ export default {
     mounted: function(){
         this.focusTxtContent();
         this.initScoket();
+        this.bindEvent();
         // this.receiveMessage(this.records); 
 
         // mock 两秒钟后来了两条新消息
@@ -530,6 +539,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
     @import 'src/assets/scss/common/color';
+    ::-webkit-scrollbar{
+        display:none;
+    }
     .chatlist {
         width: 100%;
         box-sizing: border-box;
@@ -725,82 +737,70 @@ export default {
     
     .foot {
         width: 100%;
-        min-height: 48px;
+        height: 50px;
         position: fixed;
+        box-sizing: border-box;
         bottom: 0px;
         left: 0px;
         border-top: 1px solid #DDD;
         background-color: #F8F8F8;
     }
-    
+    .foot .record-btn,
     .foot .con {
-        position: absolute;
-        left: 40px;
-        right: 40px;
-        height: 48px;
-        outline: none;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 14px;
-        padding: 15px 120px 5px 5px;
-        resize: none;
-        border: 0;
-        border-left: 1px solid #EEE;
+        display: block;
+        margin: 8px 65px 0 80px;
+        textarea {
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            padding: 5px;
+            height: 35px;
+            line-height: 22px;
+            box-sizing: border-box;
+            resize: none;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            overflow-y: auto;
+        }
     }
-    
-    .foot .icon-picture {
-        width: 28px;
-        padding: 9px 3px;
-        font-size: 20px;
-        position: absolute;
-        left: 5px;
-        top: 3px;
+    .foot .record-btn {
+        border: 1px solid #DDD;
+        border-radius: 5px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        color: #666;
+        &.recording {
+            background: #DDD;
+        }
     }
-    
-    .foot .btn-face {
-        width: 28px;
-        padding: 9px 3px 9px 0px;
-        position: absolute;
-        left: 35px;
-        /*border-right: 1px solid #d9d9d9;*/
+
+    .icon {
+        font-size: 26px;
+        color: #666;
+        margin-top: 13px;
+        display: block;
     }
-    
-    .foot .btn-face i {
-        font-size: 2em;
-        color: #d9d9d9;
+    .upload-wrap {
+        width: 30px;
+        margin-left: 10px;
     }
-    
-    .foot .selbox {
-        height: 150px;
-        margin-top: 48px;
-        border-top: 1px solid #d9d9d9;
+    .foot .icon-keyboard,
+    .foot .icon-voice {
+       width: 30px;
+       margin-left: 5px;
     }
-    
+
     .show {
         display: block;
+    }
+
+    .left {
+        float: left;
     }
     
     .hide {
         display: none;
-    }
-    
-    .face-box {
-        /* position: absolute; */
-        /* top: 48px; */
-        /* left: 0px; */
-        /* right: 0px; */
-        /* bottom: 0px; */
-        padding: 15px 15px 0px 15px;
-        overflow: hidden;
-        width: 290px;
-        margin: 0px auto;
-        height: 135px;
-    }
-    
-    .face-box li {
-        width: 30px;
-        float: left;
-        padding: 6px 10px 0px 8px;
     }
     
     .btn {
@@ -816,11 +816,10 @@ export default {
     }
     
     .btn-send {
-        position: absolute;
-        right: 8px;
-        top: 8px;
+        float: right;
         height: 32px;
         line-height: 32px;
+        margin: 9px 9px 0 0;
         box-sizing: border-box;
     }
     .picture-btn {

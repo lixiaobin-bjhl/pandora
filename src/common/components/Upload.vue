@@ -8,7 +8,8 @@
         <div class="upload-btn">
             <slot></slot>
             <form onsubmit="return false" ref="form">
-                <input type="file" capture="camera" ref="inputFile" @change="fileInputChange" :accept="accept" :multiple="multiple">
+                <input type="file" v-if="!isIphone" ref="inputFile" @change="fileInputChange" :accept="accept" :multiple="multiple">
+                <input type="file" v-else capture="camera" ref="inputFile" @change="fileInputChange" :accept="accept" :multiple="multiple">
             </form>
         </div>
     </div>
@@ -20,6 +21,11 @@
             accept: {
                 type: String,
                 default: 'image/*'
+            },
+            isIphone: {
+                default () {
+                    return navigator.userAgent.indexOf('iPhone') > -1;
+                }
             },
             multiple: {
                 type: Boolean,
@@ -42,14 +48,15 @@
     .upload-btn {
         position: relative;
         overflow: hidden;
-        width: 86px;
+        width: 30px;
         > form {
             > input {
                 position: absolute;
                 top: 0;
                 right: 0;
                 margin: 0;
-                opacity: 0;
+                opacity: 1;
+                border: 1px solid red;
                    -moz-transform: translate(-300px, 0) scale(4);
                 -webkit-transform: translate(-300px, 0) scale(4);
                      -o-transform: translate(-300px, 0) scale(4);
