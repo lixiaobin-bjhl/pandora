@@ -111,7 +111,8 @@ export default {
         bindEvent () {
             this.$refs['record-btn'].addEventListener('touchstart', this.touchStartHandler, false);
             this.$refs['record-btn'].addEventListener('touchend', this.touchEndHandler, false);
-            setTimeout(()=> {
+            wx.ready(()=> {
+                console.log('wx ready');
                 // 微信录音超过1分钟自动结束
                 wx.onVoicePlayEnd({
                     success: (res) => {
@@ -147,34 +148,29 @@ export default {
             var websocket = this.websocket;
 
             fd.append('file', file);
-            // uptoken()
-            //     .then((res)=> {
-            //         var token = res.data.token;
-            //         fd.append('token', token);
-                    Indicator.open('加载中…');
-                    upload(fd)
-                        .then((res)=> {
-                            Indicator.close();
-                            toast('图片上传成功');
-                            console.log(JSON.stringify({
-                                type: 'CHAT',
-                                msgType: 'image',
-                                msgContent: {
-                                    picUrl: res.data.url
-                                }
-                            }));
-                            websocket.send(JSON.stringify({
-                                type: 'CHAT',
-                                msgType: 'image',
-                                msgContent: {
-                                    picUrl: res.data.url
-                                }
-                            }));
-                        })
-                        .catch(()=> {
-                            Indicator.close();
-                        });
-                // });
+            Indicator.open('加载中…');
+            upload(fd)
+                .then((res)=> {
+                    Indicator.close();
+                    toast('图片上传成功');
+                    console.log(JSON.stringify({
+                        type: 'CHAT',
+                        msgType: 'image',
+                        msgContent: {
+                            picUrl: res.data.url
+                        }
+                    }));
+                    websocket.send(JSON.stringify({
+                        type: 'CHAT',
+                        msgType: 'image',
+                        msgContent: {
+                            picUrl: res.data.url
+                        }
+                    }));
+                })
+                .catch(()=> {
+                    Indicator.close();
+                });
         },
 
         /**
