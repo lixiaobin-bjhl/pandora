@@ -21,7 +21,7 @@ export default {
                 var data = res.data;
                 Object.assign(wechatConfig, {
                     signature: data.signature,
-                    appId: data.appId,
+                    appId: data.appId || wechatConfig.appId,
                     timestamp: data.timestamp,
                     nonceStr: data.nonceStr
                 });

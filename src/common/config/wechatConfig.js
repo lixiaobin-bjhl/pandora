@@ -5,8 +5,8 @@
 'use strict';
 
 export default {
-	debug: false,
-	appId: 'wx4f2bc0338152c31c',
+	debug: true,
+	appId: 'wx8d2c6e4d8907451a',
 	timestamp: 1490176842,
 	nonceStr: 'bldxw1zv28',
 	signature: '7c0ed8e6d1da24e4dbb56e6fd2a20d787e50d314',
