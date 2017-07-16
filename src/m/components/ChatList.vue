@@ -89,7 +89,7 @@ export default {
                 this.recording = false; 
                 wx.stopRecord({
                     success: (res)=> {
-                        this.sendVoiceMsg(localId); 
+                        this.sendVoiceMsg(res.localId); 
                     }
                 });
             }
@@ -116,7 +116,7 @@ export default {
                 // 微信录音超过1分钟自动结束
                 wx.onVoicePlayEnd({
                     success: (res) => {
-                        this.sendVoiceMsg(localId); 
+                        this.sendVoiceMsg(res.localId); 
                     }
                 });
             });
