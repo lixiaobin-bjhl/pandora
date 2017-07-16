@@ -98,7 +98,7 @@ export default {
          * 发送语音信息 
          */
         sendVoiceMsg (localId) {
-            var websocket = this.wesocket;
+            var websocket = this.websocket;
             console.log(localId);
             websocket.send(JSON.stringify({
                 type: 'CHAT',
