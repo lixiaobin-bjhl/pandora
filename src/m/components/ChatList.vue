@@ -551,6 +551,7 @@ export default {
         width: 100%;
         box-sizing: border-box;
         position: absolute;
+        padding: 10px;
         top: 0;
         bottom: 48px;
         left: 0px;
