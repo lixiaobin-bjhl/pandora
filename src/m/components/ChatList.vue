@@ -95,18 +95,27 @@ export default {
             }
         },
         /**
-         * 发送语音信息 
+         * 发送语音信息
+         * @param {string} 微信语音localId 
          */
         sendVoiceMsg (localId) {
             var websocket = this.websocket;
-            console.log(localId);
-            websocket.send(JSON.stringify({
-                type: 'CHAT',
-                msgType: 'VOICE',
-                msgContent: {
-                    mediaId: localId
+            console.log('localId', localId);
+            wx.uploadVoice({
+                localId: localId,
+                isShowProgressTips: 1, 
+                success: (res) => {
+                    var serverId = res.serverId; 
+                    console.log('serverId', serverId);
+                    websocket.send(JSON.stringify({
+                        type: 'CHAT',
+                        msgType: 'VOICE',
+                        msgContent: {
+                            mediaId: serverId
+                        }
+                    }));
                 }
-            }));
+            });
         },
         bindEvent () {
             this.$refs['record-btn'].addEventListener('touchstart', this.touchStartHandler, false);
