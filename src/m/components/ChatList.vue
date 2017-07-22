@@ -14,7 +14,7 @@
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
                             <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" :data-url="chat.msgContent.picUrl" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
-                            <pre class="chat-text text-voice" v-else-if="chat.msgType == 'voice'"><audio-player :seconds="chat.seconds || 60.12" :url="chat.msgContent.mp3Url" :msgid="chat.msgContent.id"></audio-player></pre>
+                            <pre class="chat-text text-voice" v-else-if="chat.msgType == 'voice'"><audio-player :seconds="chat.msgContent.seconds" :url="chat.msgContent.mp3Url" :msgid="chat.msgContent.id"></audio-player></pre>
                         </li>
                     </template>
                 </ul>
@@ -501,25 +501,25 @@ export default {
         //     }]);
         // }, 1000)
 
-        // setTimeout(()=> {
-        //     this.receiveMessage([{
-        //         fromUserName: '客户A',
-        //         fromUserId: 2,
-        //         toUserName: '护士-周希',
-        //         toUserId: 2,
-        //         createTime: 1495642398371,
-        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //         fromUserRole: 1,
-        //         msgType: 'voice',
-        //         msgId: 0,
-        //         msgContent: {
-        //             id: 1,
-        //             seconds: 60,
-        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-        //             mp3Url: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-        //         }
-        //     }]);
-        // }, 1000)
+        setTimeout(()=> {
+            this.receiveMessage([{
+                fromUserName: '客户A',
+                fromUserId: 2,
+                toUserName: '护士-周希',
+                toUserId: 2,
+                createTime: 1495642398371,
+                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                fromUserRole: 1,
+                msgType: 'voice',
+                msgId: 0,
+                msgContent: {
+                    id: 1,
+                    seconds: 6,
+                    // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+                    mp3Url: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+                }
+            }]);
+        }, 1000)
 
 
         //  setTimeout(()=> {
