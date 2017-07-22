@@ -39,3 +39,10 @@ export function bindWechat (params) {
         age: params.age
     });
 }
+
+/**
+ * 获取用户登录信息 
+ */
+export function getLoginUser (params) {
+    return post('/common/getLoginUser.json', {});
+}

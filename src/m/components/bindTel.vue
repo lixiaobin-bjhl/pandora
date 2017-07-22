@@ -116,7 +116,7 @@
 				bindWechat(params)
 					.then((res) => {
 						Toast('绑定成功');
-						// redirect(res.data.url);
+						redirect('/chat.html');
 					})
 					.catch(() => {
 						this.submiting = false;

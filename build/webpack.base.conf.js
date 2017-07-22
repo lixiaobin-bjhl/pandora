@@ -15,7 +15,8 @@ module.exports = {
     vendor: ['vue'],
     chat: './src/m/chat.js',
     bindTel: ['./src/m/bindTel.js'],
-    card: ['./src/m/card.js']
+    card: ['./src/m/card.js'],
+    patientIndex: ['./src/m/patientIndex.js']
   },
   output: {
     path: config.build.assetsRoot,

@@ -63,5 +63,18 @@ exports.routes = [
 				}
 			);
         }
+	},
+	{
+		method: 'POST',
+        path: '/common/getLoginUser.json',
+        handler: function (request, reply) {
+        	return reply(
+        		{
+				    "code": 0,
+					"msg": "",
+					"data": {}
+				}
+			);
+        }
 	}
 ];
