@@ -845,6 +845,7 @@ export default {
         height: 180px;
         background: rgba(0, 0, 0, 0.5);
         color: #FFF;
+        z-index: 100;
         box-sizing: border-box;
         text-align: center;
         font-size: 14px;
