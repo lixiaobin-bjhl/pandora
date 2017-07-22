@@ -104,6 +104,13 @@ var webpackConfig = merge(baseWebpackConfig, {
       inject: true,
       chunksSortMode: 'dependency',
       chunks: ['vendor', 'card']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'patientIndex.html',
+      template: 'patientIndex.html',
+      inject: true,
+      chunksSortMode: 'dependency',
+      chunks: ['vendor', 'patientIndex']
     })
   ]
 })
