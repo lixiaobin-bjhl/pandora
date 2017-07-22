@@ -118,6 +118,8 @@
 								.then((res)=> {
 									var url = res.data.mp3Url;
 									this.initLoadAudio(url, true);
+								}, ()=> {
+									this.loading = false;
 								});
 						}
 	                } else {
