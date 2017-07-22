@@ -501,25 +501,25 @@ export default {
         //     }]);
         // }, 1000)
 
-        // setTimeout(()=> {
-        //     this.receiveMessage([{
-        //         fromUserName: '客户A',
-        //         fromUserId: 2,
-        //         toUserName: '护士-周希',
-        //         toUserId: 2,
-        //         createTime: 1495642398371,
-        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //         fromUserRole: 1,
-        //         msgType: 'voice',
-        //         msgId: 0,
-        //         msgContent: {
-        //             id: 1,
-        //             seconds: 60,
-        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-        //             mp3Url: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-        //         }
-        //     }]);
-        // }, 1000)
+        setTimeout(()=> {
+            this.receiveMessage([{
+                fromUserName: '客户A',
+                fromUserId: 2,
+                toUserName: '护士-周希',
+                toUserId: 2,
+                createTime: 1495642398371,
+                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                fromUserRole: 1,
+                msgType: 'voice',
+                msgId: 0,
+                msgContent: {
+                    id: 1,
+                    seconds: 60,
+                    // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+                    mp3Url: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+                }
+            }]);
+        }, 1000)
 
 
         //  setTimeout(()=> {

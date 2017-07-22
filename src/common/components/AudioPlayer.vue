@@ -136,8 +136,11 @@
 				var audio = this.audio;
 				audio.src = url;
 		        audio
-		            .addEventListener('ended', ()=>{
-		               	this.status = 0;
+		            .addEventListener('ended', ()=> {
+						this.status = 0;
+						audio.currentTime = 0;
+						this.timerSeconds = this.seconds;
+						clearTimeout(this.timer);
 		            });
 		        audio
 		        	.addEventListener('loadeddata', ()=> {

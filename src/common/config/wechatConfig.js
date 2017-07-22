@@ -5,7 +5,7 @@
 'use strict';
 
 export default {
-	debug: true,
+	debug: false,
 	appId: 'wx8d2c6e4d8907451a',
 	timestamp: 1490176842,
 	nonceStr: 'bldxw1zv28',
