@@ -138,7 +138,6 @@
 		        audio
 		            .addEventListener('ended', ()=> {
 						this.status = 0;
-						audio.currentTime = 0;
 						this.timerSeconds = this.seconds;
 						clearTimeout(this.timer);
 		            });
