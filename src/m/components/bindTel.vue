@@ -20,7 +20,7 @@
 		<div class="login-form">
 			<mt-field class="mobile-field"  v-model="name" placeholder="姓名" type="tel"></mt-field>
 			<mt-field class="mobile-field"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
-			<mt-field class="mobile-field"  v-model="age" placeholder="年龄"></mt-field>
+			<mt-field class="mobile-field" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
 			<mt-button type="primary" :disabled="submiting" @click.native="bind">确定</mt-button>
 		</div>
 	</div>
@@ -32,7 +32,7 @@
 	import 'mint-ui/lib/button/style.css';
 	import 'mint-ui/lib/field/style.css';
 	import 'mint-ui/lib/toast/style.css';
-	import  {bindTel} from '../request';
+	import  {bindWechat} from '../request';
 
 	export default {
 		data() {
@@ -95,26 +95,25 @@
 				}
 			},
 			bind() {
-				// if (this.mobile == '') {
-				// 	Toast('手机号不能为空');
-				// 	return;
-				// }
-				// if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
-				// 	Toast('请输入正确的手机号');
-				// 	return;
-				// }
-				// if (this.code == '') {
-				// 	Toast('请输入验证码');
-				// 	return;
-				// }
+				if (this.mobile == '') {
+					Toast('手机号不能为空');
+					return;
+				}
+				if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
+					Toast('请输入正确的手机号');
+					return;
+				}
+				if (this.age == '') {
+					Toast('请输入年龄');
+					return;
+				}
 				this.submiting = true;
 				let params = {
 					mobile: this.mobile,
-					code: this.code,
-					openId: this.query.openId,
-					userRole: this.query.userRole
+					name: this.name,
+					age: this.age
 				}
-				bindTel(params)
+				bindWechat(params)
 					.then((res) => {
 						Toast('绑定成功');
 						// redirect(res.data.url);

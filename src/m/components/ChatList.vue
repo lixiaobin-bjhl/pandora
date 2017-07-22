@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="recording-notice" v-if="recording">
+           <div class="icon icon-record"></div>  
+           <div> 录音中…</div></div>  
         <section class="chatlist">
             <mt-loadmore :top-method="loadTop" top-pull-text="加载更多" top-drop-text="释放加载" @top-status-change="handleTopChange" ref="loadmore">
                 <ul>
@@ -11,7 +14,7 @@
                             </div>
                             <pre class="chat-text" v-if="chat.msgType == 'text'" v-text="chat.msgContent.content"></pre>
                             <pre class="chat-text text-image" v-else-if="chat.msgType == 'image'" @click="previewImg(chat.msgContent.picUrl)"><img class="chat-pic" width="110" height="110" :data-url="chat.msgContent.picUrl" :src="chat.msgContent.picUrl|compressImage(110, 110)"></pre>
-                            <pre class="chat-text text-voice" v-else-if="chat.msgType == 'voice'"><audio-player :seconds="chat.seconds || 60.12" :url="chat.msgContent.voiceUrl"></audio-player></pre>
+                            <pre class="chat-text text-voice" v-else-if="chat.msgType == 'voice'"><audio-player :seconds="chat.seconds || 60.12" :url="chat.msgContent.mp3Url" :msgid="chat.msgContent.id"></audio-player></pre>
                         </li>
                     </template>
                 </ul>
@@ -498,23 +501,25 @@ export default {
         //     }]);
         // }, 1000)
 
-        //  setTimeout(()=> {
-        //     this.receiveMessage([{
-        //         fromUserName: '客户A',
-        //         fromUserId: 2,
-        //         toUserName: '护士-周希',
-        //         toUserId: 2,
-        //         createTime: 1495642398371,
-        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //         fromUserRole: 1,
-        //         msgType: 'voice',
-        //         msgId: 0,
-        //         msgContent: {
-        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-        //         }
-        //     }]);
-        // }, 1000)
+        setTimeout(()=> {
+            this.receiveMessage([{
+                fromUserName: '客户A',
+                fromUserId: 2,
+                toUserName: '护士-周希',
+                toUserId: 2,
+                createTime: 1495642398371,
+                fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+                fromUserRole: 1,
+                msgType: 'voice',
+                msgId: 0,
+                msgContent: {
+                    id: 1,
+                    seconds: 60,
+                    // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+                    mp3Url: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+                }
+            }]);
+        }, 1000)
 
 
         //  setTimeout(()=> {
@@ -833,5 +838,24 @@ export default {
         color: #666;
         padding: 10px;
         display: inline-block;
+    }
+    .recording-notice {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #FFF;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 14px;
+        top: 50%;
+        border-radius: 5px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        > .icon {
+            font-size: 100px;
+            color: #FFF;
+            margin: 20px 0 20px 0;
+        }
     }
 </style>

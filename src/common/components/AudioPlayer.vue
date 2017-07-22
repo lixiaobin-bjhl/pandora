@@ -4,21 +4,21 @@
 -->
 
 <template>
-	<div class="audio-player" :style="{width: calcWidth() + 'px'}" :class="{playing: status==1}" @click="run">
-		<div v-if="!loading">
-			<i class="icon-wave-right"></i><span class="audio-length">{{Math.floor(this.timerSeconds / 60) + '\'' + Math.round(this.timerSeconds % 60)}}
-			</span>
-		</div>
-		<div v-if="loading">
-			下载中...
-		</div>
+	<div class="audio-player"  :style="{width: calcWidth() + 'px'}" :class="{playing: status==1}" @click="run"><div 
+	v-if="!loading"><i class="icon-wave-right"></i><span class="audio-length">{{Math.floor(this.timerSeconds / 60) + '\'' + Math.round(this.timerSeconds % 60)}}
+			</span></div><div 
+			v-if="loading">下载中...
+		</div> 
 	</div>
 </template>
 
 <script>
+
+	import { arm2mp3 } from '../request';
+
 	export default {
 		// 音频秒数, 音频url, 音频显示最大宽度、音频显示最小宽度
-		props: ['seconds', 'url',  'maxWidth', 'minWidth'],
+		props: ['seconds', 'url', 'msgid', 'maxWidth', 'minWidth'],
 		data () {
 			return {
 				audio: null,
@@ -111,11 +111,42 @@
 	                this.pause();
 	            } else {
 	                if (!this.isLoaded) {
-	                	this.loading = true;
-	                }
-	                this.play();
+						this.loading = true;
+						// 如果没有mp3url且没有loaded过url，就去下载拿id 下载mp3
+						if (!this.url && !this.isLoaded) {
+							arm2mp3(this.msgid)
+								.then((res)=> {
+									var url = res.data.mp3Url;
+									this.initLoadAudio(url, true);
+								});
+						}
+	                } else {
+						this.play();
+					}
 	            }
 	            e.stopPropagation();
+			},
+			/**
+			 * 初始化语音
+			 *
+			 * @param {string} url 语音url
+			 * @param {boolean} isAutoPlay 是否自动播放
+			 */
+			initLoadAudio (url, isAutoPlay) {
+				var audio = this.audio;
+				audio.src = url;
+		        audio
+		            .addEventListener('ended', ()=>{
+		               	this.status = 0;
+		            });
+		        audio
+		        	.addEventListener('loadeddata', ()=> {
+			            this.isLoaded = true;
+						this.loading = false;
+						if (isAutoPlay) {
+							this.play();
+						}
+		        	});
 			},
 			/**
 			 * 初始化
@@ -123,20 +154,10 @@
 			init () {
 				var url = this.url;
 				var audio = document.createElement('audio');
-				audio.src = url;
 				this.audio = audio;
-
-		        audio
-		            .addEventListener('ended', ()=>{
-		               	this.status = 0;
-		            });
-
-		        audio
-		        	.addEventListener('loadeddata', ()=> {
-			            this.isLoaded = true;
-			            this.loading = false;
-		        	});
-
+				if (url) {
+					this.initLoadAudio(url);
+				}
 		        // 当前播放音频，会影响到其它音频，比例当前视频播放，其它视频要暂停，这里先用vuex管理
 				if (this.$store) {
 			        this.$store.dispatch('addAudio', this);

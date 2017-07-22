@@ -7,12 +7,6 @@
 
 import  { post, form, get } from '../common/service'
 
-export function bindTel () {
-    return form('/aaa', {
-        name: "xiaobin"
-    });
-}
-
 /** 
  * 获取上传产品token 
  */
@@ -29,7 +23,19 @@ export function upload (params) {
     return post('/storage/upload.json', params)
 }
 
-
-
-
-
+/**
+ * 绑定用户信息
+ * 
+ * @param {string} params.name 用户名
+ * @param {string} params.mobile 手机
+ * @param {number} params.age 年龄
+ * 
+ * @return {Promise}
+ */
+export function bindWechat (params) {
+    return post('/patient/bindWechat.json', {
+        name: params.name,
+        mobile: params.mobile,
+        age: params.age
+    });
+}
