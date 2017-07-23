@@ -32,6 +32,7 @@
 	import 'mint-ui/lib/button/style.css';
 	import 'mint-ui/lib/field/style.css';
 	import 'mint-ui/lib/toast/style.css';
+	import redirect from '../../common/function/redirect';
 	import  {bindWechat} from '../request';
 
 	export default {
@@ -116,7 +117,7 @@
 				bindWechat(params)
 					.then((res) => {
 						Toast('绑定成功');
-						redirect('/chat.html');
+						redirect('chat.html');
 					})
 					.catch(() => {
 						this.submiting = false;

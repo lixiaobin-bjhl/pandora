@@ -1,5 +1,11 @@
 
 import { getLoginUser } from './request';
+import redirect from '../common/function/redirect';
+import Toast from 'mint-ui/lib/toast';
+
+window.toast = function(msg) {
+    Toast(msg);
+}
 
 function init () {
     getLoginUser()
@@ -11,7 +17,7 @@ function init () {
             } else {
                 url = 'bindTel.html';
             }
-            window.location.href = url;
+            redirect(url);
         });
 }
 init();
