@@ -7,7 +7,7 @@
 			<img width="60" height="60" src="../../assets/user.png">
 			<ul>
 				<li class="name">白求恩</li>
-				<li>武汉协和整形外科医院</li>
+				<li class="gray999">武汉协和整形外科医院</li>
 			</ul>
 		</div>
 		<div class="notice">
