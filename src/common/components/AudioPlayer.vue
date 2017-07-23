@@ -46,8 +46,8 @@
              * 计算进度条位值 
              */
             calcProgress () {
-                var audio = this.audio;
-                this.timerSeconds = audio.duration - audio.currentTime;
+				var audio = this.audio;
+                this.timerSeconds = Math.max(this.seconds - audio.currentTime, 0);
             },
 			/**
 			 * 播放倒计时
