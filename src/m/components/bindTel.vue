@@ -18,9 +18,9 @@
 			</ol>
 		</div>
 		<div class="login-form">
-			<mt-field class="mobile-field"  v-model="name" placeholder="姓名" type="tel"></mt-field>
-			<mt-field class="mobile-field"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
-			<mt-field class="mobile-field" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
+			<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名" type="tel"></mt-field>
+			<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
+			<mt-field class="mobile-field" :disable-clear="true" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
 			<mt-button type="primary" :disabled="submiting" @click.native="bind">确定</mt-button>
 		</div>
 	</div>
