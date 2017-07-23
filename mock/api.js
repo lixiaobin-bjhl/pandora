@@ -46,7 +46,7 @@ exports.routes = [
 				    "msg": "",
 				    "data": {
 				    	storageId: 1111,
-				    	mp3Url: "http://file.gsxservice.com/17731219_jyacy0y8.mp3"
+				    	mp3Url: "http://oqpq939qh.bkt.clouddn.com/1/9BhWzDAaX22kCd178GlnewFPU_-at2gDDziuIvrHkt6vcs8VBoHxXcPk54UCOsQ1.mp3"
 				    }
 				}
 			);

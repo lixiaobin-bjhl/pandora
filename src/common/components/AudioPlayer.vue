@@ -59,7 +59,7 @@
 				this.timer = setTimeout(() => {
 					this.calcProgress();
 					this.countDown();
-				}, 1000);
+				});
 			},
 			/**
 			 * 计算宽度
@@ -89,9 +89,7 @@
 				this.audios.forEach((item)=> {
 					item.pause();
 				});
-				setTimeout(() => {
-					this.countDown();
-				}, 1000);
+				this.countDown();
 				this.audio.play();
 				this.status = 1;
 			},
@@ -140,8 +138,8 @@
 		        audio
 		            .addEventListener('ended', ()=> {
 						this.status = 0;
-						this.timerSeconds = this.seconds;
 						clearTimeout(this.timer);
+						this.timerSeconds = this.seconds;
 		            });
 		        audio
 		        	.addEventListener('loadeddata', ()=> {
