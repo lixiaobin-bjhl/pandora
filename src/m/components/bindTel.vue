@@ -8,7 +8,7 @@
 				<img width="60" height="60" :src="info.consulter.avatar">
 				<ul>
 					<li class="name">{{info.consulter.name}}</li>
-					<li class="gray999">{{info.orgName}}</li>
+					<li class="gray999">{{info.orgName || '医院名称'}}</li>
 				</ul>
 			</div>
 			<div class="notice">
