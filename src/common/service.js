@@ -29,7 +29,7 @@ axios.interceptors.response.use(function (response) {
     if (data.code === 0) {
         return data;
     } else {
-        toast(data.message || '系统异常', 'error');
+        toast(data.msg || '系统异常', 'error');
         return Promise.reject(data);
     }
 }, function (error) {
