@@ -2,6 +2,12 @@
 	"code": 0,
 	"data": {
 		"shortName": "天校大机构",
+		"consulter":{
+            "id": 1,
+            "name": "小小",
+            "avatar": "http://omh2h1x76.bkt.clouddn.com/user.png"
+		},
+		"orgName": "广州军区总医院",
 		"logo": "http://img.gsxservice.com/36218_w4bny0tf.jpeg"
 	}
 }

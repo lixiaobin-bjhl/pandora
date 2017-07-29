@@ -29,6 +29,7 @@ export function upload (params) {
  * @param {string} params.name 用户名
  * @param {string} params.mobile 手机
  * @param {number} params.age 年龄
+ * @param {number} params.gender 性别
  * 
  * @return {Promise}
  */
@@ -36,7 +37,8 @@ export function bindWechat (params) {
     return post('/patient/bindWechat.json', {
         name: params.name,
         mobile: params.mobile,
-        age: params.age
+        age: params.age,
+        gender: params.gender
     });
 }
 

@@ -3,25 +3,33 @@
 </style>
 <template>
 	<div>
-		<div class="profile">
-			<img width="60" height="60" src="../../assets/user.png">
-			<ul>
-				<li class="name">白求恩</li>
-				<li class="gray999">武汉协和整形外科医院</li>
-			</ul>
+		<div class="fields">
+			<div class="profile">
+				<img width="60" height="60" :src="info.consulter.avatar">
+				<ul>
+					<li class="name">{{info.consulter.name}}</li>
+					<li class="gray999">{{info.orgName}}</li>
+				</ul>
+			</div>
+			<div class="notice">
+				<ol>
+					<p>请填写真实信息，便于医院：</p>
+					<li>① 联系您</li>
+					<li>② 对您的术后情况作出更准确评估</li>
+				</ol>
+			</div>
+			<div class="login-form">
+				<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名" type="tel"></mt-field>
+				<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
+				<mt-field class="mobile-field" :disable-clear="true" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
+				<div class="gender-wrap">
+					<label><input v-model="gender" :value="1" name="gender" type="radio">男</input></label>
+					<label><input v-model="gender" :value="2" name="gender" type="radio">女</input></label>
+				</div>
+			</div>
 		</div>
-		<div class="notice">
-			<ol>
-				<p>请填写真实信息，便于医院：</p>
-				<li>① 联系您</li>
-				<li>② 对您的术后情况作出更准确评估</li>
-			</ol>
-		</div>
-		<div class="login-form">
-			<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名" type="tel"></mt-field>
-			<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
-			<mt-field class="mobile-field" :disable-clear="true" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
-			<mt-button type="primary" :disabled="submiting" @click.native="bind">确定</mt-button>
+		<div class="footer">
+			<mt-button type="primary" class="btn-submit" :disabled="submiting" @click.native="bind">确定</mt-button>
 		</div>
 	</div>
 </template>
@@ -32,8 +40,9 @@
 	import 'mint-ui/lib/button/style.css';
 	import 'mint-ui/lib/field/style.css';
 	import 'mint-ui/lib/toast/style.css';
+	import { Indicator } from 'mint-ui';
 	import redirect from '../../common/function/redirect';
-	import  {bindWechat} from '../request';
+	import  {bindWechat, getLoginUser} from '../request';
 
 	export default {
 		data() {
@@ -41,14 +50,33 @@
 				mobile: '',
 				name: '',
 				age: '',
+				gender: '',
 				submiting: false,
+				info: {
+					consulter: {}
+				},
 				timer: null
 			}
 		},
-		created() {
+		created () {
+			this.getLoginUser();
 			// this.query = getUrlSearch();
 		},
 		methods: {
+			/**
+			 * 获取登录者信息 
+			 */
+			getLoginUser () {
+				Indicator.open('加载中…');
+				getLoginUser()
+					.then((res)=>{
+						this.info = res.data;
+						Indicator.close();
+					})
+					.catch(()=> {
+						Indicator.close();
+					});
+			},
 			timeStep() {
 				this.count--;
 				this.codeTip = `重新获取(${this.count}s)`;
@@ -80,6 +108,7 @@
 						Toast('请输入正确的手机号');
 						return;
 					}
+
 					let params = {
 						mobile: this.mobile,
 						userRole: this.query.userRole
@@ -108,11 +137,17 @@
 					Toast('请输入年龄');
 					return;
 				}
+				if (!this.gender) {
+					Toast('请选择性别');
+					return;
+				}
 				this.submiting = true;
+				Indicator.open('加载中…');
 				let params = {
 					mobile: this.mobile,
 					name: this.name,
-					age: this.age
+					age: this.age,
+					gender: this.gender
 				}
 				bindWechat(params)
 					.then((res) => {
@@ -120,6 +155,7 @@
 						redirect('chat.html');
 					})
 					.catch(() => {
+						Indicator.close();
 						this.submiting = false;
 					});
 				

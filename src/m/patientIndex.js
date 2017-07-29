@@ -20,8 +20,8 @@ const app = new Vue({
 }).$mount('#app');
 
 Indicator.open({
-  text: 'Loading...',
-  spinnerType: 'fading-circle'
+    text: '加载中',
+    spinnerType: 'fading-circle'
 });
 
 function init () {
@@ -35,7 +35,10 @@ function init () {
                 url = 'bindTel.html';
             }
             redirect(url);
-        });
+        })
+        .catch(()=> {
+            Indicator.close();
+        })
 }
 init();
 

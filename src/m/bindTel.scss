@@ -4,10 +4,6 @@
 
 .login-form {
 	text-align: center;
-	> button {
-		width: 95%;
-		margin: 20px auto;
-	}
 	.mobile-field {
 		.mint-cell-title {
 			width: 70px;
@@ -17,10 +13,31 @@
 		}
 	}
 }
-.app {
-	padding: 0 10px;
+.footer {
+	margin-top: 24px;
+	background: #F2F2F2;
+	text-align: center;
+	.btn-submit {
+		width: 90%;
+		margin: 20px auto;
+	}
+}
+.gender-wrap {
+	text-align: left;
+	input {
+		zoom: 2;
+		vertical-align: middle;
+	}
+	label {
+		vertical-align: middle;
+		margin-right: 28px;
+	}
+}
+.fields {
+	padding: 0 55px;
 	.mint-cell-wrapper {
 		background-image: none;
+		padding: 0;
 	}
 	.mint-field-core {
 		background:#f5f5f5;
@@ -37,11 +54,11 @@
 	}
 	.profile {
 		@include clearfix;
+		margin: 40px 0 0 0;
 		.name {
 			font-size: 20px;
 			margin: 2px 0 5px 0;
 		}
-		margin: 50px;
 		img {
 			border-radius: 5px;
 			float: left;
@@ -50,7 +67,7 @@
 	}
 	.notice {
 		color: $gray-999;
-		margin: 50px 50px 30px 50px;
+		margin: 36px 50px 30px 0;
 		p {
 			margin-bottom: 10px;
 		}

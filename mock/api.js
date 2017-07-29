@@ -73,7 +73,14 @@ exports.routes = [
 				    "code": 0,
 					"msg": "",
 					"data": {
-						mobile: 12312
+						"mobile": 12312,
+						"shortName": "天校大机构",
+						"orgName": "广州军区总医院",
+						"consulter":{
+							"id": 1,
+							"name": "小小",
+							"avatar": "http://omh2h1x76.bkt.clouddn.com/user.png"
+						}
 					}
 				}
 			);

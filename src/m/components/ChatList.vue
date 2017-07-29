@@ -527,23 +527,43 @@ export default {
             // }, 1000)
 
 
-        //  setTimeout(()=> {
-        //     this.receiveMessage([{
-        //         fromUserName: '客户A',
-        //         fromUserId: 1,
-        //         toUserName: '护士-周希',
-        //         toUserId: 2,
-        //         createTime: 1495642398371,
-        //         fromUserRole: 2,
-        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-        //         msgType: 'voice',
-        //         msgId: 0,
-        //         msgContent: {
-        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-        //         }
-        //     }]);
-        // }, 1500)
+    //      setTimeout(()=> {
+    //         this.receiveMessage([{
+    //             fromUserName: '客户A',
+    //             fromUserId: 1,
+    //             toUserName: '护士-周希',
+    //             toUserId: 2,
+    //             createTime: 1495642398371,
+    //             fromUserRole: 2,
+    //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+    //             msgType: 'text',
+    //             msgId: 0,
+    //             msgContent: {
+    //                 content: "12312",
+    //                 // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+    //                 voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+    //             }
+    //         }]);
+    //     }, 1500)
+
+    //      setTimeout(()=> {
+    //         this.receiveMessage([{
+    //             fromUserName: '客户A',
+    //             fromUserId: 1,
+    //             toUserName: '护士-周希',
+    //             toUserId: 2,
+    //             createTime: 1495642398371,
+    //             fromUserRole: 1,
+    //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+    //             msgType: 'text',
+    //             msgId: 0,
+    //             msgContent: {
+    //                 content: "12312",
+    //                 // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+    //                 voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+    //             }
+    //         }]);
+    //     }, 1500)
     }
     // updated:function(){
     //     this.scrollToBottom();
@@ -561,7 +581,7 @@ export default {
         width: 100%;
         box-sizing: border-box;
         position: absolute;
-        padding: 10px;
+        padding: 0 10px 10px 10px;
         top: 0;
         bottom: 48px;
         left: 0px;
@@ -594,18 +614,18 @@ export default {
     .chatlist ul li {
         position: relative;
         /*font-size: 0;*/
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         padding-left: 55px;
     }
     
     .chat-mine .chat-user {
         left: auto;
-        right: 3px;
+        right: 0px;
     }
     
     .chat-user {
         position: absolute;
-        left: 3px;
+        left: 10px;
     }
     
     .chat-text,
@@ -622,28 +642,6 @@ export default {
     
     .createTime {
         width: 100%;
-    }
-    
-    cite {
-        left: auto;
-        right: 60px;
-        text-align: right;
-    }
-    
-    cite {
-        font-style: normal;
-        line-height: 24px;
-        font-size: 12px;
-        white-space: nowrap;
-        color: #999;
-        text-align: left;
-    }
-    
-    cite i {
-        font-style: normal;
-        padding-left: 5px;
-        padding-right: 5px;
-        font-size: 12px;
     }
     
     .chat-mine .chat-text {
@@ -764,7 +762,7 @@ export default {
     .foot .record-btn,
     .foot .con {
         display: block;
-        margin: 8px 65px 0 80px;
+        margin: 8px 68px 0 80px;
         textarea {
             border: 1px solid #DDD;
             border-radius: 5px;
@@ -835,7 +833,7 @@ export default {
         float: right;
         height: 32px;
         line-height: 32px;
-        margin: 9px 9px 0 0;
+        margin: 9px 10px 0 10px;
         box-sizing: border-box;
     }
     .picture-btn {
