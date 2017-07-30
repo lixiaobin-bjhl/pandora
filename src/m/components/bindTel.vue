@@ -125,6 +125,10 @@
 				}
 			},
 			bind() {
+				if (this.name == '') {
+					Toast('姓名不能为空');
+					return;
+				}
 				if (this.mobile == '') {
 					Toast('手机号不能为空');
 					return;

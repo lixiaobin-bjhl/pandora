@@ -111,6 +111,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       inject: true,
       chunksSortMode: 'dependency',
       chunks: ['vendor', 'patientIndex']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'browserError.html',
+      template: 'browserError.html',
+      inject: false
     })
   ]
 })
