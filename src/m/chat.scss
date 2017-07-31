@@ -1,0 +1,322 @@
+@import 'src/assets/scss/common/color';
+::-webkit-scrollbar{
+    display:none;
+}
+.chatlist {
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    padding: 0 10px 10px 10px;
+    top: 0;
+    bottom: 48px;
+    left: 0px;
+    right: 0px;
+}
+.time {
+    text-align: center;
+    color: $gray-999;
+    margin: 10px;
+}
+
+.chatlist-bottom {
+    bottom: 48px;
+}
+
+.chatlist-bottom-collapse {
+    bottom: 198px;
+}
+
+.chatlist ul {
+    min-height: 300px;
+}
+
+.chatlist ul .chat-mine {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 55px;
+}
+
+.chatlist ul li {
+    position: relative;
+    /*font-size: 0;*/
+    margin-bottom: 15px;
+    padding-left: 55px;
+}
+
+.chat-mine .chat-user {
+    left: auto;
+    right: 0px;
+}
+
+.chat-user {
+    position: absolute;
+    left: 10px;
+}
+
+.chat-text,
+.chat-user {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.chat-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.createTime {
+    width: 100%;
+}
+
+.chat-mine .chat-text {
+    margin-left: 0;
+    text-align: left;
+    background-color: $brand;
+    color: #fff;
+}
+
+.mine-image .chat-text {
+    background-color: #FFF;
+}
+
+.mint-loadmore {
+    height: 100%;
+    overflow: auto;
+}
+
+.chat-text {
+    position: relative;
+    line-height: 22px;
+    /*margin-top: 25px;*/
+    padding: 8px 15px;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    color: #333;
+    word-break: break-all;
+    max-width: 462px\9;
+    white-space: -moz-pre-wrap;white-space:-pre-wrap;
+    white-space: -o-pre-wrap;word-wrap:break-word;
+}
+
+.chat-text,
+.chat-user {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    white-space: pre-wrap;
+    max-width: 80%;
+}
+
+.chat-text img {
+    max-width: 100%;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.text-image {
+    padding: 0;
+    max-width: 50%;
+}
+.text-voice {
+    padding: 0;
+    max-width: 50%;
+}
+
+.chat-user {
+    position: absolute;
+    left: 3px;
+}
+
+.chat-text:after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border-style: solid dashed dashed;
+    border: 1px solid transparent;
+    border-right-color: #FFF;
+    overflow: hidden;
+    border-width: 5px;
+}
+.chat-text:before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 15px;
+    width: 0;
+    height: 0;
+    border-style: solid dashed dashed;
+    border: 1px solid transparent;
+    border-right-color: #DDD;
+    overflow: hidden;
+    border-width: 5px;
+}
+
+.chat-mine .chat-text:after {
+    left: auto;
+    right: -10px;
+    border-left-color: $brand;
+    border-right-color: transparent;
+}
+    .chat-mine .chat-text:before {
+    left: auto;
+    right: -11px;
+    border-right-color: transparent;
+    border-left-color: #DDD;
+}
+
+.chat-image .chat-text:before,
+.chat-image .chat-text:after {
+    border-color: transparent;
+}
+
+.foot {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    box-sizing: border-box;
+    bottom: 0px;
+    left: 0px;
+    border-top: 1px solid #DDD;
+    background-color: #F8F8F8;
+}
+.foot .record-btn,
+.foot .con {
+    display: block;
+    margin: 8px 68px 0 80px;
+    textarea {
+        border: 1px solid #DDD;
+        border-radius: 5px;
+        padding: 5px;
+        height: 35px;
+        line-height: 22px;
+        box-sizing: border-box;
+        resize: none;
+        width: 100%;
+        outline: none;
+        font-size: 14px;
+        overflow-y: auto;
+    }
+}
+.foot .record-btn {
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #666;
+    &.recording {
+        background: #DDD;
+    }
+}
+
+.icon {
+    font-size: 26px;
+    color: #666;
+    margin-top: 13px;
+    display: block;
+}
+.upload-wrap {
+    width: 30px;
+    margin-left: 10px;
+}
+.foot .icon-keyboard,
+.foot .icon-voice {
+    width: 30px;
+    margin-left: 5px;
+}
+
+.show {
+    display: block;
+}
+
+.left {
+    float: left;
+}
+
+.hide {
+    display: none;
+}
+
+.btn {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 32px;
+    margin-left: 5px;
+    padding: 0 10px;
+    background-color: $brand;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.btn-send {
+    float: right;
+    height: 32px;
+    line-height: 32px;
+    margin: 9px 10px 0 10px;
+    box-sizing: border-box;
+}
+.picture-btn {
+    font-size: 24px;
+    color: #666;
+    padding: 10px;
+    display: inline-block;
+}
+.recording-notice {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #FFF;
+    z-index: 100;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px;
+    top: 50%;
+    border-radius: 5px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .icon {
+        font-size: 130px;
+        color: #FFF;
+        position: absolute;
+        top: 10px;
+        left: -10px;
+    }
+    .recording {
+        animation: recording 2s infinite step-start;
+        background: url('/static/img/recording.png') no-repeat bottom center;
+        height: 0;
+        width: 62px;
+        left: 100px;
+        position: absolute;
+        z-index: 100;
+        bottom: 35px;
+    }
+    
+    @keyframes recording {
+        16% {
+           height: 10px;
+        }
+        32% {
+           height: 30px;
+        }
+        48% {
+            height: 50px;
+        }
+        64% {
+            height: 70px;
+        }
+        80% {
+           height: 92px;
+        }
+        100% {
+           height: 110px;
+        }
+    }
+}

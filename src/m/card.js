@@ -6,11 +6,11 @@
 'use strict';
 
 import Vue from 'vue';
-import FastClick from 'fastclick'
-import './card.scss'
-import Card from './components/Card.vue'
-import Toast from 'mint-ui/lib/toast'
-import 'mint-ui/lib/toast/style.css'
+import FastClick from 'fastclick';
+import './card.scss';
+import Card from './components/Card.vue';
+import Toast from 'mint-ui/lib/toast';
+import 'mint-ui/lib/toast/style.css';
 
 window.toast = function(msg) {
     Toast(msg);
