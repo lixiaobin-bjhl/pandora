@@ -19,9 +19,9 @@
 				</ol>
 			</div>
 			<div class="login-form">
-				<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名" type="tel"></mt-field>
+				<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名"></mt-field>
 				<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
-				<mt-field class="mobile-field" :disable-clear="true" type="number"  v-model.number="age" placeholder="年龄"></mt-field>
+				<mt-field class="mobile-field" :disable-clear="true" type="tel"  v-model.number="age" placeholder="年龄"></mt-field>
 				<div class="gender-wrap">
 					<label><input v-model="gender" :value="1" name="gender" type="radio">男</input></label>
 					<label><input v-model="gender" :value="2" name="gender" type="radio">女</input></label>
@@ -101,7 +101,7 @@
 					return;
 				} else {
 					if (this.mobile == '') {
-						Toast('手机号不能为空');
+						Toast('请填写手机号');
 						return;
 					}
 					if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
@@ -126,19 +126,19 @@
 			},
 			bind() {
 				if (this.name == '') {
-					Toast('姓名不能为空');
+					Toast('请填写姓名');
 					return;
 				}
 				if (this.mobile == '') {
-					Toast('手机号不能为空');
+					Toast('请填写手机号');
 					return;
 				}
 				if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
-					Toast('请输入正确的手机号');
+					Toast('请填写正确的手机号');
 					return;
 				}
 				if (this.age == '') {
-					Toast('请输入年龄');
+					Toast('请填写年龄');
 					return;
 				}
 				if (!this.gender) {

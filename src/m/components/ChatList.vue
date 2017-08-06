@@ -3,7 +3,7 @@
         <div class="recording-notice clearfix" v-if="recording">
             <div class="icon icon-record"></div>
             <div class="recording">
-               
+                录音中…
             </div>  
         </div>
         <section class="chatlist">
@@ -328,7 +328,7 @@ export default {
                 this.scrollToBottom();
             } else if (data.type == 'LOGIN_INFO') {
                 this.userInfo = data.userInfo;
-                this.setTitle(data.chatUser.name || '');
+                this.setTitle(('咨询' + data.chatUser.name) || '');
                 setTimeout(()=> {
                     this.getWechatJsSign();
                 });
@@ -530,43 +530,43 @@ export default {
             // }, 1000)
 
 
-    //      setTimeout(()=> {
-    //         this.receiveMessage([{
-    //             fromUserName: '客户A',
-    //             fromUserId: 1,
-    //             toUserName: '护士-周希',
-    //             toUserId: 2,
-    //             createTime: 1495642398371,
-    //             fromUserRole: 2,
-    //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-    //             msgType: 'text',
-    //             msgId: 0,
-    //             msgContent: {
-    //                 content: "12312",
-    //                 // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-    //                 voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-    //             }
-    //         }]);
-    //     }, 1500)
+        //  setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName: '客户A',
+        //         fromUserId: 1,
+        //         toUserName: '护士-周希',
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserRole: 2,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         msgType: 'text',
+        //         msgId: 0,
+        //         msgContent: {
+        //             content: "12312",
+        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+        //         }
+        //     }]);
+        // }, 1500)
 
-    //      setTimeout(()=> {
-    //         this.receiveMessage([{
-    //             fromUserName: '客户A',
-    //             fromUserId: 1,
-    //             toUserName: '护士-周希',
-    //             toUserId: 2,
-    //             createTime: 1495642398371,
-    //             fromUserRole: 1,
-    //             fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
-    //             msgType: 'text',
-    //             msgId: 0,
-    //             msgContent: {
-    //                 content: "12312",
-    //                 // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
-    //                 voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
-    //             }
-    //         }]);
-    //     }, 1500)
+        //  setTimeout(()=> {
+        //     this.receiveMessage([{
+        //         fromUserName: '客户A',
+        //         fromUserId: 1,
+        //         toUserName: '护士-周希',
+        //         toUserId: 2,
+        //         createTime: 1495642398371,
+        //         fromUserRole: 1,
+        //         fromUserAvatar: 'http://omh2h1x76.bkt.clouddn.com/user.png', 
+        //         msgType: 'text',
+        //         msgId: 0,
+        //         msgContent: {
+        //             content: "12312",
+        //             // voiceUrl: 'http://oqpq939qh.bkt.clouddn.com/iXlsYqVnHVWdLRBU3HSOZHPj0_jt9S9g_NNrVAL2cbHBEvRzTXTDZymX40L3H8JM.amr'
+        //             voiceUrl: 'http://file.gsxservice.com/17731219_jyacy0y8.mp3'
+        //         }
+        //     }]);
+        // }, 1500)
     }
     // updated:function(){
     //     this.scrollToBottom();

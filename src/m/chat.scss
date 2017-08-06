@@ -6,6 +6,7 @@
     width: 100%;
     box-sizing: border-box;
     position: absolute;
+    background: #f6f4f6;
     padding: 0 10px 10px 10px;
     top: 0;
     bottom: 48px;
@@ -74,6 +75,7 @@
     text-align: left;
     background-color: $brand;
     color: #fff;
+    border-color: lighten($brand, 1%);
 }
 
 .mine-image .chat-text {
@@ -198,6 +200,7 @@
         resize: none;
         width: 100%;
         outline: none;
+        -webkit-appearance: none;
         font-size: 14px;
         overflow-y: auto;
     }
@@ -276,27 +279,24 @@
     z-index: 100;
     box-sizing: border-box;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     top: 50%;
     border-radius: 5px;
     left: 50%;
     transform: translate(-50%, -50%);
     .icon {
-        font-size: 130px;
+        font-size: 120px;
         color: #FFF;
-        position: absolute;
-        top: 10px;
-        left: -10px;
     }
     .recording {
-        animation: recording 2s infinite step-start;
-        background: url('/static/img/recording.png') no-repeat bottom center;
-        height: 0;
-        width: 62px;
-        left: 100px;
-        position: absolute;
-        z-index: 100;
-        bottom: 35px;
+        // animation: recording 2s infinite step-start;
+        // background: url('/static/img/recording.png') no-repeat bottom center;
+        // height: 0;
+        // width: 62px;
+        // left: 100px;
+        // position: absolute;
+        // z-index: 100;
+        // bottom: 35px;
     }
     
     @keyframes recording {
