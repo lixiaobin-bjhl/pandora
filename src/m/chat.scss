@@ -6,10 +6,11 @@
     width: 100%;
     box-sizing: border-box;
     position: absolute;
-    background: #f6f4f6;
-    padding: 0 10px 10px 10px;
+    background: #F5F5F5;;
+    padding: 0 10px 0 10px;
     top: 0;
-    bottom: 48px;
+    z-index: 5;
+    bottom: 50px;
     left: 0px;
     right: 0px;
 }
@@ -85,6 +86,7 @@
 .mint-loadmore {
     height: 100%;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .chat-text {
@@ -179,12 +181,13 @@
 .foot {
     width: 100%;
     height: 50px;
-    position: fixed;
+    position: absolute;
     box-sizing: border-box;
     bottom: 0px;
+    z-index: 6;
     left: 0px;
-    border-top: 1px solid #DDD;
-    background-color: #F8F8F8;
+    border-top: 1px solid #C0C0C4;
+    background-color: #F7F7F7;;
 }
 .foot .record-btn,
 .foot .con {
