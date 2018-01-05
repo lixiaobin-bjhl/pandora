@@ -27,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
       'process.env': config.dev.env
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
@@ -35,6 +35,18 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'chat.html',
       template: 'chat.html',
       chunks: ['chat'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'main.html',
+      template: 'main.html',
+      chunks: ['app'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'login.html',
+      template: 'login.html',
+      chunks: ['login'],
       inject: true
     }),
     new HtmlWebpackPlugin({

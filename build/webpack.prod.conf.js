@@ -99,6 +99,22 @@ var webpackConfig = merge(baseWebpackConfig, {
       
     }),
     new HtmlWebpackPlugin({
+      filename: 'main.html',
+      template: 'main.html',
+      inject: true,
+      chunksSortMode: 'dependency',
+      chunks: ['vendor', 'app'],
+      
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'login.html',
+      template: 'login.html',
+      inject: true,
+      chunksSortMode: 'dependency',
+      chunks: ['vendor', 'login'],
+      
+    }),
+    new HtmlWebpackPlugin({
       filename: 'card.html',
       template: 'card.html',
       inject: true,

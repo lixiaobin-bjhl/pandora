@@ -1,0 +1,9 @@
+.breadcrumb-nav {
+    > p {
+        display: inline-block;
+        line-height: 30px;
+        & + p {
+            margin-left: 5px;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+// 头像统一样式
+
+.avatar-small {
+    @include circle-image(30px);
+}
+.avatar {
+    @include circle-image(40px);
+}
+.avatar70 {
+    @include circle-image(70px);
+}
+.avatar90 {
+    @include circle-image(90px);
+}

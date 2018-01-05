@@ -1,0 +1,72 @@
+/**
+ * @file mixin
+ * @author chenwen(chenwen@baijiahulian.com)
+ */
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin flex-container() {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+}
+
+@mixin center() {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@mixin list-items($count) {
+    float: left;
+    width: 100%/$count;
+}
+
+@mixin circle($size, $txt-color, $bg-color) {
+    width: $size;
+    height: $size;
+    line-height: $size;
+    border-radius: 50%;
+    text-align: center;
+    color: $txt-color;
+    background: $bg-color;
+}
+
+@mixin circle-image($size) {
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+}
+
+@mixin line-height($size) {
+    font-size: $size;
+    line-height: 1;
+}
+
+@mixin text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Placeholder text
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color !important;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder { color: $color !important; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: $color !important; } // Safari and Chrome
+}

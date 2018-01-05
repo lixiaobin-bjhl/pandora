@@ -1,0 +1,193 @@
+/**
+ * @file main css样式文件
+ */
+
+ @import './variables';
+ @import './mixin';
+ @import './extends';
+ @import './elementTheme';
+ @import './global';
+ @import './extends';
+ @import './vueTransitions';
+ @import './avatar';
+
+ @import './components/circleProcess';
+ @import './components/breadcrumbNav';
+ @import './components/customerDetail';
+
+ 
+ .main {
+     box-sizing: border-box;
+     min-width: 1265px;
+     height: 100%;
+     padding: 50px 0 0 160px;
+     > div {
+         padding: 12px 20px;
+     }
+     .module-title {
+         margin: 0 0 12px;
+         font-weight: normal;
+         color: $text-color-base;
+         .el-col {
+             &:first-child {
+                 .el-breadcrumb__item__inner {
+                     line-height: 30px;
+                 }
+             }
+             &:nth-child(2) {
+                 text-align: right;
+                 .el-dropdown {
+                     margin-left: 10px;
+                 }
+             }
+         }
+     }
+     .list-box {
+         @extend %clearfix;
+         padding: 20px;
+         border: 1px solid red;
+         background-color: $color-white;
+         border: 1px solid $border-color-base;
+         border-radius: $border-radius-base;
+ 
+         .filter-box,
+         .btn-box {
+             padding: 20px 0;
+             border-radius: 4px;
+             .el-autocomplete {
+                 display: block;
+             }
+         }
+         .filter-box {
+             .filter-type {
+                 font-size: $font-size-small;
+                 line-height: 30px;
+                 text-align: right;
+                 cursor: pointer;
+                 i {
+                     margin-right: 5px;
+                 }
+             }
+             .el-row + .el-row {
+                 margin-top: 10px;
+                 font-size: $font-size-small;
+                 .el-radio__label {
+                     font-size: $font-size-small;
+                 }
+             }
+             .el-input-group__prepend,
+             .prepend {
+                 .el-select {
+                     width: 85px;
+                     .el-input--suffix {
+                         .el-input__inner {
+                             padding-right: 25px;
+                         }
+                     }
+                     .el-input__suffix {
+                         right: 4px;
+                     }
+                 }
+             }
+             .el-col-8:nth-child(n + 4) {
+                 margin-top: 10px;
+             }
+         }
+         .btn-box {
+             text-align: right;
+             @extend %clearfix;
+ 
+             p {
+                 float: left;
+                 padding: 7px 10px;
+                 background-color: $tag-warning-bg-color;
+                 border: 1px solid $tag-warning-border-color;
+                 border-radius: $border-radius-base;
+                 span {
+                     color: $text-color-base;
+                     font-size: $font-size-small;
+                 }
+                 i {
+                     color: #ffcb3c;
+                     & + span {
+                         color: $text-color-base;
+                     }
+                 }
+ 
+                 // 第一个批量操作按钮为蓝色
+                 & + .el-button {
+                     @extend .btn-primary;
+                     &:hover {
+                         opacity: .8;
+                     }
+                 }
+                 // 第一个批量操作按钮禁用状态
+                 & + .el-button.is-disabled {
+                     @extend .btn-disable;
+                 }
+             }
+ 
+             button {
+                 & + button {
+                     margin-left: 3px;
+                 }
+             }
+         }
+     }
+ 
+     .el-tabs {
+         margin: -20px -20px 0;
+         .el-tabs__header {
+             margin: 0;
+         }
+     }
+ 
+     .pagination {
+         text-align: right;
+         padding-top: 20px;
+     }
+ 
+     .pswp {
+         z-index: 4500;
+     }
+ 
+     td.clickable-td {
+         .cell {
+             @extend .clickable-text-blue;
+             span {
+                 @extend .clickable-text;
+                 @extend .clickable-text-blue;
+             }
+         }
+     }
+ }
+ .rule-field-popover {
+     color: $text-color-base;
+     line-height: 20px;
+ }
+ .second-page-wrap {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     z-index: 7;
+     box-sizing: border-box;
+     padding: 0 0 0 160px;
+     margin-top: 50px;
+     background-color: $body-bg-color;
+     overflow-x: auto;
+     .wrap-content {
+         min-width: 1045px;
+         padding: 12px 20px;
+     }
+ }
+
+.material-list {
+    position: relative;
+    margin: 12px 20px;
+}
+.pager {
+    text-align: center;
+    margin-top: 10px;
+}

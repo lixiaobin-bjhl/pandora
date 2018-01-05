@@ -275,9 +275,9 @@ export default {
         initScoket () {
             var host = location.host;
             // 本地环境不加载socket
-            if (host.indexOf('192') > -1 || host.indexOf('localhost') > -1) {
-                return;
-            }
+            // if (host.indexOf('192') > -1 || host.indexOf('localhost') > -1) {
+            //     return;
+            // }
             var search = getUrlSearch();
             var openId = search.openId;
             var chatUserId = search.chatUserId;
