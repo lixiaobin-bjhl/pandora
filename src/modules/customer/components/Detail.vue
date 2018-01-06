@@ -9,112 +9,95 @@
                             @back="enterList"
                         ></breadcrumb-nav>
                     </el-col>
+                    <el-col :span="12">
+                        <el-button type="primary" @click="modifyCustomer">编辑客户</el-button>
+                        <el-button @click="addItem">添加项目</el-button>
+                    </el-col>
                 </el-row>
-                <!-- <div class="module-content">
+                <div class="module-content">
                     <section class="profile">
                         <ul>
                             <li>
-                                <img class="avatar90" :src="profile.imgUrl | compressImage(90, 90)">
+                                <img class="avatar90" :src="'https://imgs.genshuixue.com/25267315_nlv2x0kt.png' | compressImage(90, 90)">
                                 <name-gender :name="profile.name" :isFemale="profile.gender == 1" :hideGender="profile.gender === null"></name-gender>
-                                <p class="phone">{{ profile.mobile | phone}}</p>
-                            </li>
-                            <li class="tags">
-                                <h3>标签</h3>
-                                <p v-if="profile.tags.length">
-                                    <el-tag
-                                        v-for="tag in profile.tags"
-                                        :key="tag"
-                                        type="gray">{{ tag }}</el-tag>
-                                </p>
-                                <p class="no-tag" v-else>暂无标签</p>
+                                <p class="phone">{{ profile.mobile|phone}}</p>
                             </li>
                             <li class="key-info info-list">
-                                <h3>关键信息</h3>
-                                <ul v-if="type == 2">
-                                    <li>
-                                        <label>最后跟进日期</label>
-                                        <span>{{ profile.lastFollowTime | date('yyyy-MM-dd') || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>最后操作日期</label>
-                                        <span>{{ profile.lastRemindTime | date('yyyy-MM-dd') || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>剩余跟进时间</label>
-                                        <span>{{ profile.remainingDayNum ? (profile.remainingDayNum + '天') : '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>来源</label>
-                                        <span>{{ profile.consultSource || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>跟进状态</label>
-                                        <span>{{ profile.consultStatus || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>意向级别</label>
-                                        <span>{{ profile.intensionLevel || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>课程顾问</label>
-                                        <span>{{ profile.cascadeId || '--' }}</span>
-                                    </li>
-                                </ul>
-                                <ul v-else>
-                                    <li>
-                                        <label>最后跟进日期</label>
-                                        <span>{{ profile.lastFollowTime | date('yyyy-MM-dd') || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>最后操作日期</label>
-                                        <span>{{ profile.lastRemindTime | date('yyyy-MM-dd') || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>班主任</label>
-                                        <span>{{ profile.headTeacher || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>来源</label>
-                                        <span>{{ profile.source || '--' }}</span>
-                                    </li>
-                                    <li>
-                                        <label>储值账户余额</label>
-                                        <span v-if="profile.balance !== null" class="clickable-text clickable-text-blue" @click="showBalance">{{ profile.balance | currency }}</span>
-                                        <span v-else>--</span>
-                                    </li>
-                                    <li>
-                                        <label>状态</label>
-                                        <span>{{ profile.status | stuStatus }}</span>
-                                    </li>
+                                <h3>主要信息</h3>
+                                <ul>
                                     <li>
                                         <label>课程顾问</label>
                                         <span>{{ profile.cascadeId || '--' }}</span>
                                     </li>
                                     <li>
-                                        <label>学生个人中心</label>
-                                        <span>{{ profile.stuCenterBindStatus || '--' }}</span>
+                                        <label>咨询顾问</label>
+                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                    </li>
+                                    <li>
+                                        <label>客户来源</label>
+                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                    </li>
+                                    <li>
+                                        <label>添加时间</label>
+                                        <span>{{ profile.cascadeId || '--' }}</span>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </section>
-                    <section class="add-follow-record-wrap" v-if="canEdit">
-                        <el-input v-if="!addFollowRecordVisible" placeholder="添加跟进记录..." @focus="showAddFollowRecord"></el-input>
-                        <add-follow-record ref="addFollowRecord" v-if="addFollowRecordVisible" :type="type" :id="materialId" @addsuccess="refreshFollowRecord"></add-follow-record>
-                    </section>
                     <section class="info">
-                        <el-tabs v-model="currentInfo">
-                            <el-tab-pane
-                                v-for="item in detailcommonConfig.tabs"
-                                :key="item.name"
-                                :label="item.showName"
-                                v-if="(item.auth && !$TX_NOAUTH[item.auth]) || !item.auth"
-                                :name="item.name"
-                            ></el-tab-pane>
-                        </el-tabs>
-                        <component :is="currentInfo" :id="materialId" :type="type" :info="componentInfo"></component>
+                        <h1>基本信息</h1>
+                        <el-row>
+                            <el-col :span="12">
+                                <label>微信昵称</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户姓名</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户手机</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户性别</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户生日</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户年龄</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>客户来源</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>咨询顾问</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>公众号</label><span>123</span>
+                            </el-col>
+                            <el-col :span="12">
+                                <label>添加时间</label><span>123</span>
+                            </el-col>
+                        </el-row> 
+                        <h1>卡劵信息(10)</h1>
+                        <el-radio-group v-model="type">
+                            <el-radio-button label="1">未使用(2)</el-radio-button>
+                            <el-radio-button label="2">已使用(1)</el-radio-button>
+                            <el-radio-button label="3">已过期(1)</el-radio-button>
+                        </el-radio-group> 
+                        <div>
+                            <ul>
+                                <li>脱毛免费体验劵</li>
+                                <li>有效期:123132</li>
+                                <li>使用规则:123132</li>
+                                <li>
+                                    <el-button @click="couponDetail">详情</el-button>
+                                    <el-button type="primary" @click="useCoupon">使用</el-button>
+                                </li>
+                            </ul>
+                        </div>
                     </section>
-                </div> -->
+                </div>
             </div>
         </div>
     </transition>
@@ -123,12 +106,19 @@
 <script>
     import BreadcrumbNav from '../../../common/components/BreadcrumbNav.vue';
     import hideScroll from '../../../common/function/hideScroll';
+    import NameGender from '../../../common/components/NameGender.vue';
 
     export default {
         data () {
             return {
                  breadcrumb: ['客户档案', '档案详情'],
                  fullscreenLoading: false,
+                 type: '1',
+                 profile: {
+                     name: '李小斌',
+                     gender: 1,
+                     mobile: 13211112222
+                 }
             }
         },
        
@@ -136,7 +126,8 @@
            
         },
         components: {
-            BreadcrumbNav
+            BreadcrumbNav,
+            NameGender
         },
         created () {
             // 详情页打开时，隐藏当窗口缩小时列表页出现的滚动条
@@ -148,6 +139,35 @@
             // }
         },
         methods: {
+            /**
+             * 编辑客户 
+             */
+            modifyCustomer () {
+                this.$store.commit('SHOW_ADD_CUSTOMER_DETIAL');
+            },
+            /**
+             * 添加项目 
+             */
+            addItem () {
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL');
+            },
+            /**
+             * 优惠卷详情 
+             */
+            couponDetail () {
+                this.$store.commit('SHOW_COUPON_DETIAL');
+            },
+            /**
+             * 使用优惠券 
+             */
+            useCoupon () {
+                this.$confirm('确认使用优惠券?客户将在机构公众号收到使用提醒', '提醒', {
+                    type: 'warning'
+                })
+                .then(() => {
+                    console.log(12312);
+                })
+            },
             /**
              * 获取详情
              */
@@ -167,86 +187,12 @@
                         setTimeout(this.enterList);
                     });
             },
-
-            /**
-             * 格式化信息数据
-             */
-            updateData (data) {
-                let basicInfo = [];
-                let otherInfo = [];
-
-                if (this.type == 2) {
-                    this.profile.remainingDayNum = data.remainingDayNum;
-                }
-                else {
-                    this.profile.balance = data.balance;
-                    this.profile.status = data.status;
-                    this.profile.headTeacher = data.headTeacher;
-                    this.profile.stuCenterBindStatus = data.stuCenterBindStatus === 1 ? '已绑定' : '未绑定';
-                }
-                this.profile.lastRemindTime = data.lastRemindTime;
-                this.profile.lastFollowTime = data.lastFollowTime;
-
-                data.fields.forEach((field) => {
-                    if (field.type == 1 && field.values && field.values.content) {
-                        if (field.key == 'name') {
-                            this.profile.name = field.values.content;
-                        }
-
-                        if (field.key == 'mobile') {
-                            this.profile.mobile = field.values.content;
-                        }
-                    }
-
-                    if (field.type == 2 && field.values && field.values.id !== null) {
-                        if (field.key == 'sex') {
-                            this.profile.gender = field.values.id;
-                        }
-                        if (['source', 'cascadeId', 'intensionLevel', 'consultStatus', 'consultSource'].indexOf(field.key) > -1) {
-                            this.profile[field.key] = field.values.value;
-                        }
-                    }
-
-                    if (field.type == 3 && field.values
-                        && field.values.options && field.values.options[0]) {
-                        var optionNames = [];
-                        field.values.options.forEach((option) => {
-                            optionNames.push(option.value);
-                        });
-
-                        field['optionStr'] = optionNames.join(', ');
-                    }
-
-                    if (field.type == 8 && field.key == 'avatarUrl,storageId'
-                        && field.values) {
-                        this.profile.imgUrl = field.values.url;
-                    }
-
-                    if (field.type == 10 && field.values && field.values.tags) {
-                        this.profile.tags = field.values.tags;
-                    }
-
-                    if (field.key != 'avatarUrl,storageId') {
-                        if (field.sectionId == 1) {
-                            basicInfo.push(field);
-                        }
-                        else {
-                            otherInfo.push(field);
-                        }
-                    }
-                });
-
-                // 提前清空，避免数据重复
-                this.detailData = [];
-                this.detailData.push({sectionId:1, label: '基本信息', data: basicInfo});
-                this.detailData.push({sectionId:2, label: '其他信息', data: otherInfo});
-            },
-
+            
             /**
              * 返回列表页
              */
             enterList () {
-                this.$store.commit('HIDE_CUSTOMER_DETAIL');
+                this.$store.commit('HIDE_CUSTOMER_DETIAL');
             },
 
             /**

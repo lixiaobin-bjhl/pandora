@@ -1,0 +1,107 @@
+.material-detail-wrap {
+    @extend .second-page-wrap;
+    section {
+        background-color: $color-white;
+        border: 1px solid $border-color-base;
+        border-radius: $border-radius-base;
+
+        & + section {
+            margin-left: 272px;
+            padding: 20px;
+        }
+        &.profile {
+            float: left;
+            width: 252px;
+            > ul {
+                > li {
+                    padding: $list-item-padding-large;
+                    border-top: 1px solid #eee;
+                    &:first-child {
+                        border: none;
+                        text-align: center;
+                        .name-gender-component {
+                            display: block;
+                            margin: 10px 0;
+                            > span {
+                                @include line-height($font-size-larger);
+                            }
+                            > i {
+                                font-size: $font-size-small;
+                            }
+                        }
+                        .phone {
+                            color: $text-color-light;
+                        }
+                    }
+                    &.tags {
+                        padding-bottom: 12px;
+                        > p {
+                            margin-top: 15px;
+                            > span {
+                                margin: 0 8px 8px 0;
+                            }
+
+                            &.no-tag {
+                                @include line-height($font-size-small);
+                                text-align: center;
+                                color: $text-color-light;
+                                margin-bottom: 8px;
+                            }
+                        }
+                    }
+                    &.info-list {
+                        label {
+                            width: 80px;
+                        }
+                    }
+                }
+            }
+        }
+        &.add-follow-record-wrap {
+            margin-bottom: 20px;
+            padding: 20px;
+            > .el-input {
+                .el-input__inner {
+                    height: 40px;
+                    font-size: $font-size-base;
+                }
+            }
+        }
+
+        .info-detail,
+        .course {
+            padding-top: 20px;
+            label {
+                margin-right: 20px;
+            }
+        }
+
+        .info-list {
+            @include line-height($font-size-base);
+            ul {
+                margin-top: 15px;
+                li {
+                    @include flex-container();
+                    align-items: center;
+
+                    label {
+                        width: 108px;
+                        margin-right: 15px;
+                        flex-shrink: 0;
+                    }
+                    label,
+                    span {
+                        word-break: break-all;
+                    }
+                    &:not(:last-child) {
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+
+        label {
+            color: $text-color-light;
+        }
+    }
+}

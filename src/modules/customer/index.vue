@@ -78,6 +78,18 @@
                     prop="date"
                     fixed="right"
                     label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip placement="top" content="编辑客户">
+                            <span
+                                @click="modifyCustomer"
+                                class="el-icon-edit-outline"></span>
+                        </el-tooltip>
+                        <el-tooltip placement="top" content="添加项目">
+                            <span 
+                                @click="addItem"
+                                class="el-icon-circle-plus"></span>
+                        </el-tooltip>
+                    </template>
                 </el-table-column>
             </el-table>
             <pager 
@@ -90,6 +102,12 @@
             ref="detail"
             v-if="$store.state.customer.showDetailState"
             ></detail>
+        <coupon 
+            v-if="$store.state.customer.showCouponState"></coupon>
+        <add-item 
+            v-if="$store.state.customer.showAddItemState"></add-item>
+        <customer 
+            v-if="$store.state.customer.showAddCustomerState"></customer>
     </div>
    
 </template>
@@ -98,6 +116,9 @@
 
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import Detail from './components/Detail.vue';
+    import Coupon from './components/Coupon.vue';
+    import AddItem from './components/AddItem.vue';
+    import Customer from './components/Customer.vue';
     import listPageDto from '../../common/mixin/listPageDto';
 
     export default {
@@ -113,21 +134,36 @@
         },
         methods: {
             /**
+             * 编辑客户 
+             */
+            modifyCustomer () {
+                this.$store.commit('SHOW_ADD_CUSTOMER_DETIAL');
+            },
+            /**
+             * 添加项目 
+             */
+            addItem () {
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL');
+            },
+            /**
              * 返回列表页
              */
             enterList () {
-                this.$store.commit('HIDE_DETAIL_DETAIL');
+                this.$store.commit('HIDE_DETIAL_DETIAL');
             },
             /**
              * 进入详情
              */
             enterDetail (id) {
-                this.$store.commit('SHOW_CUSTOMER_DETAIL', id);
+                this.$store.commit('SHOW_CUSTOMER_DETIAL', id);
             }
         },
         components: {
             BreadcrumbNav,
-            Detail
+            Detail,
+            AddItem,
+            Customer,
+            Coupon
         }
     }
 </script>

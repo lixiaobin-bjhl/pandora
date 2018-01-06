@@ -1,6 +1,5 @@
 /**
  * @fileOverview 分钟格式化
- * @author Chenwen(chenwen@baijiahulian.com)
  */
 
 'use strict';
