@@ -79,26 +79,6 @@ var webpackConfig = merge(baseWebpackConfig, {
     //   chunksSortMode: 'dependency'
     // }),
     new HtmlWebpackPlugin({
-      filename: 'chat.html',
-      template: 'chat.html',
-      chunks: ['vendor', 'chat'],
-      inject: true,
-      chunksSortMode: 'dependency',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'bindTel.html',
-      template: 'bindTel.html',
-      inject: true,
-      chunksSortMode: 'dependency',
-      chunks: ['vendor', 'bindTel'],
-      
-    }),
-    new HtmlWebpackPlugin({
       filename: 'main.html',
       template: 'main.html',
       inject: true,
@@ -113,25 +93,6 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency',
       chunks: ['vendor', 'login'],
       
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'card.html',
-      template: 'card.html',
-      inject: true,
-      chunksSortMode: 'dependency',
-      chunks: ['vendor', 'card']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'patientIndex.html',
-      template: 'patientIndex.html',
-      inject: true,
-      chunksSortMode: 'dependency',
-      chunks: ['vendor', 'patientIndex']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'browserError.html',
-      template: 'browserError.html',
-      inject: false
     })
   ]
 })

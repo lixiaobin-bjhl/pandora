@@ -20,11 +20,7 @@ module.exports = {
     entry: {
         vendor: ['vue'],
         app: './src/main.js',
-        login: './src/login.js',
-        chat: './src/m/chat.js',
-        bindTel: ['./src/m/bindTel.js'],
-        card: ['./src/m/card.js'],
-        patientIndex: ['./src/m/patientIndex.js']
+        login: './src/login.js'
     },
     output: {
         path: config.build.assetsRoot,

@@ -32,12 +32,6 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'chat.html',
-      template: 'chat.html',
-      chunks: ['chat'],
-      inject: true
-    }),
-    new HtmlWebpackPlugin({
       filename: 'main.html',
       template: 'main.html',
       chunks: ['app'],
@@ -48,29 +42,6 @@ module.exports = merge(baseWebpackConfig, {
       template: 'login.html',
       chunks: ['login'],
       inject: true
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'bindTel.html',
-      template: 'bindTel.html',
-      inject: true,
-      chunks: ['bindTel']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'card.html',
-      template: 'card.html',
-      inject: true,
-      chunks: ['card']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'patientIndex.html',
-      template: 'patientIndex.html',
-      inject: true,
-      chunks: ['patientIndex']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'browserError.html',
-      template: 'browserError.html',
-      inject: false
     })
   ]
 })
