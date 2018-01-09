@@ -1,0 +1,122 @@
+.import-dialog {
+    > .el-dialog {
+        width: 600px;
+        .el-dialog__footer {
+            padding: 0;
+            .modal-footer {
+                padding: $dialog-footer-padding;
+            }
+        }
+    }
+    .el-steps {
+        padding-left: 75px;
+    }
+    .el-upload__tip {
+        display: inline-block;
+        margin-left: 10px;
+    }
+    p {
+        color: $text-color-light;
+        line-height: 20px;
+    }
+    .upload-notice {
+        margin-top: 20px;
+        h2 {
+            margin-bottom: 10px;
+            > span {
+                font-size: 20px;
+                color: $link-color;
+                margin-right: 5px;
+            }
+            a {
+                margin: 0 5px;
+            }
+        }
+        > li {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+            ol {
+                margin-left: 20px;
+                > li {
+                    list-style: decimal;
+                    color: $text-color-light;
+                }
+            }
+        }
+        .upload-body {
+            padding: 0 20px;
+            @include line-height($font-size-base);
+            @include clearfix();
+
+            > li,
+            > p {
+                margin-bottom: 5px;
+            }
+
+            .el-radio__label {
+                font-size: $font-size-base;
+            }
+        }
+    }
+
+    .check-progress, .import-progress {
+        padding: 40px 0;
+        color: $text-color-light;
+        p {
+            line-height: 30px;
+        }
+        .el-progress-bar__innerText {
+            line-height: 28px;
+        }
+    }
+
+    .complete {
+        span {
+            @extend .vertical-middle;
+            margin: 0 3px;
+        }
+    }
+
+    .check-result, .complete {
+        color: $text-color-light;
+        padding-top: 20px;
+        >li {
+            text-align: center;
+            list-style: none;
+        }
+        .num {
+            text-align: left;
+        }
+        .sign {
+            margin-top: 40px;
+            text-align: center;
+            > span {
+                font-size: 100px;
+            }
+        }
+        .tip {
+            margin-top: 25px;
+            button {
+                margin-top: 10px;
+            }
+            .tip-fail {
+                padding-left: 5em;
+                p {
+                    width: 33em;
+                    text-align: left;
+                }
+            }
+            .tip-success {
+                text-align: center;
+            }
+        }
+        .text-blue {
+            color: $color-blue;
+        }
+    }
+    .text-gray {
+        color: $text-color-base;
+        font-weight: bold;
+    }
+}

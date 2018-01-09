@@ -140,7 +140,9 @@ textarea {
 .clearfix {
     @include clearfix;
 }
-
+.pointer {
+    cursor: pointer;
+}
 .clickable-text {
     color: $text-color-base;
     cursor: pointer;
