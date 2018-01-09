@@ -1,43 +1,55 @@
 <template>
       <el-dialog 
-        :title="accountItem ? '查看账号' : '添加账号'"
+        :title="teacherItem ? '查看教师' : '添加教师'"
         width="500px" 
-        :visible.sync="$store.state.account.showAddAccountState"
+        :visible.sync="$store.state.teacher.showAddTeacherState"
         >       
-        <el-form :model="form" ref="form" :rules="addAccountRule" label-position="top">
+        <el-form :model="form" ref="form" :rules="addTeacherRule" label-position="top">
            <el-row :gutter="10">
                <el-col :span="24">
-                    <el-form-item label="账号" prop="accountName">
-                        <el-input v-model.trim="form.accountName" 
-                        :disabled="accountItem ? true: false" :maxlength="50" placeholder="账号(50字内)"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24" v-if="!accountItem">
-                    <el-form-item label="密码" prop="password">
-                        <el-input v-model.trim="form.password" :maxlength="50" placeholder="请输入密码"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                    <el-form-item label="校区" prop="userName">
+                    <el-form-item label="教师姓名" prop="teacherName">
                         <el-input 
-                        v-model.trim="form.userName"
-                        :disabled="accountItem ? true: false" 
-                        :maxlength="20" placeholder="请输入名字"></el-input>
+                        v-model.trim="form.teacherName" 
+                        :disabled="teacherItem ? true: false" 
+                        :maxlength="20" 
+                        placeholder="教师姓名(20字内)"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label="科目" prop="teacherName">
+                        <el-select
+                            :disabled="teacherItem ? true: false"
+                            v-model.trim="form.teacherName"></el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item label=" ">
+                        <el-select
+                            :disabled="teacherItem ? true: false"
+                            v-model.trim="form.teacherName">
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="负责人" prop="userName">
+                    <el-form-item label="教师类型" prop="userName">
+                        <el-select 
+                        :disabled="teacherItem ? true: false" 
+                        v-model.trim="form.teacherName"></el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                    <el-form-item label="所属校区" prop="userName">
                         <el-input
-                        :disabled="accountItem ? true: false"
+                        :disabled="teacherItem ? true: false"
                         v-model.trim="form.userName" 
                         :maxlength="20" 
-                        placeholder="请输入负责人"></el-input>
+                        placeholder="请输入所属校区"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
                         <el-input v-model.trim="form.remark"
-                            :disabled="accountItem ? true: false" 
+                            :disabled="teacherItem ? true: false" 
                             type="textarea" 
                             :maxlength="100" 
                             :autosize="{minRows: 2,maxRows: 5}" 
@@ -49,7 +61,7 @@
         <div slot="footer">
             <el-button @click="cancel">取消</el-button>
             <el-button 
-                :disabled="loading || accountItem? true : false" 
+                :disabled="loading || teacherItem? true : false" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>
@@ -65,14 +77,14 @@
 
     export default   {
         computed: {
-            accountItem () {
-                return this.$store.state.account.account;
+            teacherItem () {
+                return this.$store.state.teacher.teacher;
             }
         },
         data () {
             return  {
                 fetchAgencyLoading: false,
-                addAccountRule: config.addAccountRule,
+                addTeacherRule: config.addTeacherRule,
                 roleOptions: config.roleOptions,
                 rtmOptions: config.rtmOptions,
                 agencyList: [],
@@ -84,7 +96,7 @@
                 ],
                 agencyName: '',
                 form: {
-                    accountName: '',
+                    teacherName: '',
                     userName: '',
                     password: '',
                     roleType: '',
@@ -97,11 +109,11 @@
             }
         },
         mounted () {
-            var accountItem = this.accountItem;
-            // if (accountItem) {
-            //     Object.assign(this.form, accountItem);
+            var teacherItem = this.teacherItem;
+            // if (teacherItem) {
+            //     Object.assign(this.form, teacherItem);
             //     detail({
-            //         id: accountItem.id
+            //         id: teacherItem.id
             //     })
             //     .then((res)=> {
             //         var data = res.data;
@@ -158,16 +170,16 @@
              * 取消添加
              */
             cancel () {
-                this.$store.commit('HIDE_ADD_ACCOUNT');
+                this.$store.commit('HIDE_ADD_TEACHER');
             },
             ok () {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
-                        var isEdit = accountItem ? true : false;
+                        var teacherItem = this.teacherItem;
+                        var isEdit = teacherItem ? true : false;
                         var form = this.form;
                         var params = {
-                            accountName: form.accountName,
+                            teacherName: form.teacherName,
                             userName: form.userName,
                             roleType: form.roleType,
                             remark: form.remark,
@@ -176,7 +188,7 @@
                         };
                         if (isEdit) {
                             Object.assign(params, {
-                                id: accountItem.id
+                                id: teacherItem.id
                             });
                         } else {
                             Object.assign(params, {
