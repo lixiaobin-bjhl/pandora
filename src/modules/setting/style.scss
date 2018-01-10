@@ -1,0 +1,28 @@
+.notice-item-dialog {
+    .add-item-btn {
+        color: $link-color;
+        cursor: pointer;
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+    .unit-item {
+        .el-form-text {
+            margin-bottom: 10px;
+            .el-form-item__label {
+                // float: left;
+            }
+            .el-form-item__content {
+                overflow: hidden;
+            }
+        }
+        margin-bottom: 10px;
+        .icon {
+            font-size: 20px;
+            cursor: pointer;
+            &:hover{
+                color: $color-blue;
+            }
+        }
+    }
+}

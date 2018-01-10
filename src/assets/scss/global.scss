@@ -78,6 +78,7 @@ textarea {
 // table无数据时统一样式
 .none-list {
     text-align: center;
+    clear: both;
     padding: 3rem;
     color: $text-color-light;
     min-width: 98px;

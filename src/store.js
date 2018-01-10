@@ -11,6 +11,7 @@ import mutations from './mutations';
 import actions from './actions';
 
 import customer from './modules/customer/store';
+import notice from './modules/setting/store';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     mutations,
     actions,
     modules: {
-        customer
+        customer,
+        notice
     }
 });

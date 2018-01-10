@@ -4,7 +4,7 @@
             <el-col :span="12">
                 <breadcrumb-nav
                     @back="enterList"
-                    :data="breadcrumb" ></breadcrumb-nav>
+                    :data="breadcrumb"></breadcrumb-nav>
             </el-col>
         </el-row>
         <div class="list-box">
