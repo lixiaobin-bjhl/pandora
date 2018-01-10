@@ -44,6 +44,16 @@
                             placeholder="请输入备注"></el-input>
                     </el-form-item>
                 </el-col>
+                <el-col :span="24">
+                    <el-form-item label="备注" prop="remark">
+                        <el-input v-model.trim="form.remark"
+                            :disabled="accountItem ? true: false" 
+                            type="textarea" 
+                            :maxlength="100" 
+                            :autosize="{minRows: 2,maxRows: 5}" 
+                            placeholder="请输入备注"></el-input>
+                    </el-form-item>
+                </el-col>
            </el-row>
         </el-form>
         <div slot="footer">

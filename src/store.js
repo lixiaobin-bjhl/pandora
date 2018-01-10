@@ -10,6 +10,8 @@ import mutations from './mutations';
 import actions from './actions';
 import account from './modules/account/store';
 import teacher from './modules/teacher/store';
+import equipment from './modules/equipment/store';
+import course from './modules/course/store';
 
 Vue.use(Vuex);
 
@@ -22,6 +24,8 @@ export default new Vuex.Store({
     actions,
     modules: {
         account,
-        teacher
+        teacher,
+        equipment,
+        course
     }
 });

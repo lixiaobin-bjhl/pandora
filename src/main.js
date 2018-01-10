@@ -23,6 +23,7 @@ require('./common/filter/minuteStr');
 require('./common/filter/maxDigital');
 require('./common/filter/compressImage');
 require('./common/filter/phone');
+require('./common/filter/minute');
 
 
 Vue.component('Pager', require('./common/components/Pager.vue'));

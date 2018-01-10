@@ -1,0 +1,19 @@
+.course-list {
+    @extend %clearfix;
+    > ul {
+        float: left;
+        width: 25%;
+        margin-bottom: 20px;
+        text-align: center;
+        .opt {
+            .el-button {
+                padding: 0;
+            }
+        }
+    }
+    @media screen and (min-width: 1920px) {  
+        > ul {
+            width: 20%;
+        }
+    }
+}
