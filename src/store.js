@@ -12,6 +12,7 @@ import actions from './actions';
 
 import customer from './modules/customer/store';
 import notice from './modules/setting/store';
+import discounts from './modules/discounts/store';
 
 Vue.use(Vuex);
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     actions,
     modules: {
         customer,
+        discounts,
         notice
     }
 });

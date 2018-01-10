@@ -16,7 +16,7 @@
                 label="活动名称"
             >  
                 <template slot-scope="scope">
-                    <a href="javascript:;" @click="showNiticeItem(scope.row)">李小斌</a>
+                    <a href="javascript:;" @click="showAcitve(scope.row)">李小斌</a>
                 </template>
             </el-table-column>
             <el-table-column
@@ -76,12 +76,14 @@
             @sizechange="changeSize"
             v-model="pageDto">
         </pager>
+        <add-active v-if="$store.state.discounts.showAddActiveState"></add-active>
     </div>
 </template>
 
 <script>
 
     import listPageDto from '../../../common/mixin/listPageDto';
+    import AddActive from './AddActive.vue';
 
     export default {
         mixins: [listPageDto],
@@ -94,7 +96,16 @@
                 loading: false
             }
         },
+        mounted () {
+            this.$on('add', this.add);
+        },
         methods: {
+            /**
+             * 添加活动 
+             */
+            add () {
+                this.$store.commit('SHOW_ADD_ACTIVE');
+            },
             /**
              * 删除活动 
              */
@@ -112,7 +123,16 @@
                         type: 'warning'
                     }).then(() => {
                     });
+            },
+            /**
+             * 展示活动 
+             */
+            showAcitve (active) {
+                this.$store.commit('SHOW_ADD_ACTIVE', active);
             }
+        },
+        components: {
+            AddActive
         }
     }
 </script>

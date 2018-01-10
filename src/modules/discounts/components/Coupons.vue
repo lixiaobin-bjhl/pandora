@@ -16,7 +16,7 @@
                 label="卡劵名称"
             >  
                 <template slot-scope="scope">
-                    <a href="javascript:;" @click="showNiticeItem(scope.row)">李小斌</a>
+                    <a href="javascript:;" @click="showCoupons(scope.row)">李小斌</a>
                 </template>
             </el-table-column>
             <el-table-column
@@ -64,12 +64,16 @@
             @sizechange="changeSize"
             v-model="pageDto">
         </pager>
+        <add-coupons 
+            v-if="$store.state.discounts.showAddCouponsState">
+        </add-coupons>
     </div>
 </template>
 
 <script>
 
     import listPageDto from '../../../common/mixin/listPageDto';
+    import AddCoupons from './AddCoupons.vue';
 
     export default {
         mixins: [listPageDto],
@@ -82,7 +86,16 @@
                 loading: false
             }
         },
+        mounted () {
+            this.$on('add', this.add);
+        },
         methods: {
+            /**
+             * 添加活动 
+             */
+            add () {
+                this.$store.commit('SHOW_ADD_COUPONS');
+            },
             /**
              * 删除活动 
              */
@@ -100,7 +113,16 @@
                         type: 'warning'
                     }).then(() => {
                     });
-            }
+            },
+            /**
+             * 查看卡券
+             */
+            showCoupons (coupons) {
+                this.$store.commit('SHOW_ADD_COUPONS', coupons);
+            },
+        },
+        components: {
+            AddCoupons
         }
     }
 </script>
