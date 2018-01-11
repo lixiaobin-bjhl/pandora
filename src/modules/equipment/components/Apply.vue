@@ -1,37 +1,53 @@
 <template>
       <el-dialog 
-        title="报装申请"
+        :title="applyItem ? '申报详情': '报装申请'"
         width="500px"
         custom-class="equipment-status-list"
         :visible.sync="$store.state.equipment.showApplyEquipmentState"
         >
-        <el-form :model="form" ref="form" :rules="rules" label-position="top">
+        <el-form :model="form" ref="form" :rules="rules" label-position="left">
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="校区" prop="accountName">
-                        <el-input v-model.trim="form.accountName" 
-                        :disabled="applyItem ? true: false" :maxlength="50" placeholder="账号(50字内)"></el-input>
+                        <template v-if="applyItem">
+                            xxxxxx
+                        </template>
+                        <el-input
+                            v-else
+                            v-model.trim="form.accountName" 
+                            :maxlength="50" 
+                            placeholder="账号(50字内)"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="教室个数" prop="userName">
+                        <template v-if="applyItem">
+                            xxxxxx
+                        </template>
                         <el-input 
                         v-model.trim="form.userName"
-                        :disabled="applyItem ? true: false" 
+                        v-else 
                         :maxlength="20" placeholder="请输入名字"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="申报人" prop="userName">
+                        <template v-if="applyItem">
+                            xxxxxx
+                        </template>
                         <el-input 
                         v-model.trim="form.userName"
-                        :disabled="applyItem ? true: false" 
+                        v-else
                         :maxlength="20" placeholder="请输入名字"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="地址" prop="userName">
+                        <template v-if="applyItem">
+                            xxxxxx
+                        </template>
                         <el-autocomplete
+                            v-else
                             class="inline-input"
                             v-model.trim="form.address"
                             :fetch-suggestions="getAddress"
@@ -47,8 +63,12 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <el-input v-model.trim="form.remark"
-                            :disabled="applyItem ? true: false" 
+                         <template v-if="applyItem">
+                            xxxxxx
+                        </template>
+                        <el-input
+                            v-else
+                            v-model.trim="form.remark"
                             type="textarea" 
                             :maxlength="100" 
                             :autosize="{minRows: 2,maxRows: 5}" 
@@ -81,7 +101,7 @@
         },
         computed: {
             applyItem () {
-                return this.$store.state.equipment.equipment;
+                return this.$store.state.equipment.applyItem;
             }
         },
         mounted () {

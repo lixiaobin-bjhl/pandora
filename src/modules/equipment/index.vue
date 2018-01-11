@@ -51,6 +51,7 @@
                     label="操作">
                     <template slot-scope="scope">
                         <a href="javascript:;" @click="updateStatus(scope.row)">更新状态</a>
+                        <a href="javascript:;" @click="showDetail(scope.row)">查看详情</a>
                     </template>
                 </el-table-column>
             </el-table>
@@ -107,6 +108,12 @@
              */
             fetchList () {
                 var pageDto = this.pageDto;
+            },
+            /**
+             * 查看申请详情 
+             */
+            showDetail (applyItem) {
+                this.$store.commit('SHOW_APPLY_EQUIPMENT', applyItem);
             },
             /**
              * 申请教室 

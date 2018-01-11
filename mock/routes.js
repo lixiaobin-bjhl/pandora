@@ -6,7 +6,8 @@
 'use strict';
 
 var routesConfig = [
-	require('./api')
+    require('./api'),
+    require('./lesson')
 ];
 
 var routes = [];

@@ -24,7 +24,7 @@ require('./common/filter/maxDigital');
 require('./common/filter/compressImage');
 require('./common/filter/phone');
 require('./common/filter/minute');
-
+require('./common/filter/week');
 
 Vue.component('Pager', require('./common/components/Pager.vue'));
 
