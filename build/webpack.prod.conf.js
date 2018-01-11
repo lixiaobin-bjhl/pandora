@@ -132,6 +132,13 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: 'browserError.html',
       template: 'browserError.html',
       inject: false
+    }),
+    new HtmlWebpackPlugin({
+			filename: 'coupon.html',
+			template: 'coupon.html',
+      inject: true,
+      chunksSortMode: 'dependency',
+      chunks: ['vendor', 'coupon']
     })
   ]
 })

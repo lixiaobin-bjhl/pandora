@@ -24,6 +24,7 @@ module.exports = {
         chat: './src/m/chat.js',
         bindTel: ['./src/m/bindTel.js'],
         card: ['./src/m/card.js'],
+        coupon: ['./src/m/coupon.js'],
         patientIndex: ['./src/m/patientIndex.js']
     },
     output: {

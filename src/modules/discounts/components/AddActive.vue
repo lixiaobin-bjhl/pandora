@@ -51,13 +51,13 @@
                         </el-radio-group>
                     </el-col>
                     <el-col span="10">
-                    <el-date-picker
-                        v-model="value6"
-                        type="daterange"
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期">
-                    </el-date-picker>
+                        <el-date-picker
+                            v-model="value6"
+                            type="daterange"
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
+                        </el-date-picker>
                     </el-col>
                 </el-row>
             </el-form-item>

@@ -1,6 +1,5 @@
 /**
- * @file 定制版-移动端学生个人中心入口文件
- * @author xuguanlong
+ * @file 绑定手机号
  */
 
 'use strict';

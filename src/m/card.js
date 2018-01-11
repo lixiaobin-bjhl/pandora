@@ -1,12 +1,11 @@
 /**
  * @file 定制版-移动端学生个人中心入口文件
- * @author xuguanlong
  */
 
 'use strict';
 
 import Vue from 'vue';
-// import FastClick from 'fastclick';
+import FastClick from 'fastclick';
 import './card.scss';
 import Card from './components/Card.vue';
 import Toast from 'mint-ui/lib/toast';
@@ -27,4 +26,4 @@ const app = new Vue({
     }
 }).$mount('#app');
 
-// FastClick.attach(document.body);
+FastClick.attach(document.body);
