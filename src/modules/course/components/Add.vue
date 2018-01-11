@@ -10,6 +10,11 @@
                 label="课程名称">
                 <el-input v-model.trim="form.newPwd" :maxlength="50" placeholder="请输入课程名称"></el-input>
             </el-form-item>
+            <el-form-item 
+                prop="newPwd" 
+                label="图片">
+                <el-button>上传图片</el-button>
+            </el-form-item>
             <el-row>
                 <el-col :span="12">
                     <el-form-item label="科目" prop="teacherName">

@@ -12,6 +12,7 @@ import account from './modules/account/store';
 import teacher from './modules/teacher/store';
 import equipment from './modules/equipment/store';
 import course from './modules/course/store';
+import arrangement from './modules/arrangement/store';
 
 Vue.use(Vuex);
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         account,
         teacher,
         equipment,
-        course
+        course,
+        arrangement
     }
 });

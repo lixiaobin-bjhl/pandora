@@ -1,7 +1,8 @@
 
 const state = {
     showEquipmentStatusListState: false,
-    equipment: null
+    equipment: null,
+    showApplyEquipmentState: false
 };
 
 const mutations = {
@@ -12,6 +13,12 @@ const mutations = {
     'HIDE_EQUIPMENT_STATUS_LIST' (state) {
         state.showEquipmentStatusListState = false;
         state.equipment = null;
+    },
+    'SHOW_APPLY_EQUIPMENT' (state) {
+        state.showApplyEquipmentState = true;
+    },
+    'HIDE_APPLY_EQUIPMENT' (state) {
+        state.showApplyEquipmentState = false;
     }
 };
 

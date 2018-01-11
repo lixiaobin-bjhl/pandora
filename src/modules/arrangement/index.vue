@@ -4,18 +4,23 @@
             <el-col :span="12">
                 <breadcrumb-nav :data="breadcrumb"></breadcrumb-nav>
             </el-col>
-            <el-col :span="12">
-                <el-button 
-                    type="primary" 
-                    @click="apply">申请教室</el-button>
-            </el-col>
         </el-row>
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入内容" style="width: 300px;" v-model.trim="key" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
-                    </el-input>
+                    <el-row :gutter="10">
+                        <el-col :span="6">
+                            <el-input placeholder="请输入内容"  v-model.trim="key" class="input-with-select">
+                                <el-button slot="append" icon="el-icon-search"></el-button>
+                            </el-input>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-select
+                                placeholder="请选择状态" 
+                                v-model="type">
+                            </el-select> 
+                        </el-col>
+                    </el-row>
                 </div>
             </div>
             <el-table 
@@ -24,18 +29,18 @@
                 :data="list"
                 :highlight-current-row="true"
                 >
-                <el-table-column label="报装校区">  
+                <el-table-column label="申请校区">  
                     <template slot-scope="scope">
                         <a href="javascript:;">李小斌</a>
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    label="申报人">
+                    label="申报教室">
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    label="申报个数">
+                    label="申报科目">
                 </el-table-column>
                 <el-table-column
                     prop="date"
@@ -50,7 +55,9 @@
                     class="btn-group"
                     label="操作">
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="updateStatus(scope.row)">更新状态</a>
+                        <a href="javascript:;" @click="updateStatus(scope.row)">同意申请</a>
+                        <a href="javascript:;" @click="updateStatus(scope.row)">驳回申请</a>
+                        <a href="javascript:;" @click="detail(scope.row)">详情</a>
                     </template>
                 </el-table-column>
             </el-table>
@@ -59,28 +66,23 @@
                 @sizechange="changeSize"
                 v-model="pageDto">
             </pager>
+            <add v-if="$store.state.course.showAddCourseState"></add>
         </div>
-        <equipment-status-list 
-            v-if="$store.state.equipment.showEquipmentStatusListState">
-        </equipment-status-list>
-        <apply v-if="$store.state.equipment.showApplyEquipmentState"></apply>
     </div>
 </template>
-
 
 <script>
 
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
-    import EquipmentStatusList from './components/EquipmentStatusList';
-    import Apply from './components/Apply';
+    import Add from '../course/components/Add.vue';
 
     export default {
         mixins: [listPageDto],
         data () {
             return {
                 key: '',
-                breadcrumb: ['报装管理'],
+                breadcrumb: ['排课申请管理'],
                 loading: false,
                 list: [{}]
             }
@@ -93,7 +95,10 @@
              * 修改状态 
              */
             updateStatus () {
-                this.$store.commit('SHOW_EQUIPMENT_STATUS_LIST');
+                this.$confirm('确认删除?', '提示', {
+                        type: 'warning'
+                    }).then(() => {
+                    });
             },
             /**
              * 刷新列表 
@@ -109,16 +114,15 @@
                 var pageDto = this.pageDto;
             },
             /**
-             * 申请教室 
+             * 查看申请详情 
              */
-            apply () {
-                this.$store.commit('SHOW_APPLY_EQUIPMENT');
+            detail (arrangement) {
+                this.$store.commit('SHOW_ADD_COURSE', arrangement);
             }
         },
         components: {
             BreadcrumbNav,
-            EquipmentStatusList,
-            Apply
+            Add
         }
     }
 </script>
