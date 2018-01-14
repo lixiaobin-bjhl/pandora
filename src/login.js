@@ -15,8 +15,6 @@ window.Vue = Vue;
 
 window.toast = toast;
 
-
-
 Vue.use(ElementUI);
 
 new Vue({
