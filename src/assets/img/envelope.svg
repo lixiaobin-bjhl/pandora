@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="340px" height="351px" viewBox="0 0 340 351" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>卡券/信封</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-7.4%" y="-7.4%" width="114.7%" height="116.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="241.499685%" id="linearGradient-2">
+            <stop stop-color="#FF8A4C" offset="0%"></stop>
+            <stop stop-color="#F53E46" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="卡券/信封">
+            <g id="信封">
+                <g filter="url(#filter-1)" transform="translate(0.000000, 42.000000)">
+                    <rect id="Rectangle-17" fill="#FF594E" x="0" y="0" width="340" height="309" rx="15"></rect>
+                    <path d="M333.533886,141.662518 C337.441082,144.370252 340,148.886292 340,154 L340,294 C340,302.284271 333.284271,309 325,309 L15,309 C6.71572875,309 -1.15463195e-14,302.284271 -1.24344979e-14,294 L-1.42108547e-14,154 L-1.0658141e-14,154 C-1.0658141e-14,148.886292 2.55891776,144.370252 6.46611429,141.662518 L170,209 L333.533886,141.662518 Z" id="Combined-Shape" fill="url(#linearGradient-2)"></path>
+                </g>
+                <path d="M172.428571,250 L167.571429,250 L7,183.882353 L7,174 C10.8659932,174 14,170.865993 14,167 C14,163.134007 10.8659932,160 7,160 L7,10 L7,10 C7,4.4771525 11.4771525,2.79088747e-15 17,1.77635684e-15 L17,0 L323,0 L323,1.77635684e-15 C328.522847,-2.86698176e-14 333,4.4771525 333,10 L333,160 C329.134007,160 326,163.134007 326,167 C326,170.865993 329.134007,174 333,174 L333,183.882353 L172.428571,250 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                <path d="M15.6512005,167.5 L324.49603,167.5" id="Line-3" stroke="#E0E6ED" stroke-linecap="square" stroke-dasharray="3"></path>
+            </g>
+        </g>
+    </g>
+</svg>

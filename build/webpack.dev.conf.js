@@ -29,7 +29,7 @@ module.exports = merge(baseWebpackConfig, {
 		// https://github.com/glenjamin/webpack-hot-middleware#installation--usage
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
 		// https://github.com/ampedandwired/html-webpack-plugin
 		new HtmlWebpackPlugin({
 			filename: 'chat.html',
@@ -77,6 +77,12 @@ module.exports = merge(baseWebpackConfig, {
 			template: 'coupon.html',
 			inject: true,
 			chunks: ['coupon']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'couponShare.html',
+			template: 'couponShare.html',
+			inject: true,
+			chunks: ['couponShare']
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'upgrade.html',

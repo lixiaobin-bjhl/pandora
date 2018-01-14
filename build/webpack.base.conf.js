@@ -25,6 +25,7 @@ module.exports = {
         bindTel: ['./src/m/bindTel.js'],
         card: ['./src/m/card.js'],
         coupon: ['./src/m/coupon.js'],
+        couponShare: ['./src/m/couponShare.js'],
         patientIndex: ['./src/m/patientIndex.js']
     },
     output: {
