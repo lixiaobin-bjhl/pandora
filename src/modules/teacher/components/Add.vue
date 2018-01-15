@@ -4,7 +4,12 @@
         width="500px" 
         :visible.sync="$store.state.teacher.showAddTeacherState"
         >       
-        <el-form :model="form" ref="form" :rules="addTeacherRule" label-position="top">
+        <el-form 
+            :model="form" 
+            ref="form" 
+            label-width="80px"
+            :rules="addTeacherRule" 
+            >
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="教师姓名" prop="teacherName">
@@ -15,35 +20,29 @@
                         placeholder="教师姓名(20字内)"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="24">
                     <el-form-item label="科目" prop="teacherName">
                         <el-select
+                            placeholder="请选择科目"
                             :disabled="teacherItem ? true: false"
                             v-model.trim="form.teacherName"></el-select>
                     </el-form-item>
                 </el-col>
-                <el-col :span="12">
-                    <el-form-item label=" ">
-                        <el-select
-                            :disabled="teacherItem ? true: false"
-                            v-model.trim="form.teacherName">
-                        </el-select>
-                    </el-form-item>
-                </el-col>
                 <el-col :span="24">
                     <el-form-item label="教师类型" prop="userName">
-                        <el-select 
+                        <el-select
+                        placeholder="请选择教师类型"
                         :disabled="teacherItem ? true: false" 
                         v-model.trim="form.teacherName"></el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="所属校区" prop="userName">
-                        <el-input
+                        <el-select
                         :disabled="teacherItem ? true: false"
                         v-model.trim="form.userName" 
                         :maxlength="20" 
-                        placeholder="请输入所属校区"></el-input>
+                        placeholder="请输入所属校区"></el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -59,7 +58,7 @@
            </el-row>
         </el-form>
         <div slot="footer">
-            <el-button @click="cancel">取消</el-button>
+            <el-button @click="reset">重置</el-button>
             <el-button 
                 :disabled="loading || teacherItem? true : false" 
                 @click="ok" 
@@ -110,33 +109,6 @@
         },
         mounted () {
             var teacherItem = this.teacherItem;
-            // if (teacherItem) {
-            //     Object.assign(this.form, teacherItem);
-            //     detail({
-            //         id: teacherItem.id
-            //     })
-            //     .then((res)=> {
-            //         var data = res.data;
-            //         var agencys = [];
-            //         // 全部范围控制
-            //         if (data.hasAllAgency) {
-            //             agencys = [].concat(this.agencyAllOption);
-            //         } else {
-            //             agencys = data.agencys;
-            //         }
-            //         this.agencyList = agencys.map((item)=> {
-            //             return {
-            //                 id: item.agencyId ||item.id,
-            //                 name: item.agencyName || item.name
-            //             };
-            //         });
-            //         setTimeout(()=> {
-            //             this.form.agencyIds = agencys.map((item)=> {
-            //                 return item.agencyId || item.id;
-            //             });
-            //         });
-            //     });
-            // }
         },
         watch: {
             visiable (value) {
@@ -165,6 +137,12 @@
                         this.fetchAgencyLoading = false;
                     });
                 }, 100);
+            },
+            /**
+             * 重置输入 
+             */
+            reset () {
+
             },
             /**
              * 取消添加

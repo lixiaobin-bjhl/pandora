@@ -9,8 +9,20 @@ import ElementUI from 'element-ui/src/index';
 import App from './App';
 import router from './router';
 import store from './store';
-import 'element-ui/lib/theme-chalk/index.css';
+import 'assets/scss/element-variables.scss';
 import toast from './common/function/toast';
+import loadingBar from 'src/common/components/loading-bar';
+import Icon from 'vue-svg-icon/Icon.vue';
+Vue.component('icon', Icon);
+
+router.beforeEach((to, from, next) => {
+    loadingBar.start();
+    next();
+});
+
+router.afterEach(route => {
+    loadingBar.finish();
+});
 
 window.Vue = Vue;
 

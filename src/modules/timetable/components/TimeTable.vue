@@ -1,7 +1,7 @@
 
 <template>
 	<div class="time-table-wrap">
-		<table class="time-table">
+		<table class="time-table" cellspacing="0">
 			<tr>
 				<td></td>
 				<td v-for="item in weekDates" :class="{'today': isToday(item)}">

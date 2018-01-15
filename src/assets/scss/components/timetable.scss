@@ -1,6 +1,22 @@
 .time-table-wrap {
 	border: 1px solid #ddd;
-	position: relative;
+    position: relative;
+    margin: 20px;
+    padding-bottom: 20px;
+    padding-top: 1px;
+    background-color: #fff;
+    overflow-x: auto;
+    > div {
+        min-width: 1140px;
+    }
+    .el-dialog__body {
+        .el-tabs {
+            display: block;
+            .el-tabs__header {
+                border-bottom: 1px solid #d3dce6;
+            }
+        }
+    }
 	.time-table {
 		width: 100%;
 		position: relative;

@@ -4,54 +4,95 @@
             <el-col :span="12">
                 <breadcrumb-nav :data="breadcrumb"></breadcrumb-nav>
             </el-col>
-            <el-col :span="12">
-               <el-button type="primary" @click="add">添加账号</el-button>
-               <el-button type="primary" @click="batchImport">导入</el-button>
+            <el-col :span="12" class="btn-group">
+               <el-button type="primary" @click="add">添加教师</el-button>
+               <el-button 
+                type="default" 
+                plain 
+                @click="batchImport">导入</el-button>
             </el-col>
         </el-row>
+        
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入内容" style="width: 300px;" v-model.trim="key" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-input 
+                        placeholder="请输入校区名称" 
+                        style="width: 240px;"
+                        @keyup.enter="refresh" 
+                        v-model.trim="filter.campus">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
                     </el-input>
+                    <el-input 
+                        placeholder="请输入老师姓名"
+                        @keyup.enter="refresh"
+                        style="width: 180px;" 
+                        v-model.trim="filter.name">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
+                    </el-input>
+                    <el-select 
+                        placeholder="科目" style="width: 180px;" 
+                        v-model.trim="filter.subjectId">
+                        <el-option
+                            v-for="item,index in subjectOption"
+                            :label="item.name"
+                            :value="item.id"
+                            :key="index">
+                        </el-option>
+                    </el-select>
                 </div>
             </div>
             <el-table 
                 ref="table"
-                v-if="list && list.length"
+                border
+                empty-text="没有找到老师信息"
                 :data="list"
-                :highlight-current-row="true"
                 >
-                <el-table-column label="教师姓名">  
+                <el-table-column
+                    align="center"
+                    label="教师姓名">  
                     <template slot-scope="scope">
-                        <a href="javascript:;">李小斌</a>
+                       李小斌
                     </template>
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="校区">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="科目">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="已完成课节数">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="待完成课节数">
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    class="btn-group"
+                    align="center"
+                    min-width="100"
                     label="操作">
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="showTeacherDetail(scope.row)">查看详情</a>
-                        <a href="javascript:;" @click="updateStatus">停用账号</a>
-                        <a href="javascript:;" @click="showLessonTable">查看课表</a>
+                        <div class="btn-group">
+                            <a href="javascript:;" @click="showTeacherDetail(scope.row)">查看详情</a>
+                            <a href="javascript:;" 
+                                :class="{'forbidden': scope.row.status ===1, 'enable': scope.row.status === 2}" 
+                                @click="updateStatus">
+                                {{scope.row.status === 1? '停用账号': '恢复账号'}}</a>
+                            <a href="javascript:;" @click="showLessonTable">查看课表</a>
+                        </div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -71,18 +112,26 @@
 <script>
 
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
+    import subjectOption from '../../common/config/subjectOption';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from './components/Add.vue';
     import BatchImport from './components/BatchImport.vue';
+   
 
     export default {
         mixins: [listPageDto],
         data () {
             return {
                 key: '',
+                filter: {
+                    subjectId: '',
+                    name: '',
+                    campus: ''
+                },
+                subjectOption,
                 breadcrumb: ['教师管理'],
                 loading: false,
-                list: [{}]
+                list: [{status:1},{status:2},{status:1},{status:1},{status:1},{status:2},{status:1},{status:1},{status:1},{status:2},{status:1},{status:1},{status:1},{status:2},{status:1},{status:1},{status:1},{status:2},{status:1},{status:1},{status:1},{status:2},{status:1},{status:1}]
             }
         },
         mounted () {
@@ -121,13 +170,6 @@
              */
             showLessonTable () {
              
-            },
-            /**
-             * 刷新列表 
-             */
-            refresh () {
-                this.pageDto.pageNum = 1;
-                this.fetchList();
             },
             /**
              * 获取账号列表 

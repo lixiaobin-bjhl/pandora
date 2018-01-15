@@ -93,6 +93,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency',
       chunks: ['vendor', 'login'],
       
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'upgrade.html',
+      template: 'upgrade.html',
+      inject: false
     })
   ]
 })

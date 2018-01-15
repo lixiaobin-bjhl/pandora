@@ -44,9 +44,9 @@
     .upload-wrapper {
         .tip {
             color: #999;
-            line-height: 30px;
+            line-height: 40px;
             float: left;
-            height: 30px;
+            height: 40px;
             margin-left: 10px;
         }
         .upload-btn {

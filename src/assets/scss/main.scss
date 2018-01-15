@@ -10,12 +10,16 @@
 @import './extends';
 @import './vueTransitions';
 @import './avatar';
+
+@import './sidebar';
 @import './components/circleProcess';
 @import './components/breadcrumbNav';
 @import './components/customerDetail';
 @import './components/materialDetail';
 @import './components/batchImport';
 @import './components/timetable';
+@import './components/backtop';
+@import './components/loadingBar';
 
 @import '../../modules/equipment/style';
 @import '../../modules/course/style';
@@ -26,12 +30,13 @@
      height: 100%;
      padding: 50px 0 0 160px;
      > div {
-         padding: 12px 20px;
+         padding: 16px 30px;
      }
      .module-title {
-         margin: 0 0 12px;
          font-weight: normal;
-         color: $text-color-base;
+         color: $color-blue;
+         font-size: 18px;
+         margin-bottom: 10px;
          .el-col {
              &:first-child {
                  .el-breadcrumb__item__inner {
@@ -45,97 +50,13 @@
                  }
              }
          }
-     }
-     .list-box {
-         @extend %clearfix;
-         padding: 20px;
-         border: 1px solid red;
-         background-color: $color-white;
-         border: 1px solid $border-color-base;
-         border-radius: $border-radius-base;
- 
-         .filter-box,
-         .btn-box {
-             padding: 20px 0;
-             border-radius: 4px;
-             .el-autocomplete {
-                 display: block;
-             }
-         }
-         .filter-box {
-             .filter-type {
-                 font-size: $font-size-small;
-                 line-height: 30px;
-                 text-align: right;
-                 cursor: pointer;
-                 i {
-                     margin-right: 5px;
-                 }
-             }
-             .el-row + .el-row {
-                 margin-top: 10px;
-                 font-size: $font-size-small;
-                 .el-radio__label {
-                     font-size: $font-size-small;
-                 }
-             }
-             .el-input-group__prepend,
-             .prepend {
-                 .el-select {
-                     width: 85px;
-                     .el-input--suffix {
-                         .el-input__inner {
-                             padding-right: 25px;
-                         }
-                     }
-                     .el-input__suffix {
-                         right: 4px;
-                     }
-                 }
-             }
-             .el-col-8:nth-child(n + 4) {
-                 margin-top: 10px;
-             }
-         }
-         .btn-box {
-             text-align: right;
-             @extend %clearfix;
- 
-             p {
-                 float: left;
-                 padding: 7px 10px;
-                 background-color: $tag-warning-bg-color;
-                 border: 1px solid $tag-warning-border-color;
-                 border-radius: $border-radius-base;
-                 span {
-                     color: $text-color-base;
-                     font-size: $font-size-small;
-                 }
-                 i {
-                     color: #ffcb3c;
-                     & + span {
-                         color: $text-color-base;
-                     }
-                 }
- 
-                 // 第一个批量操作按钮为蓝色
-                 & + .el-button {
-                     @extend .btn-primary;
-                     &:hover {
-                         opacity: .8;
-                     }
-                 }
-                 // 第一个批量操作按钮禁用状态
-                 & + .el-button.is-disabled {
-                     @extend .btn-disable;
-                 }
-             }
- 
-             button {
-                 & + button {
-                     margin-left: 3px;
-                 }
-             }
+         .btn-group {
+            .el-button {
+                margin-right: 9px;
+                &:last-of-type {
+                    margin: 0;
+                }
+            }
          }
      }
  
@@ -165,6 +86,17 @@
          }
      }
  }
+ .filter-box {
+     margin-bottom: 20px;
+     > .el-input,
+     > .el-select
+    {
+        margin-right: 14px;
+        &:last-child {
+            margin-right: 0;
+        }
+     }
+ }
  .rule-field-popover {
      color: $text-color-base;
      line-height: 20px;
@@ -192,6 +124,6 @@
     margin: 12px 20px;
 }
 .pager {
-    text-align: center;
-    margin-top: 10px;
+    text-align: right;
+    margin-top: 20px;
 }

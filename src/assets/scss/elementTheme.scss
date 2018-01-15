@@ -3,17 +3,13 @@
 }
 
 .el-table {
-    border: 1px solid $border-color-base;
-    border-radius: $border-radius-base;
+    border-radius: 4px;
     td,
     th {
-        height: 40px;
-        padding: 0;
         border-color: $border-color-base;
         .cell {
-            padding: $table-cell-padding;
-            font-size: $font-size-base;
-            color: $text-color-dark;
+            font-size: $font-size-large;
+            color: $color-gray;
             white-space: nowrap;
             .el-radio__inner,
             .el-checkbox__inner {
@@ -27,9 +23,13 @@
         }
     }
     th {
-        background-color: $table-header-bg-color;
-        div {
-            background-color: $table-header-bg-color;
+        // background-color: $table-header-bg-color;
+        // div {
+        //     background-color: $table-header-bg-color;
+        // }
+        .cell {
+            color: $color-gray-dark;
+            font-weight: normal;
         }
     }
     .el-table__body {
@@ -74,6 +74,20 @@
                 }
             }
         }
+        .btn-group {
+            a {
+                margin-right: 10px;
+                &.forbidden {
+                    color: #F56C6C;
+                }
+                &.enable {
+                    color: #F9BC49;
+                }
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
     }
     .el-table__fixed-right-patch {
         background-color: $table-header-bg-color;
@@ -85,13 +99,9 @@
 }
 
 .el-form-item {
-    margin-bottom: 20px;
     &__label {
-        padding: 9px 10px 9px 0;
-        color: $text-color-base;
-        font-size: $font-size-small;
-        line-height: 1;
         word-break: break-all;
+        color: $color-gray-dark;
     }
     &__content {
         font-size: $font-size-small;
@@ -99,48 +109,6 @@
     }
 }
 
-.el-input__icon {
-    line-height: 29px;
-}
-.el-input__inner {
-    padding: 0 10px;
-    height: 29px;
-    line-height: 21px;
-}
-.el-input .el-input__inner,
-.el-cascader .el-cascader__label,
-.el-checkbox .el-checkbox__label,
-.el-input-group .el-input-group__prepend,
-.el-select-dropdown__item,
-.el-cascader-menu__item,
-.el-dropdown-menu__item,
-.el-picker-panel__shortcut {
-    color: $text-color-dark;
-    font-size: $font-size-small;
-}
-
-.el-input-group {
-    .el-input-group__prepend {
-        padding: 0 10px;
-        color: $text-color-base;
-        background-color: $color-white;
-        .el-select {
-            margin: -10px;
-            .el-input__inner {
-                border: none;
-            }
-        }
-    }
-    .el-input-group__append {
-        padding: 0;
-        color: $text-color-light;
-        background-color: #f5f5f5;
-        .el-button {
-            padding: 7px;
-            margin: -1px;
-        }
-    }
-}
 .el-checkbox .el-checkbox__label,
 .el-radio .el-radio__label {
     padding-left: 1px;
@@ -246,28 +214,47 @@
 }
 
 .el-dialog {
+    box-shadow: none;
+    border-radius: 8px;
     .el-dialog__header {
         padding: $dialog-header-padding;
-        box-shadow: inset 0 -1px 0 0 $border-color-base;
-        border-radius: 4px 4px 0 0;
+        background: $color-blue;
+        border-radius: 8px 8px 0 0;
+        height: 56px;
+        box-sizing: border-box;
         .el-dialog__title {
-            color: $text-color-dark;
+            color: #fff;
             font-weight: bold;
-            @include line-height(14px);
+            font-size: 18px;
+        }
+        .el-dialog__headerbtn {
+            top: 17px;
+        }
+        .el-icon-close {
+            color: #fff;
+            font-size: 20px;
+            &:hover {
+                color: darken(#fff, 10%);
+            }
         }
     }
     .el-dialog__body {
-        padding: $dialog-content-padding;
+        padding: 30px 50px;
         font-size: $font-size-base;
     }
     .el-dialog__footer {
-        padding: 10px 30px;
-        border-top: 1px solid $border-color-base;
+        padding: 0 30px 30px 30px;
+        text-align: center;
+        .el-button {
+            margin-right: 18px;
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
     }
 }
 
 .el-button {
-    padding: 7px 19px;
     & + .el-button {
         margin-left: 5px;
     }

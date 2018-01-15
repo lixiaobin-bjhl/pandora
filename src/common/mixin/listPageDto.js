@@ -9,6 +9,13 @@ export default {
     },
     methods: {
         /**
+         * 刷新列表 
+         */
+        refresh () {
+            this.pageDto.pageNum = 1;
+            this.fetchList();
+        },
+        /**
          * 翻页
          */
         changePage (pageNum) {
