@@ -8,56 +8,81 @@
             :model="form" 
             ref="form" 
             label-width="80px"
-            :rules="addTeacherRule" 
+            :class="{'detail-from': teacherItem}"
+            :rules="teacherItem ? {} : addTeacherRule" 
             >
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="教师姓名" prop="teacherName">
-                        <el-input 
-                        v-model.trim="form.teacherName" 
-                        :disabled="teacherItem ? true: false" 
-                        :maxlength="20" 
-                        placeholder="教师姓名(20字内)"></el-input>
+                        <template v-if="form.teacherName">
+                            <el-input 
+                            v-model.trim="form.teacherName" 
+                            :maxlength="20" 
+                            placeholder="教师姓名(20字内)"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template> 
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="科目" prop="teacherName">
-                        <el-select
+                        <template v-if="form.teacherName">
+                            <el-select
                             placeholder="请选择科目"
                             :disabled="teacherItem ? true: false"
                             v-model.trim="form.teacherName"></el-select>
+                        </template>  
+                        <template v-else>
+                            xxxx
+                        </template> 
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="教师类型" prop="userName">
-                        <el-select
-                        placeholder="请选择教师类型"
-                        :disabled="teacherItem ? true: false" 
-                        v-model.trim="form.teacherName"></el-select>
+                        <template v-if="form.teacherName">
+                            <el-select
+                                placeholder="请选择教师类型"
+                                :disabled="teacherItem ? true: false" 
+                                v-model.trim="form.teacherName"></el-select>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template> 
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="所属校区" prop="userName">
-                        <el-select
-                        :disabled="teacherItem ? true: false"
-                        v-model.trim="form.userName" 
-                        :maxlength="20" 
-                        placeholder="请输入所属校区"></el-select>
+                        <template v-if="form.teacherName">
+                            <el-select
+                            :disabled="teacherItem ? true: false"
+                            v-model.trim="form.userName" 
+                            :maxlength="20" 
+                            placeholder="请输入所属校区"></el-select>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template> 
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <el-input v-model.trim="form.remark"
-                            :disabled="teacherItem ? true: false" 
-                            type="textarea" 
-                            :maxlength="100" 
-                            :autosize="{minRows: 2,maxRows: 5}" 
-                            placeholder="请输入备注"></el-input>
+                        <template v-if="form.teacherName">
+                            <el-input v-model.trim="form.remark"
+                                :disabled="teacherItem ? true: false" 
+                                type="textarea" 
+                                :maxlength="100" 
+                                :autosize="{minRows: 2,maxRows: 5}" 
+                                placeholder="请输入备注"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        </template> 
                     </el-form-item>
                 </el-col>
            </el-row>
         </el-form>
-        <div slot="footer">
+        <div slot="footer" v-if="!teacherItem">
             <el-button @click="reset">重置</el-button>
             <el-button 
                 :disabled="loading || teacherItem? true : false" 

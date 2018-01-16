@@ -6,20 +6,27 @@
             </el-col>
             <el-col :span="12">
                <el-button type="primary" @click="add">添加账号</el-button>
-               <el-button type="primary" @click="batchImport">导入</el-button>
+               <el-button type="default" plain @click="batchImport">导入</el-button>
             </el-col>
         </el-row>
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入内容" style="width: 300px;" v-model.trim="key" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-input 
+                        placeholder="请输入校区名称" 
+                        style="width: 240px;"
+                        @keyup.enter="refresh" 
+                        v-model.trim="filter.campus">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
                     </el-input>
                 </div>
             </div>
             <el-table 
                 ref="table"
-                v-if="list && list.length"
+                border
+                empty-text="没有找到账号信息"
                 :data="list"
                 :highlight-current-row="true"
                 >
@@ -30,28 +37,35 @@
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="校区">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="负责人">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="是否有教室">
                 </el-table-column>
                 <el-table-column
                     prop="date"
+                    align="center"
                     label="教室个数">
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    class="btn-group"
+                    :min-width="100"
+                    align="center"
                     label="操作">
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="showAccountDetail(scope.row)">查看详情</a>
-                        <a href="javascript:;" @click="updateStatus">停用账号</a>
-                        <a href="javascript:;" @click="modifyPassword">重置密码</a>
+                        <div class="btn-group">
+                            <a href="javascript:;" @click="showAccountDetail(scope.row)">查看详情</a>
+                            <a href="javascript:;" @click="updateStatus">停用账号</a>
+                            <a href="javascript:;" @click="modifyPassword">重置密码</a>
+                        </div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -83,6 +97,7 @@
         data () {
             return {
                 key: '',
+                filter: '',
                 breadcrumb: ['账号管理'],
                 loading: false,
                 list: [{}]

@@ -1,7 +1,7 @@
 <template>
       <el-dialog 
         title="导入账号"
-        width="500px"
+        width="640px"
         custom-class="import-dialog"
         :visible.sync="$store.state.account.showImportAccountState"
         >
@@ -13,13 +13,13 @@
             </el-steps>
             <ul class="upload-notice" v-if="step == 1">
                 <li>
-                    <h2><span>1</span>请下载账号导入模板<a class="clickable-text clickable-text-blue" download="导入模板" href="http://omh2h1x76.bkt.clouddn.com/%E8%B4%A6%E5%8F%B7%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx">下载模板</a></h2>
+                    <h2><span>1.</span>请下载账号导入模板<a class="clickable-text clickable-text-blue" download="导入模板" href="http://omh2h1x76.bkt.clouddn.com/%E8%B4%A6%E5%8F%B7%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx">下载模板</a></h2>
                     <ul class="upload-body">
-                        <li>注意：请按照模板合适导入账号名单，新的名单将会覆盖旧的名单，新名单下没有的旧名单的账号将会停用请在专业人员的帮助下操作</li>
+                        <li class="warning">注意：模板中的表头名称不可更改，顺序不能更改，表头不能删除</li>
                     </ul>
                 </li>
                 <li>
-                    <h2><span>2</span>选择导入方式</h2>
+                    <h2><span>2.</span>选择导入方式</h2>
                     <ul class="upload-body">
                         <el-radio-group v-model="isOverrided">
                             <el-radio :label="0">全部导入</el-radio>
@@ -28,10 +28,10 @@
                     </ul>
                 </li>            
                 <li>
-                    <h2><span>3</span>选择需要导入的文件，并开始导入</h2>
+                    <h2><span>3.</span>选择需要导入的文件，并开始导入</h2>
                     <div class="upload-body">
                         <file-upload v-if="!file" @filechange="fileChange" tip="上传文件大小不能超过10M" accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            <el-button type="primary">添加文件</el-button>
+                             <el-button type="primary" style="width:140px; height: 40px;" plain>添加文件</el-button>
                         </file-upload>
                         <el-input
                             v-else
@@ -89,13 +89,13 @@
         </div>
         <span slot="footer" class="dialog-footer">
             <div class="modal-footer" v-if="step == 1">
-                <el-button type="text" @click="cancelUpload">取消上传</el-button>
-                <el-button :disabled="!file" @click="upload" type="primary">开始上传</el-button>
+                <el-button type="default" @click="cancelUpload">取消上传</el-button>
+                <el-button @click="upload" type="primary">开始上传</el-button>
             </div>
 
             <div class="modal-footer" v-if="step == 2">
                 <el-button
-                    type="text"
+                    type="default"
                     @click="cancelUpload"
                     v-if="isChecked && checkResult.status && !checkResult.failCount"
                 >取消</el-button>
@@ -167,6 +167,9 @@
              */
             upload () {
                 var file = this.file;
+                if (!file) {
+                    toast('请选择文件', 'error');
+                }
                 let fileSize = file.size;
                 if (fileSize > 10240000) {
                     toast('上传文件大小不应超过10M', 'error');

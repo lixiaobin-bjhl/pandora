@@ -62,6 +62,12 @@ a {
     color: $link-color;
     text-decoration: none;
     font-weight: normal;
+
+    &:focus,
+    &:active {
+        border: 0;
+        outline: none;
+    }
 }
 
 textarea {

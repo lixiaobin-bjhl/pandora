@@ -7,7 +7,8 @@
                     :class="{'active': setActiveTab(item.url)}"
                     :key="index"
                     @click="forward(item)">
-                    <i :class="item.name"></i><span>{{ item.text }}</span>
+                    <icon name="course" scale="3" style="color: #fff"></icon>
+                    <span>{{ item.text }}</span>
                 </li>
             </ul>
         </div>
@@ -22,7 +23,8 @@ export default {
             options: [
                 {
                     text: "课程管理",
-                    url: "course"
+                    url: "course",
+                    icon: "course"
                 },
                 {
                     text: "账号管理",

@@ -98,7 +98,7 @@
 
             <div class="modal-footer" v-if="step == 2">
                 <el-button
-                    type="text"
+                    type="default"
                     @click="cancelUpload"
                     v-if="isChecked && checkResult.status && !checkResult.failCount"
                 >取消</el-button>
