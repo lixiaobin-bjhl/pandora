@@ -1,6 +1,6 @@
 <template>
       <el-dialog 
-        :title="applyItem ? '申报详情': '报装申请'"
+        :title="applyItem ? '开课详情': '开课申请'"
         width="640px"
         custom-class="equipment-status-list"
         :visible.sync="$store.state.equipment.showApplyEquipmentState"

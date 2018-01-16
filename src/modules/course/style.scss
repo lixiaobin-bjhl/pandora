@@ -1,14 +1,20 @@
 .course-list {
     @extend %clearfix;
+    margin-top: 30px;
     > ul {
         float: left;
         width: 25%;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         text-align: center;
         .opt {
             .el-button {
                 padding: 0;
             }
+        }
+        > div {
+            width: 250px;
+            margin: 0 auto;
+            text-align: left;
         }
     }
     @media screen and (min-width: 1920px) {  
@@ -16,4 +22,51 @@
             width: 20%;
         }
     }
+    .title {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+}
+
+.upload-btn {
+    vertical-align: middle;
+    .add-btn-link {
+        margin: 0;
+        span {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+    }
+    .cover-url {
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 60px;
+        height: 60px;
+        position: relative;
+        line-height: 60px;
+        a {
+            background-color: #fff;
+            border-radius: 3px;
+            font-size: 12px;
+            padding: 0 3px;
+        }
+    }
+}
+
+.apply-course-dialog {
+    .detail-from {
+        .el-form-item {
+            margin-bottom: 10px;
+        }
+    }
+    h2 {
+        font-style: 16px;
+        color: $color-blue;
+        margin-bottom: 20px;
+        &.apply-title {
+            border-top: 1px solid #DADADA;
+            padding-top: 20px;
+        }
+    }
+
 }

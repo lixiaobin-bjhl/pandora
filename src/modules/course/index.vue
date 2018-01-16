@@ -10,75 +10,80 @@
         </el-row>
         <div class="list-box">
             <div class="course-list">
-                <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text" @click="detail">详情</el-button>
-                        <el-button type="text" @click="setStickStatus">置顶</el-button>
-                        <el-button type="text" @click="updateStatus">上架</el-button>
-                        <el-button type="text" @click="del">删除</el-button>
-                    </li>
+                <ul @click="applyCourse">
+                    <li><img
+                        width="250"
+                        height="166"
+                        :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
+                    <div>
+                        <li class="title">结构化面试专项班</li>
+                        <li class="opt">
+                            <el-button type="text" @click="detail">详情</el-button>
+                            <el-button type="text" @click="setStickStatus">置顶</el-button>
+                            <el-button type="text" @click="updateStatus">上架</el-button>
+                            <el-button type="text" class="danger" @click="del">删除</el-button>
+                        </li>
+                    </div>
                 </ul>
                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
-                </ul>
-                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
-                </ul>
-                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
-                </ul>
-                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
+                    <li><img
+                        width="250"
+                        height="166"
+                        :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
+                    <div>
+                        <li class="title">结构化面试专项班</li>
+                        <li class="opt">
+                            <el-button type="text" @click="detail">详情</el-button>
+                            <el-button type="text" @click="setStickStatus">置顶</el-button>
+                            <el-button type="text" @click="updateStatus">上架</el-button>
+                            <el-button type="text" class="danger" @click="del">删除</el-button>
+                        </li>
+                    </div>
                 </ul>
                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
+                    <li><img
+                        width="250"
+                        height="166"
+                        :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
+                    <div>
+                        <li class="title">结构化面试专项班</li>
+                        <li class="opt">
+                            <el-button type="text" @click="detail">详情</el-button>
+                            <el-button type="text" @click="setStickStatus">置顶</el-button>
+                            <el-button type="text" @click="updateStatus">上架</el-button>
+                            <el-button type="text" class="danger" @click="del">删除</el-button>
+                        </li>
+                    </div>
                 </ul>
                 <ul>
-                    <li><img src="http://img.gsxservice.com/36218_w4bny0tf.jpeg"></li>
-                    <li>结构化面试专项班</li>
-                    <li class="opt">
-                        <el-button type="text">详情</el-button>
-                        <el-button type="text">置顶</el-button>
-                        <el-button type="text">上架</el-button>
-                        <el-button type="text">删除</el-button>
-                    </li>
+                    <li><img
+                        width="250"
+                        height="166"
+                        :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
+                    <div>
+                        <li class="title">结构化面试专项班</li>
+                        <li class="opt">
+                            <el-button type="text" @click="detail">详情</el-button>
+                            <el-button type="text" @click="setStickStatus">置顶</el-button>
+                            <el-button type="text" @click="updateStatus">上架</el-button>
+                            <el-button type="text" class="danger" @click="del">删除</el-button>
+                        </li>
+                    </div>
+                </ul>
+                <ul>
+                    <li><img
+                        width="250"
+                        height="166"
+                        :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
+                    <div>
+                        <li class="title">结构化面试专项班</li>
+                        <li class="opt">
+                            <el-button type="text" @click="detail">详情</el-button>
+                            <el-button type="text" @click="setStickStatus">置顶</el-button>
+                            <el-button type="text" @click="updateStatus">上架</el-button>
+                            <el-button type="text" class="danger" @click="del">删除</el-button>
+                        </li>
+                    </div>
                 </ul>
             </div>
             <pager 
@@ -89,6 +94,9 @@
             <add 
                 v-if="$store.state.course.showAddCourseState">
             </add>
+            <apply 
+                v-if="$store.state.course.showApplyCourseState">
+            </apply>
         </div>
     </div>
 </template>
@@ -99,6 +107,7 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from './components/Add.vue';
+    import Apply from './components/apply.vue'
 
     export default {
         mixins: [listPageDto],
@@ -115,16 +124,32 @@
         },
         methods: {
             /**
+             * 申请课程
+             * 
+             * @parma {Object} course 查看课程详情
+             */
+            applyCourse (course) {
+                this.$store.commit('SHOW_APPLY_COURSE', {
+                    course: course,
+                    isShowDetail: false
+                });
+            },
+            /**
              * 添加课程 
              */
             add () {
                 this.$store.commit('SHOW_ADD_COURSE');
             },
             /**
-             * 详情 
+             * 查看详情
+             * 
+             * @parma {Object} course 查看课程详情
              */
-            detail () {
-
+            detail (course) {
+                this.$store.commit('SHOW_APPLY_COURSE', {
+                    course: course,
+                    isShowDetail: true
+                });
             },
             /**
              * 更新状态 
@@ -169,6 +194,7 @@
         },
         components: {
             BreadcrumbNav,
+            Apply,
             Add
         }
     }

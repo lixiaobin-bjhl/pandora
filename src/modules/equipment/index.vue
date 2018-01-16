@@ -1,5 +1,5 @@
 <template>
-    <div class="material-list teacher-wrap" v-loading.fullscreen.lock="loading">
+    <div class="material-list" v-loading.fullscreen.lock="loading">
         <el-row class="module-title">
             <el-col :span="12">
                 <breadcrumb-nav :data="breadcrumb"></breadcrumb-nav>
@@ -13,45 +13,65 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入内容" style="width: 300px;" v-model.trim="key" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-input 
+                        placeholder="请输入教室名称" 
+                        style="width: 240px;"
+                        @keyup.enter="refresh" 
+                        v-model.trim="filter.campus">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
                     </el-input>
+                    <el-select
+                    v-model="filter.status"
+                    style="width: 180px;" 
+                    placeholder="请选择状态">
+
+                    </el-select>
                 </div>
             </div>
             <el-table 
                 ref="table"
-                v-if="list && list.length"
+                border
                 :data="list"
-                :highlight-current-row="true"
+                empty-text="没有找到报装信息"
                 >
-                <el-table-column label="报装校区">  
+                <el-table-column
+                    align="center"
+                    label="报装校区">  
                     <template slot-scope="scope">
                         <a href="javascript:;">李小斌</a>
                     </template>
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申报人">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申报个数">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申请时间">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="当前状态">
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    class="btn-group"
+                    align="center"
                     label="操作">
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="updateStatus(scope.row)">更新状态</a>
-                        <a href="javascript:;" @click="showDetail(scope.row)">查看详情</a>
+                        <div class="btn-group">
+                            <a href="javascript:;" @click="updateStatus(scope.row)">更新状态</a>
+                            <a href="javascript:;" @click="showDetail(scope.row)">查看详情</a>
+                        </div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -83,6 +103,9 @@
                 key: '',
                 breadcrumb: ['报装管理'],
                 loading: false,
+                filter: {
+                    key: ''
+                },
                 list: [{}]
             }
         },

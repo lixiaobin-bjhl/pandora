@@ -1,35 +1,36 @@
 <template>
-    <div class="login container">
-        <el-row 
-            class="login-row" 
-            type="flex"
-            align="middle" 
-            justify="center">
-            <el-col :xs="{span: 18, offset: 3}" :lg="{span: 6, offset: 9}">
-                <el-card>
-                    <h1>账号登录</h1>
-                    <el-form :model="form" :rules="rules" ref="form" @keyup.enter.native='!loading && login()'>
-                        <el-form-item prop="name">
-                            <el-col :span="24">
-                                <el-input v-model.trim="form.name" placeholder="手机号">
-                                    <i slot="suffix" class="el-input__icon el-icon-mobile-phone"></i>
-                                </el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item prop="password">
-                            <el-col :span="24">
-                                <el-input v-model.trim="form.password" type="password" placeholder="密码"></el-input>
-                            </el-col>
-                        </el-form-item>
-                        <el-row>
-                            <el-col :span="24">
-                                <el-button type="primary" class="login-btn" :loading="loading" @click="login">登录</el-button>
-                            </el-col>
-                        </el-row>
-                    </el-form>
-                </el-card>
-            </el-col>
-        </el-row>
+    <div class="login">
+        <div>
+            <h1>华图教育<span>双师</span>排课系统</h1>
+            <div class="container">
+                <h2>用户登录</h2>
+                <el-form :model="form" :rules="rules" ref="form" @keyup.enter.native='!loading && login()'>
+                    <el-form-item prop="name">
+                        <el-col :span="24">
+                            <el-input v-model.trim="form.name" placeholder="手机号">
+                               <icon slot="prefix" scale="2.5" style="color:#ddd" name="mobilephone"></icon>
+                            </el-input>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-col :span="24">
+                            <el-input v-model.trim="form.password" type="password" placeholder="密码">
+                                <icon slot="prefix" scale="2.5" style="color:#ddd" name="lock"></icon>
+                            </el-input>
+                        </el-col>
+                    </el-form-item>
+                    <el-row>
+                        <el-col :span="24">
+                            <el-button type="primary"
+                            style="width: 100%" 
+                            class="login-btn" 
+                            :loading="loading" 
+                            @click="login">登录</el-button>
+                        </el-col>
+                    </el-row>
+                </el-form>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -77,3 +78,9 @@
         }
     }
 </script>
+
+<style lang="scss">
+
+    @import './assets/scss/login';
+    
+</style>

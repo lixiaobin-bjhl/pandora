@@ -4,60 +4,76 @@
             <el-col :span="12">
                 <breadcrumb-nav :data="breadcrumb"></breadcrumb-nav>
             </el-col>
+            <el-col :span="12">
+                <el-button 
+                    type="primary" 
+                    @click="apply">查看课表</el-button>
+            </el-col>
         </el-row>
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-row :gutter="10">
-                        <el-col :span="6">
-                            <el-input placeholder="请输入内容"  v-model.trim="key" class="input-with-select">
-                                <el-button slot="append" icon="el-icon-search"></el-button>
-                            </el-input>
-                        </el-col>
-                        <el-col :span="6">
-                            <el-select
-                                placeholder="请选择状态" 
-                                v-model="type">
-                            </el-select> 
-                        </el-col>
-                    </el-row>
+                    <el-input 
+                        placeholder="请输入校区名称" 
+                        style="width: 240px;"
+                        @keyup.enter="refresh" 
+                        v-model.trim="filter.campus">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
+                    </el-input>
+                    <el-select
+                        placeholder="请选择状态" 
+                        style="width: 180px;"
+                        v-model="filter.type">
+                    </el-select>  
                 </div>
             </div>
             <el-table 
                 ref="table"
-                v-if="list && list.length"
+                border
+                empty-text="没有找到排课信息"
                 :data="list"
                 :highlight-current-row="true"
                 >
-                <el-table-column label="申请校区">  
+                <el-table-column
+                    align="center"
+                    label="申请校区">  
                     <template slot-scope="scope">
                         <a href="javascript:;">李小斌</a>
                     </template>
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申报教室">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申报科目">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="申请时间">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
                     label="当前状态">
                 </el-table-column>
                 <el-table-column
+                    align="center"
                     prop="date"
-                    class="btn-group"
+                    :min-width="130"
                     label="操作">
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="updateStatus(scope.row)">同意申请</a>
-                        <a href="javascript:;" @click="updateStatus(scope.row)">驳回申请</a>
-                        <a href="javascript:;" @click="detail(scope.row)">详情</a>
+                        <div  class="btn-group">
+                            <a href="javascript:;" @click="updateStatus(scope.row)">同意申请</a>
+                            <a href="javascript:;" @click="updateStatus(scope.row)">驳回申请</a>
+                            <a href="javascript:;" @click="detail(scope.row)">详情</a>
+                        </div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -82,7 +98,9 @@
         data () {
             return {
                 key: '',
-                breadcrumb: ['排课申请管理'],
+                filter: {
+                },
+                breadcrumb: ['排课管理'],
                 loading: false,
                 list: [{}]
             }

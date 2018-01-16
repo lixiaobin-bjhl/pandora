@@ -1,0 +1,59 @@
+
+@import './variables';
+@import './mixin';
+@import './extends';
+@import './elementTheme';
+@import './global';
+@import './extends';
+
+.html,
+body {
+    height: 100%;
+}
+
+.login {
+    min-height: 100%;
+    background: url('assets/img/login-bg.png') no-repeat;
+    background-size: 100% 100%;
+    > div {
+        position: absolute;
+        @extend %center;
+        width: 450px;
+    }
+    .el-input__prefix {
+        .svg-icon {
+            vertical-align: middle;
+        }
+    }
+    h1 {
+        font-family: PingFangSC-Semibold;
+        font-size: 42px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        margin-bottom: 60px;
+        text-align: center;
+        > span {
+            color: #f1ec4e;
+        }
+    }
+    .container {
+        border-radius: 4px;
+        background: #FFFFFF;
+        padding-bottom: 45px;
+        h2 {
+            height: 60px;
+            background: #F4F4F4;
+            line-height: 60px;
+            font-family: PingFangSC-Medium;
+            font-size: 24px;
+            color: $color-blue;
+            text-align: center;
+            letter-spacing: 0;
+            border-radius: 4px 4px 0 0;
+        }
+        .el-form {
+            width: 280px;
+            margin: 45px auto 0 auto;
+        }
+    }
+}

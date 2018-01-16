@@ -30,7 +30,9 @@
                 :data="list"
                 :highlight-current-row="true"
                 >
-                <el-table-column label="账号">  
+                <el-table-column
+                    align="center"
+                    label="账号">  
                     <template slot-scope="scope">
                         <a href="javascript:;">李小斌</a>
                     </template>

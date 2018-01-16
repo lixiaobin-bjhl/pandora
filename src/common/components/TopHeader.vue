@@ -5,11 +5,17 @@
 
 <template>
     <header class="clearfix">
-        <div class="pull-left logo">华图双师排课系统</div>
+        <div class="pull-left logo">
+            <img src="../../assets/img/huatu.png">
+            华图双师排课系统
+        </div>
         <ul>
             <li class="user">
                 <span class="name">{{ orgInfo.shortName }}，欢迎您!</span>
-                <span class="pointer">退出</span>  
+                <span class="pointer exit">
+                    <icon name="exit" scale="2"></icon>
+                    <span>退出</span>
+                </span>  
             </li>
             <!-- <li class="role">
                 <img :src="orgInfo.avatar|compressImage(30, 30)">
@@ -88,6 +94,10 @@
             font-size: 24px;
             color: #409EFF;
             padding: 0 10px;
+            font-family: PingFangSC-Medium;
+            img {
+                vertical-align: middle;
+            }
         }
         .user {
             color: #666;
@@ -95,6 +105,13 @@
             .name {
                 font-size: 16px;
                 margin-right: 49px;
+            }
+            .exit {
+                .svg-icon,
+                span {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
             }
         }
     }

@@ -43,6 +43,11 @@
         color: #fff;
         cursor: pointer;
         transition: all, .5s;
+        .svg-icon,
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
         &:hover {
             background-color: #348BE5;
         }

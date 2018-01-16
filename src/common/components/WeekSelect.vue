@@ -5,32 +5,16 @@
 
 <style lang="scss">
 	.week-select {
-		display: flex;
-		margin: 20px;
-	
 		> li {
-			flex: 1;
-			&:nth-of-type(2) {
-				text-align: center;
+			.week-str {
+				margin-right: 12px;
 			}
-			&:last-of-type {
-				text-align: right;
-			}
-			.current-date-btn {
-				border-radius: 71px;
-			}
-		}
-		.arrow {
-			color: #888;
-			cursor: pointer;
-			&:hover {
-				&:before {
-					color: #999;
+			.el-button {
+				margin-right: 8px;
+				&:last-of-type {
+					margin-right: 0;
 				}
 			}
-		}
-		.date-str {
-			font-size: 18px;
 		}
 	}
 </style>
@@ -38,12 +22,23 @@
 <template>
 	<ul class="week-select" v-if="weeks">
 		<li class="date-str">
-			<el-button class="arrow icon-left"  @click="forwardWeek('pre')">上一周</el-button>
-			<el-button class="arrow icon-right" @click="forwardWeek('next')">下一周</el-button>
-            <el-button @click.native="currentWeek" class="current-date-btn" size="small" type="default">今天</el-button>
-            {{weeks[6].timestamp | date('yyyy')}}年第{{getYearWeek(weeks[0].timestamp)}}周{{weeks[0].timestamp | date('MM.dd')}}
-			-
-			{{weeks[6].timestamp | date('MM.dd')}}
+			<span class="week-str">
+				{{weeks[6].timestamp | date('yyyy')}}年第{{getYearWeek(weeks[0].timestamp)}}周
+			</span>
+			<el-button 
+				type="primary"
+				plain
+				class="arrow icon-left"  
+				@click="forwardWeek('pre')">上一周</el-button>
+			<el-button
+				plain
+				type="primary"
+				class="arrow icon-right" 
+				@click="forwardWeek('next')">下一周</el-button>
+            <el-button 
+				@click.native="currentWeek" 
+				plain
+				type="primary">今天</el-button>
 		</li>
 	</ul>
 </template>

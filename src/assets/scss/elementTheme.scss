@@ -94,6 +94,15 @@
     }
 }
 
+.el-button {
+    &.danger {
+        color: #F56C6C;
+        &:hover {
+            color: darken(#F56C6C, 10%);
+        }
+    }
+}
+
 .el-pagination:after {
     clear: none;
 }
@@ -111,6 +120,9 @@
     .el-form-item {
         &__label {
             color: $color-gray-light;
+        }
+        &__content {
+            color: $color-gray-dark;
         }
     } 
 }
@@ -246,7 +258,7 @@
     }
     .el-dialog__body {
         padding: 30px 50px;
-        font-size: $font-size-base;
+        font-size: $font-size-large;
     }
     .el-dialog__footer {
         padding: 0 30px 30px 30px;

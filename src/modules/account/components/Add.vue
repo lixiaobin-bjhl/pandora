@@ -1,15 +1,26 @@
 <template>
       <el-dialog 
         :title="accountItem ? '查看账号' : '添加账号'"
-        width="500px" 
+        width="640px" 
         :visible.sync="$store.state.account.showAddAccountState"
         >       
-        <el-form :model="form" ref="form" :rules="addAccountRule" label-position="top">
+        <el-form 
+            :model="form" 
+            ref="form"
+            label-width="80px"
+            label-position="right"
+            :class="{'detail-from': accountItem}"
+            :rules="accountItem ? {} : addAccountRule">
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="账号" prop="accountName">
-                        <el-input v-model.trim="form.accountName" 
+                        <template v-if="!accountItem">
+                            <el-input v-model.trim="form.accountName" 
                         :disabled="accountItem ? true: false" :maxlength="50" placeholder="账号(50字内)"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24" v-if="!accountItem">
@@ -19,44 +30,48 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="校区" prop="userName">
-                        <el-input 
-                        v-model.trim="form.userName"
-                        :disabled="accountItem ? true: false" 
-                        :maxlength="20" placeholder="请输入名字"></el-input>
+                        <template v-if="!accountItem">
+                            <el-input 
+                            v-model.trim="form.userName"
+                            :maxlength="20" placeholder="请输入名字"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="负责人" prop="userName">
-                        <el-input
-                        :disabled="accountItem ? true: false"
-                        v-model.trim="form.userName" 
-                        :maxlength="20" 
-                        placeholder="请输入负责人"></el-input>
+                        <template v-if="!accountItem">
+                            <el-input
+                            :disabled="accountItem ? true: false"
+                            v-model.trim="form.userName" 
+                            :maxlength="20" 
+                            placeholder="请输入负责人"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <el-input v-model.trim="form.remark"
-                            :disabled="accountItem ? true: false" 
-                            type="textarea" 
-                            :maxlength="100" 
-                            :autosize="{minRows: 2,maxRows: 5}" 
-                            placeholder="请输入备注"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                    <el-form-item label="备注" prop="remark">
-                        <el-input v-model.trim="form.remark"
-                            :disabled="accountItem ? true: false" 
-                            type="textarea" 
-                            :maxlength="100" 
-                            :autosize="{minRows: 2,maxRows: 5}" 
-                            placeholder="请输入备注"></el-input>
+                        <template v-if="!accountItem">
+                            <el-input v-model.trim="form.remark"
+                                :disabled="accountItem ? true: false" 
+                                type="textarea" 
+                                :maxlength="100" 
+                                :autosize="{minRows: 2,maxRows: 5}" 
+                                placeholder="请输入备注"></el-input>
+                        </template>
+                        <template v-else>
+                            xxxx
+                        </template>
                     </el-form-item>
                 </el-col>
            </el-row>
         </el-form>
-        <div slot="footer">
+        <div slot="footer" v-if="!accountItem">
             <el-button @click="cancel">取消</el-button>
             <el-button 
                 :disabled="loading || accountItem? true : false" 

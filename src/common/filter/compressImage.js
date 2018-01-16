@@ -1,16 +1,34 @@
 /**
- * @file Vue-filter-compressImage 压缩七牛云图片
- * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ * @fileOverview 裁剪图片
  */
 
 'use strict';
 
-import Vue from 'vue';
-import compressImage from '../function/compressImage';
+let compressImage = require('../function/compressImage');
 
-Vue.filter('compressImage', function (storageId, width, height) {
-    return compressImage(storageId, {
-        width: width,
-        height: height
-    });
+/**
+ * 裁剪图片
+ * @param {string} url
+ * @param {number} width
+ * @param {number} height
+ * @return {string}
+ */
+Vue.filter('compressImage', function(url, width, height) {
+
+	if (!width) {
+		width = $(window).width();
+	}
+
+    let reg = /^\S*img\S*[gsx|genshuixue|tianxiao|baijiahulian]\S*/;
+    let isCompressed = reg.test(url);
+
+    if (isCompressed) {
+        return compressImage(url, {
+            width: width,
+            height: height
+        });
+    }
+    else {
+        return url;
+    }
 });

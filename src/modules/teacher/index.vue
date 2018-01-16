@@ -35,7 +35,8 @@
                         </i>
                     </el-input>
                     <el-select 
-                        placeholder="科目" style="width: 180px;" 
+                        placeholder="科目" 
+                        style="width: 180px;" 
                         v-model.trim="filter.subjectId">
                         <el-option
                             v-for="item,index in subjectOption"

@@ -4,8 +4,13 @@
         width="500px"
         :visible.sync="$store.state.account.showModifyPwdState"
         > 
-        <el-form :model="form" ref="form" :rules="addAccountRule">
-            <el-form-item prop="newPwd" style="margin-top: 20px;">
+        <el-form 
+            :model="form" 
+            ref="form"
+            label-width="80px"
+            label-position="right"
+            :rules="addAccountRule">
+            <el-form-item prop="newPwd" label="新密码" style="margin-top: 20px;">
                 <el-input v-model.trim="form.newPwd" :maxlength="50" placeholder="请输入新密码"></el-input>
             </el-form-item>
         </el-form>

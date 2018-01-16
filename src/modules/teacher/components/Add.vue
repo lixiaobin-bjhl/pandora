@@ -1,20 +1,21 @@
 <template>
       <el-dialog 
         :title="teacherItem ? '查看教师' : '添加教师'"
-        width="500px" 
+        width="640px" 
         :visible.sync="$store.state.teacher.showAddTeacherState"
         >       
         <el-form 
             :model="form" 
-            ref="form" 
+            ref="form"
             label-width="80px"
+            label-position="right"
             :class="{'detail-from': teacherItem}"
             :rules="teacherItem ? {} : addTeacherRule" 
             >
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="教师姓名" prop="teacherName">
-                        <template v-if="form.teacherName">
+                        <template v-if="!teacherItem">
                             <el-input 
                             v-model.trim="form.teacherName" 
                             :maxlength="20" 
@@ -27,7 +28,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="科目" prop="teacherName">
-                        <template v-if="form.teacherName">
+                        <template v-if="!teacherItem">
                             <el-select
                             placeholder="请选择科目"
                             :disabled="teacherItem ? true: false"
@@ -40,7 +41,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="教师类型" prop="userName">
-                        <template v-if="form.teacherName">
+                        <template v-if="!teacherItem">
                             <el-select
                                 placeholder="请选择教师类型"
                                 :disabled="teacherItem ? true: false" 
@@ -53,7 +54,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="所属校区" prop="userName">
-                        <template v-if="form.teacherName">
+                        <template v-if="!teacherItem">
                             <el-select
                             :disabled="teacherItem ? true: false"
                             v-model.trim="form.userName" 
@@ -67,7 +68,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <template v-if="form.teacherName">
+                        <template v-if="!teacherItem">
                             <el-input v-model.trim="form.remark"
                                 :disabled="teacherItem ? true: false" 
                                 type="textarea" 
