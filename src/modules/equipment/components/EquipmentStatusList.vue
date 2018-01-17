@@ -5,88 +5,29 @@
         custom-class="equipment-status-list"
         :visible.sync="$store.state.equipment.showEquipmentStatusListState"
         >
-        <el-row>
-            <el-col :span="8">
-                <th>时间</th>
-            </el-col>
-            <el-col :span="6">
-                <th>状态</th>
-            </el-col>
-            <el-col :span="10">
-                <th>备注</th>
-            </el-col>
-        </el-row>
-
-        <el-row class="status-item">
-            <el-col :span="8">
-                2018-10-12
-            </el-col>
-            <el-col :span="6">
-                已完成
-            </el-col>
-            <el-col :span="10">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <pre>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</pre>
-                    </div>
-                    <div class="remark">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-                </el-tooltip>
-            </el-col>
-        </el-row>
-
-        <el-row class="status-item">
-            <el-col :span="8">
-                2018-10-12
-            </el-col>
-            <el-col :span="6">
-                已完成
-            </el-col>
-            <el-col :span="10">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <pre>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</pre>
-                    </div>
-                    <div class="remark">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-                </el-tooltip>
-            </el-col>
-        </el-row>
-
-        <el-row class="status-item">
-            <el-col :span="8">
-                2018-10-12
-            </el-col>
-            <el-col :span="6">
-                已完成
-            </el-col>
-            <el-col :span="10">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <pre>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</pre>
-                    </div>
-                    <div class="remark">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-                </el-tooltip>
-            </el-col>
-        </el-row>
-
-        <el-row class="status-item">
-            <el-col :span="8">
-                2018-10-12
-            </el-col>
-            <el-col :span="6">
-                已完成
-            </el-col>
-            <el-col :span="10">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <pre>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</pre>
-                    </div>
-                    <div class="remark">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-                </el-tooltip>
-            </el-col>
-        </el-row>
-        <div class="add-btn-link" v-if="!addStatus" @click="add">
-            <span class="el-icon-circle-plus"></span><i>更新状态</i>
+        <div class="status-time-line"> 
+            <ul class="caption">
+                <li>时间</li>
+                <li>状态</li>
+            </ul> 
+            <Timeline pending>
+                <timeline-item
+                    v-for="item, index in list"
+                    v-if="(index >= 3 && isShowMore ) || index < 3" 
+                    :key="index" >
+                    <p class="time">1976-12-12<br>12:55</p>
+                    <p class="status-str">提出申请</p>
+                    <p class="content">申请人：张艺     校区：厦门思明校区    套数：3<pre>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre></p>
+                </timeline-item>
+                <TimelineItem>
+                    <a href="javascript:;" 
+                    @click="showMore">
+                    {{isShowMore ? '收起更多': '展开更多'}}</a>
+                </TimelineItem>
+            </Timeline>
+            <div class="none-list" v-if="list && !list.length"><span>暂没有报装记录</span></div>
         </div>
+
         <el-form 
             :model="form" 
             ref="form"
@@ -114,7 +55,7 @@
             <el-button 
                 @click="cancel">取消</el-button>
             <el-button 
-                :disabled="loading || teacherItem? true : false" 
+                :disabled="loading ? true : false" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>
@@ -123,10 +64,15 @@
 
 <script>
 
+    import Timeline from 'src/common/components/timeline/index';
+
     export default {
         data () {
             return {
-                addStatus: false,
+                addStatus: true,
+                loading: false,
+                isShowMore: false,
+                list: [{},{},{},{},{},{},{}, {}, {}],
                 form: {
                     status: '',
                     remark: ''
@@ -135,10 +81,19 @@
         },
         methods: {
             /**
+             * 展示更多
+             */
+            showMore () {
+                this.isShowMore = !this.isShowMore;
+            },
+            /**
              * 添加状态 
              */
             add () {
                 this.addStatus = true;
+            },
+            ok () {
+                
             },
             /**
              * 取消添加状态 
@@ -146,6 +101,10 @@
             cancel () {
                 this.addStatus = false;
             }
+        },
+        components: {
+            Timeline,
+            TimelineItem: Timeline.Item
         }
     };
 </script>

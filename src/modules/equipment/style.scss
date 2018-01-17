@@ -15,7 +15,7 @@
         margin: 20px 0;
     }
     .el-form {
-        margin-top: 30px;
+        margin-top: 10px;
     }
 }
 
@@ -46,5 +46,44 @@
     }
     &:hover {
         color: $color-blue-light;
+    }
+}
+
+.status-time-line {
+    margin-left: 150px;
+    .caption {
+        li {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: $color-gray-dark;
+            font-weight: bold;
+            position: relative;
+            &:first-of-type {
+                left: -73px;
+            }
+        }
+    }
+    
+    .time {
+        position: absolute;
+        left: -93px;
+        line-height: 1.5;
+        color: $color-gray;
+    }
+    .status-str {
+        color: #666666;
+        font-weight: bold;
+    }
+    .content {
+        color: $color-gray-light;
+        line-height: 1.2;
+        margin-top: 10px;
+        pre {
+            margin: 0;
+        }
+    }
+    .ivu-timeline-item-content {
+        padding-left: 30px;
     }
 }

@@ -3,7 +3,8 @@
     position: relative;
     padding-bottom: 20px;
     padding-top: 1px;
-    background-color: #fff;
+	background-color: #fff;
+	border-radius: 4px;
     overflow-x: auto;
     > div {
         min-width: 1140px;
@@ -25,8 +26,8 @@
 			border-bottom: 1px solid #ddd;
 			&:first-child {
 				td {
-					border-right: none;
 					padding: 10px 0;
+					border-bottom: 1px solid #ddd;
 				}
 			}
 			&:last-child {

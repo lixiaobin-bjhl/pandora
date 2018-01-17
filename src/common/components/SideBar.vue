@@ -8,7 +8,7 @@
                     :key="index"
                     @click="forward(item)">
                     <icon 
-                    name="course"
+                    name="account3"
                     style="color: #fff"
                     scale="3"></icon>
                     <span>{{ item.text }}</span>
