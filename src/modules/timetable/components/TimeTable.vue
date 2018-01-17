@@ -32,7 +32,9 @@
 			</tr>
 		</table>
 		<div class="mask-wrap" v-show="showMask">
-			<div class="item" v-for="item in selectLessons" 
+			<div class="item" 
+				:key="index"
+				v-for="item, index in selectLessons" 
 				:data-id="item.id" :data-index="item.arrayIndex">
 				<p class="item-p">
 					<span class="icon-info-circle" style="color: #ff3824;" v-if="item.teacherConflict||item.classroomConflict"></span>
@@ -174,7 +176,7 @@
 					if (self.showClazzInfo) {
 						return;
 					}
-					self.showTip = false;
+					// self.showTip = false;
 				});
 				$wrap.on('click', '.mask-wrap', function(event) {
 					self.showMask = false;
@@ -272,7 +274,7 @@
 				if (overlay || curIndex == -1 || curIndex > maxNum - 1) {
 					return ``;
 				}
-				let totalWidth = this.tdWidth;
+				let totalWidth = this.tdWidth - 2;
 				let width = totalWidth / length;
 				let left = curIndex * width;
 				let withPercent = width / this.tdWidth * 100;

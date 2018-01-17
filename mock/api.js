@@ -22,6 +22,13 @@ exports.routes = [
 	},
 	{
 		method: 'POST',
+        path: '/common/userInfo.json',
+        handler: function (request, reply) {
+			return reply(require('./json/api/userInfo.json'));
+        }
+	},
+	{
+		method: 'POST',
         path: '/common/upload.json',
         handler: function (request, reply) {
         	return reply(

@@ -11,7 +11,7 @@ import router from './router';
 import store from './store';
 import 'assets/scss/element-variables.scss';
 import toast from './common/function/toast';
-import loadingBar from 'src/common/components/loading-bar';
+import loadingBar from 'src/common/components/loadingBar';
 import Icon from 'vue-svg-icon/Icon.vue';
 Vue.component('icon', Icon);
 

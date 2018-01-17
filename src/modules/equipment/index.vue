@@ -13,6 +13,9 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
+                    <campus-filter
+                        v-model="filter.campus">
+                    </campus-filter>
                     <el-input 
                         placeholder="请输入教室名称" 
                         style="width: 240px;"
@@ -95,6 +98,7 @@
     import listPageDto from '../../common/mixin/listPageDto';
     import EquipmentStatusList from './components/EquipmentStatusList';
     import Apply from './components/Apply';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
 
     export default {
         mixins: [listPageDto],
@@ -148,7 +152,8 @@
         components: {
             BreadcrumbNav,
             EquipmentStatusList,
-            Apply
+            Apply,
+            CampusFilter
         }
     }
 </script>

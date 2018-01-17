@@ -13,12 +13,27 @@
     import SideBar from './common/components/SideBar.vue';
     import TopHeader from './common/components/TopHeader.vue';
     import BackTop from './common/components/BackTop';
+    import { getUserInfo } from './common/request';
 
     export default {
         components: {
             SideBar,
             TopHeader,
             BackTop
+        },
+        mounted () {
+            this.getUserInfo();
+        },
+        methods: {
+            /**
+             * 获取用户的基本信息 
+             */
+            getUserInfo () {
+                getUserInfo()
+                    .then((res)=> {
+                        this.$store.commit('SET_USER_INFO', res.data);
+                    });
+            }
         }
     }
 </script>

@@ -1,59 +1,27 @@
 <template>
       <el-dialog 
-        :title="applyItem ? '申报详情': '报装申请'"
-        width="640px"
-        custom-class="equipment-status-list"
-        :visible.sync="$store.state.equipment.showApplyEquipmentState"
-        >
+        :title="campusItem ? '编辑校区' : '添加校区'"
+        width="640px" 
+        :visible.sync="$store.state.campus.showAddCampusState"
+        >       
         <el-form 
             :model="form" 
             ref="form"
-            label-width="80px"
-            :class="{'detail-from': applyItem}"
-            :rules="applyItem ? {} : rules"
-            label-position="right">
+            label-width="100px"
+            label-position="right"
+            :rules="addCampusRule">
            <el-row :gutter="10">
                <el-col :span="24">
-                    <el-form-item label="校区" prop="accountName">
-                        <template v-if="applyItem">
-                            xxxxxx
-                        </template>
-                        <el-input
-                            v-else
-                            v-model.trim="form.accountName" 
-                            :maxlength="50" 
-                            placeholder="账号(50字内)"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                    <el-form-item label="教室个数" prop="userName">
-                        <template v-if="applyItem">
-                            xxxxxx
-                        </template>
+                    <el-form-item label="校区名称" prop="name">
                         <el-input 
-                        v-model.trim="form.userName"
-                        v-else 
-                        :maxlength="20" placeholder="请输入名字"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                    <el-form-item label="申报人" prop="userName">
-                        <template v-if="applyItem">
-                            xxxxxx
-                        </template>
-                        <el-input 
-                        v-model.trim="form.userName"
-                        v-else
-                        :maxlength="20" placeholder="请输入名字"></el-input>
+                        v-model.trim="form.accountName" 
+                        :maxlength="30" 
+                        placeholder="校区名称(30字内)"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="地址" prop="userName">
-                        <template v-if="applyItem">
-                            xxxxxx
-                        </template>
                         <el-autocomplete
-                            v-else
                             class="inline-input"
                             v-model.trim="form.address"
                             :fetch-suggestions="getAddress"
@@ -68,13 +36,16 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
+                    <el-form-item label="校区负责人" prop="userName">
+                        <el-input 
+                        v-model.trim="form.userName"
+                        :maxlength="30" placeholder="校区地址"></el-input>
+                    </el-form-item>
+                </el-col>
+                
+                <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                         <template v-if="applyItem">
-                            xxxxxx
-                        </template>
-                        <el-input
-                            v-else
-                            v-model.trim="form.remark"
+                        <el-input v-model.trim="form.remark"
                             type="textarea" 
                             :maxlength="100" 
                             :autosize="{minRows: 2,maxRows: 5}" 
@@ -83,35 +54,56 @@
                 </el-col>
            </el-row>
         </el-form>
-        <div slot="footer" v-if="!applyItem">
+        <div slot="footer">
             <el-button @click="cancel">取消</el-button>
             <el-button 
-                :disabled="loading || applyItem? true : false" 
+                :disabled="loading" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>
-      </el-dialog>
+    </el-dialog>
 </template>
 
 <script>
+    
+    import config from '../config';
+    import { add, edit, detail } from '../request';
+    import {getAddressSuggestion} from '../../equipment/request';
+    
+    var timer = null;
 
-    import { getAddressSuggestion } from '../request';
-
-    export default {
-        data () {
-            return {
-                loading: false,
-                form: {},
-                rules: {}
+    export default   {
+        computed: {
+            campusItem () {
+                return this.$store.state.campus.campus;
             }
         },
-        computed: {
-            applyItem () {
-                return this.$store.state.equipment.applyItem;
+        data () {
+            return  {
+                fetchAgencyLoading: false,
+                addCampusRule: config.addCampusRule,
+                form: {
+                    accountName: '',
+                    userName: '',
+                    password: '',
+                    roleType: '',
+                    remark: '',
+                    rtmType: '',
+                    agencyIds: []
+                },
+                loading: false,
+                visiable: false
             }
         },
         mounted () {
-            
+            var campusItem = this.campusItem;
+        },
+        watch: {
+            visiable (value) {
+                if (!value) {
+                    this.$emit('close');
+                }
+            }
         },
         methods: {
             /**
@@ -137,13 +129,13 @@
              * 取消添加
              */
             cancel () {
-                this.$store.commit('HIDE_APPLY_EQUIPMENT');
+                this.$store.commit('HIDE_ADD_CAMPUS');
             },
             ok () {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
-                        var isEdit = accountItem ? true : false;
+                        var campusItem = this.campusItem;
+                        var isEdit = campusItem ? true : false;
                         var form = this.form;
                         var params = {
                             accountName: form.accountName,
@@ -155,7 +147,7 @@
                         };
                         if (isEdit) {
                             Object.assign(params, {
-                                id: accountItem.id
+                                id: campusItem.id
                             });
                         } else {
                             Object.assign(params, {
@@ -178,5 +170,5 @@
                 });
             }
         }
-    };
+    }
 </script>

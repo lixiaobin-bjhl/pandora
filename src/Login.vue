@@ -19,15 +19,28 @@
                             </el-input>
                         </el-col>
                     </el-form-item>
-                    <el-row>
-                        <el-col :span="24">
-                            <el-button type="primary"
-                            style="width: 100%" 
-                            class="login-btn" 
-                            :loading="loading" 
-                            @click="login">登录</el-button>
+                    <el-form-item prop="code">
+                        <el-col :span="12">
+                            <el-input v-model.trim="form.password" type="password" placeholder="验证码">
+                                <icon slot="prefix" scale="2.3" style="color:#ddd" name="verify-code"></icon>
+                            </el-input>
                         </el-col>
-                    </el-row>
+                        <el-col :span="10" :offset="2">
+                            <img src="./assets/img/huatu.png">
+                            <span class="change-code">看不清，<a href="javascript:;">换一张</a></span>
+                        </el-col> 
+                    </el-form-item>
+                    <el-form-item prop="　">
+                        <el-row>
+                            <el-col :span="24">
+                                <el-button type="primary"
+                                style="width: 100%" 
+                                class="login-btn" 
+                                :loading="loading" 
+                                @click="login">登录</el-button>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
                 </el-form>
             </div>
         </div>

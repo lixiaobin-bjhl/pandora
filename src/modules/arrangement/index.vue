@@ -13,15 +13,9 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input 
-                        placeholder="请输入校区名称" 
-                        style="width: 240px;"
-                        @keyup.enter="refresh" 
-                        v-model.trim="filter.campus">
-                        <i slot="suffix" 
-                            class="el-input__icon el-icon-search pointer">
-                        </i>
-                    </el-input>
+                    <campus-filter
+                        v-model="filter.campus">
+                    </campus-filter>
                     <el-select
                         placeholder="请选择状态" 
                         style="width: 180px;"
@@ -92,6 +86,7 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from '../course/components/Add.vue';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
 
     export default {
         mixins: [listPageDto],
@@ -140,6 +135,7 @@
         },
         components: {
             BreadcrumbNav,
+            CampusFilter,
             Add
         }
     }

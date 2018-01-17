@@ -12,13 +12,14 @@ import account from './modules/account/store';
 import teacher from './modules/teacher/store';
 import equipment from './modules/equipment/store';
 import course from './modules/course/store';
+import campus from './modules/campus/store';
 import arrangement from './modules/arrangement/store';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        orgInfo: {}
+        userInfo: null
     },
     strict: false,
     mutations,
@@ -28,6 +29,7 @@ export default new Vuex.Store({
         teacher,
         equipment,
         course,
+        campus,
         arrangement
     }
 });

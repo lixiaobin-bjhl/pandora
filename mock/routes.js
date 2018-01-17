@@ -7,6 +7,7 @@
 
 var routesConfig = [
     require('./api'),
+    require('./campus'),
     require('./lesson')
 ];
 

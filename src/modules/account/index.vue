@@ -12,15 +12,9 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input 
-                        placeholder="请输入校区名称" 
-                        style="width: 240px;"
-                        @keyup.enter="refresh" 
-                        v-model.trim="filter.campus">
-                        <i slot="suffix" 
-                            class="el-input__icon el-icon-search pointer">
-                        </i>
-                    </el-input>
+                    <campus-filter
+                        v-model="filter.campus">
+                    </campus-filter>
                 </div>
             </div>
             <el-table 
@@ -93,6 +87,7 @@
     import Add from './components/Add.vue';
     import BatchImport from './components/BatchImport.vue';
     import ModifyPwd from './components/ModifyPwd';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
 
     export default {
         mixins: [listPageDto],
@@ -160,6 +155,7 @@
             BreadcrumbNav,
             Add,
             ModifyPwd,
+            CampusFilter,
             BatchImport
         }
     }

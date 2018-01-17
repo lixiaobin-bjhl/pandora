@@ -18,7 +18,7 @@ body {
     > div {
         position: absolute;
         @extend %center;
-        width: 450px;
+        width: 550px;
     }
     .el-input__prefix {
         .svg-icon {
@@ -39,7 +39,7 @@ body {
     .container {
         border-radius: 4px;
         background: #FFFFFF;
-        padding-bottom: 45px;
+        padding-bottom: 30px;
         h2 {
             height: 60px;
             background: #F4F4F4;
@@ -52,8 +52,19 @@ body {
             border-radius: 4px 4px 0 0;
         }
         .el-form {
-            width: 280px;
+            width: 350px;
             margin: 45px auto 0 auto;
+            .el-form-item {
+                margin-bottom: 30px;
+            }
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            .change-code {
+                color: $color-gray-light;
+            }
         }
     }
 }
