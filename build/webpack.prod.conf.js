@@ -146,6 +146,13 @@ var webpackConfig = merge(baseWebpackConfig, {
       inject: true,
       chunksSortMode: 'dependency',
       chunks: ['vendor', 'couponShare']
+    }),
+    new HtmlWebpackPlugin({
+			filename: 'customer.html',
+			template: 'customer.html',
+      inject: true,
+      chunksSortMode: 'dependency',
+      chunks: ['vendor', 'customer']
 		}),
     new HtmlWebpackPlugin({
 			  filename: 'upgrade.html',

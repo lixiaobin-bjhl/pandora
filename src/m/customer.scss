@@ -1,5 +1,75 @@
-
 @import 'src/assets/scss/common/vendor.scss';
+@import 'src/assets/scss/extends.scss';
+
+
+.center {
+    .profile {
+        text-align: center;
+        position: relative;
+        .banner {
+            background: url('../assets/img/center-bg.png') no-repeat;
+            background-size: 100% 100%;
+            height: 125px;
+        }
+        .info {
+            position: absolute;
+            top: 1;
+            width: 100%;
+            z-index: 111;
+            text-align: center;
+            .img {
+                width: 189px;
+                height: 189px;
+                border-radius: 50%;
+                margin-top: 25px;
+            }
+            .name {
+                font-size: 30px;
+                color: #171616;
+                position: relative;
+                .svg-icon {
+                    vertical-align: baseline;
+                    margin: 0 0 -1px  10px;
+                    display: inline-block;
+                }
+                top: -44px;
+            }
+            .upload-btn {
+                background: #FFFFFF;
+                position: relative;
+                top: -45px;
+                left: 59px;
+                border: 1px solid rgba(0,0,0,0.10);
+                border-radius: 22.5px;
+                width: 45px;
+                margin: 0 auto;
+                height: 45px;
+                overflow: hidden;
+                line-height: 52px;
+                input {
+                    position: absolute;
+                    opacity: 1;
+                    right: 0;
+                    zoom: 20;
+                }
+            }
+            .svg-icon {
+                color: #6BC0B8;
+            }
+        }
+    }
+}
+.my-menu {
+    margin-top: 200px;
+    .svg-icon {
+        vertical-align: middle;
+    }
+    .mint-cell-text {
+        font-size: 17px;
+        color: #1F2D3D;
+        margin-left: 5px;
+    }
+}
 
 
 .login-form {

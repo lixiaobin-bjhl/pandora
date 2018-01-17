@@ -1,16 +1,18 @@
 /**
- * @file 抢卡券红包
+ * @file 个人中心
  */
 
 'use strict';
 
 import Vue from 'vue';
 import FastClick from 'fastclick';
-import './couponShare.scss';
-import CouponShare from './components/CouponShare.vue';
+import './customer.scss';
 import Toast from 'mint-ui/lib/toast';
-import 'mint-ui/lib/toast/style.css';
-import router from './couponShareRouter';
+import 'mint-ui/lib/style.css';
+import router from './customerRouter';
+
+import Icon from 'vue-svg-icon/Icon.vue';
+Vue.component('icon', Icon);  
 
 window.toast = function(msg) {
     Toast(msg);
