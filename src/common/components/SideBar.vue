@@ -8,9 +8,9 @@
                     :key="index"
                     @click="forward(item)">
                     <icon 
-                    name="account3"
+                    :name="(item.icon || 'account')"
                     style="color: #fff"
-                    scale="3"></icon>
+                    scale="2"></icon>
                     <span>{{ item.text }}</span>
                 </li>
             </ul>
@@ -25,29 +25,44 @@ export default {
             currentTab: window.location.hash.slice(3),
             options: [
                 {
+                    text: "校区管理",
+                    url: "/campus",
+                    icon: 'campus'
+                },
+                {
+                    text: "教室管理",
+                    url: "/classroom",
+                    icon: 'classroom'
+                },
+                {
                     text: "课程管理",
                     url: "/course",
                     icon: "course"
                 },
                 {
                     text: "账号管理",
-                    url: "/account"
+                    url: "/account",
+                    icon: "account"
                 },
                 {
                     text: "教师管理",
-                    url: "/teacher"
+                    url: "/teacher",
+                    icon: "teacher"
                 },
                 {
                     text: "报装管理",
-                    url: "/equipment"
+                    url: "/equipment",
+                    icon: 'equipment'
                 },
                 {
                     text: "排课管理",
-                    url: "/arrangement"
+                    url: "/arrangement",
+                    icon: 'arrangement' 
                 },
                 {
                     text: "课表",
-                    url: "/timetable"
+                    url: "/timetable",
+                    icon: 'timetable' 
                 }
             ]
         }

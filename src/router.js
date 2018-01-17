@@ -7,7 +7,8 @@ import Course from './modules/course/index';
 import Arrangement from './modules/arrangement/index';
 import EquipmentGuide from './modules/equipment/guide';
 import Timetable from './modules/timetable/index';
-
+import Classroom from './modules/classroom/index';
+import Campus from './modules/campus/index';
 
 Vue.use(Router);
 
@@ -51,6 +52,16 @@ export default new Router({
             path: '/timetable',
             name: 'timetable',
             component: Timetable
+        },
+        {
+            path: '/Campus',
+            name: 'campus',
+            component: Campus
+        },
+        {
+            path: '/classroom',
+            name: 'classroom',
+            component: Classroom
         }
     ]
 });

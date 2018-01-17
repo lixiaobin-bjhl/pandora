@@ -71,7 +71,7 @@
                     <template slot-scope="scope">
                         <div  class="btn-group">
                             <a href="javascript:;" @click="updateStatus(scope.row)">同意申请</a>
-                            <a href="javascript:;" @click="updateStatus(scope.row)">驳回申请</a>
+                            <a href="javascript:;" class="forbidden" @click="updateStatus(scope.row)">驳回申请</a>
                             <a href="javascript:;" @click="detail(scope.row)">详情</a>
                         </div>
                     </template>

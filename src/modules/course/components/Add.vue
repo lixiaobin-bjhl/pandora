@@ -145,6 +145,17 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            <transition v-if="isConflict" name="el-zoom-in-top" mode="out-in" appear>
+                <div class="course-warning">
+                    <h3>
+                        <span class="el-icon-warning"></span>课程发生冲突
+                    </h3>
+                    <ul>
+                        <li>该课程与《APP一对一》第137节课于12月13日 05:00-18:00发生冲突，请重新排课。</li>
+                        <li>该课程与《APP一对一》第137节课于12月13日 05:00-18:00发生冲突，请重新排课。</li>
+                    </ul>
+                </div>
+            </transition>
         </el-form>
         <div slot="footer">
             <el-button @click="cancel">取消</el-button>
@@ -192,6 +203,7 @@
                 form: {
                     newPwd: '',
                 },
+                isConflict: false,
                 repeatInfo: null,
                 posX: 0,
                 posY: 0,
@@ -274,6 +286,8 @@
                 this.$store.commit('HIDE_ADD_COURSE');
             },
             ok () {
+                this.isConflict = true;
+                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         var accountItem = this.accountItem;

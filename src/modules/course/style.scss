@@ -28,6 +28,23 @@
     }
 }
 
+.course-warning {
+    color: #F56C6C;
+    margin-left: 58px;
+    h3 {
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 5px;
+        > span {
+            margin-right: 8px;
+        }
+    }
+    li {
+        list-style: disc;
+        margin-left: 20px;
+    }
+}
+
 .upload-btn {
     vertical-align: middle;
     .add-btn-link {
