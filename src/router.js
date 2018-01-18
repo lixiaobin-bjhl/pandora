@@ -16,7 +16,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/account'
+            redirect: '/course'
         },
         {
             path: '/account',

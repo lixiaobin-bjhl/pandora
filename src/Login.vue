@@ -1,8 +1,10 @@
 <template>
     <div class="login">
+        <img class="logo" src="./assets/img/logo.png">
         <div>
             <h1>华图教育<span>双师</span>排课系统</h1>
             <div class="container">
+                <img class="plane" src="./assets/img/plane.png">
                 <h2>用户登录</h2>
                 <el-form :model="form" :rules="rules" ref="form" @keyup.enter.native='!loading && login()'>
                     <el-form-item prop="name">

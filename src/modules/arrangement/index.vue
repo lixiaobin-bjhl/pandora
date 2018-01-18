@@ -7,7 +7,7 @@
             <el-col :span="12">
                 <el-button 
                     type="primary" 
-                    @click="apply">查看课表</el-button>
+                    @click="showTimetable">查看课表</el-button>
             </el-col>
         </el-row>
         <div class="list-box">
@@ -104,6 +104,12 @@
             this.fetchList()
         },
         methods: {
+            /**
+             * 展示课表 
+             */
+            showTimetable () {
+                this.$router.push('/timetable');
+            },
             /**
              * 修改状态 
              */

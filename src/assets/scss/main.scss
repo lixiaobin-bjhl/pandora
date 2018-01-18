@@ -29,15 +29,22 @@
      box-sizing: border-box;
      min-width: 1265px;
      height: 100%;
-     padding: 50px 0 0 160px;
+     padding: 50px 0 0 180px;
      > div {
-         padding: 16px 30px;
+        padding: 16px 0px;
+        margin: 10px 20px;
+    }
+     .list-box {
+        background: #fff;
+        min-height: 300px;
+        padding: 10px;
      }
      .module-title {
          font-weight: normal;
          color: $color-blue;
          font-size: 18px;
-         margin-bottom: 10px;
+         margin-bottom: 16px;
+         line-height: 40px;
          .el-col {
              &:first-child {
                  .el-breadcrumb__item__inner {
@@ -88,7 +95,7 @@
      }
  }
  .filter-box {
-     margin-bottom: 20px;
+     margin: 10px 0 14px 0;
      > .el-input,
      > .el-select
     {
@@ -122,9 +129,8 @@
 
 .material-list {
     position: relative;
-    margin: 12px 20px;
 }
 .pager {
     text-align: right;
-    margin-top: 20px;
+    margin: 20px 0;
 }

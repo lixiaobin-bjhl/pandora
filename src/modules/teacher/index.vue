@@ -164,7 +164,7 @@
              * 查看课表
              */
             showLessonTable () {
-             
+                this.$router.push('/timetable');
             },
             /**
              * 获取账号列表 

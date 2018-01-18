@@ -116,7 +116,7 @@
         <div slot="footer" v-if="!isShowDetail">
             <el-button @click="cancel">取消</el-button>
             <el-button 
-                :disabled="loading || applyItem? true : false" 
+                :disabled="loading" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>

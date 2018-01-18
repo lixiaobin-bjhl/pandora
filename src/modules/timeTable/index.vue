@@ -40,14 +40,14 @@
                     </span>
                 </div>
             </div>
+            <transition name="fade" mode="out-in">
+                <time-table 
+                    ref="timetable"
+                    :time="date"
+                    v-on:refresh="refresh">
+                </time-table>
+            </transition>
         </div>
-		<transition name="fade" mode="out-in">
-			<time-table 
-				ref="timetable"
-				:time="date"
-				v-on:refresh="refresh">
-			</time-table>
-		</transition>
     </div>
 </template>
 

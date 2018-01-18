@@ -14,7 +14,7 @@ export default {
         /**
          * 判断当前角色是否有权限
          * 
-         * @param {number} roleType
+         * @param {number|array} roleType
          * 
          * @param {boolean} 
          */
@@ -24,7 +24,12 @@ export default {
             if (!userInfo) {
                 return false;
             }
-           return roleType == userInfo.roleType;
+            if (Object.prototype.toString.call(roleType) == '[object Array]') {
+                return roleType.some((item)=> {
+                    return item == userInfo.roleType;
+                });
+            }
+            return roleType == userInfo.roleType;
         }
     }
 }

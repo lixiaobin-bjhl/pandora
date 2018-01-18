@@ -10,14 +10,15 @@
         </el-row>
         <div class="list-box">
             <div class="course-list">
-                <ul @click="applyCourse">
+                <ul @click="applyCourse" :class="{'can-apply': this.$root.hasAuth(1)}">
                     <li><img
                         width="250"
+                        title="结构化面试专项班"
                         height="166"
                         :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
                     <div>
                         <li class="title">结构化面试专项班</li>
-                        <li class="opt">
+                        <li class="opt" v-if="$root.hasAuth(3)">
                             <el-button type="text" @click="detail">详情</el-button>
                             <el-button type="text" @click="setStickStatus">置顶</el-button>
                             <el-button type="text" @click="updateStatus">上架</el-button>
@@ -32,7 +33,7 @@
                         :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
                     <div>
                         <li class="title">结构化面试专项班</li>
-                        <li class="opt">
+                        <li class="opt" v-if="$root.hasAuth(3)">
                             <el-button type="text" @click="detail">详情</el-button>
                             <el-button type="text" @click="setStickStatus">置顶</el-button>
                             <el-button type="text" @click="updateStatus">上架</el-button>
@@ -47,7 +48,7 @@
                         :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
                     <div>
                         <li class="title">结构化面试专项班</li>
-                        <li class="opt">
+                        <li class="opt" v-if="$root.hasAuth(3)">
                             <el-button type="text" @click="detail">详情</el-button>
                             <el-button type="text" @click="setStickStatus">置顶</el-button>
                             <el-button type="text" @click="updateStatus">上架</el-button>
@@ -62,7 +63,7 @@
                         :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
                     <div>
                         <li class="title">结构化面试专项班</li>
-                        <li class="opt">
+                        <li class="opt" v-if="$root.hasAuth(3)">
                             <el-button type="text" @click="detail">详情</el-button>
                             <el-button type="text" @click="setStickStatus">置顶</el-button>
                             <el-button type="text" @click="updateStatus">上架</el-button>
@@ -77,7 +78,7 @@
                         :src="'http://img.gsxservice.com/36218_w4bny0tf.jpeg'|compressImage(250, 166)"></li>
                     <div>
                         <li class="title">结构化面试专项班</li>
-                        <li class="opt">
+                        <li class="opt" v-if="$root.hasAuth(3)">
                             <el-button type="text" @click="detail">详情</el-button>
                             <el-button type="text" @click="setStickStatus">置顶</el-button>
                             <el-button type="text" @click="updateStatus">上架</el-button>
@@ -85,6 +86,9 @@
                         </li>
                     </div>
                 </ul>
+            </div>
+            <div class="none-list" v-if="list && !list.length">
+                <span>暂无课程信息</span>
             </div>
             <pager 
                 @currentchange="changePage"
@@ -129,6 +133,10 @@
              * @parma {Object} course 查看课程详情
              */
             applyCourse (course) {
+                // 不是分校就不能申请
+                if (!this.$root.hasAuth(1)) {
+                    return;
+                }
                 this.$store.commit('SHOW_APPLY_COURSE', {
                     course: course,
                     isShowDetail: false

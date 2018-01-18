@@ -176,7 +176,7 @@
 					if (self.showClazzInfo) {
 						return;
 					}
-					// self.showTip = false;
+					self.showTip = false;
 				});
 				$wrap.on('click', '.mask-wrap', function(event) {
 					self.showMask = false;

@@ -89,7 +89,7 @@
         height: 60px;
         line-height: 60px;
         text-align: right;
-        background-color: #F9F9F9;
+        background-color: #fff;
         .logo {
             font-size: 24px;
             color: #409EFF;

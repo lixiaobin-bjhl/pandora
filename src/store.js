@@ -19,7 +19,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        userInfo: null
+        userInfo: null,
+        currentPath: '',
     },
     strict: false,
     mutations,

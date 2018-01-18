@@ -17,10 +17,48 @@ import auth from 'src/common/mixin/auth';
 
 Vue.component('icon', Icon);
 
+
 router.beforeEach((to, from, next) => {
+	var path = from.path;
+	if (path) {
+		// 两个/之间的就是模块名称
+		var moduleNames = /([^\/]+)/.exec(path);
+		if (moduleNames && moduleNames[1]) {
+			clearState(moduleNames[1]);
+		}
+	}
+	var toPath = to.path;
+	if(toPath == '/') {
+		store.commit('SET_CRUMB_OPTIONS', []);
+	} else {
+		// 两个/之间的就是模块名称
+		var moduleNames = /([^\/]+)/.exec(toPath);
+		if (moduleNames && moduleNames[1]) {
+			clearState(moduleNames[1]);
+		}
+	}
     loadingBar.start();
     next();
+    console.log(toPath);
+	store.commit('SET_ROUTER', toPath);
 });
+
+/**
+ * 路由变化时，把之前的弹窗状态都清掉
+ */
+function clearState (module) {
+	var status = store.state[module];
+	if (status) {
+		for (var key in status) {
+			var property = status[key];
+			if (status.hasOwnProperty(key) && property
+				&& typeof property === 'boolean') {
+				status[key] = false;
+			}
+		}
+	}
+	$('body').css({overflow: ''});
+}
 
 router.afterEach(route => {
     loadingBar.finish();
