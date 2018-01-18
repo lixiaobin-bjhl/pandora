@@ -8,7 +8,8 @@
 var routesConfig = [
     require('./api'),
     require('./campus'),
-    require('./lesson')
+    require('./lesson'),
+    require('./apply')
 ];
 
 var routes = [];

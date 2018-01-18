@@ -3,6 +3,7 @@ const state = {
     showEquipmentStatusListState: false,
     equipment: null,
     applyItem: null,
+    isModified: false,
     showApplyEquipmentState: false
 };
 
@@ -15,13 +16,15 @@ const mutations = {
         state.showEquipmentStatusListState = false;
         state.equipment = null;
     },
-    'SHOW_APPLY_EQUIPMENT' (state, applyItem) {
+    'SHOW_APPLY_EQUIPMENT' (state, data) {
         state.showApplyEquipmentState = true;
-        state.applyItem = applyItem;
+        state.applyItem = data.applyItem;
+        state.isModified = data.isModified;
     },
     'HIDE_APPLY_EQUIPMENT' (state) {
         state.showApplyEquipmentState = false;
         state.applyItem = null;
+        state.isModified = false;
     }
 };
 

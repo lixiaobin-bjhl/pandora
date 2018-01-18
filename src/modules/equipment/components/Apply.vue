@@ -1,6 +1,6 @@
 <template>
       <el-dialog 
-        :title="applyItem ? '申报详情': '报装申请'"
+        :title="title"
         width="640px"
         custom-class="equipment-status-list"
         :visible.sync="$store.state.equipment.showApplyEquipmentState"
@@ -10,12 +10,12 @@
             ref="form"
             label-width="80px"
             :class="{'detail-from': applyItem}"
-            :rules="applyItem ? {} : rules"
+            :rules="applyItem && !isModified ? {} : rules"
             label-position="right">
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item label="校区" prop="accountName">
-                        <template v-if="applyItem">
+                        <template v-if="applyItem && !isModified">
                             xxxxxx
                         </template>
                         <el-input
@@ -27,7 +27,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="教室个数" prop="userName">
-                        <template v-if="applyItem">
+                        <template v-if="applyItem && !isModified">
                             xxxxxx
                         </template>
                         <el-input 
@@ -38,7 +38,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="申报人" prop="userName">
-                        <template v-if="applyItem">
+                        <template v-if="applyItem && !isModified">
                             xxxxxx
                         </template>
                         <el-input 
@@ -49,7 +49,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="地址" prop="userName">
-                        <template v-if="applyItem">
+                        <template v-if="applyItem && !isModified">
                             xxxxxx
                         </template>
                         <el-autocomplete
@@ -69,7 +69,7 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                         <template v-if="applyItem">
+                         <template v-if="applyItem && !isModified">
                             xxxxxx
                         </template>
                         <el-input
@@ -83,10 +83,10 @@
                 </el-col>
            </el-row>
         </el-form>
-        <div slot="footer" v-if="!applyItem">
+        <div slot="footer" v-if="!applyItem || (applyItem && isModified)">
             <el-button @click="cancel">取消</el-button>
             <el-button 
-                :disabled="loading || applyItem? true : false" 
+                :disabled="loading" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>
@@ -108,10 +108,21 @@
         computed: {
             applyItem () {
                 return this.$store.state.equipment.applyItem;
+            },
+            isModified () {
+                return this.$store.state.equipment.isModified;
+            },
+            title () {
+                if (this.isModified) {
+                    return '编辑报装申请';
+                } else {
+                    if (this.applyItem) {
+                        return '申报详情';
+                    } else {
+                        return '报装申请';
+                    }
+                }
             }
-        },
-        mounted () {
-            
         },
         methods: {
             /**

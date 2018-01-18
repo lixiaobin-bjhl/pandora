@@ -7,7 +7,10 @@
                 <el-form :model="form" :rules="rules" ref="form" @keyup.enter.native='!loading && login()'>
                     <el-form-item prop="name">
                         <el-col :span="24">
-                            <el-input v-model.trim="form.name" placeholder="手机号">
+                            <el-input 
+                                v-model.trim="form.name" 
+                                :maxlength="30" 
+                                placeholder="手机号">
                                <icon slot="prefix" scale="2.5" style="color:#ddd" name="mobilephone"></icon>
                             </el-input>
                         </el-col>
@@ -21,7 +24,8 @@
                     </el-form-item>
                     <el-form-item prop="code">
                         <el-col :span="12">
-                            <el-input v-model.trim="form.password" type="password" placeholder="验证码">
+                            <el-input v-model.trim="form.password" 
+                                :maxlength="6" type="password" placeholder="验证码">
                                 <icon slot="prefix" scale="2.3" style="color:#ddd" name="verify-code"></icon>
                             </el-input>
                         </el-col>

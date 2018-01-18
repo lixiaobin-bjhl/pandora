@@ -31,7 +31,7 @@
         <el-form 
             :model="form" 
             ref="form"
-            v-if="addStatus"
+            v-if="addStatus && $root.hasAuth(3)"
             label-width="80px"
             label-position="right" 
             >
@@ -51,7 +51,8 @@
                 ></el-input>
             </el-form-item>
         </el-form>
-        <div slot="footer" v-if="addStatus">
+        <div slot="footer" 
+            v-if="addStatus && $root.hasAuth(3)">
             <el-button 
                 @click="cancel">取消</el-button>
             <el-button 

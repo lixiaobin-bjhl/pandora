@@ -6,7 +6,8 @@
             </el-col>
             <el-col :span="12">
                 <el-button 
-                    type="primary" 
+                    type="primary"
+                    v-if="$root.hasAuth(1)"
                     @click="apply">申请教室</el-button>
             </el-col>
         </el-row>
@@ -16,20 +17,17 @@
                     <campus-filter
                         v-model="filter.campus">
                     </campus-filter>
-                    <el-input 
-                        placeholder="请输入教室名称" 
-                        style="width: 240px;"
-                        @keyup.enter="refresh" 
-                        v-model.trim="filter.campus">
-                        <i slot="suffix" 
-                            class="el-input__icon el-icon-search pointer">
-                        </i>
-                    </el-input>
                     <el-select
                     v-model="filter.status"
+                    clearable
+                    @change="refresh"
                     style="width: 180px;" 
                     placeholder="请选择状态">
-
+                        <el-option label="审批中" v-if="$root.hasAuth(1)" :value="1"></el-option>
+                        <el-option label="待审批" v-if="$root.hasAuth(3)" :value="1"></el-option>
+                        <el-option label="通过" :value="2"></el-option>
+                        <el-option label="拒绝" :value="3"></el-option>
+                        <el-option label="撤回" :value="4"></el-option>
                     </el-select>
                 </div>
             </div>
@@ -43,7 +41,7 @@
                     align="center"
                     label="报装校区">  
                     <template slot-scope="scope">
-                        <a href="javascript:;">李小斌</a>
+                       李小斌
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -65,6 +63,35 @@
                     align="center"
                     prop="date"
                     label="当前状态">
+                    <template slot-scope="scope">
+                        <span 
+                            :class="{
+                                'text-yellow': scope.row.status == 1,
+                                'text-success': scope.row.status == 2 || scope.row.status >= 5,
+                                'text-danger': scope.row.status == 3}">
+                            <template v-if="scope.row.status == 1">
+                                <icon name="applying" scale="1.5"></icon>
+                            </template>
+                            <template v-if="scope.row.status == 2">
+                                <icon name="apply-success" scale="1.5"></icon>
+                            </template>
+                            <template v-if="scope.row.status == 3">
+                                <icon name="apply-failed" scale="1.5"></icon>
+                            </template> 
+                            <template v-if="$root.hasAuth(1) && scope.row.status == 1">
+                                审批中
+                            </template>
+                            <template v-else-if="$root.hasAuth(3) && scope.row.status == 1">
+                                待审批
+                            </template>
+                            <template v-else-if="scope.row.status >= 5">
+                                通过
+                            </template>
+                            <template v-else>
+                                {{scope.row.statusStr}}
+                            </template>
+                        </span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="date"
@@ -72,8 +99,25 @@
                     label="操作">
                     <template slot-scope="scope">
                         <div class="btn-group">
-                            <a href="javascript:;" @click="updateStatus(scope.row)">更新状态</a>
-                            <a href="javascript:;" @click="showDetail(scope.row)">查看详情</a>
+                            <a href="javascript:;"
+                                v-if="$root.hasAuth(3)" 
+                                @click="updateStatus(scope.row)">更新状态</a>
+                            <a href="javascript:;"
+                                v-if="$root.hasAuth(3) && scope.row.status == 1" 
+                                @click="updateStatus(scope.row)">通过</a>
+                            <a href="javascript:;"
+                                v-if="$root.hasAuth(3) && scope.row.status == 1" 
+                                @click="updateStatus(scope.row)">拒绝</a>
+                            <a href="javascript:;"
+                                v-if="$root.hasAuth(1) && scope.row.status == 1" 
+                                @click="withdraw(scope.row)">撤回</a>
+                            <a href="javascript:;"
+                                v-if="$root.hasAuth(1) && scope.row.status == 4" 
+                                @click="edit(scope.row)">编辑</a>
+                            <a href="javascript:;"
+                                v-if="scope.row.status == 2 || scope.row.status == 3" 
+                                @click="updateStatus(scope.row)">状态记录</a>
+                            <a href="javascript:;" @click="showDetail(scope.row)">详情</a>
                         </div>
                     </template>
                 </el-table-column>
@@ -99,6 +143,7 @@
     import EquipmentStatusList from './components/EquipmentStatusList';
     import Apply from './components/Apply';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import { getApplyList } from './request';
 
     export default {
         mixins: [listPageDto],
@@ -110,11 +155,11 @@
                 filter: {
                     key: ''
                 },
-                list: [{}]
+                list: []
             }
         },
         mounted () {
-            this.fetchList()
+            this.fetchList();
         },
         methods: {
             /**
@@ -135,18 +180,53 @@
              */
             fetchList () {
                 var pageDto = this.pageDto;
+                this.loading = true;
+                getApplyList({
+                    pageSize: pageDto.pageSize,
+                    pageNum: pageDto.pageNum
+                })
+                    .then((res)=> {
+                        this.list = res.data;
+                        this.loading = false;
+                    }, ()=> {
+                        this.loading = false;
+                    });
             },
             /**
              * 查看申请详情 
              */
             showDetail (applyItem) {
-                this.$store.commit('SHOW_APPLY_EQUIPMENT', applyItem);
+                this.$store.commit('SHOW_APPLY_EQUIPMENT', {
+                    applyItem: applyItem,
+                    isModified: false
+                });
+            },
+            /**
+             * 编辑申请 
+             */
+            edit (applyItem) {
+                this.$store.commit('SHOW_APPLY_EQUIPMENT', {
+                    applyItem: applyItem,
+                    isModified: true
+                });
+            },
+            /**
+             * 撤回 
+             */
+            withdraw () {
+                this.$confirm('确认撤回?', '提示', {
+                        type: 'warning'
+                    }).then(() => {
+                    });
             },
             /**
              * 申请教室 
              */
             apply () {
-                this.$store.commit('SHOW_APPLY_EQUIPMENT');
+                this.$store.commit('SHOW_APPLY_EQUIPMENT', {
+                    applyItem: null,
+                    isModified: false
+                });
             }
         },
         components: {

@@ -1,0 +1,29 @@
+{
+    "msg": "succ",
+    "code": 0,
+    "data": [
+        {
+            "status": 1,
+            "statusStr": "进行中"
+        },
+        {
+            "status": 2,
+            "statusStr": "通过"
+        },
+        {
+            "status": 3,
+            "statusStr": "拒绝"
+        },
+        {
+            "status": 4,
+            "statusStr": "撤回"
+        }
+    ],
+    "pageDto": {
+        "count": 100,
+        "curPageCount": 10,
+        "pageNum": 1,
+        "pageSize": 20,
+        "totalPageNum": 2
+    }
+}

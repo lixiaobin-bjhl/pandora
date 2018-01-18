@@ -1,6 +1,9 @@
 
 
+'use strict';
+
 import jsonp from '../../common/function/jsonp';
+import {post} from '../../common/service';
 
 /**
  * 百度地址suggestion
@@ -22,4 +25,13 @@ export function getAddressSuggestion (data) {
             ak: 'FYFvMwLbOQfdZdbT49KGAG6k'
         }
     );
+}
+
+/**
+ * 获取申请列表
+ * 
+ *  @return {Promise} 
+ */
+export function getApplyList (params) {
+    return post('/apply/list.json', params);
 }

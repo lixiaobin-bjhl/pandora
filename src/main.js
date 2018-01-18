@@ -13,6 +13,8 @@ import 'assets/scss/element-variables.scss';
 import toast from './common/function/toast';
 import loadingBar from 'src/common/components/loadingBar';
 import Icon from 'vue-svg-icon/Icon.vue';
+import auth from 'src/common/mixin/auth';
+
 Vue.component('icon', Icon);
 
 router.beforeEach((to, from, next) => {
@@ -44,6 +46,7 @@ Vue.use(ElementUI);
 
 new Vue({
     el: '#app',
+    mixins: [auth],
     store,
     router,
     template: '<App/>',
