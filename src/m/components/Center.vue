@@ -40,8 +40,11 @@
 </template>
 
 <script>
+
     import Vue from 'vue';
     import { Cell } from 'mint-ui';
+    import { Indicator } from 'mint-ui';
+
     Vue.component(Cell.name, Cell);
     import axios from 'axios';
 

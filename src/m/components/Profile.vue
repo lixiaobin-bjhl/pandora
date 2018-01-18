@@ -18,11 +18,29 @@
 			<div class="login-form">
 				<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名"></mt-field>
 				<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
-				<mt-field class="mobddle-field" :disable-clear="true" type="tel"  v-model.number="age" placeholder="年龄"></mt-field>
 				<div class="gender-wrap">
 					<label><input v-model="gender" :value="1" name="gender" type="radio">男</input></label>
 					<label><input v-model="gender" :value="2" name="gender" type="radio">女</input></label>
 				</div>
+                <div class="age-field">
+                    <div>
+                        <span>我是</span>
+                    </div>
+                    <ul>
+                        <li @click="changeAge('05')" :class="{'active': age == '05'}">05后</li>
+                        <li @click="changeAge('00')" :class="{'active': age == '00'}">00后</li>
+                        <li @click="changeAge('95')" :class="{'active': age == '95'}">95后</li>
+                        <li @click="changeAge('90')" :class="{'active': age == '90'}">90后</li>
+                        <li @click="changeAge('85')" :class="{'active': age == '85'}">85后</li>
+                        <li @click="changeAge('80')" :class="{'active': age == '80'}">80后</li>
+                        <li @click="changeAge('75')" :class="{'active': age == '75'}">75后</li>
+                        <li @click="changeAge('70')" :class="{'active': age == '70'}">70后</li>
+                        <li @click="changeAge('65')" :class="{'active': age == '65'}">65后</li>
+                        <li @click="changeAge('60')" :class="{'active': age == '60'}">60后</li>
+                        <li @click="changeAge('55')" :class="{'active': age == '55'}">55后</li>
+                        <li @click="changeAge('50')" :class="{'active': age == '50'}">50后</li>
+                    </ul>
+                </div>
 			</div>
 		</div>
 		<div class="footer">
@@ -96,7 +114,13 @@
 				}, 1000);
 				this.timeStep();
 
-			},
+            },
+            /**
+             * 改变年龄 
+             */
+            changeAge (age) {
+                this.age = age;
+            },
 			getCode() {
 				if (this.getCoding || this.waiting) {
 					return;

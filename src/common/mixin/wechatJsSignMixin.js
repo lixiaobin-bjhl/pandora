@@ -72,6 +72,26 @@ export default {
                 result = true;
             }
             return result;
+        },
+        /**
+         * 分享
+         * 
+         * @param {string} options.title 分享标题
+         * @param {string} options.link 分享链接
+         * @param {string} options.desc 分享描述
+         * @param {string} options.imgUrl 分享图片
+         */
+        share (options) {
+            wx.onMenuShareTimeline(
+                {
+                    title: options.title, 
+                    link: options.link, 
+                    desc: options.desc,
+                    imgUrl: options.imgUrl, 
+                    success: function () {},
+                    cancel: function () {}
+                }
+            )
         }
     }
 }

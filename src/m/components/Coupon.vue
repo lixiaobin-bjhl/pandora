@@ -66,7 +66,9 @@
                             <label>使用方法</label>
                             <div>请提前联系机构预约，并在付款时出示本券</div>
                         </li>
-                        <div class="opt-group">再送你3张好友专用券，快去分享吧~<span class="btn-share">分享</span></div> 
+                        <div class="opt-group">
+                            再送你3张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat">分享</span>
+                        </div> 
                     </ul>
                    
                 </div>
@@ -77,15 +79,34 @@
 </template>
 
 <script>
+
+    import setTitle from '../../common/function/setTitle';
+    import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
+    import { Indicator } from 'mint-ui';
+
     export default {
+        mixins: [wechatJsSignMixin],
         data () {
             return {
                 activeTab: 1
             }
         },
+        created () {
+            setTitle('优惠券');
+            this.getWechatJsSign();
+        },
         methods: {
+            /**
+             * 切换tab 
+             */
             changeTab (type) {
                 this.activeTab = type;
+            },
+            /**
+             * 分享 
+             */
+            shareWechat () {
+                this.share({});
             }
         }
     }

@@ -21,10 +21,8 @@ html {
 body {
     height: 100%;
     font-family: $font-family;
-    background-color: $body-bg-color;
     color: $text-color-dark;
     font-size: $font-size-large;
-    line-height: 1;
     -webkit-font-smoothing: antialiased;
 
     // 避免使用system-ui默认字体
@@ -88,7 +86,7 @@ textarea {
         content: '';
         width: 98px;
         height: 98px;
-        background: url('assets/img/none-data-bg.png') no-repeat;
+        background: url('http://p2q80yyoe.bkt.clouddn.com/none-data-bg.png') no-repeat;
         background-size: contain;
         margin: 30px auto;
     }

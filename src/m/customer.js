@@ -6,7 +6,6 @@
 
 import Vue from 'vue';
 import FastClick from 'fastclick';
-import './customer.scss';
 import Toast from 'mint-ui/lib/toast';
 import 'mint-ui/lib/style.css';
 import router from './customerRouter';

@@ -43,12 +43,12 @@ module.exports = merge(baseWebpackConfig, {
 		// 	chunks: ['app'],
 		// 	inject: true
 		// }),
-		// new HtmlWebpackPlugin({
-		// 	filename: 'login.html',
-		// 	template: 'login.html',
-		// 	chunks: ['login'],
-		// 	inject: true
-		// }),
+		new HtmlWebpackPlugin({
+			filename: 'login.html',
+			template: 'login.html',
+			chunks: ['login'],
+			inject: true
+		}),
 		// new HtmlWebpackPlugin({
 		// 	filename: 'bindTel.html',
 		// 	template: 'bindTel.html',
