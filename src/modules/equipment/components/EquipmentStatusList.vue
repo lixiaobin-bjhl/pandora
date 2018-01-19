@@ -12,6 +12,7 @@
             </ul> 
             <Timeline pending>
                 <timeline-item
+                    color="#46a0f0"
                     v-for="item, index in list"
                     v-if="(index >= 3 && isShowMore ) || index < 3" 
                     :key="index" >
@@ -19,7 +20,9 @@
                     <p class="status-str">提出申请</p>
                     <p class="content">申请人：张艺     校区：厦门思明校区    套数：3<pre>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre></p>
                 </timeline-item>
-                <TimelineItem>
+                <TimelineItem  
+                    color="#46a0f0" 
+                    v-if="list.length >= 3">
                     <a href="javascript:;" 
                     @click="showMore">
                     {{isShowMore ? '收起更多': '展开更多'}}</a>

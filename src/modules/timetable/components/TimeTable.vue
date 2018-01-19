@@ -9,7 +9,7 @@
 					<span class="day">周{{item | week}}</span>
 				</td>
 			</tr>
-			<tr v-for="(num, row) in [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]">
+			<tr v-for="(num, row) in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]">
 				<td>
 					<span v-if="num < 13">上午</span>
 					<span v-if="num > 12 && num < 18">下午</span>
@@ -19,8 +19,10 @@
 				<td v-for="(n, col) in 7" class="grid-td" :data-index="row + '-' + col">
 					<div :id="row + '-' + col + '-tmpl'" class="time-table-tmpl">
 					</div>
-					<div :class="'grid-column grid-column-' + index + '-clip'" v-for="(d, index) in 2" :data-index="index" 
-						:data-key="row + '-' + col" :data-time="row + '-' + col + '-' +index">
+					<div :class="'grid-column grid-column-' + index + '-clip'" v-for="(d, index) in 2" 
+						:data-index="index" 
+						:data-key="row + '-' + col" 
+						:data-time="row + '-' + col + '-' +index">
 						<!-- <span class="btn btn-add btn-add-large" @click.stop="schedule($event)">
 							<i class="icon-btn_add" title="排课"></i>
 						</span> -->
@@ -35,7 +37,8 @@
 			<div class="item" 
 				:key="index"
 				v-for="item, index in selectLessons" 
-				:data-id="item.id" :data-index="item.arrayIndex">
+				:data-id="item.id" 
+				:data-index="item.arrayIndex">
 				<p class="item-p">
 					<span class="icon-info-circle" style="color: #ff3824;" v-if="item.teacherConflict||item.classroomConflict"></span>
 					{{item.name}}
@@ -211,14 +214,10 @@
 				this.renderGrid();
 			},
 			showLessonDetail(event) {
-				if (this.showClazzInfo) {
-					return;
-				}
-				let target = $(event.currentTarget);
-				let index = target.attr('data-index');
-				this.lesson = this.lessons[index];
-				this.selectId = this.lesson.id;
-				this.$store.commit('SHOW_EDIT_LESSON', this.selectId);
+				let target = event.currentTarget;
+				this.$emit('editlesson', {
+					id: target.dataset.id
+				});
 			},
 			clearGrid() {
 				this.addBtn && this.addBtn.css('display', 'none');
@@ -327,7 +326,10 @@
 				if (day === 0) {
 					day = 7;
 				}
-				let startRow = hour - 5;
+				let startRow = hour - 8;
+				if (startRow < 0) {
+					return;
+				}
 				let col = day - 1;
 				let startIndex = minute > 30 ? 1 : 0;
 				lesson.top = parseInt((minute / 60) * 2 * this.tdHeight) + this.tdHeight;

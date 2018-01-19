@@ -2,14 +2,17 @@
 	@file 下拉卡片
 	@author xuguanong
 -->
+
 <template>
-	<div @click.stop="" class="down-card" :style="{'left':x+'px','top':y+'px', 'min-width': minWidth + 'px'}" v-clickoutside="handleClose">
+	<div @click.stop="" class="down-card" 
+	:style="{'left':x+'px','top':y+'px', 'min-width': minWidth + 'px'}" 
+		v-clickoutside="handleClose">
 		<slot name="main"></slot>
         <slot name="bottom"></slot>
 	</div>
 </template>
 <script>
-	import clickoutside from 'element-ui/src/utils/clickoutside';
+	import clickoutside from './clickoutside';
 	export default {
         props: {
             x: {
@@ -31,7 +34,7 @@
     		}
     	},
     	methods: {
-    		handleClose() {
+    		handleClose(event) {
     			this.$emit('closeCard');
     		}
     	},
@@ -56,15 +59,9 @@
 	    transition: all .2s ease-in-out;
 	    z-index: 1071;
 		.bottom {
-			margin: 10px 10px 10px 0;
-			right: 10px;
-			text-align: right;
-			.btn {
-				font-size: 13px;
-				font-weight: 300;
-				padding: 4px 10px;
-				border: 1px solid #eee;
-			}
+			margin: 5px 0;
+			padding: 5px 0 8px 0;
+			text-align: center;
 		}
 	}
 </style>

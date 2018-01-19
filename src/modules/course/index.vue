@@ -9,6 +9,43 @@
             </el-col>
         </el-row>
         <div class="list-box">
+             <div class="filter-wrap" style="padding-left:20px;">
+                <div class="filter-box">
+                    <el-input 
+                        placeholder="请输入课程名称"
+                        @keyup.enter="refresh"
+                        style="width: 180px;" 
+                        v-model.trim="filter.name">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
+                    </el-input>
+                    <el-select 
+                        placeholder="请选择状态" 
+                        style="width: 180px;"
+                        clearable
+                        v-model.trim="filter.status">
+                        <el-option
+                            v-for="item,index in statusOptions"
+                            :label="item.name"
+                            :value="item.id"
+                            :key="index">
+                        </el-option>
+                    </el-select>
+                    <el-select 
+                        placeholder="请选择科目" 
+                        style="width: 180px;"
+                        clearable
+                        v-model.trim="filter.subjectId">
+                        <el-option
+                            v-for="item,index in subjectOption"
+                            :label="item.name"
+                            :value="item.id"
+                            :key="index">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
             <div class="course-list">
                 <ul @click="applyCourse" :class="{'can-apply': this.$root.hasAuth(1)}">
                     <li><img
@@ -109,6 +146,8 @@
 <script>
 
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
+    import subjectOption from '../../common/config/subjectOption';
+    import config  from './config';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from './components/Add.vue';
     import Apply from './components/apply.vue'
@@ -117,7 +156,9 @@
         mixins: [listPageDto],
         data () {
             return {
-                key: '',
+                filter: {},
+                subjectOption,
+                statusOptions: config.statusOptions,
                 breadcrumb: ['课程管理'],
                 loading: false,
                 list: [{}]

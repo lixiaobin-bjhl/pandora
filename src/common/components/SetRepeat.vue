@@ -5,9 +5,13 @@
 <template>
 	<div class="set-repeat-wrap">
 		<div class="top">
-			<label>重复</label>
-            <el-select v-model="repeatType">
-                <el-option v-for="item,index in typeOptions"
+			<label>设置重复规则</label>
+            <el-select 
+                @click.native.stop="clickOption"
+                v-model="repeatType" 
+                size="small">
+                <el-option
+                    v-for="item,index in typeOptions"
                     :key="index"
                     :label="item.label" 
                     :value="item.value">
@@ -33,7 +37,11 @@
 				<span>周</span>
 			</div>
 			<div class="week">
-				<span v-for="n in weekDays" @click="toggleSet($event, n)" :class="{'active': isActive(n)}">
+				<span 
+                    v-for="n,index in weekDays" @click="toggleSet($event, n)"
+                    :key="index"
+                    :data-text="n.label"
+                    :class="{'active': isActive(n)}">
 					{{n.label}}
 				</span>
 			</div>
@@ -177,7 +185,10 @@
                 this.repeatDays.sort((a, b) => {
                     return a.value > b.value;
                 })
-    		}
+            },
+            clickOption (event) {
+                event.stopPropagation();
+            }
     	}
     }
 </script>
@@ -228,9 +239,17 @@
                         border-right: 1px solid #ddd;
                     }
                     &.active {
-                        background: #00a7ff;
+                        position: relative;
                         color: #fff;
-                        //font-weight: 700;
+                        &::before {
+                            content: attr(data-text);
+                            background: #00a7ff;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                        }
                     }
                 }
             }

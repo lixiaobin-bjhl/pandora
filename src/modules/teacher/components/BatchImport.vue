@@ -34,7 +34,10 @@
                     <h2><span>3.</span>选择需要导入的文件，并开始导入</h2>
                     <div class="upload-body">
                         <file-upload v-if="!file" @filechange="fileChange" tip="上传文件大小不能超过10M" accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            <el-button type="primary" style="width:140px; height: 40px;" plain>添加文件</el-button>
+                            <el-button type="default" 
+                                style="width:140px; height: 40px; background: #F6F7F9;"
+                              plain>添加文件
+                            </el-button>
                         </file-upload>
                         <el-input
                             v-else

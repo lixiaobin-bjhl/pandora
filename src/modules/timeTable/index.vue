@@ -21,18 +21,18 @@
                     <campus-filter
                         v-model="filter.campus">
                     </campus-filter>
-                    <el-select
-                    style="width:180px"
+                    <teacher-filter
                     v-model="filter.teacherId" 
-                    placeholder="请选择老师"></el-select>
-                    <el-select
-                    style="width:180px"
-                    v-model="filter.classroomId" 
-                    placeholder="请选择教室"></el-select>
+                    ></teacher-filter>
+                    <classroom-filter  v-model="filter.classroomId"></classroom-filter>
                     <el-input
                         style="width:180px"
                         v-model="filter.teacherId" 
-                        placeholder="搜索课程"></el-input>
+                        placeholder="搜索课程">
+                        <i slot="suffix" 
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
+                        </el-input>
                     <span class="pull-right">
                         <week-select 
                             @changedate="changeDate"
@@ -44,10 +44,12 @@
                 <time-table 
                     ref="timetable"
                     :time="date"
+                    @editlesson="editLesson"
                     v-on:refresh="refresh">
                 </time-table>
             </transition>
         </div>
+        <add v-if="$store.state.timetable.showLessonDetailState"></add>
     </div>
 </template>
 
@@ -59,6 +61,9 @@
     import WeekSelect from '../../common/components/WeekSelect';
     import getWeekDaysByDay from '../../common/function/getWeekDaysByDay';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
+    import TeacherFilter from 'src/common/components/TeacherFilter.vue';
+    import Add from './components/Add.vue';
 
     var today = new Date();
 
@@ -79,13 +84,21 @@
              * 改变日期 
              */
             changeDate (date) {
-                console.log(getWeekDaysByDay(date));
+                this.date = date;
+                this.getList();
+            },
+            /**
+             * 编辑课节 
+             */
+            editLesson (event) {
+                this.$store.commit('SHOW_LESSON_DETAIL', event.id);
             },
             /**
              * 获取课节信息 
              */
             getList () {
                 var filter = this.filter;
+                var days = getWeekDaysByDay(this.date);
                 this.loading = true;
                 list(filter)
                     .then((res)=> {
@@ -106,6 +119,9 @@
         components: {
             BreadcrumbNav,
             TimeTable,
+            ClassroomFilter,
+            TeacherFilter,
+            Add,
             CampusFilter,
             WeekSelect
         }

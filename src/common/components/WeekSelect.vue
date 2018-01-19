@@ -7,10 +7,12 @@
 	.week-select {
 		> li {
 			.week-str {
-				margin-right: 12px;
+				margin-right: 5px;
 			}
 			.el-button {
-				margin-right: 8px;
+				margin-right: 3px;
+				border: 1px solid #46a0f0;
+				color: #46A0FC;
 				&:last-of-type {
 					margin-right: 0;
 				}
@@ -26,19 +28,24 @@
 				{{weeks[6].timestamp | date('yyyy')}}年第{{getYearWeek(weeks[0].timestamp)}}周
 			</span>
 			<el-button 
-				type="primary"
+				type="default"
 				plain
 				class="arrow icon-left"  
-				@click="forwardWeek('pre')">上一周</el-button>
+				@click="forwardWeek('pre')">
+				<span class="el-icon-arrow-left"></span>上一周
+			</el-button>
 			<el-button
 				plain
-				type="primary"
+				type="default"
 				class="arrow icon-right" 
-				@click="forwardWeek('next')">下一周</el-button>
+				@click="forwardWeek('next')">
+				下一周
+				<span class="el-icon-arrow-right"></span>
+			</el-button>
             <el-button 
 				@click.native="currentWeek" 
 				plain
-				type="primary">今天</el-button>
+				type="default">今天</el-button>
 		</li>
 	</ul>
 </template>

@@ -1,14 +1,14 @@
 <template>
     <el-select 
-        v-model="campusId"
+        v-model="classroomId"
         clearable
         filterable
         remote
         @clear="clear"
-        @change="changeCampus"
+        @change="changeClassroom"
         :loading="loading"
         :remote-method="fetchList"
-        placeholder="请输入校区名称查询"  
+        placeholder="请输入教室名称查询"  
         :style="{width: typeof width === 'number' ? (width + 'px') : '100%'}">
             <el-option 
                 v-for="item, index in list"
@@ -27,37 +27,34 @@ import { post } from '../service';
 export default {
     props: {
         value: {},
+        name: String,
         width: {
             default: 180
         }
-    },
-    computed: {
-        userInfo () {
-            return this.$store.state.userInfo;
-        } 
     },
     data() {
         return {
             loading: false,
             list: [],
-            campusId: ''
+            classroomId: ''
         };
     },
     mounted () {
         this.getDefaultOption();
-        this.defaultCampus();
+        this.defaultClassroom();
     },
     methods: {
         /**
-         * 设置默认校区
+         * 设置默认教室
          */
-        defaultCampus () {
-            var userInfo = this.userInfo;
-            if (userInfo) {
-                this.campusId = userInfo.campusId;
+        defaultClassroom () {
+            var id = this.value;
+            var name = this.name;
+            if (id && name) {
+                this.classroomId = id;
                 this.list = [{
-                    id: userInfo.campusId,
-                    name: userInfo.campusName
+                    id,
+                    name
                 }];
             }  
         },
@@ -76,7 +73,7 @@ export default {
         fetchList (query) {
             this.loading = true;
             timer = setTimeout(() => {
-                post('/campus/list.json', {
+                post('/classroom/list.json', {
                     query: query,
                     pageNum: 1,
                     pageSize: 20
@@ -90,17 +87,17 @@ export default {
             }, 200);
         },
         /**
-         * 改变校区 
+         * 改变教室 
          */
-        changeCampus (campusId) {
-            this.$emit('input', campusId);
+        changeClassroom (classroomId) {
+            this.$emit('input', classroomId);
         },
         /**
          * 获取默认选项
          */
         getDefaultOption () {
             this.loading = true;
-            post('/campus/list.json', {
+            post('/classroom/list.json', {
                 pageNum: 1,
                 pageSize: 20
             })
@@ -110,11 +107,6 @@ export default {
             }, ()=> {
                 this.loading = false;
             });
-        }
-    },
-    watch: {
-        'userInfo.campusId' () {
-            this.defaultCampus();
         }
     }
 };

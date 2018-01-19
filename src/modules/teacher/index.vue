@@ -29,7 +29,8 @@
                         </i>
                     </el-input>
                     <el-select 
-                        placeholder="科目" 
+                        placeholder="请选择科目" 
+                        clearable
                         style="width: 180px;" 
                         v-model.trim="filter.subjectId">
                         <el-option

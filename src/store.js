@@ -14,6 +14,7 @@ import equipment from './modules/equipment/store';
 import course from './modules/course/store';
 import campus from './modules/campus/store';
 import arrangement from './modules/arrangement/store';
+import timetable from './modules/timetable/store';
 
 Vue.use(Vuex);
 
@@ -31,6 +32,7 @@ export default new Vuex.Store({
         equipment,
         course,
         campus,
-        arrangement
+        arrangement,
+        timetable
     }
 });

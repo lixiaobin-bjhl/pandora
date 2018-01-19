@@ -95,8 +95,8 @@
                                         </set-repeat>
                                     </div>
                                     <div class="bottom" slot="bottom">
-                                        <el-button type="text" class="text-gray-light" style="padding:0" @click.native="closeCard()">取消</el-button>
-                                        <el-button type="text" style="padding:0" @click.native="setRepeat()">确定</el-button>
+                                        <el-button type="default" size="small" @click.native="closeCard()">取消</el-button>
+                                        <el-button type="primary" size="small" @click.native="setRepeat()">确定</el-button>
                                     </div>
                                 </down-card>
                             </transition>
@@ -278,6 +278,32 @@
                     this.form.repeatRule = this.adaptRepeatRule(repeatInfo);
                     this.closeCard();
                 }
+            },
+            /**
+             * RepeatRule数据格式与通用版不一致，adapt一下
+             */
+            adaptRepeatRule(repeatRule) {
+                var result = {};
+                // 按周重复
+                if (repeatRule.repeatType == 2) {
+                    Object.assign(result, {
+                        timeGranularityCode: 4,
+                        reapeatCount: repeatRule.repeatWeekCounts,
+                        weekDays: repeatRule.repeatDays.map((item)=> {
+                            return item.value
+                        }),
+                        internal: repeatRule.grepWeekNum
+                    })
+                // 按日重复
+                } else if (repeatRule.repeatType == 1) {
+                    Object.assign(result, {
+                        timeGranularityCode: 5,
+                        reapeatCount: repeatRule.repeatDayCounts,
+                        weekDays: [],
+                        internal: repeatRule.grepDayNum
+                    });
+                }
+                return result;
             },
             /**
              * 取消重置密码 
