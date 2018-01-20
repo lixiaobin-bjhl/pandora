@@ -14,9 +14,10 @@
                     <el-input 
                         placeholder="请输入校区名称" 
                         style="width: 240px;"
-                        @keyup.enter="refresh" 
-                        v-model.trim="filter.campus">
-                        <i slot="suffix" 
+                        @keyup.enter.native="refresh" 
+                        v-model.trim="filter.query">
+                        <i slot="suffix"
+                            @click="refresh"
                             class="el-input__icon el-icon-search pointer">
                         </i>
                     </el-input>
@@ -30,19 +31,17 @@
                 :highlight-current-row="true"
                 >
                 <el-table-column
+                    prop="name"
                     align="center"
                     label="校区名称">  
-                    <template slot-scope="scope">
-                        <a href="javascript:;">李小斌</a>
-                    </template>
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     prop="date"
                     align="center"
                     label="负责人">
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
-                    prop="date"
+                    prop="address"
                     align="center"
                     label="地址">
                 </el-table-column>
@@ -54,7 +53,7 @@
                     <template slot-scope="scope">
                         <div class="btn-group">
                             <a href="javascript:;" @click="edit(scope.row)">编辑</a>
-                            <a href="javascript:;" class="forbidden" @click="del">删除</a>
+                            <a href="javascript:;" class="forbidden" @click="del(scope.row)">删除</a>
                         </div>
                     </template>
                 </el-table-column>
@@ -65,7 +64,9 @@
                 v-model="pageDto">
             </pager>
         </div>
-        <add v-if="$store.state.campus.showAddCampusState">
+        <add 
+            v-if="$store.state.campus.showAddCampusState" 
+            @save="refresh">
         </add>
     </div>
 </template>
@@ -75,16 +76,18 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from './components/Add.vue';
+    import { getList, del } from './request';
 
     export default {
         mixins: [listPageDto],
         data () {
             return {
-                key: '',
-                filter: '',
+                filter: {
+                    query: ''
+                },
                 breadcrumb: ['校区管理'],
                 loading: false,
-                list: [{}]
+                list: []
             }
         },
         mounted () {
@@ -106,11 +109,17 @@
             /**
              * 删除 
              */
-            del () {
+            del (row) {
                 this.$confirm('确认删除校区?', '提示', {
                         type: 'warning'
                     }).then(() => {
-                        
+                        del({
+                            id: row.id
+                        })
+                        .then(()=> {
+                            toast('保存成功', 'success');
+                            this.fetchList();
+                        });
                     });
             },
             /**
@@ -118,6 +127,22 @@
              */
             fetchList () {
                 var pageDto = this.pageDto;
+                var filter = this.filter;
+                this.loading = true;
+                getList({
+                    query: filter.query,
+                    pageDto: {
+                        pageNum: pageDto.pageNum,
+                        pageSize: pageDto.pageSize
+                    }
+                })
+                .then((res)=> {
+                    this.list = res.data;
+                    Object.assign(this.pageDto, res.pageDto);
+                    this.loading = false;
+                }, ()=> {
+                    this.loading = false;
+                });
             }
         },
         components: {

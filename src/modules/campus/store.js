@@ -5,9 +5,9 @@ const state = {
 };
 
 const mutations = {
-    'SHOW_ADD_CAMPUS' (state, account) {
+    'SHOW_ADD_CAMPUS' (state, campus) {
         state.showAddCampusState = true;
-        state.campus = account;
+        state.campus = campus;
     },
     'HIDE_ADD_CAMPUS' (state) {
         state.showAddCampusState = false;

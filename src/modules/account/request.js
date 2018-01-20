@@ -12,7 +12,7 @@ import {postWithJson, post} from 'src/common/service';
  * @param {string=} params.query 用户姓名 
  * @param {Array=} params.schoolIds 校区ids
  * @param {number} params.roleType 账号类型
- * @param {Object=} params.pageDto 分页信息 
+ * @param {Object=} params.pageSize 
  * 
  * @return {Promise}
  */

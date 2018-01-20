@@ -2,24 +2,71 @@
 	"code": 0,
 	"data": [
         {
-            "id": 1,
-            "name": "校区1"
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
         },
         {
-            "id": 2,
-            "name": "校区2"
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
         },
         {
-            "id": 3,
-            "name": "校区3"
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
         },
         {
-            "id": 4,
-            "name": "校区4"
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
         },
         {
-            "id": 5,
-            "name": "校区5"
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":1,
+            "name": "校区名称",
+            "address": "校区地址"
+        },
+        {
+            "id":2,
+            "name": "校区名称",
+            "address": "校区地址"
         }
-    ]
+    ],
+    "pageDto": {
+        "count": 3,
+        "curPageCount": 3,
+        "pageNum": 1,
+        "pageSize": 20,
+        "totalPageNum": 1
+    }
 }

@@ -3,7 +3,6 @@ exports.routes = [
         method: 'POST',
         path: '/user/list.json',
         handler: function (request, reply) {
-            console.log(request);
             var payload = request.payload;
             if (payload.roleType == 2) {
                 return reply(require('./json/teacher/list.json'));

@@ -166,7 +166,13 @@
              * 重置输入 
              */
             reset () {
-
+                this.form = {
+                    name: '',
+                    subjectType: '',
+                    schoolId: '',
+                    remark: '',
+                    teacherType: ''
+                };
             },
             /**
              * 取消添加

@@ -90,7 +90,7 @@ export default {
         fetchList (query) {
             this.loading = true;
             timer = setTimeout(() => {
-                post('/campus/list.json', {
+                post('/school/fuzzyQuery.json', {
                     query: query,
                     pageNum: 1,
                     pageSize: 20
@@ -115,7 +115,7 @@ export default {
          */
         getDefaultOption () {
             this.loading = true;
-            post('/campus/list.json', {
+            post('/school/list.json', {
                 pageNum: 1,
                 pageSize: 20
             })

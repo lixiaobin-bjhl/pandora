@@ -11,8 +11,19 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
+                    <el-input 
+                        placeholder="请输入教室名称" 
+                        style="width: 240px;"
+                        @keyup.enter.native="refresh" 
+                        v-model.trim="filter.query">
+                        <i slot="suffix"
+                            @click="refresh"
+                            class="el-input__icon el-icon-search pointer">
+                        </i>
+                    </el-input>
                     <campus-filter
-                        v-model="filter.campus">
+                        @change="refresh"
+                        v-model="filter.schoolId">
                     </campus-filter>
                 </div>
             </div>
@@ -24,22 +35,31 @@
                 :highlight-current-row="true"
                 >
                 <el-table-column
+                    prop="name"
                     align="center"
-                    label="教室名称">  
-                    <template slot-scope="scope">
-                        <a href="javascript:;">李小斌</a>
-                    </template>
+                    label="教室名称">
                 </el-table-column>
                 <el-table-column
-                    prop="date"
+                    prop="schoolName"
                     align="center"
                     label="所属校区">
                 </el-table-column>
                 <el-table-column
-                    prop="date"
+                    prop="schoolName"
                     align="center"
-                    label="地址">
+                    label="状态">
+                    <template slot-scope="scope">
+                       <span
+                       :class="{
+                            'text-success': scope.row.status == 1,
+                            'text-danger': scope.row.status == 2}">
+                        <icon v-if="scope.row.status == 1" name="apply-success" scale="1.5"></icon>
+                        <icon v-if="scope.row.status == 2" name="apply-failed" scale="1.5"></icon>
+                        {{scope.row.statusStr}}  
+                       </span>
+                    </template>
                 </el-table-column>
+                
                 <el-table-column
                     prop="date"
                     :min-width="100"
@@ -47,8 +67,10 @@
                     label="操作">
                     <template slot-scope="scope">
                         <div class="btn-group">
-                            <a href="javascript:;" class="enable" @click="edit(scope.row)">启用</a>
-                            <a href="javascript:;"  class="forbidden" @click="del">删除</a>
+                            <a href="javascript:;" 
+                                :class="{'forbidden': scope.row.status ===1, 'enable': scope.row.status === 2}" 
+                                @click="updateStatus(scope.row)">
+                                {{scope.row.status === 1? '停用': '恢复'}}</a>
                         </div>
                     </template>
                 </el-table-column>
@@ -67,16 +89,21 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import { getList, modifyStatus } from './request';
 
     export default {
         mixins: [listPageDto],
         data () {
             return {
                 key: '',
-                filter: {},
+                filter: {
+                    query: '',
+                    schoolId: ''
+                },
+                loading: false,
                 breadcrumb: ['教室管理'],
                 loading: false,
-                list: [{}]
+                list: []
             }
         },
         mounted () {
@@ -96,12 +123,21 @@
                 this.$store.commit('SHOW_ADD_CAMPUS', campus);
             },
             /**
-             * 删除 
+             * 修改状态 
              */
-            del () {
-                this.$confirm('确认删除校区?', '提示', {
+            updateStatus (row) {
+                var text = row.status == 1 ? '禁用' : '启用';
+                this.$confirm('确认' + text + '教室?', '提示', {
                         type: 'warning'
                     }).then(() => {
+                        modifyStatus({
+                            id: row.id,
+                            status: row.status === 1 ? 2 : 1
+                        })
+                        .then((res)=> {
+                            toast('保存成功');
+                            this.fetchList();
+                        });
                     });
             },
             /**
@@ -109,6 +145,23 @@
              */
             fetchList () {
                 var pageDto = this.pageDto;
+                var filter = this.filter;
+                this.loading = true;
+                getList({
+                    query: filter.query,
+                    schoolId: filter.schoolId ? [].concat(filter.schoolId): [],
+                    pageDto: {
+                        pageNum: pageDto.pageNum,
+                        pageSize: pageDto.pageSize
+                    }
+                })
+                .then((res)=> {
+                    this.list = res.data;
+                    Object.assign(this.pageDto, res.pageDto);
+                    this.loading = false;
+                }, ()=> {
+                    this.loading = false;
+                });
             }
         },
         components: {

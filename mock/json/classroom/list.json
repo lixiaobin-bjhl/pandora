@@ -3,23 +3,21 @@
 	"data": [
         {
             "id": 1,
-            "name": "教室1"
+            "name": "教室名称",
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "statusStr": "启用",
+            "status":1
         },
         {
             "id": 2,
-            "name": "教室2"
-        },
-        {
-            "id": 3,
-            "name": "教室3"
-        },
-        {
-            "id": 4,
-            "name": "教室4"
-        },
-        {
-            "id": 5,
-            "name": "教室5"
+            "name": "教室名称",
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "statusStr": "禁用",
+            "status": 2
         }
     ]
 }

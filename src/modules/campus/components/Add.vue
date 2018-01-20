@@ -14,13 +14,13 @@
                <el-col :span="24">
                     <el-form-item label="校区名称" prop="name">
                         <el-input 
-                        v-model.trim="form.accountName" 
+                        v-model.trim="form.name" 
                         :maxlength="30" 
                         placeholder="校区名称(30字内)"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="地址" prop="userName">
+                    <el-form-item label="地址" prop="address">
                         <el-autocomplete
                             class="inline-input"
                             v-model.trim="form.address"
@@ -36,16 +36,9 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="校区负责人" prop="userName">
-                        <el-input 
-                        v-model.trim="form.userName"
-                        :maxlength="30" placeholder="校区地址"></el-input>
-                    </el-form-item>
-                </el-col>
-                
-                <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <el-input v-model.trim="form.remark"
+                        <el-input 
+                            v-model.trim="form.remark"
                             type="textarea" 
                             :maxlength="100" 
                             :autosize="{minRows: 2,maxRows: 5}" 
@@ -67,8 +60,8 @@
 <script>
     
     import config from '../config';
-    import { add, edit, detail } from '../request';
-    import {getAddressSuggestion} from '../../equipment/request';
+    import { saveOrUpdate } from '../request';
+    import { getAddressSuggestion } from '../../equipment/request';
     
     var timer = null;
 
@@ -83,13 +76,9 @@
                 fetchAgencyLoading: false,
                 addCampusRule: config.addCampusRule,
                 form: {
-                    accountName: '',
-                    userName: '',
-                    password: '',
-                    roleType: '',
-                    remark: '',
-                    rtmType: '',
-                    agencyIds: []
+                    name: '',
+                    address: '',
+                    remark: ''
                 },
                 loading: false,
                 visiable: false
@@ -97,6 +86,9 @@
         },
         mounted () {
             var campusItem = this.campusItem;
+            if (campusItem) {
+                Object.assign(this.form, campusItem);
+            }
         },
         watch: {
             visiable (value) {
@@ -138,31 +130,19 @@
                         var isEdit = campusItem ? true : false;
                         var form = this.form;
                         var params = {
-                            accountName: form.accountName,
-                            userName: form.userName,
-                            roleType: form.roleType,
-                            remark: form.remark,
-                            agencyIds: form.agencyIds.join(','),
-                            rtmType: form.rtmType
+                            name: form.name,
+                            address: form.address
                         };
                         if (isEdit) {
                             Object.assign(params, {
                                 id: campusItem.id
                             });
-                        } else {
-                            Object.assign(params, {
-                                password: form.password
-                            });
                         }
-                        var request = isEdit ? edit : add;
-                        request(params)
+                        saveOrUpdate(params)
                             .then((res)=> {
-                                this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
+                                this.cancel();
                                 toast('保存成功', 'success');
-                            }, () => {
-                                this.changeLoading();
                             });
                     } else {
                         toast('表单验证失败!');
