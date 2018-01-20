@@ -11,7 +11,7 @@
             label-position="right"
             :rules="addAccountRule">
             <el-form-item prop="newPwd" label="新密码" style="margin-top: 20px;">
-                <el-input v-model.trim="form.newPwd" :maxlength="50" placeholder="请输入新密码"></el-input>
+                <el-input v-model.trim="form.newPwd" type="password" :maxlength="50" placeholder="请输入新密码"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer">
@@ -24,12 +24,9 @@
 <script>
 
     import config from '../config';
-    import { modifyPwd } from '../request';
+    import { reset } from '../request';
 
     export default   {
-        props: {
-            accountItem: {}
-        },
         data () {
             return  {
                 addAccountRule: config.addAccountRule,
@@ -38,6 +35,11 @@
                 },
                 loading: false,
                 visiable: false
+            }
+        },
+        computed: {
+            accountItem () {
+                return this.$store.state.account.account;
             }
         },
         methods: {
@@ -53,20 +55,18 @@
                         var accountItem = this.accountItem;
                         var form = this.form;
                         var params = {
-                             id: accountItem.id,
-                             newPwd: form.newPwd
+                            id: accountItem.id,
+                            password: form.newPwd
                         };
-                        modifyPwd(params)
+                        reset(params)
                             .then((res)=> {
                                 this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
+                                this.cancel();
                                 toast('保存成功', 'success');
-                            }, () => {
-                                this.changeLoading();
                             });
                     } else {
-                        this.$Message.error('表单验证失败!');
+                        toast('表单验证失败!');
                         this.changeLoading();
                     }
                 });

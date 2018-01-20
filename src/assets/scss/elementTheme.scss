@@ -307,7 +307,7 @@
 
 .el-message {
     // 解决场景：el-dialog中操作生成el-message, el-message位于el-dialog的浮层下
-    z-index: 3000 !important;
+    z-index: 3005 !important;
 
     align-items: initial;
     min-width: auto;
@@ -324,7 +324,6 @@
     .el-message__content {
         line-height: 24px;
         color: $text-color-dark;
-        font-weight: bold;
         > span {
             display: block;
             margin-top: 1px;

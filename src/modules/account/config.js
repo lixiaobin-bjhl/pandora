@@ -1,6 +1,6 @@
 export default {
     addAccountRule: {
-        accountName: [
+        name: [
             {
                 required: true,
                 message: '请输入账号'
@@ -17,42 +17,12 @@ export default {
                 message: '请至输入4个字符'
             }
         ],
-        newPwd: [
+        schoolId: [
             {
                 required: true,
-                message: '请输入密码'
-            },
-            {
-                min: 4,
-                trigger: 'blur',
-                message: '请至输入4个字符'
+                message: '请选择校区'
             }
         ],
-        userName: [
-            {
-                required: true,
-                message: '请输入名字'
-            } 
-        ],
-        roleType: [
-            {
-                required: true,
-                message: '请选择角色'
-            }   
-        ],
-        // rtmType: [
-        //     {
-        //         required: true,
-        //         message: '请选择RTM'
-        //     }
-        // ],
-        agencyIds: [
-            {
-                required: true,
-                type: 'array',
-                message: '请选择所属范围'
-            }
-        ]
     },
     statusOptions: [
         {

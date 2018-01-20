@@ -12,7 +12,7 @@
         <ul>
             <li class="user">
                 <span class="name">{{ orgInfo.shortName }}，欢迎您!</span>
-                <span class="pointer exit">
+                <span class="pointer exit" @click="logout">
                     <icon name="exit" scale="2"></icon>
                     <span>退出</span>
                 </span>  
@@ -73,7 +73,7 @@
              * 退出登录
              */
             logout () {
-                window.location.href = env.www + 'qrLogout.do';
+                window.location.href = '/logout.do';
             }
         }
     }
@@ -89,7 +89,7 @@
         height: 60px;
         line-height: 60px;
         text-align: right;
-        z-index: 9999;
+        z-index: 3000;
         background-color: #fff;
         border-bottom: 1px solid #dfdfdf;
         .logo {

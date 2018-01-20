@@ -29,6 +29,19 @@ exports.routes = [
 	},
 	{
 		method: 'POST',
+        path: '/login.do',
+        handler: function (request, reply) {
+			return reply(
+        		{
+				    "code": 0,
+				    "msg": "",
+				    "data": {}
+				}
+			);
+        }
+	},
+	{
+		method: 'POST',
         path: '/common/upload.json',
         handler: function (request, reply) {
         	return reply(

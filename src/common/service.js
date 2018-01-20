@@ -8,34 +8,34 @@
 import axios from 'axios';
 var querystring = require('querystring');
 
-/**
- * 添加ajax request interceptor
- */
-axios.interceptors.request.use(function (config) {
-    config.headers['X-Requested-With'] = 'XMLHttpRequest';
-    return config;
-}, function (error) {
-    return Promise.reject(error);
-});
 
 /**
  * 添加ajax response interceptor
  */
-axios.interceptors.response.use(function (response) {
-    var data = response.data;
+axios.interceptors.response.use(function (res) {
+    let data = res.data;
+    let code = data.code;
+
     if (typeof data === 'string') {
         data = JSON.parse(data);
     }
-    if (data.code === 0) {
+    if (code === 0 || isNaN(code)) {
         return data;
     } else {
-        toast(data.msg || '系统异常', 'error');
+        // 未登录状态
+        if (code === 2000000500  || code === 2001030500) {
+            window.location.href = '/login.html';
+            return;
+        }
+        if (showErrTip) {
+           toast('系统异常', error);
+        }
         return Promise.reject(data);
     }
 }, function (error) {
-    toast('系统异常', 'error');
     return Promise.reject(error);
 });
+
 
 /**
  * 错误处理
@@ -56,6 +56,10 @@ function errorHandler(response) {
  * @return {Promise}
  */
 export function post(url, data = {}) {
+    return axios.post(url, querystring.stringify(data));
+}
+
+export function postWithJson (url, data = {}) {
     return axios.post(url, data);
 }
 

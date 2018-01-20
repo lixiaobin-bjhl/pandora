@@ -12,7 +12,7 @@
                             <el-input 
                                 v-model.trim="form.name" 
                                 :maxlength="30" 
-                                placeholder="手机号">
+                                placeholder="账号">
                                <icon slot="prefix" scale="2.5" style="color:#ddd" name="mobilephone"></icon>
                             </el-input>
                         </el-col>
@@ -24,16 +24,16 @@
                             </el-input>
                         </el-col>
                     </el-form-item>
-                    <el-form-item prop="code">
+                    <el-form-item prop="code" v-if="form.name">
                         <el-col :span="12">
-                            <el-input v-model.trim="form.password" 
-                                :maxlength="6" type="password" placeholder="验证码">
+                            <el-input v-model.trim="form.code" 
+                                :maxlength="6" placeholder="验证码">
                                 <icon slot="prefix" scale="2.3" style="color:#ddd" name="verify-code"></icon>
                             </el-input>
                         </el-col>
                         <el-col :span="10" :offset="2">
-                            <img src="./assets/img/huatu.png">
-                            <span class="change-code">看不清，<a href="javascript:;">换一张</a></span>
+                            <img src="code">
+                            <span class="change-code" @click="changeCode">看不清，<a href="javascript:;">换一张</a></span>
                         </el-col> 
                     </el-form-item>
                     <el-form-item prop="　">
@@ -54,10 +54,15 @@
 </template>
 
 <script>
+
+    import {login} from './common/request';
+    import getUrlSearch from 'src/common/function/getUrlSearch';
+
     export default {
         data() {
             return {
                 loading: false,
+                code: '',
                 rules: {
                     name: [
                         {
@@ -70,25 +75,60 @@
                             required: true,
                             message: '请输入密码'
                         }
+                    ],
+                    code: [
+                        {
+                            required: true,
+                            message: '请输入验证码'
+                        }
                     ]
                 },
                 form: {
                     name: '',
+                    code: '',
                     password: ''
                 }
             };
         },
         methods: {
+            /**
+             * 获取验证码
+             */
+            getVerifyCode () {
+                this.code = '/code/getVerifyCode.do?name=' + this.form.name
+            },
+            /**
+             * 切换验证码 
+             */
+            changeCode () {
+                this.getVerifyCode();
+            },
+            /**
+             * 登录 
+             */
             login () {
                 this.$refs['form'].validate(async (valid) => {
                     if (valid) {
-                        await this.$store.dispatch('login', this.form);
-                        var search = getUrlSearch();
-                        if (search.nextUrl) {
-                            window.location.href = search.nextUrl;
-                            return;
+                        var form =  this.form;
+                        var code = form.code;
+                        var params = {
+                            name: form.name,
+                            password: form.password
+                        };
+                        if (code) {
+                            Object.assign(params, {
+                                code: code
+                            });
                         }
-                        window.location.href = '/center/course?orgNum=' + this.$route.query.orgNum;
+                        login(params)
+                            .then(()=> {
+                                var search = getUrlSearch();
+                                if (search.nextUrl) {
+                                    window.location.href = search.nextUrl;
+                                    return;
+                                }
+                                window.location.href = '/main.html';
+                            });
                     } else {
                         return false;
                     }

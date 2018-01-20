@@ -1,0 +1,39 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": [
+        {
+            "id": 1,
+            "name": "姓名",
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "status": 1,
+            "statusStr": "启用",
+            "hasRoom": 1,
+            "roomCount": 10,
+            "chargerId": 1,
+            "chargerName": "负责人姓名"
+        },
+        {
+            "id": 1,
+            "name": "姓名",
+            "schoolId": 1,
+            "status": 2,
+            "statusStr": "禁用",
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "hasRoom": 1,
+            "roomCount": 10,
+            "chargerId": 1,
+            "chargerName": "负责人姓名"
+        }
+    ],
+    "pageDto": {
+        "count": 3,
+        "curPageCount": 3,
+        "pageNum": 1,
+        "pageSize": 20,
+        "totalPageNum": 1
+    }
+}

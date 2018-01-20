@@ -39,7 +39,6 @@ router.beforeEach((to, from, next) => {
 	}
     loadingBar.start();
     next();
-    console.log(toPath);
 	store.commit('SET_ROUTER', toPath);
 });
 

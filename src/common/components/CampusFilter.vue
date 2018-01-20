@@ -8,7 +8,7 @@
         @change="changeCampus"
         :loading="loading"
         :remote-method="fetchList"
-        placeholder="请输入校区名称查询"  
+        :placeholder="placehoder"  
         :style="{width: typeof width === 'number' ? (width + 'px') : '100%'}">
             <el-option 
                 v-for="item, index in list"
@@ -27,6 +27,10 @@ import { post } from '../service';
 export default {
     props: {
         value: {},
+        name: String,
+        placehoder: {
+            default: '请输入校区名称查询'
+        },
         width: {
             default: 180
         }
@@ -53,13 +57,23 @@ export default {
          */
         defaultCampus () {
             var userInfo = this.userInfo;
-            if (userInfo) {
-                this.campusId = userInfo.campusId;
+            var value = this.value;
+            var name = this.name;
+            if (value && name) {
+                this.campusId = value;
+                this.list = [{
+                    id: value,
+                    name: name
+                }];
+            }
+            // 分校设置默认校区
+            else if (userInfo && userInfo.roleType == 1) {
+                this.campusId = userInfo.campusId
                 this.list = [{
                     id: userInfo.campusId,
                     name: userInfo.campusName
                 }];
-            }  
+            }
         },
         /**
          * 清除校区信息 
@@ -94,6 +108,7 @@ export default {
          */
         changeCampus (campusId) {
             this.$emit('input', campusId);
+            this.$emit('change', campusId);
         },
         /**
          * 获取默认选项
@@ -114,6 +129,9 @@ export default {
     },
     watch: {
         'userInfo.campusId' () {
+            this.defaultCampus();
+        },
+        value () {
             this.defaultCampus();
         }
     }
