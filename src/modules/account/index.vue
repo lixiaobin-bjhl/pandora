@@ -126,7 +126,6 @@
         mixins: [listPageDto],
         data () {
             return {
-                key: '',
                 filter: {
                     query: '',
                     schoolId: ''
@@ -174,7 +173,6 @@
                     isModified: true
                 });
             },
-
             /**
              * 修改状态 
              */
@@ -189,6 +187,7 @@
                         })
                         .then((res)=> {
                             toast('保存成功');
+                            this.fetchList();
                         });
                     });
             },

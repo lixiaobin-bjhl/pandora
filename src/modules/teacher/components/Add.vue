@@ -1,7 +1,8 @@
 <template>
       <el-dialog 
-        :title="teacherItem ? '查看教师' : '添加教师'"
-        width="640px" 
+        :title="title"
+        width="640px"
+        v-loading="loading"
         :visible.sync="$store.state.teacher.showAddTeacherState"
         >       
         <el-form 
@@ -10,14 +11,13 @@
             label-width="80px"
             label-position="right"
             :class="{'detail-from': teacherItem}"
-            :rules="teacherItem ? {} : addTeacherRule" 
-            >
+            :rules="(teacherItem && !isModified) || !teacherItem ?  {} : addTeacherRule">
            <el-row :gutter="10">
                <el-col :span="24">
-                    <el-form-item label="教师姓名" prop="teacherName">
-                        <template v-if="!teacherItem">
+                    <el-form-item label="教师姓名" prop="name">
+                        <template v-if="!teacherItem || isModified">
                             <el-input 
-                            v-model.trim="form.teacherName" 
+                            v-model.trim="form.name" 
                             :maxlength="20" 
                             placeholder="教师姓名(20字内)"></el-input>
                         </template>
@@ -27,12 +27,18 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="科目" prop="teacherName">
-                        <template v-if="!teacherItem">
+                    <el-form-item label="科目" prop="subjectType">
+                        <template v-if="!teacherItem || isModified">
                             <el-select
                             placeholder="请选择科目"
-                            :disabled="teacherItem ? true: false"
-                            v-model.trim="form.teacherName"></el-select>
+                            v-model.trim="form.subjectType">
+                                <el-option
+                                    v-for="item,index in subjectOption"
+                                    :label="item.name"
+                                    :value="item.id"
+                                    :key="index">
+                                </el-option>
+                            </el-select>
                         </template>  
                         <template v-else>
                             xxxx
@@ -40,12 +46,11 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="教师类型" prop="userName">
-                        <template v-if="!teacherItem">
+                    <el-form-item label="教师类型" prop="teacherType">
+                        <template v-if="!teacherItem || isModified">
                             <el-select
                                 placeholder="请选择教师类型"
-                                :disabled="teacherItem ? true: false" 
-                                v-model.trim="form.teacherName"></el-select>
+                                v-model.trim="form.teacherType"></el-select>
                         </template>
                         <template v-else>
                             xxxx
@@ -53,13 +58,15 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="所属校区" prop="userName">
-                        <template v-if="!teacherItem">
-                            <el-select
-                            :disabled="teacherItem ? true: false"
-                            v-model.trim="form.userName" 
-                            :maxlength="20" 
-                            placeholder="请输入所属校区"></el-select>
+                    <el-form-item label="所属校区" prop="schoolId">
+                        <template v-if="!teacherItem || isModified">
+                            <campus-filter
+                                placeholder="请选择校区"
+                                v-model="form.schoolId"
+                                :name="form.schoolName"
+                                width="100%"
+                                >
+                            </campus-filter>
                         </template>
                         <template v-else>
                             xxxx
@@ -68,9 +75,8 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
-                        <template v-if="!teacherItem">
+                        <template v-if="!teacherItem || isModified">
                             <el-input v-model.trim="form.remark"
-                                :disabled="teacherItem ? true: false" 
                                 type="textarea" 
                                 :maxlength="100" 
                                 :autosize="{minRows: 2,maxRows: 5}" 
@@ -83,10 +89,10 @@
                 </el-col>
            </el-row>
         </el-form>
-        <div slot="footer" v-if="!teacherItem">
+        <div slot="footer" v-if="!teacherItem || isModified">
             <el-button @click="reset">重置</el-button>
             <el-button 
-                :disabled="loading || teacherItem? true : false" 
+                :disabled="loading" 
                 @click="ok" 
                 type="primary">确定</el-button>
         </div>
@@ -96,7 +102,9 @@
 <script>
 
     import config from '../config';
-    import { add, edit, detail } from '../request';
+    import { detail, saveOrUpdate} from '../../account/request';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import subjectOption from '../../../common/config/subjectOption';
     
     var timer = null;
 
@@ -104,30 +112,32 @@
         computed: {
             teacherItem () {
                 return this.$store.state.teacher.teacher;
+            },
+            isModified () {
+                return this.$store.state.teacher.isModified;
+            },
+            title () {
+                if (this.isModified) {
+                    return '编辑教师';
+                } else {
+                    if (this.teacherItem) {
+                        return '教师详情';
+                    } else {
+                        return '添加教师';
+                    }
+                }
             }
         },
         data () {
             return  {
-                fetchAgencyLoading: false,
                 addTeacherRule: config.addTeacherRule,
-                roleOptions: config.roleOptions,
-                rtmOptions: config.rtmOptions,
-                agencyList: [],
-                agencyAllOption: [
-                    {
-                        id: -1,
-                        name: '全部' 
-                    }
-                ],
-                agencyName: '',
+                subjectOption,
                 form: {
-                    teacherName: '',
-                    userName: '',
-                    password: '',
-                    roleType: '',
+                    name: '',
+                    subjectType: '',
+                    schoolId: '',
                     remark: '',
-                    rtmType: '',
-                    agencyIds: []
+                    teacherType: ''
                 },
                 loading: false,
                 visiable: false
@@ -135,6 +145,14 @@
         },
         mounted () {
             var teacherItem = this.teacherItem;
+            if (teacherItem) {
+                detail({
+                    id: teacherItem.id
+                })
+                .then((res)=> {
+                    Object.assign(this.form, res.data);                    
+                });
+            }
         },
         watch: {
             visiable (value) {
@@ -144,26 +162,6 @@
             }
         },
         methods: {
-            /**
-             * 远程搜索经销商数据 
-             */
-            fetchAgencyList (query) {
-                var query = typeof query === 'string' ? query : this.agencyName;
-                clearTimeout(timer);
-                this.fetchAgencyLoading = true;
-                timer = setTimeout(()=> {
-                    searchAgency({
-                        pageNum: 1,
-                        query: query.trim()
-                    })
-                    .then((res)=> {
-                        this.fetchAgencyLoading = false;
-                        this.agencyList = this.agencyAllOption.concat(res.data);
-                    }, ()=> {
-                        this.fetchAgencyLoading = false;
-                    });
-                }, 100);
-            },
             /**
              * 重置输入 
              */
@@ -180,15 +178,14 @@
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         var teacherItem = this.teacherItem;
-                        var isEdit = teacherItem ? true : false;
+                        var isEdit = this.isModified ? true : false;
                         var form = this.form;
                         var params = {
-                            teacherName: form.teacherName,
-                            userName: form.userName,
-                            roleType: form.roleType,
+                            name: form.name,
+                            subjectType: form.subjectType,
+                            schoolId: form.schoolId,
                             remark: form.remark,
-                            agencyIds: form.agencyIds.join(','),
-                            rtmType: form.rtmType
+                            teacherType: form.teacherType
                         };
                         if (isEdit) {
                             Object.assign(params, {
@@ -199,21 +196,24 @@
                                 password: form.password
                             });
                         }
-                        var request = isEdit ? edit : add;
-                        request(params)
+                        this.loading = true;
+                        saveOrUpdate(params)
                             .then((res)=> {
-                                this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
+                                this.loading = false;
                                 toast('保存成功', 'success');
-                            }, () => {
-                                this.changeLoading();
+                                this.cancel();
+                            }, ()=> {
+                                this.loading = false;
                             });
                     } else {
                         toast('表单验证失败!');
                     }
                 });
             }
+        },
+        components: {
+            CampusFilter
         }
     }
 </script>

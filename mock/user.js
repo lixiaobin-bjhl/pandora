@@ -4,7 +4,12 @@ exports.routes = [
         path: '/user/list.json',
         handler: function (request, reply) {
             console.log(request);
-            return reply(require('./json/user/list.json'));
+            var payload = request.payload;
+            if (payload.roleType == 2) {
+                return reply(require('./json/teacher/list.json'));
+            } else {
+                return reply(require('./json/user/list.json'));
+            }
         }
     },
     {

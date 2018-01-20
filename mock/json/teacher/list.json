@@ -1,25 +1,35 @@
 {
-	"code": 0,
-	"data": [
+    "code": 0,
+    "data": [
         {
             "id": 1,
-            "name": "老师1"
+            "name": "姓名",
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "subjectType": 1,
+            "status": 1,
+            "statusStr": "启用",
+            "subjectTypeStr": "教授科目",
+            "teacherType": 1,
+            "teacherTypeStr": "老师类型",
+            "finishedLessonCount": 10,
+            "unfinishedLessonCount": 10
         },
         {
-            "id": 2,
-            "name": "老师2"
-        },
-        {
-            "id": 3,
-            "name": "老师3"
-        },
-        {
-            "id": 4,
-            "name": "老师4"
-        },
-        {
-            "id": 5,
-            "name": "老师5"
+            "id": 1,
+            "name": "姓名",
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "remark": "备注",
+            "subjectType": 1,
+            "status": 2,
+            "statusStr": "禁用",
+            "subjectTypeStr": "教授科目",
+            "teacherType": 1,
+            "teacherTypeStr": "老师类型",
+            "finishedLessonCount": 10,
+            "unfinishedLessonCount": 10
         }
     ]
 }

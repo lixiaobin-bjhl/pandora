@@ -11,7 +11,7 @@
             label-width="80px"
             label-position="right"
             :class="{'detail-from': accountItem}"
-            :rules="accountItem && !isModified ?  {} : addAccountRule">
+            :rules="(accountItem && !isModified) || !accountItem ?  {} : addAccountRule">
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item 
@@ -81,6 +81,7 @@
 
     import config from '../config';
     import { saveOrUpdate, detail } from '../request';
+    import subjectOption from '../../../common/config/subjectOption';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
     
     var timer = null;
@@ -89,6 +90,7 @@
         data () {
             return  {
                 addAccountRule: config.addAccountRule,
+                subjectOption,
                 form: {
                     name: '',
                     schoolId: '',
@@ -111,7 +113,7 @@
                 if (this.isModified) {
                     return '编辑账号';
                 } else {
-                    if (this.applyItem) {
+                    if (this.accountItem) {
                         return '账号详情';
                     } else {
                         return '添加账号';
