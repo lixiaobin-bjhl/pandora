@@ -135,6 +135,7 @@
 <script>
 
     import { getAddressSuggestion, detail, add} from '../request';
+    import {courseapply} from '../../arrangement/request';
     import config from '../config';
     import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
 
@@ -198,10 +199,11 @@
                         var params = {
                             id: this.courseItem.id,
                             classRoomId: form.classRoomId,
+                            status: 1,
                             remark: form.remark
                         };
                         this.loading = true;
-                        add(params)
+                        courseapply(params)
                             .then((res)=> {
                                 this.$emit('save');
                                 this.loading = false;

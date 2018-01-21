@@ -13,6 +13,7 @@ var routesConfig = [
     require('./classroom'),
     require('./user'),
     require('./course'),
+    require('./courseapply'),
     require('./apply')
 ];
 

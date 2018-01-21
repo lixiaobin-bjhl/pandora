@@ -24,7 +24,7 @@
                             </el-input>
                         </el-col>
                     </el-form-item>
-                    <el-form-item prop="code" v-if="form.name">
+                    <el-form-item prop="code" v-if="form.name && false">
                         <el-col :span="12">
                             <el-input v-model.trim="form.code" 
                                 :maxlength="6" placeholder="验证码">

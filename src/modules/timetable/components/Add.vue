@@ -7,6 +7,7 @@
         <el-form 
             :model="form" 
             ref="form"
+            v-loading="loading"
             label-position="right"
             label-width="100px"
             :rules="addLessonRule"
@@ -14,31 +15,49 @@
             <el-row :gutter="10">
                 <el-col :span="24">
                     <el-form-item 
-                        prop="newPwd"
-                        label="主讲老师">
-                        <teacher-filter 
+                        prop="schoolId"
+                        label="校区">
+                        <campus-filter 
                             width="100%"
-                            name="老师1"
-                            v-model="form.teacherId"></teacher-filter>
+                            :role-type="2"
+                            v-model="form.schoolId"
+                            :name="form.schoolName"
+                            >
+                        </campus-filter>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :span="24">
+                    <el-form-item 
+                        prop="teacherId"
+                        label="主讲老师">
+                        <user-filter 
+                            width="100%"
+                            :role-type="2"
+                            v-model="form.teacherId"
+                            :name="form.teacherName"
+                            >
+                        </user-filter>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="roomId" 
                         label="教室">
                         <classroom-filter
                             width="100%"
-                            name="xxxx"
-                            v-model="form.classroomId"></classroom-filter>
+                            v-model="form.roomId"
+                            :name="form.roomName"
+                            ></classroom-filter>
                     </el-form-item>
                 </el-col>
                
                 <el-col :span="24">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="startTime" 
                         label="上课日期">
                         <el-date-picker
-                            v-model="form.value1"
+                            v-model="form.date"
                             type="date"
                             placeholder="选择日期">
                         </el-date-picker>
@@ -46,11 +65,11 @@
                 </el-col>
                 <el-col :span="24">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="timeRange" 
                         label="上课时间段">
                         <el-time-picker
                             is-range
-                            v-model="form.value4"
+                            v-model="form.timeRange"
                             format="HH:mm"
                             range-separator="至"
                             start-placeholder="开始时间"
@@ -76,6 +95,30 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            <transition 
+                v-if="roomConflicts.length && teacherConflicts.length" 
+                name="el-zoom-in-top" mode="out-in" appear>
+                <div>
+                    <div class="course-warning">
+                        <h3>
+                            <span class="el-icon-warning"></span>教师发生冲突
+                        </h3>
+                        <ul>
+                            <li v-for="item, index in teacherConflicts" 
+                            :key="index">该课程与{{item.courseName}} {{item.startTime|date('HH:mm')}}~{{item.endTime|date('HH:mm')}}发生冲突，请重新排课。</li>
+                        </ul>
+                    </div>
+                    <div class="course-warning">
+                        <h3>
+                            <span class="el-icon-warning"></span>教室发生冲突
+                        </h3>
+                        <ul>
+                            <li v-for="item, index in teacherConflicts" 
+                            :key="index">该课程与{{item.courseName}} {{item.startTime|date('HH:mm')}}~{{item.endTime|date('HH:mm')}}发生冲突，请重新排课。</li>
+                        </ul>
+                    </div>
+                </div>
+            </transition>
         </el-form>
         <div slot="footer">
             <el-button @click="cancel">取消</el-button>
@@ -87,24 +130,37 @@
 <script>
 
     import config from '../config';
-    import { modifyPwd } from '../request';
     import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
-    import TeacherFilter from 'src/common/components/TeacherFilter.vue';
+    import UserFilter from 'src/common/components/UserFilter.vue';
+    import { detail, edit, lessonConflict } from '../request';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
 
     export default   {
         computed: {
             lessonId () {
-                return this.$store.state.lessonId;
+                return this.$store.state.timetable.lessonId;
             }
         },
         data () {
             return  {
                 addLessonRule: config.addLessonRule,
                 form: {
-                    teacherId: 1,
-                    newPwd: '',
-                    classroomId: 1
+                    teacherId: '',
+                    teacherName: '',
+                    date: '',
+                    remark: '',
+                    timeRange: [],
+                    roomId: '',
+                    roomName: '',
+                    schoolId: '',
+                    schoolName: '',
+                    startTime: '',
+                    endTime: '',
+                    subjectType: '',
+                    subjectTypeStr: ''
                 },
+                teacherConflicts: [],
+                roomConflicts: [],
                 isConflict: false,
                 repeatInfo: null,
                 posX: 0,
@@ -113,7 +169,40 @@
                 loading: false
             }
         },
+        mounted () {
+            var lessonId = this.lessonId;
+            if (lessonId) {
+                detail({
+                    lessonId: lessonId
+                })
+                .then((res)=> {
+                    var data = res.data;
+                    Object.assign(this.form, data);
+                    var startTime = new Date(data.startTime);
+                    this.form.date = new Date(
+                        startTime.getFullYear(), 
+                        startTime.getMonth(), 
+                        startTime.getDate()
+                    );
+                    this.form.timeRange = [data.startTime, data.endTime];
+                });
+                this.lessonConflict();
+            }
+        },
         methods: {
+            lessonConflict () {
+                lessonConflict({
+                    lessonId: this.lessonId
+                })
+                .then((res)=> {
+                    var data = res.data;
+                    var teacherConflicts = data.teacherConflicts.conflictList;
+                    var roomConflicts = data.roomConflicts.conflictList;
+
+                    this.teacherConflicts = teacherConflicts || [];
+                    this.roomConflicts = roomConflicts || [];
+                });
+            },
             /**
              * 取消重置密码 
              */
@@ -121,24 +210,44 @@
                 this.$store.commit('HIDE_LESSON_DETAIL');
             },
             ok () {
-                this.isConflict = true;
-                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
+
                         var form = this.form;
+                        var date = form.date;
+                        var timeRange = form.timeRange;
+                        var startTime = new Date(timeRange[0]);
+                        var endTime = new Date(timeRange[1]);
+
                         var params = {
-                             id: accountItem.id,
-                             newPwd: form.newPwd
+                            id: this.lessonId,
+                            schoolId: form.schoolId,
+                            classRoomId: form.roomId,
+                            teacherId: form.teacherId,
+                            startTime: +new Date(
+                                date.getFullYear(), 
+                                date.getMonth(), 
+                                date.getDate(),
+                                startTime.getHours(),
+                                startTime.getMinutes()
+                            ),
+                            endTime: +new Date(
+                                date.getFullYear(), 
+                                date.getMonth(), 
+                                date.getDate(),
+                                endTime.getHours(),
+                                endTime.getMinutes()
+                            ),
+                            remark: form.remark
                         };
-                        modifyPwd(params)
+                        this.loading = true;
+                        edit(params)
                             .then((res)=> {
-                                this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
                                 toast('保存成功', 'success');
+                                this.cancel();
                             }, () => {
-                                this.changeLoading();
+                                this.loading = false;
                             });
                     } else {
                         this.$Message.error('表单验证失败!');
@@ -149,7 +258,8 @@
         },
         components: {
             ClassroomFilter,
-            TeacherFilter
+            CampusFilter,
+            UserFilter
         }
     }
 </script>

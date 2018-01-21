@@ -1,0 +1,19 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "id": 1,
+        "schoolId": 1,
+        "schoolName": "校区名称",
+        "roomId": 1,
+        "roomName": "教室名称",
+        "startTime": 1516542448501,
+        "endTime": 1516542448501,
+        "courseId": 1,
+        "courseName": "课程名称",
+        "teacherId": 1,
+        "teacherName": "老师名称",
+        "subjectType": 1,
+        "subjectTypeStr": "科目名称"
+    }
+}

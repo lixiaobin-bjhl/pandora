@@ -25,7 +25,7 @@ const mutations = {
         state.showApplyEquipmentAuditState = false;
         state.applyItem = false;
     },
-    'SHOW_APPLY_EQUIPMENT' (state, data) {
+    'SHOW_APPLY_EQUIPMENT' (state, data = {}) {
         state.showApplyEquipmentState = true;
         state.applyItem = data.applyItem;
         state.isModified = data.isModified;

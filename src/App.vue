@@ -31,7 +31,12 @@
             getUserInfo () {
                 getUserInfo()
                     .then((res)=> {
+                        var data = res.data;
                         this.$store.commit('SET_USER_INFO', res.data);
+                        // 如果是分校，查看一下是否有申请过报装，没有的话跳到申请引导页
+                        if (data.roleType === 1) {
+                            
+                        }
                     });
             }
         }

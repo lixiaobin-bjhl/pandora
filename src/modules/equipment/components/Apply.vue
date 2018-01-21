@@ -200,6 +200,7 @@
                                 this.visiable = false;
                                 this.$emit('save');
                                 toast('保存成功', 'success');
+                                this.$router.push('/equipment');
                                 this.cancel();
                             }, () => {
                                 this.changeLoading();

@@ -68,6 +68,7 @@ export default {
             var name = this.name;
             if (value && name) {
                 this.userId = value;
+                this.$emit('input', value);
                 this.list = [{
                     id: value,
                     name: name
@@ -138,7 +139,7 @@ export default {
         }
     },
     watch: {
-        'userInfo.id' () {
+        name () {
             this.defaultUser();
         },
         value () {

@@ -61,6 +61,7 @@ export default {
             var name = this.name;
             if (value && name) {
                 this.campusId = value;
+                this.$emit('input', value);
                 this.list = [{
                     id: value,
                     name: name
@@ -133,6 +134,9 @@ export default {
             this.defaultCampus();
         },
         value () {
+            this.defaultCampus();
+        },
+        name () {
             this.defaultCampus();
         }
     }

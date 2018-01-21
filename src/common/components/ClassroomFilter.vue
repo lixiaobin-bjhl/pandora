@@ -58,6 +58,7 @@ export default {
             var name = this.name;
             if (id && name) {
                 this.classroomId = id;
+                this.$emit('input', id);
                 this.list = [{
                     id,
                     name
@@ -116,6 +117,14 @@ export default {
             }, ()=> {
                 this.loading = false;
             });
+        }
+    },
+    watch: {
+        name () {
+            this.defaultClassroom();
+        },
+        value () {
+            this.defaultClassroom();
         }
     }
 };

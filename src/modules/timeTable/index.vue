@@ -61,7 +61,8 @@
                 </time-table>
             </transition>
         </div>
-        <add v-if="$store.state.timetable.showLessonDetailState"></add>
+        <add v-if="$store.state.timetable.showLessonDetailState" 
+            @save="refresh"></add>
     </div>
 </template>
 
