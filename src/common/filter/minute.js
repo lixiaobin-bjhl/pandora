@@ -16,7 +16,7 @@ Vue.filter('minute', function(value) {
 		return '';
 	}
 	if (value < 60) {
-		return value + '分钟';
+		return Math.round(value) + '分钟';
 	} else {
 		var hour = Math.floor(value / 60);
 		var minute = value % 60;

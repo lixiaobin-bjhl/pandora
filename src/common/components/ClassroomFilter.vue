@@ -8,7 +8,7 @@
         @change="changeClassroom"
         :loading="loading"
         :remote-method="fetchList"
-        placeholder="请输入教室名称查询"  
+        :placeholder="placeholder"  
         :style="{width: typeof width === 'number' ? (width + 'px') : '100%'}">
             <el-option 
                 v-for="item, index in list"
@@ -27,6 +27,12 @@ import { post } from '../service';
 export default {
     props: {
         value: {},
+        roomType: {
+            default: 1
+        },
+        placeholder: {
+            default: '请输入教室名称查询'
+        },
         name: String,
         width: {
             default: 180
@@ -73,8 +79,9 @@ export default {
         fetchList (query) {
             this.loading = true;
             timer = setTimeout(() => {
-                post('/classroom/list.json', {
+                post('/classRoom/list.json', {
                     query: query,
+                    roomType: this.roomType,
                     pageNum: 1,
                     pageSize: 20
                 })
@@ -97,7 +104,8 @@ export default {
          */
         getDefaultOption () {
             this.loading = true;
-            post('/classroom/list.json', {
+            post('/classRoom/list.json', {
+                roomType: this.roomType,
                 pageNum: 1,
                 pageSize: 20
             })

@@ -8,7 +8,7 @@
         @change="changeUser"
         :loading="loading"
         :remote-method="fetchList"
-        :placeholder="placehoder"  
+        :placeholder="placeholder"  
         :style="{width: typeof width === 'number' ? (width + 'px') : '100%'}">
             <el-option 
                 v-for="item, index in list"
@@ -28,7 +28,10 @@ export default {
     props: {
         value: {},
         name: String,
-        placehoder: {
+        roleType: {
+            default: 1
+        },
+        placeholder: {
             default: '请输入用户名称查询'
         },
         width: {
@@ -93,7 +96,7 @@ export default {
             timer = setTimeout(() => {
                 post('/user/list.json', {
                     query: query,
-                    roleType: 1,
+                    roleType: this.roleType,
                     pageNum: 1,
                     pageSize: 20
                 })
@@ -119,7 +122,7 @@ export default {
             this.loading = true;
             post('/user/list.json', {
                 pageNum: 1,
-                roleType: 1,
+                roleType: this.roleType,
                 pageSize: 20
             })
             .then((res) => {

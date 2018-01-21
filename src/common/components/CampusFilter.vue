@@ -8,7 +8,7 @@
         @change="changeCampus"
         :loading="loading"
         :remote-method="fetchList"
-        :placeholder="placehoder"  
+        :placeholder="placeholder"  
         :style="{width: typeof width === 'number' ? (width + 'px') : '100%'}">
             <el-option 
                 v-for="item, index in list"
@@ -28,7 +28,7 @@ export default {
     props: {
         value: {},
         name: String,
-        placehoder: {
+        placeholder: {
             default: '请输入校区名称查询'
         },
         width: {

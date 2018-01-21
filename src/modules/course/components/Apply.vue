@@ -17,12 +17,12 @@
                     <el-form-item
                         prop="newPwd" 
                         label="课程名称">
-                        xxxxx
+                        {{form.name}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="校区" prop="teacherName">
-                        xxxxx
+                        {{form.schoolName}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -33,10 +33,10 @@
                             :disabled="true"
                             action="/common/upload.json">
                             <div class="upload-btn">
-                                <div v-show="form.coverUrl" 
+                                <div v-show="form.cover" 
                                     class="cover-url" 
-                                    :style="{backgroundImage:`url(${form.coverUrl})`}">
-                                    <a href="javascript:;">修改</a>
+                                    :style="{backgroundImage:`url(${form.cover})`}">
+                                    <a href="javascript:;" v-if="!isShowDetail">修改</a>
                                 </div>
                             </div>
                         </el-upload>
@@ -46,67 +46,76 @@
                     <el-form-item 
                         prop="newPwd" 
                         label="主讲老师">
-                        xxxxx
+                        {{form.teacherName}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="科目" prop="teacherName">
-                        xxxx
+                        {{form.subjectTypeStr}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
                         prop="newPwd" 
                         label="教室">
-                        xxxx
+                        {{form.classRoomName}}
                     </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="12" v-if="form.startDay">
                     <el-form-item 
                         prop="newPwd" 
                         label="上课日期">
-                        2018-12-12
+                        {{form.startDay|date('yyyy-MM-dd')}}
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12" v-else>
+                    <el-form-item 
+                        prop="newPwd" 
+                        label="上课规则">
+                        {{form.scheduleRule}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
                         prop="newPwd" 
                         label="上课时间段">
-                        12:00~13:00
+                        {{form.start}}~{{form.end}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
                         prop="newPwd" 
-                        label="时长" v-if="form.value4">
-                        {{(form.value4[1]-form.value4[0])/1000/60|minute}}
+                        label="时长" v-if="form.duration">
+                        {{(form.duration)/1000/60|minute}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
                     <el-form-item label="详情" prop="remark">
-                        <pre style="display: inline;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>
+                        <pre style="display: inline;">{{form.remark}}</pre>
                     </el-form-item>
                 </el-col>
             </el-row>
         </el-form>
         <el-form 
-            :model="form" 
+            :model="applyForm" 
             ref="form"
             label-position="right"
             label-width="100px"
-            :rules="rules"
+            :rules="applyCourseRules"
             v-if="!isShowDetail"
             >
             <h2 class="apply-title">申请信息</h2>
-            <el-form-item label="上课教室" prop="teacherName">
-                <el-select
-                    placeholder="请选择校区"
-                    style="width: 280px;"
-                    v-model.trim="form.teacherName">
-                </el-select>
+            <el-form-item label="上课教室" prop="classRoomId">
+                <classroom-filter
+                    placeholder="请选择教室"
+                    v-model="applyForm.classRoomId"
+                    :name="applyForm.classRoomName"
+                    width="100%"
+                    >
+                </classroom-filter>
             </el-form-item>
             <el-form-item label="备注" prop="remark">
-                <el-input v-model.trim="form.remark"
+                <el-input v-model.trim="applyForm.remark"
                     type="textarea" 
                     :maxlength="200" 
                     :autosize="{minRows: 2,maxRows: 5}" 
@@ -125,18 +134,39 @@
 
 <script>
 
-    import { getAddressSuggestion } from '../request';
+    import { getAddressSuggestion, detail, add} from '../request';
+    import config from '../config';
+    import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
 
     export default {
         data () {
             return {
                 loading: false,
-                form: {},
-                rules: {}
+                applyCourseRules: config.applyCourseRules,
+                applyForm: {
+                    classRoomId: '',
+                    remark: ''
+                },
+                form: {
+                    name: '',
+                    schoolId: '',
+                    schoolName: '',
+                    teacherId: 1,
+                    teacherName: '',
+                    cover: '',
+                    classRoomId:1,
+                    classRoomName: '教室名称',
+                    start: '',
+                    end: '',
+                    duration: '',
+                    remark: '',
+                    subjectType : '',
+                    subjectTypeStr: ''
+                }
             }
         },
         computed: {
-            applyItem () {
+            courseItem () {
                 return this.$store.state.course.course;
             },
             isShowDetail () {
@@ -144,28 +174,17 @@
             }
         },
         mounted () {
-            
-        },
-        methods: {
-            /**
-             * 选择地址
-             */
-            selectAddress (item) {
-                setTimeout(()=> {
-                    this.form.address = item.city + item.city + item.name;
-                });
-            },
-            /**
-             * 获取地址
-             */
-            getAddress (query, cb) {
-                getAddressSuggestion({
-                    query
+            var courseItem = this.courseItem;
+            if (courseItem) {
+                detail({
+                    id: courseItem.id
                 })
                 .then((res)=> {
-                    cb(res.result);
+                    Object.assign(this.form, res.data);
                 });
-            },
+            }
+        },
+        methods: {
             /**
              * 取消添加
              */
@@ -175,41 +194,30 @@
             ok () {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
-                        var isEdit = accountItem ? true : false;
-                        var form = this.form;
+                        var form = this.applyForm;
                         var params = {
-                            accountName: form.accountName,
-                            userName: form.userName,
-                            roleType: form.roleType,
-                            remark: form.remark,
-                            agencyIds: form.agencyIds.join(','),
-                            rtmType: form.rtmType
+                            id: this.courseItem.id,
+                            classRoomId: form.classRoomId,
+                            remark: form.remark
                         };
-                        if (isEdit) {
-                            Object.assign(params, {
-                                id: accountItem.id
-                            });
-                        } else {
-                            Object.assign(params, {
-                                password: form.password
-                            });
-                        }
-                        var request = isEdit ? edit : add;
-                        request(params)
+                        this.loading = true;
+                        add(params)
                             .then((res)=> {
-                                this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
+                                this.loading = false;
                                 toast('保存成功', 'success');
+                                this.cancel();
                             }, () => {
-                                this.changeLoading();
+                                this.loading = false;
                             });
                     } else {
                         toast('表单验证失败!');
                     }
                 });
             }
+        },
+        components: {
+            ClassroomFilter
         }
     };
 </script>

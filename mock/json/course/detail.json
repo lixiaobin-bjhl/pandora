@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+          "id":1,
+          "name":"课程名称",
+          "schoolId":1,
+          "schoolName":"校区名称",
+          "teacherId":1,
+          "startDay": 1516511942456,
+          "scheduleRule": "重复3天",
+          "teacherName":"老师姓名",
+          "cover":"https://imgs.genshuixue.com/24489340_jifl3uig.png",
+          "classRoomId":1,
+          "classRoomName":"教室名称",
+          "start":"9:30",
+          "end":"10:30",
+          "duration": 124234,
+          "remark":"备注",
+          "subjectType":1,
+          "subjectTypeStr":"sadfa"
+    }
+  }   

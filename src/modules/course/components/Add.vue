@@ -5,50 +5,56 @@
         :visible.sync="$store.state.course.showAddCourseState"
         > 
         <el-form 
-            :model="form" 
+            :model="form"
+            v-loading="loading"
             ref="form"
             label-position="right"
             label-width="100px"
             :class="{'detail-from': courseItem}"
-            :rules="courseItem ? {} : addAccountRule"
+            :rules="courseItem ? {} : addCourseRules"
             >
             <el-row :gutter="10">
                 <el-col :span="12">
                     <el-form-item
-                        prop="newPwd" 
+                        prop="name" 
                         label="课程名称">
                         <el-input 
-                            v-model.trim="form.newPwd" 
+                            v-model.trim="form.name" 
                             :maxlength="30" 
                             placeholder="请输入课程名称">
                         </el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item label="校区" prop="teacherName">
-                        <el-select
+                     <el-form-item
+                        prop="schoolId" 
+                        label="校区">
+                        <campus-filter
                             placeholder="请选择校区"
-                            v-model.trim="form.teacherName">
-                        </el-select>
-                    </el-form-item>
+                            v-model="form.schoolId"
+                            :name="form.schoolName"
+                            width="100%"
+                            >
+                        </campus-filter>
+                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="cover" 
                         label="封面">
                         <el-upload 
                             :before-upload="checkUploadImg"
                             :show-file-list="false"
                             :on-success="uploadImgSuccess"
                             :on-error="uploadImgError"
-                            action="/common/upload.json">
+                            action="/uploadService/fileUpload.json">
                             <div class="upload-btn">
-                                <div v-show="form.coverUrl" 
+                                <div v-if="form.cover" 
                                     class="cover-url" 
-                                    :style="{backgroundImage:`url(${form.coverUrl})`}">
+                                    :style="{background: 'url('+form.cover+')'}">
                                     <a href="javascript:;">修改</a>
                                 </div>
-                                <div v-if="!form.coverUrl" class="add-btn-link">
+                                <div v-if="!form.cover" class="add-btn-link">
                                     <span class="el-icon-circle-plus"></span>
                                     <i>选择图片</i>
                                 </div>
@@ -58,38 +64,58 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="teacherId" 
                         label="主讲老师">
-                        <el-select 
-                            v-model.trim="form.newPwd" 
-                            :maxlength="50" 
-                            placeholder="请选择主讲老师"></el-select>
+                         <user-filter
+                            placeholder="请选择主讲老师"
+                            :role-type="2"
+                            v-model="form.teacherId"
+                            :name="form.teacherName"
+                            width="100%"
+                            >
+                        </user-filter>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item label="科目" prop="teacherName">
+                    <el-form-item label="科目" prop="subjectType">
                         <el-select
-                            :disabled="courseItem ? true: false"
-                            v-model.trim="form.teacherName"></el-select>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                    <el-form-item 
-                        prop="newPwd" 
-                        label="教室">
-                        <el-select v-model.trim="form.newPwd" :maxlength="50" placeholder="请选择教室">
+                            v-model.trim="form.subjectType">
+                            <el-option
+                            v-for="item,index in subjectOption"
+                            :label="item.name"
+                            :value="item.id"
+                            :key="index">
+                        </el-option>
                         </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="classRoomId" 
+                        label="教室">
+                        <classroom-filter
+                            placeholder="请选择教室"
+                            :room-type="2"
+                            v-model="form.classRoomId"
+                            :name="form.classRoomName"
+                            width="100%"
+                            >
+                        </classroom-filter>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item 
+                        prop="enableRepeat" 
                         label="课程周期">
                             <el-input readonly @click.native.stop="toggleRepeat($event)" v-model="repeatMsg"
                                 placeholder="请设置课节重复信息">
                             </el-input>
                             <transition name="md-fade-bottom">
-                                <down-card v-show="showRepeatCard" :x="posX" :y="posY" :min-width="150" v-on:closeCard="closeCard">
+                                <down-card v-show="showRepeatCard" 
+                                    :x="posX" 
+                                    :y="posY" 
+                                    :min-width="150" 
+                                    v-on:closeCard="closeCard">
                                     <div slot="main">
                                         <set-repeat ref="setRepeatComp">
                                         </set-repeat>
@@ -104,10 +130,11 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="startDay"
+                        v-if="!form.enableRepeat"
                         label="上课日期">
                         <el-date-picker
-                            v-model="form.value1"
+                            v-model="form.startDay"
                             type="date"
                             placeholder="选择日期">
                         </el-date-picker>
@@ -115,11 +142,11 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="newPwd" 
+                        prop="timeRange" 
                         label="上课时间段">
                         <el-time-picker
                             is-range
-                            v-model="form.value4"
+                            v-model="form.timeRange"
                             format="HH:mm"
                             range-separator="至"
                             start-placeholder="开始时间"
@@ -131,8 +158,8 @@
                 <el-col :span="12">
                     <el-form-item 
                         prop="newPwd" 
-                        label="时长" v-if="form.value4">
-                        {{(form.value4[1]-form.value4[0])/1000/60|minute}}
+                        label="时长" v-if="form.timeRange">
+                        {{(form.timeRange[1]-form.timeRange[0])/1000/60|minute}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -167,11 +194,44 @@
 <script>
 
     import config from '../config';
-    import { modifyPwd } from '../request';
+    import { detail, add } from '../request';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import UserFilter from 'src/common/components/UserFilter.vue';
+    import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
     import DownCard from '../../../common/components/DownCard';
     import SetRepeat from '../../../common/components/SetRepeat';
+    import subjectOption from 'src/common/config/subjectOption';
 
     export default   {
+        data () {
+            return  {
+                addCourseRules: config.addCourseRules,
+                form: {
+                    name: '',
+                    schoolId: '',
+                    teacherId: '',
+                    classRoomId: '',
+                    subjectType: '',
+                    remark: '',
+                    startDay: '',
+                    startTime: '',
+                    timeRange: '',
+                    endTime: '',
+                    enableRepeat: '',
+                    repeatUnit: '',
+                    weekDays: '',
+                    repeatRange: '',
+                    repeatCount: '' 
+                },
+                subjectOption,
+                isConflict: false,
+                repeatInfo: null,
+                posX: 0,
+                posY: 0,
+                showRepeatCard: false,
+                loading: false
+            }
+        },
         computed: {
             courseItem () {
                 return null
@@ -197,18 +257,15 @@
                 return msg;
             }
         },
-        data () {
-            return  {
-                addAccountRule: config.addAccountRule,
-                form: {
-                    newPwd: '',
-                },
-                isConflict: false,
-                repeatInfo: null,
-                posX: 0,
-                posY: 0,
-                showRepeatCard: false,
-                loading: false
+        mounted () {
+            var courseItem = this.courseItem;
+            if (courseItem) {
+                detail({
+                    id: courseItem.id
+                })
+                .then((res)=> {
+                    Object.assign(this.form, res.data);
+                });
             }
         },
         methods: {
@@ -218,14 +275,14 @@
             checkUploadImg (file) {
                 const isRightFormat = ['image/jpg', 'image/jpeg', 'image/png'].indexOf(file.type) > -1;
                 const isLt5M = file.size / 1024 / 1024 < 5;
-                this.$set(this, 'uploadImgLoading', true);
+                 this.loading = true;
                 if (!isRightFormat) {
-                    this.$set(this, 'uploadImgLoading', false);
+                    this.loading = false;
                     toast('上传头像图片只能是jpeg、jpg、png格式!', 'error');
                     return false;
                 }
                 if (!isLt5M) {
-                    this.$set(this, 'uploadImgLoading', false);
+                    this.loading = false;
                     toast('上传图片大小不能超过5MB!', 'error');
                     return false;
                 }
@@ -235,10 +292,10 @@
              * 图片上传成功处理 
              */
             uploadImgSuccess (res) {
-                this.$set(this, 'uploadImgLoading', false);
+                this.loading = false;
                 if (!res.code) {
                     var data = res.data;
-                    this.$set(this.form, 'coverUrl', data.url);
+                    this.$set(this.form, 'cover', data.url);
                     this.$set(this.form, 'storageId', data.storageId);
                 } else {
                     toast('图片上传失败', 'error');
@@ -248,7 +305,7 @@
              * 图片上传失败处理 
              */
             uploadImgError (item) {
-                this.$set(item, 'uploadImgLoading', false);
+                this.loading = false;
             },
             getEventPos(event, x) {
                 this.posX = event.currentTarget.offsetLeft - x;
@@ -274,8 +331,23 @@
             setRepeat() {
                 let repeatInfo = this.$refs.setRepeatComp.getRepeatInfo();
                 if (repeatInfo) {
+                    console.log(repeatInfo);
+                    this.form.enableRepeat = repeatInfo.repeatType ? 1 : 0;
+                    this.form.repeatUnit = repeatInfo.repeatType  -1;
+
+                    // 按天重复
+                    if (repeatInfo.repeatType == 1) {
+                        this.repeatCount = repeatInfo.repeatDayCounts;
+                        this.repeatRange = repeatInfo.grepDayNum;
+                    } else if (repeatInfo.repeatType == 2) {
+                        this.form.repeatCount = repeatInfo.repeatWeekCounts;
+                        this.form.repeatRange = repeatInfo.grepWeekNum;
+                        this.form.weekDays = repeatInfo.repeatDays.map((item) => {
+                            return item.label;
+                        }).join(',');
+                    }
                     this.repeatInfo = repeatInfo;
-                    this.form.repeatRule = this.adaptRepeatRule(repeatInfo);
+                    // this.form.repeatRule = this.adaptRepeatRule(repeatInfo);
                     this.closeCard();
                 }
             },
@@ -312,24 +384,36 @@
                 this.$store.commit('HIDE_ADD_COURSE');
             },
             ok () {
-                this.isConflict = true;
-                return;
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
+                        var courseItem = this.courseItem;
                         var form = this.form;
                         var params = {
-                             id: accountItem.id,
-                             newPwd: form.newPwd
+                            name: form.name,
+                            schoolId: form.schoolId,
+                            cover: form.cover,
+                            teacherId: form.teacherId,
+                            classRoomId: form.classRoomId,
+                            subjectType: form.subjectType,
+                            remark: form.remark,
+                            startDay: form.startDay ? +form.startDay : '',
+                            startTime: Vue.filter('date')(form.timeRange[0], 'HH:mm'),
+                            endTime: Vue.filter('date')(form.timeRange[1], 'HH:mm'),
+                            enableRepeat: form.enableRepeat,
+                            repeatUnit: form.repeatUnit,
+                            weekDays: form.weekDays,
+                            repeatRange: form.repeatRange,
+                            repeatCount: form.repeatCount
                         };
-                        modifyPwd(params)
+                        this.loading = true;
+                        add(params)
                             .then((res)=> {
-                                this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
+                                this.loading = false;
                                 toast('保存成功', 'success');
+                                this.cancel();
                             }, () => {
-                                this.changeLoading();
+                                this.loading = false;
                             });
                     } else {
                         this.$Message.error('表单验证失败!');
@@ -340,6 +424,9 @@
         },
         components: {
             DownCard,
+            CampusFilter,
+            UserFilter,
+            ClassroomFilter,
             SetRepeat
         }
     }

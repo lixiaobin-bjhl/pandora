@@ -89,6 +89,20 @@ exports.routes = [
         }
 	},
 	{
+        method: 'POST',
+        path: '/uploadService/fileUpload.json',
+        handler: function (request, reply) {
+            return reply({
+                    "msg":"succ",
+                    "code": 0,
+                    "data": {
+                        "url": "http://imgs.genshuixue.com/24489340_jifl3uig.png",
+                        "storageId": 1
+                    }
+                })
+        }
+    },
+	{
 		method: 'POST',
         path: '/patient/bindWechat.json',
         handler: function (request, reply) {

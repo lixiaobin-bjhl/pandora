@@ -1,0 +1,43 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":[
+          {
+              "id":1,
+              "name":"课程名称",
+              "cover":"https://imgs.genshuixue.com/24489340_jifl3uig.png",
+              "subjectType":1,
+              "subjectTypeStr":"科目",
+              "status":1,
+              "isOnline":0,
+              "isTop":0
+          },
+          {
+            "id":1,
+            "name":"课程名称",
+            "cover":"https://imgs.genshuixue.com/24489340_jifl3uig.png",
+            "subjectType":1,
+            "subjectTypeStr":"科目",
+            "status":1,
+            "isOnline":1,
+            "isTop":1
+        },
+        {
+            "id":1,
+            "name":"课程名称",
+            "cover":"https://imgs.genshuixue.com/24489340_jifl3uig.png",
+            "subjectType":1,
+            "subjectTypeStr":"科目",
+            "status":1,
+            "isOnline":0,
+            "isTop":1
+        }
+    ],
+    "pageDto": {
+      "count": 3,
+      "curPageCount": 3,
+      "pageNum": 1,
+      "pageSize": 20,
+      "totalPageNum": 1
+    }
+  }   
