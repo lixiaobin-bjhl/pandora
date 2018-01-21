@@ -33,5 +33,12 @@ exports.routes = [
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));
         }
+    },
+    {
+        method: 'POST',
+        path: '/course/conflictCheck.json',
+        handler: function (request, reply) {
+            return reply(require('./json/course/conflictCheck.json'));
+        }
     }
 ];

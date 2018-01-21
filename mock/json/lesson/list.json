@@ -1,94 +1,42 @@
 {
     "msg": "succ",
     "code": 0,
-    "data": {
-        "list": [
-          {
-            "id": 10,
-            "number": 1,
-            "lessonDate": 1483231842999,
-            "week": 1,
-            "name": "课节名称",
+    "data": [
+        {
+            "id": 1,
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "roomId": 1,
+            "roomName": "教室名称",
             "startTime": 1487744143818,
             "endTime": 1487752484745,
-            "classNumber": "M11122",
-            "className": "学前班",
-            "timeRangeStr": "09:30-10:30",
-            "staffId": 30,
-            "staffName": "张老师",
-            "classroomId": 30,
-            "classroomName": "多媒体教室1-1",
-            "studentCount": 10,
-            "lessonStatusId": 2,
-            "lessonStatusStr": "已结束",
-            "teacherConflict": false,
-            "classroomConflict": true,
-            "attendCount": 10,
-            "absentCount": 0,
-            "leaveCount": 10,
-            "signInfo": {
-                "studentCount": 10,
-                "attendCount": 3,
-                "absentCount": 1,
-                "leaveCount": 3,
-                "noSignCount": 0
-            },
-            "makeupSignInfo": {
-                    "studentCount": 10,
-                    "attendCount": 3,
-                    "absentCount": 1,
-                    "leaveCount": 3,
-                    "noSignCount": 0
-            },
-            "node": {
-                "id": 1,
-                "name": "金百校区"
-            }
+            "courseId": 1,
+            "courseName": "课程名称1",
+            "teacherId": 1,
+            "teacherName": "老师名称",
+            "subjectType": 1,
+            "conflictType": 0,
+            "conflictTypeStr": "老师冲突",
+            "subjectTypeStr": "科目名称"
         },
         {
-            "id": 11,
-            "number": 1,
-            "lessonDate": 1483231842999,
-            "week": 1,
-            "name": "林玉大人的课",
+            "id": 2,
+            "schoolId": 1,
+            "schoolName": "校区名称",
+            "roomId": 1,
+            "roomName": "教室名称",
             "startTime": 1487744143818,
             "endTime": 1487752484745,
-            "classNumber": "M11122",
-            "className": "学前班",
-            "timeRangeStr": "09:30-10:30",
-            "staffId": 30,
-            "staffName": "马老师",
-            "classroomId": 30,
-            "classroomName": "多媒体教室1-1",
-            "studentCount": 10,
-            "lessonStatusId": 2,
-            "lessonStatusStr": "已结束",
-            "teacherConflict": false,
-            "classroomConflict": true,
-            "attendCount": 10,
-            "absentCount": 0,
-            "leaveCount": 10,
-            "signInfo": {
-                "studentCount": 10,
-                "attendCount": 3,
-                "absentCount": 1,
-                "leaveCount": 3,
-                "noSignCount": 0
-            },
-            "makeupSignInfo": {
-                    "studentCount": 10,
-                    "attendCount": 3,
-                    "absentCount": 1,
-                    "leaveCount": 3,
-                    "noSignCount": 0
-            },
-            "node": {
-                "id": 1,
-                "name": "金百校区"
-            }
+            "courseId": 1,
+            "courseName": "课程名称2",
+            "teacherId": 1,
+            "teacherName": "老师名称",
+            "subjectType": 1,
+            "conflictType": -1,
+            "conflictTypeStr": "老师冲突",
+            "subjectTypeStr": "科目名称"
         }
-      ]
-    },
+    ],
     "pageDto": {
         "count": 100,
         "curPageCount": 10,

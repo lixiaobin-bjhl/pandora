@@ -58,13 +58,11 @@
 			:style="{'left': tipLeft+'px', 'top': tipTop+'px'}">
 			<div class="arrow"></div>
 			<div class="tip-inner">
-				<p>{{lesson.name}}</p>
-				<p>{{lesson.staffName}}</p>
-				<p>{{lesson.classroomName}}</p>
-				<p>{{lesson.subTypeName}}{{lesson.index}}</p>
+				<p>{{lesson.courseName}}</p>
+				<p>{{lesson.teacherName}}</p>
+				<p>{{lesson.roomName}}</p>
 				<p>{{lesson.startTimeStr}}~{{lesson.endTimeStr}}</p>
-				<p v-if="lesson.teacherConflict" style="color: red;">老师冲突</p>
-				<p v-if="lesson.classroomConflict" style="color: red;">教室冲突</p>
+				<p v-if="lesson.conflictType != -1" style="color: red;">{{lesson.conflictTypeStr}}</p>
 			</div>
 		</div>
 	</div>
@@ -286,7 +284,7 @@
                 let height = item.height;
 				let borderColor = item.courseType == 1 ? '#B6D6C0' : '#AED1E6';
 				let bgColor = item.courseType == 1 ? 'rgba(233, 247, 230, .75)' : 'rgba(199, 235, 255, .75)';
-				let spanHtml = item.isConflict ? `<span class="iconfont icon-warn-copy" style="color: #ff3824;"></span>` : ``;
+				let spanHtml = item.conflictType !== -1 ? `<span class="el-icon-warning" style="color: #ff3824;"></span>` : ``;
 				let color = '#666';
 				item.rendered = true;
 				let jDomObj = $(`<div class="item ${clazzName}" data-id="${item.id}" data-index="${item.arrayIndex}" style="left: ${leftPercent}%; width: ${withPercent}%; top: ${top}px; height: ${height}px; color: ${color}; background: ${bgColor}; border-color: ${borderColor}">
@@ -296,9 +294,9 @@
 						<p class="item-p theme"></p>
 						<p class="item-p">${item.startTimeStr}~${item.endTimeStr}</p>
 					</div>`);
-				jDomObj.find('.course').text(item.name);
-				jDomObj.find('.teacher').text(item.staffName);
-				jDomObj.find('.room').text(item.classroomName);
+				jDomObj.find('.course').text(item.courseName);
+				jDomObj.find('.teacher').text(item.teacherName);
+				jDomObj.find('.room').text(item.roomName);
 				return jDomObj.prop("outerHTML");
 			},
 			fillGrid() {

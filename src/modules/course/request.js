@@ -44,3 +44,12 @@ export function detail (params) {
 export function add (params) {
     return post('/course/add.json', params);
 }
+
+/**
+ * 冲突检测
+ * 
+ * @return {Promise}
+ */
+export function conflictCheck (params) {
+    return post('/course/conflictCheck.json', params);
+}

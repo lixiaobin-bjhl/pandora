@@ -1,7 +1,7 @@
 
 
-import {post} from '../../common/service';
+import {post, postWithJson} from '../../common/service';
 
 export function list (params) {
-    return post('/lesson/list.json', params);
+    return postWithJson('/lesson/list.json', params);
 }

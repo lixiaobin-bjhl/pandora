@@ -172,15 +172,28 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-            <transition v-if="isConflict" name="el-zoom-in-top" mode="out-in" appear>
-                <div class="course-warning">
-                    <h3>
-                        <span class="el-icon-warning"></span>课程发生冲突
-                    </h3>
-                    <ul>
-                        <li>该课程与《APP一对一》第137节课于12月13日 05:00-18:00发生冲突，请重新排课。</li>
-                        <li>该课程与《APP一对一》第137节课于12月13日 05:00-18:00发生冲突，请重新排课。</li>
-                    </ul>
+            <transition 
+                v-if="roomConflicts.length && teacherConflicts.length" 
+                name="el-zoom-in-top" mode="out-in" appear>
+                <div>
+                    <div class="course-warning">
+                        <h3>
+                            <span class="el-icon-warning"></span>教师发生冲突
+                        </h3>
+                        <ul>
+                            <li v-for="item, index in teacherConflicts" 
+                            :key="index">该课程与{{item.courseName}} {{item.startTime|date('HH:mm')}}~{{item.endTime|date('HH:mm')}}发生冲突，请重新排课。</li>
+                        </ul>
+                    </div>
+                    <div class="course-warning">
+                        <h3>
+                            <span class="el-icon-warning"></span>教室发生冲突
+                        </h3>
+                        <ul>
+                            <li v-for="item, index in teacherConflicts" 
+                            :key="index">该课程与{{item.courseName}} {{item.startTime|date('HH:mm')}}~{{item.endTime|date('HH:mm')}}发生冲突，请重新排课。</li>
+                        </ul>
+                    </div>
                 </div>
             </transition>
         </el-form>
@@ -194,7 +207,7 @@
 <script>
 
     import config from '../config';
-    import { detail, add } from '../request';
+    import { detail, add, conflictCheck } from '../request';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
     import UserFilter from 'src/common/components/UserFilter.vue';
     import ClassroomFilter from 'src/common/components/ClassroomFilter.vue';
@@ -223,8 +236,9 @@
                     repeatRange: '',
                     repeatCount: '' 
                 },
+                teacherConflicts: [],
+                roomConflicts: [],
                 subjectOption,
-                isConflict: false,
                 repeatInfo: null,
                 posX: 0,
                 posY: 0,
@@ -331,7 +345,6 @@
             setRepeat() {
                 let repeatInfo = this.$refs.setRepeatComp.getRepeatInfo();
                 if (repeatInfo) {
-                    console.log(repeatInfo);
                     this.form.enableRepeat = repeatInfo.repeatType ? 1 : 0;
                     this.form.repeatUnit = repeatInfo.repeatType  -1;
 
@@ -347,35 +360,62 @@
                         }).join(',');
                     }
                     this.repeatInfo = repeatInfo;
-                    // this.form.repeatRule = this.adaptRepeatRule(repeatInfo);
                     this.closeCard();
                 }
             },
             /**
-             * RepeatRule数据格式与通用版不一致，adapt一下
+             * 检测课节是否有冲突 
              */
-            adaptRepeatRule(repeatRule) {
-                var result = {};
-                // 按周重复
-                if (repeatRule.repeatType == 2) {
-                    Object.assign(result, {
-                        timeGranularityCode: 4,
-                        reapeatCount: repeatRule.repeatWeekCounts,
-                        weekDays: repeatRule.repeatDays.map((item)=> {
-                            return item.value
-                        }),
-                        internal: repeatRule.grepWeekNum
-                    })
-                // 按日重复
-                } else if (repeatRule.repeatType == 1) {
-                    Object.assign(result, {
-                        timeGranularityCode: 5,
-                        reapeatCount: repeatRule.repeatDayCounts,
-                        weekDays: [],
-                        internal: repeatRule.grepDayNum
-                    });
-                }
-                return result;
+            conflictCheck () {
+                var form = this.form;
+                var teacherId = form.teacherId;
+                var classRoomId = form.classRoomId;
+                var timeRange = form.timeRange;
+                var startDay = form.startDay;
+                var repeatCount = form.repeatCount;
+                var fillFull = false;
+
+                var defer = new Promise((resolve) => {
+                    if (teacherId && classRoomId && timeRange) {
+                        if (form.enableRepeat === 0 && startDay) {
+                            fillFull = true;
+                        } 
+                        else if (form.enableRepeat && repeatCount) {
+                            fillFull = true;
+                        }
+                    }
+                    // 信息填满了，开始检测
+                    if (fillFull) {
+                        conflictCheck({
+                            teacherId: form.teacherId,
+                            classRoomId: form.classRoomId,
+                            startDay: form.startDay ? +form.startDay : '',
+                            startTime: Vue.filter('date')(form.timeRange[0], 'HH:mm'),
+                            endTime: Vue.filter('date')(form.timeRange[1], 'HH:mm'),
+                            enableRepeat: form.enableRepeat,
+                            repeatUnit: form.repeatUnit,
+                            weekDays: form.weekDays,
+                            repeatRange: form.repeatRange,
+                            repeatCount: repeatCount,
+                        })
+                        .then((res)=> {
+                            var data = res.data;
+                            var teacherConflicts = data.teacherConflicts.conflictList;
+                            var roomConflicts = data.roomConflicts.conflictList;
+
+                            this.teacherConflicts = teacherConflicts || [];
+                            this.roomConflicts = roomConflicts || [];
+                            if (teacherConflicts.length || roomConflicts.length) {
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                            }
+                        });
+                    } else {
+                        resolve(false);
+                    }
+                });
+                return defer;
             },
             /**
              * 取消重置密码 
@@ -388,38 +428,58 @@
                     if (valid) {
                         var courseItem = this.courseItem;
                         var form = this.form;
-                        var params = {
-                            name: form.name,
-                            schoolId: form.schoolId,
-                            cover: form.cover,
-                            teacherId: form.teacherId,
-                            classRoomId: form.classRoomId,
-                            subjectType: form.subjectType,
-                            remark: form.remark,
-                            startDay: form.startDay ? +form.startDay : '',
-                            startTime: Vue.filter('date')(form.timeRange[0], 'HH:mm'),
-                            endTime: Vue.filter('date')(form.timeRange[1], 'HH:mm'),
-                            enableRepeat: form.enableRepeat,
-                            repeatUnit: form.repeatUnit,
-                            weekDays: form.weekDays,
-                            repeatRange: form.repeatRange,
-                            repeatCount: form.repeatCount
-                        };
-                        this.loading = true;
-                        add(params)
+                        
+                        this.conflictCheck()
                             .then((res)=> {
-                                this.$emit('save');
-                                this.loading = false;
-                                toast('保存成功', 'success');
-                                this.cancel();
-                            }, () => {
-                                this.loading = false;
-                            });
-                    } else {
-                        this.$Message.error('表单验证失败!');
-                        this.changeLoading();
+                                if (res) {
+                                    this.$confirm('该课程与其它课程有冲突，确认提交', '提示', {
+                                        type: 'warning'
+                                    })
+                                    .then(() => {
+                                        var params = {
+                                            name: form.name,
+                                            schoolId: form.schoolId,
+                                            cover: form.cover,
+                                            teacherId: form.teacherId,
+                                            classRoomId: form.classRoomId,
+                                            subjectType: form.subjectType,
+                                            remark: form.remark,
+                                            startDay: form.startDay ? +form.startDay : '',
+                                            startTime: Vue.filter('date')(form.timeRange[0], 'HH:mm'),
+                                            endTime: Vue.filter('date')(form.timeRange[1], 'HH:mm'),
+                                            enableRepeat: form.enableRepeat,
+                                            repeatUnit: form.repeatUnit,
+                                            weekDays: form.weekDays,
+                                            repeatRange: form.repeatRange,
+                                            repeatCount: form.repeatCount,
+                                            scheduleRule: this.repeatMsg
+                                        };
+                                        this.loading = true;
+                                        add(params)
+                                            .then((res)=> {
+                                                this.$emit('save');
+                                                this.loading = false;
+                                                toast('保存成功', 'success');
+                                                this.cancel();
+                                            }, () => {
+                                                this.loading = false;
+                                            });
+                                        });
+                                }
+                            })
+                    } 
+                    else {
+                        toast('表单验证失败!');
                     }
                 });
+            }
+        },
+        watch: {
+            form: {
+                handler () {
+                    this.conflictCheck();
+                },
+                deep: true
             }
         },
         components: {

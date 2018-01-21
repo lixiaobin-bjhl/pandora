@@ -1,0 +1,40 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+          "teacherConflicts":{
+              "count":10,
+              "lessonConflictEnum":1,
+              "conflictList":[
+                  {
+                      "lessonId":1,
+                      "courseId":1,
+                      "courseName":"课程名称",
+                      "startTime":12323442323,
+                      "endTime":1234231423,
+                      "teacherId":1,
+                      "teacherName":"老师名称",
+                      "roomId":1,
+                      "roomName":"教室名称"
+                  }
+              ]
+          },
+          "roomConflicts":{
+              "count":10,
+              "lessonConflictEnum":1,
+              "conflictList":[
+                  {
+                      "lessonId":1,
+                      "courseId":1,
+                      "courseName":"课程名称",
+                      "startTime":12323442323,
+                      "endTime":1234231423,
+                      "teacherId":1,
+                      "teacherName":"老师名称",
+                      "roomId":1,
+                      "roomName":"教室名称"
+                  }
+              ]
+          }
+    }
+  }   

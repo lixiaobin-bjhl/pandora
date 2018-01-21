@@ -106,10 +106,10 @@
 							position: absolute;
 							box-sizing: border-box;
 							border: 1px solid rgb(239, 239, 239);
-							border-left: 0;
-							&:first-of-type {
-								border-left: 1px solid rgb(239, 239, 239);
-							}
+							border-left: 1px solid rgb(239, 239, 239);
+							// &:first-of-type {
+							// 	border-left: 1px solid rgb(239, 239, 239);
+							// }
 							p {
 								font-size: 11px;
 								padding: 2px;

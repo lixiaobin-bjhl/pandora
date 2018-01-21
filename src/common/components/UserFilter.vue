@@ -3,6 +3,7 @@
         v-model="userId"
         clearable
         filterable
+        :multiple="isMultiple"
         remote
         @clear="clear"
         @change="changeUser"
@@ -28,6 +29,9 @@ export default {
     props: {
         value: {},
         name: String,
+        isMultiple: {
+            defualt: false
+        },
         roleType: {
             default: 1
         },

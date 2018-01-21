@@ -98,6 +98,7 @@ export default {
          */
         changeClassroom (classroomId) {
             this.$emit('input', classroomId);
+            this.$emit('change', classroomId);
         },
         /**
          * 获取默认选项
