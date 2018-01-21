@@ -9,48 +9,56 @@
             :model="form" 
             ref="form"
             label-width="80px"
-            :class="{'detail-from': applyItem}"
-            :rules="applyItem && !isModified ? {} : rules"
+            :class="{'detail-from': applyItem && !isModified}"
+            :rules="(applyItem && isModified) || !applyItem ? applyRules : {}"
             label-position="right">
            <el-row :gutter="10">
                <el-col :span="24">
-                    <el-form-item label="校区" prop="accountName">
+                    <el-form-item label="校区" prop="schoolId">
                         <template v-if="applyItem && !isModified">
-                            xxxxxx
+                            {{applyItem.schoolName}}
+                        </template>
+                        <campus-filter
+                            v-else
+                            placeholder="请选择校区"
+                            v-model="form.schoolId"
+                            :name="form.schoolName"
+                            width="100%"
+                            >
+                        </campus-filter>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                    <el-form-item label="教室个数" prop="applyCount">
+                        <template v-if="applyItem && !isModified">
+                            {{applyItem.applyCount}}
                         </template>
                         <el-input
-                            v-else
-                            v-model.trim="form.accountName" 
-                            :maxlength="50" 
-                            placeholder="账号(50字内)"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="24">
-                    <el-form-item label="教室个数" prop="userName">
-                        <template v-if="applyItem && !isModified">
-                            xxxxxx
-                        </template>
-                        <el-input 
-                        v-model.trim="form.userName"
+                        type="number"
+                        v-model.trim="form.applyCount"
                         v-else 
-                        :maxlength="20" placeholder="请输入名字"></el-input>
+                        :maxlength="5" placeholder="请输入申请个数"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="申报人" prop="userName">
+                    <el-form-item label="申报人" prop="applyUserId">
                         <template v-if="applyItem && !isModified">
-                            xxxxxx
+                            {{applyItem.applyUserName}}
                         </template>
-                        <el-input 
-                        v-model.trim="form.userName"
-                        v-else
-                        :maxlength="20" placeholder="请输入名字"></el-input>
+                        <user-filter
+                            v-else
+                            placeholder="请选择申报人"
+                            v-model="form.applyUserId"
+                            :name="form.applyUserName"
+                            width="100%"
+                            >
+                        </user-filter>
                     </el-form-item>
                 </el-col>
                 <el-col :span="24">
-                    <el-form-item label="地址" prop="userName">
+                    <el-form-item label="地址" prop="address">
                         <template v-if="applyItem && !isModified">
-                            xxxxxx
+                            {{applyItem.address}}
                         </template>
                         <el-autocomplete
                             v-else
@@ -59,6 +67,7 @@
                             :fetch-suggestions="getAddress"
                             placeholder="例如：湖北省武汉市珞喻路419号清和广场5楼"
                             style="width: 100%;"
+                            :maxlength="100"
                             :trigger-on-focus="false"
                             @select="selectAddress">
                             <template slot-scope="props">
@@ -70,7 +79,7 @@
                 <el-col :span="24">
                     <el-form-item label="备注" prop="remark">
                          <template v-if="applyItem && !isModified">
-                            xxxxxx
+                            <pre>{{applyItem.remark}}</pre>
                         </template>
                         <el-input
                             v-else
@@ -95,14 +104,25 @@
 
 <script>
 
-    import { getAddressSuggestion } from '../request';
+    import { getAddressSuggestion, reApply, apply} from '../request';
+    import CampusFilter from 'src/common/components/CampusFilter.vue';
+    import UserFilter from 'src/common/components/UserFilter.vue';
+    import config from '../config';
 
     export default {
         data () {
             return {
                 loading: false,
-                form: {},
-                rules: {}
+                form: {
+                    schoolId: '',
+                    applyCount: '',
+                    schoolName: '',
+                    applyUserName: '',
+                    applyUserId: '',
+                    address: '',
+                    remark: ''
+                },
+                applyRules: config.applyRules
             }
         },
         computed: {
@@ -122,6 +142,12 @@
                         return '报装申请';
                     }
                 }
+            }
+        },
+        mounted () {
+            var applyItem = this.applyItem;
+            if (applyItem) {
+                Object.assign(this.form, applyItem);
             }
         },
         methods: {
@@ -153,33 +179,28 @@
             ok () {
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
-                        var accountItem = this.accountItem;
-                        var isEdit = accountItem ? true : false;
+                        var applyItem = this.applyItem;
+                        var isEdit = this.isModified ? true : false;
                         var form = this.form;
                         var params = {
-                            accountName: form.accountName,
-                            userName: form.userName,
-                            roleType: form.roleType,
-                            remark: form.remark,
-                            agencyIds: form.agencyIds.join(','),
-                            rtmType: form.rtmType
+                           schoolId: form.schoolId,
+                           applyUserId: form.applyUserId,
+                           applyCount: form.applyCount,
+                           remark: form.remark,
+                           address: form.address
                         };
                         if (isEdit) {
                             Object.assign(params, {
-                                id: accountItem.id
-                            });
-                        } else {
-                            Object.assign(params, {
-                                password: form.password
+                                id: applyItem.id
                             });
                         }
-                        var request = isEdit ? edit : add;
+                        var request = isEdit ? reApply : apply;
                         request(params)
                             .then((res)=> {
                                 this.visiable = false;
                                 this.$emit('save');
-                                this.$refs.modal.close();
                                 toast('保存成功', 'success');
+                                this.cancel();
                             }, () => {
                                 this.changeLoading();
                             });
@@ -188,6 +209,10 @@
                     }
                 });
             }
-        }
+        },
+        components: {
+            CampusFilter,
+            UserFilter
+        }  
     };
 </script>

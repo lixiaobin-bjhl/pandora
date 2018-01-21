@@ -1,11 +1,11 @@
 <template>
     <el-select 
-        v-model="campusId"
+        v-model="userId"
         clearable
         filterable
         remote
         @clear="clear"
-        @change="changeCampus"
+        @change="changeUser"
         :loading="loading"
         :remote-method="fetchList"
         :placeholder="placehoder"  
@@ -29,7 +29,7 @@ export default {
         value: {},
         name: String,
         placehoder: {
-            default: '请输入校区名称查询'
+            default: '请输入用户名称查询'
         },
         width: {
             default: 180
@@ -44,23 +44,23 @@ export default {
         return {
             loading: false,
             list: [],
-            campusId: ''
+            userId: ''
         };
     },
     mounted () {
         this.getDefaultOption();
-        this.defaultCampus();
+        this.defaultUser();
     },
     methods: {
         /**
          * 设置默认校区
          */
-        defaultCampus () {
+        defaultUser () {
             var userInfo = this.userInfo;
             var value = this.value;
             var name = this.name;
             if (value && name) {
-                this.campusId = value;
+                this.userId = value;
                 this.list = [{
                     id: value,
                     name: name
@@ -68,11 +68,11 @@ export default {
             }
             // 分校设置默认校区
             else if (userInfo && userInfo.roleType == 1) {
-                this.campusId = userInfo.campusId
-                this.$emit('input', this.campusId);
+                this.userId = userInfo.id;
+                this.$emit('input', this.userId);
                 this.list = [{
-                    id: userInfo.campusId,
-                    name: userInfo.campusName
+                    id: userInfo.id,
+                    name: userInfo.userName
                 }];
             }
         },
@@ -91,8 +91,9 @@ export default {
         fetchList (query) {
             this.loading = true;
             timer = setTimeout(() => {
-                post('/school/fuzzyQuery.json', {
+                post('/user/list.json', {
                     query: query,
+                    roleType: 1,
                     pageNum: 1,
                     pageSize: 20
                 })
@@ -107,17 +108,18 @@ export default {
         /**
          * 改变校区 
          */
-        changeCampus (campusId) {
-            this.$emit('input', campusId);
-            this.$emit('change', campusId);
+        changeUser (userId) {
+            this.$emit('input', userId);
+            this.$emit('change', userId);
         },
         /**
          * 获取默认选项
          */
         getDefaultOption () {
             this.loading = true;
-            post('/school/list.json', {
+            post('/user/list.json', {
                 pageNum: 1,
+                roleType: 1,
                 pageSize: 20
             })
             .then((res) => {
@@ -129,11 +131,11 @@ export default {
         }
     },
     watch: {
-        'userInfo.campusId' () {
-            this.defaultCampus();
+        'userInfo.id' () {
+            this.defaultUser();
         },
         value () {
-            this.defaultCampus();
+            this.defaultUser();
         }
     }
 };

@@ -15,7 +15,8 @@
             <div class="filter-wrap">
                 <div class="filter-box">
                     <campus-filter
-                        v-model="filter.campus">
+                        @change="refresh"
+                        v-model="filter.schoolId">
                     </campus-filter>
                     <el-select
                     v-model="filter.status"
@@ -38,26 +39,27 @@
                 empty-text="没有找到报装信息"
                 >
                 <el-table-column
+                    prop="schoolName"
                     align="center"
-                    label="报装校区">  
-                    <template slot-scope="scope">
-                       李小斌
-                    </template>
+                    label="报装校区">
                 </el-table-column>
                 <el-table-column
                     align="center"
-                    prop="date"
+                    prop="applyUserName"
                     label="申报人">
                 </el-table-column>
                 <el-table-column
                     align="center"
-                    prop="date"
+                    prop="applyCount"
                     label="申报个数">
                 </el-table-column>
                 <el-table-column
                     align="center"
-                    prop="date"
+                    prop="applyTime"
                     label="申请时间">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.applyTime|date('yyyy-MM-dd HH:mm')}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     align="center"
@@ -99,23 +101,26 @@
                     label="操作">
                     <template slot-scope="scope">
                         <div class="btn-group">
-                            <a href="javascript:;"
+                            <!-- <a href="javascript:;"
                                 v-if="$root.hasAuth(3)" 
-                                @click="updateStatus(scope.row)">更新状态</a>
+                                @click="updateStatus(scope.row)">更新状态</a> -->
                             <a href="javascript:;"
+                                v-if="$root.hasAuth(3) && scope.row.status == 1" 
+                                @click="audit(scope.row)">审批</a>
+                            <!-- <a href="javascript:;"
                                 v-if="$root.hasAuth(3) && scope.row.status == 1" 
                                 @click="updateStatus(scope.row)">通过</a>
                             <a href="javascript:;"
                                 v-if="$root.hasAuth(3) && scope.row.status == 1" 
-                                @click="updateStatus(scope.row)">拒绝</a>
+                                @click="updateStatus(scope.row)">拒绝</a> -->
                             <a href="javascript:;"
                                 v-if="$root.hasAuth(1) && scope.row.status == 1" 
                                 @click="withdraw(scope.row)">撤回</a>
                             <a href="javascript:;"
-                                v-if="$root.hasAuth(1) && scope.row.status == 4" 
+                                v-if="$root.hasAuth(1) && scope.row.status == 3" 
                                 @click="edit(scope.row)">编辑</a>
                             <a href="javascript:;"
-                                v-if="scope.row.status == 2 || scope.row.status == 3" 
+                                v-if="scope.row.status >= 3" 
                                 @click="updateStatus(scope.row)">状态记录</a>
                             <a href="javascript:;" @click="showDetail(scope.row)">详情</a>
                         </div>
@@ -129,9 +134,15 @@
             </pager>
         </div>
         <equipment-status-list 
-            v-if="$store.state.equipment.showEquipmentStatusListState">
+            v-if="$store.state.equipment.showEquipmentStatusListState"  
+            @save="fetchList">
         </equipment-status-list>
-        <apply v-if="$store.state.equipment.showApplyEquipmentState"></apply>
+        <apply 
+            v-if="$store.state.equipment.showApplyEquipmentState"
+            @save="fetchList">
+        </apply>
+        <audit v-if="$store.state.equipment.showApplyEquipmentAuditState"  
+            @save="fetchList"></audit>
     </div>
 </template>
 
@@ -142,8 +153,9 @@
     import listPageDto from '../../common/mixin/listPageDto';
     import EquipmentStatusList from './components/EquipmentStatusList';
     import Apply from './components/Apply';
+    import Audit from './components/Audit';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
-    import { getApplyList } from './request';
+    import { getApplyList, revoke} from './request';
 
     export default {
         mixins: [listPageDto],
@@ -153,7 +165,8 @@
                 breadcrumb: ['报装管理'],
                 loading: false,
                 filter: {
-                    key: ''
+                    status: '',
+                    schoolId: ''
                 },
                 list: []
             }
@@ -163,10 +176,16 @@
         },
         methods: {
             /**
+             * 审批 
+             */
+            audit (item) {
+                this.$store.commit('SHOW_APPLY_EQUIPMENT_AUDIT', item);
+            },
+            /**
              * 修改状态 
              */
-            updateStatus () {
-                this.$store.commit('SHOW_EQUIPMENT_STATUS_LIST');
+            updateStatus (item) {
+                this.$store.commit('SHOW_EQUIPMENT_STATUS_LIST', item);
             },
             /**
              * 刷新列表 
@@ -180,10 +199,13 @@
              */
             fetchList () {
                 var pageDto = this.pageDto;
+                var filter = this.filter;
+                
                 this.loading = true;
                 getApplyList({
-                    pageSize: pageDto.pageSize,
-                    pageNum: pageDto.pageNum
+                    pageDto: this.pageDto,
+                    schoolId: filter.schoolId,
+                    status: filter.status
                 })
                     .then((res)=> {
                         this.list = res.data;
@@ -213,10 +235,17 @@
             /**
              * 撤回 
              */
-            withdraw () {
+            withdraw (item) {
                 this.$confirm('确认撤回?', '提示', {
                         type: 'warning'
                     }).then(() => {
+                        revoke({
+                            id: item.id
+                        })
+                        .then(()=> {
+                            toast('保存成功', 'success');
+                            this.fetchList();
+                        })
                     });
             },
             /**
@@ -233,6 +262,7 @@
             BreadcrumbNav,
             EquipmentStatusList,
             Apply,
+            Audit,
             CampusFilter
         }
     }

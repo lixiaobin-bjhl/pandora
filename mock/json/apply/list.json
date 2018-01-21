@@ -3,20 +3,60 @@
     "code": 0,
     "data": [
         {
-            "status": 1,
-            "statusStr": "进行中"
+            "id":1,
+            "schoolId":1,
+            "schoolName":"校区名称",
+            "applyCount":3,
+            "applyUserId":1,
+            "applyUserName":"申请人姓名",
+            "address":"安装地址",
+            "remark":"备注",
+            "applyTime":1516500321392,
+            "status":1,
+            "statusStr":"进行中",
+            "comment":"审批意见"
         },
         {
-            "status": 2,
-            "statusStr": "通过"
+            "id":1,
+            "schoolId":1,
+            "schoolName":"校区名称",
+            "applyCount":3,
+            "applyUserId":1,
+            "applyUserName":"申请人姓名",
+            "address":"安装地址",
+            "remark":"备注",
+            "applyTime":1516500321392,
+            "status":2,
+            "statusStr":"通过",
+            "comment":"审批意见"
         },
         {
-            "status": 3,
-            "statusStr": "拒绝"
+            "id":1,
+            "schoolId":1,
+            "schoolName":"校区名称",
+            "applyCount":3,
+            "applyUserId":1,
+            "applyUserName":"申请人姓名",
+            "address":"安装地址",
+            "remark":"备注",
+            "applyTime":1516500321392,
+            "status":3,
+            "statusStr":"拒绝",
+            "comment":"审批意见"
         },
         {
-            "status": 4,
-            "statusStr": "撤回"
+            "id":1,
+            "schoolId":1,
+            "schoolName":"校区名称",
+            "applyCount":3,
+            "applyUserId":1,
+            "applyUserName":"申请人姓名",
+            "address":"安装地址",
+            "remark":"备注",
+            "applyTime":1516500321392,
+            "status":1,
+            "statusStr":"撤回",
+            "comment":"审批意见"
         }
     ],
     "pageDto": {

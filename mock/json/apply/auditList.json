@@ -1,0 +1,62 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": [
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        },
+        {
+            "id": 1,
+            "applyId": 1,
+            "status": 1,
+            "auditTime": 1516504615354,
+            "statusStr": "已发货",
+            "remark": "审批意见/备注"
+        }
+    ]
+}

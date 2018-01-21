@@ -45,6 +45,13 @@
                     label="所属校区">
                 </el-table-column>
                 <el-table-column
+                    align="center"
+                    label="教室类型">
+                    <template slot-scope="scope">
+                        {{scope.row.roomType === 1 ? '学生端' : '老师端'}}
+                    </template>
+                </el-table-column>
+                <el-table-column
                     prop="schoolName"
                     align="center"
                     label="状态">

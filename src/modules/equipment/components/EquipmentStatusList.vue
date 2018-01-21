@@ -5,7 +5,7 @@
         custom-class="equipment-status-list"
         :visible.sync="$store.state.equipment.showEquipmentStatusListState"
         >
-        <div class="status-time-line"> 
+        <div class="status-time-line" v-if="list && list.length"> 
             <ul class="caption">
                 <li>时间</li>
                 <li>状态</li>
@@ -16,9 +16,9 @@
                     v-for="item, index in list"
                     v-if="(index >= 3 && isShowMore ) || index < 3" 
                     :key="index" >
-                    <p class="time">1976-12-12<br>12:55</p>
-                    <p class="status-str">提出申请</p>
-                    <p class="content">申请人：张艺     校区：厦门思明校区    套数：3<pre>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre></p>
+                    <p class="time">{{item.auditTime|date('yyyy-MM-dd')}}<br>{{item.auditTime|date('HH:mm')}}</p>
+                    <p class="status-str">{{item.statusStr}}</p>
+                    <p class="content">申请人：{{applyItem.applyUserName}}     校区：{{applyItem.schoolName}}    套数：{{applyItem.applyCount}}<pre>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre></p>
                 </timeline-item>
                 <TimelineItem  
                     color="#46a0f0" 
@@ -28,21 +28,27 @@
                     {{isShowMore ? '收起更多': '展开更多'}}</a>
                 </TimelineItem>
             </Timeline>
-            <div class="none-list" v-if="list && !list.length"><span>暂没有报装记录</span></div>
         </div>
+        <div class="none-list" v-if="list && !list.length"><span>暂没有报装记录</span></div>
 
         <el-form 
             :model="form" 
             ref="form"
+            :rules="auditRules"
             v-if="addStatus && $root.hasAuth(3)"
             label-width="80px"
             label-position="right" 
             >
-            <el-form-item label="状态">
-                <el-input
+            <el-form-item label="审批状态" prop="status">
+                <el-select
                 v-model="form.status"
-                placeholder="请输入状态"
-                style="width: 240px;"></el-input>
+                clearable
+                style="width: 180px;" 
+                placeholder="请选择审批状态">
+                    <el-option label="采购确认" :value="5"></el-option>
+                    <el-option label="已发货" :value="6"></el-option>
+                    <el-option label="已安装" :value="7"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="备注">
                 <el-input
@@ -69,6 +75,8 @@
 <script>
 
     import Timeline from 'src/common/components/timeline/index';
+    import {add, auditList} from '../request';
+    import config from '../config';
 
     export default {
         data () {
@@ -76,14 +84,34 @@
                 addStatus: true,
                 loading: false,
                 isShowMore: false,
-                list: [{},{},{},{},{},{},{}, {}, {}],
+                list: [],
+                auditRules: config.auditRules,
                 form: {
                     status: '',
                     remark: ''
                 }
             }
         },
+        computed: {
+            applyItem () {
+                return this.$store.state.equipment.applyItem;
+            }
+        },
+        mounted () {
+            this.getAuditList();
+        },
         methods: {
+            /**
+             * 获取审核状态列表 
+             */
+            getAuditList () {
+                auditList({
+                    applyId: this.applyItem.id
+                })
+                .then((res)=> {
+                    this.list = res.data;
+                })
+            },
             /**
              * 展示更多
              */
@@ -97,13 +125,35 @@
                 this.addStatus = true;
             },
             ok () {
-                
+                this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        var applyItem = this.applyItem;
+                        var form = this.form;
+                        var params = {
+                           id: applyItem.id,
+                           status: form.status,
+                           remark: form.remark
+                        };
+                        this.loading = true;
+                        add(params)
+                            .then((res)=> {
+                                this.$emit('save');
+                                this.loading = false;
+                                toast('保存成功', 'success');
+                                this.cancel();
+                            }, ()=> {
+                                this.loading = false;
+                            });
+                    } else {
+                        toast('表单验证失败!');
+                    }
+                });
             },
             /**
              * 取消添加状态 
              */
             cancel () {
-                this.addStatus = false;
+               this.$store.commit('HIDE_EQUIPMENT_STATUS_LIST');
             }
         },
         components: {
