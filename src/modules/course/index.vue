@@ -102,7 +102,7 @@
     import config  from './config';
     import listPageDto from '../../common/mixin/listPageDto';
     import Add from './components/Add.vue';
-    import Apply from './components/apply.vue';
+    import Apply from './components/Apply.vue';
     import { getList, updateOnlineStatus, updateTopStatus} from './request';
 
     export default {

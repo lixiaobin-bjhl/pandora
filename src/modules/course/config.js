@@ -7,7 +7,7 @@ export default {
         {
             name: '下架',
             id: 0
-        } 
+        }
     ],
     applyCourseRules: {
         classRoomId: [
@@ -56,8 +56,13 @@ export default {
         ],
         enableRepeat: [
             {
-                required: true,
-                message: '请选择课程周期'
+                validator: (rule, value, callback) => {
+                    if (value === '') {
+                        callback(new Error('请选择课节重复信息'));
+                    } else {
+                        callback();
+                    }
+                }
             }
         ],
         startDay: [

@@ -110,7 +110,7 @@
                                 :class="{'forbidden': scope.row.status ===1, 'enable': scope.row.status === 2}" 
                                 @click="updateStatus(scope.row)">
                                 {{scope.row.status === 1? '停用账号': '恢复账号'}}</a>
-                            <a href="javascript:;" @click="showLessonTable">课表</a>
+                            <a href="javascript:;" @click="showLessonTable(scope.row)">课表</a>
                         </div>
                     </template>
                 </el-table-column>
@@ -215,7 +215,11 @@
             /**
              * 查看课表
              */
-            showLessonTable () {
+            showLessonTable (item) {
+                this.$root.teacher = {
+                    name: item.name,
+                    id: item.id
+                };
                 this.$router.push('/timetable');
             },
             /**

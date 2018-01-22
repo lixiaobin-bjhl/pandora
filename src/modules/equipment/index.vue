@@ -200,7 +200,6 @@
             fetchList () {
                 var pageDto = this.pageDto;
                 var filter = this.filter;
-                
                 this.loading = true;
                 getApplyList({
                     pageDto: this.pageDto,

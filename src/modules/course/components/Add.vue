@@ -105,14 +105,19 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item 
-                        prop="enableRepeat" 
+                        prop="enableRepeat"
+                        required 
                         label="课程周期">
-                            <el-input readonly @click.native.stop="toggleRepeat($event)" v-model="repeatMsg"
+                            <el-input 
+                                readonly 
+                                @click.native.stop="toggleRepeat($event)" 
+                                v-model="repeatMsg"
                                 placeholder="请设置课节重复信息">
                             </el-input>
                             <transition name="md-fade-bottom">
-                                <down-card v-show="showRepeatCard" 
-                                    :x="posX" 
+                                <down-card 
+                                    v-show="showRepeatCard" 
+                                    :x="posX"
                                     :y="posY" 
                                     :min-width="150" 
                                     v-on:closeCard="closeCard">
@@ -311,6 +316,7 @@
                     var data = res.data;
                     this.$set(this.form, 'cover', data.url);
                     this.$set(this.form, 'storageId', data.storageId);
+                    this.$refs.form.validateField('cover');
                 } else {
                     toast('图片上传失败', 'error');
                 }
@@ -350,8 +356,8 @@
 
                     // 按天重复
                     if (repeatInfo.repeatType == 1) {
-                        this.repeatCount = repeatInfo.repeatDayCounts;
-                        this.repeatRange = repeatInfo.grepDayNum;
+                        this.form.repeatCount = repeatInfo.repeatDayCounts;
+                        this.form.repeatRange = repeatInfo.grepDayNum;
                     } else if (repeatInfo.repeatType == 2) {
                         this.form.repeatCount = repeatInfo.repeatWeekCounts;
                         this.form.repeatRange = repeatInfo.grepWeekNum;
@@ -360,7 +366,10 @@
                         }).join(',');
                     }
                     this.repeatInfo = repeatInfo;
+                    this.$refs.form.validateField('enableRepeat');
                     this.closeCard();
+                } else {
+                    this.form.enableRepeat = 0;
                 }
             },
             /**

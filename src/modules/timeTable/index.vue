@@ -27,6 +27,7 @@
                         :role-type="2"
                         @change="refresh"
                         placeholder="请选择教师"
+                        :name="filter.teacherName"
                         :is-multiple="true"
                         v-model="filter.teacherId" 
                     ></user-filter>
@@ -82,12 +83,14 @@
 
     export default {
         data () {
+            var teacher = this.$root.teacher;
             return {
                 loading: false,
                 filter: {
                     query: '',
                     classRoomId: '',
-                    teacherId: [],
+                    teacherId: teacher ? [].concat(teacher.id) : [],
+                    teacherName: teacher ? teacher.name : '',
                     schoolId: ''
                 },
                 breadcrumb: ['查看课表'],
@@ -156,6 +159,9 @@
             refresh () {
                 this.getList();
             }
+        },
+        beforeDestroy () {
+            this.$root.teacher = null;
         },
         components: {
             BreadcrumbNav,

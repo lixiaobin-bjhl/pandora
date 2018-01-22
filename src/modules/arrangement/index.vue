@@ -135,7 +135,7 @@
 
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
-    // import Course from '../course/components/Apply.vue';
+    import Course from '../course/components/Apply.vue';
     import CampusFilter from 'src/common/components/CampusFilter.vue';
     import {getList, audit} from './request';
     import Audit from './components/Audit.vue';
