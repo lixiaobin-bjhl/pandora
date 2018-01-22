@@ -40,11 +40,11 @@
 				:data-id="item.id" 
 				:data-index="item.arrayIndex">
 				<p class="item-p">
-					<span class="icon-info-circle" style="color: #ff3824;" v-if="item.teacherConflict||item.classroomConflict"></span>
-					{{item.name}}
+					<span class="el-icon-warning" style="color: #ff3824;" v-if="item.conflictType != -1"></span>
+					{{item.courseName}}
 				</p>
-				<p class="item-p">{{item.staffName}}</p>
-				<p class="item-p">{{item.classroomName}}</p>
+				<p class="item-p">{{item.teacherName}}</p>
+				<p class="item-p">{{item.classRoomName}}</p>
 				<p class="item-p">{{item.startTimeStr}}~{{item.endTimeStr}}</p>
 			</div>
 		</div>
@@ -240,7 +240,7 @@
 	                    			`<div class="overlay-wrap">
 	                    				<div>
 	                    					<p class="msg">共有${l}节课</p>
-	            							<p class="expand" data-key="${i}-${j}"><span class="icon-zoom"></span>展开全部</p>
+	            							<p class="expand" style="margin-top:5px;" data-key="${i}-${j}"><span class="el-icon-arrow-down"></span>展开全部</p>
 	                    				</div>
 	                    				<div class="shadow shadow-1"></div>
 	                    				<div class="shadow shadow-2"></div>
