@@ -25,9 +25,21 @@ export function getWechatJsSign(params) {
 }
 
 /**
+ * 登录
+ * 
+ * @param {string} params.mobile 手机号
+ * @param {string} params.password 密码
+ * 
+ * @return {Promise}
+ */
+export function login (params) {
+    return post('/user/login.do', params);
+}
+
+/**
  * 获取语音mp3地址 
  * 
- * @param {params.url} url
+ * @param {string} params.url
  * 
  * @return {Promise}
  */

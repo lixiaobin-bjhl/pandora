@@ -37,12 +37,12 @@ module.exports = merge(baseWebpackConfig, {
 		// 	chunks: ['chat'],
 		// 	inject: true
 		// }),
-		// new HtmlWebpackPlugin({
-		// 	filename: 'main.html',
-		// 	template: 'main.html',
-		// 	chunks: ['app'],
-		// 	inject: true
-		// }),
+		new HtmlWebpackPlugin({
+			filename: 'main.html',
+			template: 'main.html',
+			chunks: ['app'],
+			inject: true
+		}),
 		new HtmlWebpackPlugin({
 			filename: 'login.html',
 			template: 'login.html',
@@ -90,10 +90,10 @@ module.exports = merge(baseWebpackConfig, {
 			inject: true,
 			chunks: ['customer']
 		}),
-		new HtmlWebpackPlugin({
-			filename: 'upgrade.html',
-			template: 'upgrade.html',
-			inject: false
-		})
+		// new HtmlWebpackPlugin({
+		// 	filename: 'upgrade.html',
+		// 	template: 'upgrade.html',
+		// 	inject: false
+		// })
 	]
 })
