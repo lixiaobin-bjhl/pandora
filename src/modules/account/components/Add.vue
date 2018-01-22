@@ -11,7 +11,7 @@
             label-width="80px"
             label-position="right"
             :class="{'detail-from': accountItem}"
-            :rules="(accountItem && !isModified) || !accountItem ?  {} : addAccountRule">
+            :rules="(accountItem && !isModified) || accountItem ?  {} : addAccountRule">
            <el-row :gutter="10">
                <el-col :span="24">
                     <el-form-item 

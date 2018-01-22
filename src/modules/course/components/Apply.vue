@@ -101,13 +101,15 @@
             ref="form"
             label-position="right"
             label-width="100px"
-            :rules="applyCourseRules"
-            v-if="!isShowDetail"
+            :class="{'detail-from': isShowDetail}"
+            :rules="isShowDetail ? {} : applyCourseRules"
             >
             <h2 class="apply-title">申请信息</h2>
             <el-form-item label="上课教室" prop="classRoomId">
+                <span v-if="isShowDetail">xxxx</span>
                 <classroom-filter
                     placeholder="请选择教室"
+                    v-else
                     v-model="applyForm.classRoomId"
                     :name="applyForm.classRoomName"
                     width="100%"
@@ -115,9 +117,11 @@
                 </classroom-filter>
             </el-form-item>
             <el-form-item label="备注" prop="remark">
+                <pre v-if="isShowDetail">xxxx</pre>
                 <el-input v-model.trim="applyForm.remark"
                     type="textarea" 
-                    :maxlength="200" 
+                    :maxlength="200"
+                    v-else 
                     :autosize="{minRows: 2,maxRows: 5}" 
                     placeholder="请输入申请备注"></el-input>
             </el-form-item>

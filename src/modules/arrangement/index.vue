@@ -124,9 +124,9 @@
             <audit 
                 v-if="$store.state.arrangement.showAuditApplyState" 
                 @save="refresh"></audit>
-            <!-- <apply 
-                v-if="$store.state.course.showAddCourseState" 
-                @save="refresh"></apply> -->
+            <course 
+                v-if="$store.state.course.showApplyCourseState" 
+                @save="refresh"></course>
         </div>
     </div>
 </template>
@@ -240,17 +240,17 @@
              * 查看申请详情 
              */
             detail (course) {
-                // this.$store.commit('SHOW_ADD_COURSE',{
-                //     course: course,
-                //     isShowDetail: true
-                // });
+                this.$store.commit('SHOW_APPLY_COURSE', {
+                    course: course,
+                    isShowDetail: true
+                });
             }
         },
         components: {
             BreadcrumbNav,
             CampusFilter,
             Audit,
-            // Apply
+            Course
         }
     }
 </script>

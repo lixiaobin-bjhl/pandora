@@ -11,10 +11,12 @@
             label-width="80px"
             label-position="right"
             :class="{'detail-from': teacherItem}"
-            :rules="(teacherItem && !isModified) || !teacherItem ?  {} : addTeacherRule">
+            :rules="(teacherItem && !isModified) || teacherItem ?  {} : addTeacherRule">
            <el-row :gutter="10">
                <el-col :span="24">
-                    <el-form-item label="教师姓名" prop="name">
+                    <el-form-item 
+                        label="教师姓名" 
+                        prop="name">
                         <template v-if="!teacherItem || isModified">
                             <el-input 
                             v-model.trim="form.name" 
@@ -166,13 +168,7 @@
              * 重置输入 
              */
             reset () {
-                this.form = {
-                    name: '',
-                    subjectType: '',
-                    schoolId: '',
-                    remark: '',
-                    teacherType: ''
-                };
+                this.$refs['form'].resetFields();
             },
             /**
              * 取消添加
