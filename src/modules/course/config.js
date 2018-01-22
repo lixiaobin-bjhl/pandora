@@ -58,8 +58,11 @@ export default {
             {
                 validator: (rule, value, callback) => {
                     if (value === '') {
+                        callback();
+                    } else if (value === null) {
                         callback(new Error('请选择课节重复信息'));
-                    } else {
+                    }
+                    else {
                         callback();
                     }
                 }

@@ -104,9 +104,9 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item 
+                    <el-form-item
+                        class="is-required"
                         prop="enableRepeat"
-                        required 
                         label="课程周期">
                             <el-input 
                                 readonly 
@@ -433,6 +433,11 @@
                 this.$store.commit('HIDE_ADD_COURSE');
             },
             ok () {
+                var enableRepeat = this.form.enableRepeat;
+                if (enableRepeat === '') {
+                    // 验证使用
+                    this.form.enableRepeat = null;
+                }
                 this.$refs['form'].validate((valid) => {
                     if (valid) {
                         var courseItem = this.courseItem;
