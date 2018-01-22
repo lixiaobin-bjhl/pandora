@@ -21,6 +21,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         userInfo: null,
+        hasApplyEquipment: true,
         currentPath: '',
     },
     strict: false,

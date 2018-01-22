@@ -4,5 +4,8 @@ export default {
     },
     'SET_ROUTER' (state, path) {
         state.currentPath = path;
+    },
+    'SET_HAS_APPLY_EQUIPMENT' (state, hasApplyEquipment) {
+        state.hasApplyEquipment = hasApplyEquipment;
     }
 }

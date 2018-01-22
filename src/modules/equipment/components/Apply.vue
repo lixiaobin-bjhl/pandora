@@ -200,6 +200,7 @@
                                 this.visiable = false;
                                 this.$emit('save');
                                 toast('保存成功', 'success');
+                                this.$store.commit('SET_HAS_APPLY_EQUIPMENT', true);
                                 this.$router.push('/equipment');
                                 this.cancel();
                             }, () => {

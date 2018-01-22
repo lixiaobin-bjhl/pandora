@@ -20,6 +20,10 @@ Vue.component('icon', Icon);
 
 router.beforeEach((to, from, next) => {
 	var path = from.path;
+	var hasApplyEquipment = store.state.hasApplyEquipment;
+	if (!hasApplyEquipment) {
+		return;
+	}
 	if (path) {
 		// 两个/之间的就是模块名称
 		var moduleNames = /([^\/]+)/.exec(path);
