@@ -5,11 +5,11 @@
             background
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="pageDto.pageNum"
-            :page-sizes="pageDto.pageSizes"
-            :page-size="pageDto.pageSize"
+            :current-page="pageInfo.pageNum"
+            :page-sizes="pageInfo.pageSizes"
+            :page-size="pageInfo.pageSize"
             :layout="layout"
-            :total="pageDto.count">
+            :total="pageInfo.count">
         </el-pagination>
     </section>
 </template>
@@ -43,13 +43,13 @@
                     return false;
                 }
                 else {
-                    return getTotalPages(this.pageDto.pageSize, this.pageDto.count) > 0;
+                    return getTotalPages(this.pageInfo.pageSize, this.pageInfo.count) > 0;
                 }
             }
         },
         data () {
             return {
-                pageDto: this.value
+                pageInfo: this.value
             } 
         },
         methods: {

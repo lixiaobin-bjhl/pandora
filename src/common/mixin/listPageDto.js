@@ -4,15 +4,21 @@ import getPageDto from '../function/getPageDto';
 export default {
     data () {
         return {
-            pageDto: getPageDto()
+            pageInfo: getPageDto()
         };
     },
     methods: {
         /**
+         * 刷新列表 
+         */
+        refresh () {
+            this.pageInfo.pageNum = 1;
+        },
+        /**
          * 翻页
          */
         changePage (pageNum) {
-            this.pageDto.pageNum = pageNum;
+            this.pageInfo.pageNum = pageNum;
             this.fetchList();
         },
 
@@ -20,13 +26,13 @@ export default {
          * 改变页面条数
          */
         changeSize (pageSize) {
-            this.pageDto.pageSize = pageSize;
+            this.pageInfo.pageSize = pageSize;
 
-            if (this.pageDto.pageNum == 1) {
+            if (this.pageInfo.pageNum == 1) {
                 this.fetchList();
             }
             else {
-                this.pageDto.pageNum = 1;
+                this.pageInfo.pageNum = 1;
             }
         }
     }

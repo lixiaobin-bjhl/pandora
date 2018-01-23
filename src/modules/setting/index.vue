@@ -44,7 +44,7 @@
             <pager 
                 @currentchange="changePage"
                 @sizechange="changeSize"
-                v-model="pageDto">
+                v-model="pageInfo">
             </pager>
             <notice-item v-if="$store.state.notice.showNoticeItem"></notice-item>
         </div>

@@ -9,6 +9,7 @@ import Vue from 'vue';
 import compressImage from '../function/compressImage';
 
 Vue.filter('compressImage', function (storageId, width, height) {
+    var storageId = storageId || 'http://omh2h1x76.bkt.clouddn.com/user.png';
     return compressImage(storageId, {
         width: width,
         height: height

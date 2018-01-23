@@ -74,7 +74,7 @@
         <pager 
             @currentchange="changePage"
             @sizechange="changeSize"
-            v-model="pageDto">
+            v-model="pageInfo">
         </pager>
         <add-active v-if="$store.state.discounts.showAddActiveState"></add-active>
     </div>

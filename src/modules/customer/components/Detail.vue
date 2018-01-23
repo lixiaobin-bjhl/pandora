@@ -10,8 +10,13 @@
                         ></breadcrumb-nav>
                     </el-col>
                     <el-col :span="12">
-                        <el-button type="primary" @click="modifyCustomer">编辑客户</el-button>
-                        <el-button @click="addItem">添加项目</el-button>
+                        <el-button 
+                            type="primary" 
+                            size="medium" 
+                            @click="modifyCustomer">编辑客户</el-button>
+                        <el-button
+                            size="medium" 
+                            @click="addItem">添加项目</el-button>
                     </el-col>
                 </el-row>
                 <div class="module-content">

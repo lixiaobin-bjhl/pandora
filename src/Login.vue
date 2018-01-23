@@ -20,7 +20,9 @@
             </el-form-item>
             <el-form-item prop="password">
                 <el-col :span="24">
-                    <el-input v-model.trim="form.password" type="password" placeholder="密码">
+                    <el-input 
+                        v-model.trim="form.password" 
+                        :maxlength="50" type="password" placeholder="密码">
                         <icon slot="prefix" scale="2.5" style="color:#ddd" name="lock"></icon>
                     </el-input>
                 </el-col>

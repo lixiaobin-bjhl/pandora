@@ -24,7 +24,7 @@ body {
     color: $text-color-dark;
     font-size: $font-size-large;
     -webkit-font-smoothing: antialiased;
-
+    background: #F7F7F7;
     // 避免使用system-ui默认字体
     input, select, textarea, button, pre {
         font-family: $font-family;
@@ -60,6 +60,10 @@ a {
     color: $link-color;
     text-decoration: none;
     font-weight: normal;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 textarea {

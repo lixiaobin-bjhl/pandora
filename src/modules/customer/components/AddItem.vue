@@ -1,6 +1,6 @@
 <template>
     <el-dialog 
-        :title="item ? '编辑项目' : '添加项目'" 
+        :title="id ? '编辑项目' : '添加项目'" 
         :visible.sync="$store.state.customer.showAddItemState"
         >
         <el-form
@@ -26,8 +26,10 @@
 </template>
 <script>
     export default {
-        props: {
-            item: {}
+        computed: {
+            id () {
+                return this.$store.state.customer.id;
+            }
         },
         data() {
             return {

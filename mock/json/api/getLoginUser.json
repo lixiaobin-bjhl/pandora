@@ -1,0 +1,26 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "id": 1,
+        "name": "小明",
+        "avatar": "",
+        "mobile": "18888888888",
+        "orgId": 1,
+        "gender": 1,
+        "openId": "",
+        "orgName": "XXX医院",
+        "password": "b537a06cf3bcb33206237d7149c27bc3",
+        "isDel": false,
+        "createTime": 1497711927000,
+        "updateTime": 1497711927000,
+        "role": "Patient",
+        "roleType": 2,
+        "consulter": {
+            "id": 1,
+            "name": "小小",
+            "avatar": "http://www.baidu.com/abc.png"
+        }
+    },
+    "pageInfo": null
+}

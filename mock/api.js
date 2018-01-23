@@ -6,6 +6,13 @@
 exports.routes = [
 	{
 		method: 'POST',
+        path: '/common/getLoginUser.json',
+        handler: function (request, reply) {
+        	return reply(require('./json/api/getLoginUser.json'));
+        }
+	},
+	{
+		method: 'POST',
         path: '/storage/upload.json',
         handler: function (request, reply) {
         	return reply(
@@ -60,28 +67,6 @@ exports.routes = [
         		{
 				    "code": 0,
 				    "msg": ""
-				}
-			);
-        }
-	},
-	{
-		method: 'POST',
-        path: '/common/getLoginUser.json',
-        handler: function (request, reply) {
-        	return reply(
-        		{
-				    "code": 0,
-					"msg": "",
-					"data": {
-						"mobile": 12312,
-						"shortName": "天校大机构",
-						"orgName": "广州军区总医院",
-						"consulter":{
-							"id": 1,
-							"name": "小小",
-							"avatar": "http://omh2h1x76.bkt.clouddn.com/user.png"
-						}
-					}
 				}
 			);
         }

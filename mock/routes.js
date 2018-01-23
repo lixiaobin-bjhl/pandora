@@ -7,7 +7,8 @@
 
 var routesConfig = [
     require('./api'),
-    require('./user')
+    require('./user'),
+    require('./patient')
 ];
 
 var routes = [];

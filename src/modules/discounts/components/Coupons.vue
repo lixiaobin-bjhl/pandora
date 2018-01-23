@@ -62,7 +62,7 @@
         <pager 
             @currentchange="changePage"
             @sizechange="changeSize"
-            v-model="pageDto">
+            v-model="pageInfo">
         </pager>
         <add-coupons 
             v-if="$store.state.discounts.showAddCouponsState">

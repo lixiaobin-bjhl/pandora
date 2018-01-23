@@ -37,6 +37,15 @@ export function login (params) {
 }
 
 /**
+ * 获取登录者信息
+ * 
+ * @return {Promise}
+ */
+export function getLoginUser (params) {
+    return post('/common/getLoginUser.json', params);
+}
+
+/**
  * 获取语音mp3地址 
  * 
  * @param {string} params.url

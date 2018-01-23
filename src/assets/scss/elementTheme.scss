@@ -82,6 +82,7 @@
             }
         }
         .btn-group {
+            padding: 0 10px;
             a {
                 margin-right: 10px;
                 &.forbidden {
@@ -117,7 +118,7 @@
 .el-form-item {
     &__label {
         word-break: break-all;
-        color: $color-gray-dark;
+        color: #5E6D82;
     }
     &__content {
         word-break: break-all;
@@ -138,15 +139,6 @@
 .el-radio .el-radio__label {
     padding-left: 1px;
 }
-.el-input-group__append,
-.el-input-group__prepend,
-.el-input__inner,
-.el-textarea__inner {
-    border-color: $input-border-color-base;
-}
-.el-select {
-    width: 100%;
-}
 
 .el-cascader {
     line-height: 30px;
@@ -154,71 +146,6 @@
 .el-cascader-menus {
     .popper__arrow {
         display: none;
-    }
-}
-
-.el-date-editor {
-    &.el-range-editor {
-        width: 100%;
-        .el-input__icon,
-        .el-range-separator {
-            line-height: 21px;
-        }
-        .el-range-input,
-        .el-range-separator {
-            text-align: left;
-            font-size: $font-size-small;
-            color: $text-color-dark;
-
-        }
-        .el-range-input {
-            width: 37%;
-        }
-        .el-range-separator {
-            padding: 0 10px 0 5px;
-        }
-        .el-input__icon {
-            width: 20px;
-            margin-left: 0;
-        }
-
-        // 实现dateRange日历icon位于右边，并且只有当选有日期hover时关闭icon出现，日历icon消失
-        .el-range__icon {
-            float: right;
-        }
-        .el-range__close-icon {
-            display: none;
-        }
-        .el-icon-circle-close {
-            display: inline-block;
-            & + .el-range__icon {
-                display: none;
-            }
-        }
-    }
-    &.el-input {
-        width: 100%;
-        .el-input__icon {
-            line-height: 1;
-        }
-    }
-    // 实现date日历icon位于右边，并且只有当选有日期hover时关闭icon出现，日历icon消失
-    &.el-input--prefix {
-        .el-input__inner {
-            padding-left: 15px;
-        }
-        .el-input__prefix {
-            left: initial;
-            right: 5px;
-        }
-    }
-    &.el-input--suffix {
-        .el-input__suffix {
-            .el-input__icon {
-                height: 27px;
-                background-color: #fff;
-            }
-        }
     }
 }
 
@@ -240,26 +167,25 @@
 
 .el-dialog {
     box-shadow: none;
-    border-radius: 8px;
+    border-radius: 4px;
     .el-dialog__header {
         padding: $dialog-header-padding;
-        background: $color-blue;
-        border-radius: 8px 8px 0 0;
+        border-radius: 4px 4px 0 0;
         height: 56px;
         box-sizing: border-box;
+        border-bottom: 1px solid #E0E6ED;
         .el-dialog__title {
-            color: #fff;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
         .el-dialog__headerbtn {
             top: 17px;
         }
         .el-icon-close {
-            color: #fff;
-            font-size: 20px;
+            color: #C0CCDA;
+            font-size: 24px;
             &:hover {
-                color: darken(#fff, 10%);
+                color: darken(#C0CCDA, 10%);
             }
         }
     }
@@ -268,14 +194,8 @@
         font-size: $font-size-large;
     }
     .el-dialog__footer {
-        padding: 0 30px 30px 30px;
-        text-align: center;
-        .el-button {
-            margin-right: 18px;
-            &:last-of-type {
-                margin-right: 0;
-            }
-        }
+       border-top: 1px solid #E0E6ED;
+       padding-top: 15px;
     }
 }
 
@@ -382,27 +302,6 @@
     border: 0;
 }
 
-.el-select-dropdown {
-    .popper__arrow {
-        display: none;
-    }
-    .el-select-dropdown__item.hover {
-        background-color: $color-blue-lighter;
-    }
-}
-.el-dropdown-menu {
-    .el-dropdown-menu__item:hover {
-        background-color: $color-blue-lighter;
-    }
-    .popper__arrow {
-        display: none;
-    }
-}
-.el-icon--right {
-    font-size: $font-size-small;
-    margin-left: 3px;
-}
-
 // 强制tooltip的内容换行
 .el-tooltip__popper {
     max-width: 20em;
@@ -420,4 +319,95 @@
 
 .el-date-editor.el-range-editor .el-range-input {
     font-size: 14px;
+}
+
+.el-table {
+    border: 1px solid $border-color-base;
+    border-radius: $border-radius-base;
+    border-bottom: 0;
+    td,
+    th {
+        height: 46px;
+        padding: 0;
+        border-color: $border-color-base;
+        .cell {
+            padding: $table-cell-padding;
+            font-size: $font-size-base;
+            color: $text-color-dark;
+            white-space: nowrap;
+            .el-radio__inner,
+            .el-checkbox__inner {
+                width: 16px;
+                height: 16px;
+            }
+            .el-checkbox__inner::after {
+                top: 2px;
+                left: 5px;
+            }
+        }
+    }
+    th {
+        background-color: #E5E9F2;;
+        div {
+            background-color:#E5E9F2;
+        }
+    }
+    td {
+        .btn-group {
+            .svg-icon {
+                margin-right: 10px;
+                cursor: pointer;
+                color: #99A9BF;
+                &:hover {
+                    color: #20A0FF;
+                }
+            }
+        }
+    }
+    .el-table__body {
+        tr:hover,
+        .hover-row {
+            td {
+                background-color: $color-white;
+            }
+        }
+        .el-table__expanded-cell {
+            // 去掉tr底部阴影
+            box-shadow: none;
+            background-color: $color-white;
+            &:hover {
+                background-color: $color-white !important;
+            }
+        }
+        .selected-row {
+            background-color: #f0f8ff;
+            &:hover {
+                > td {
+                    background-color: #f0f8ff;
+                }
+            }
+            & + tr:not(.el-table__row) {
+                .el-table__expanded-cell {
+                    background-color: #f0f8ff;
+                    &:hover {
+                        background-color: #f0f8ff !important;
+                    }
+                }
+            }
+        }
+        .current-row {
+            td {
+                background-color: #f7fbff;
+            }
+            &:hover,
+            &.hover-row {
+                > td {
+                    background-color: #f7fbff;
+                }
+            }
+        }
+    }
+    .el-table__fixed-right-patch {
+        background-color: $table-header-bg-color;
+    }
 }

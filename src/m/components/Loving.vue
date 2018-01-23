@@ -19,7 +19,7 @@
                 </timeline-item>
                 <TimelineItem  
                     color="#6BC0B8" 
-                    v-if="list.length >= 3">
+                    v-if="list.length >3">
                     <a href="javascript:;" 
                     @click="showMore">
                     {{isShowMore ? '收起更多': '展开更多'}}</a>

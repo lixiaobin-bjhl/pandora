@@ -9,13 +9,30 @@
 </template>
 
 <script>
+
     import SideBar from './common/components/SideBar.vue';
     import TopHeader from './common/components/TopHeader.vue';
+    import { getLoginUser } from './common/request';
 
     export default {
         components: {
             SideBar,
             TopHeader
+        },
+        mounted () {
+            this.getLoginUser();
+        },
+        methods: {
+            /**
+             * 获取用户的基本信息 
+             */
+            getLoginUser () {
+                getLoginUser()
+                    .then((res)=> {
+                        var data = res.data;
+                        this.$store.commit('SET_USER_INFO', res.data);
+                    });
+            }
         }
     }
 </script>

@@ -7,16 +7,17 @@
     <header>
         <ul>
             <li class="campus">
-                <span class="name">{{ orgInfo.shortName }}</span>
+                <span class="name">{{ userInfo.orgName }}</span>
             </li>
             <li class="role">
-                <img :src="orgInfo.avatar|compressImage(30, 30)">
-                <dropdown>
-                    <span class="name" slot="text">{{ orgInfo.username }}</span>
-                    <ul slot="action">
-                        <li @click="logout" >退出登录</li>
-                    </ul>
-                </dropdown>
+                <el-dropdown :hide-on-click="false">
+                    <span class="el-dropdown-link pointer">
+                        <img :src="userInfo.avatar|compressImage(30, 30)"> {{ userInfo.name }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </li>
         </ul>
     </header>
@@ -33,16 +34,9 @@
                 scrollY: 0
             }
         },
-        props: {
-            orgInfo: {
-                type: Object,
-                default () {
-                    return {
-                      userName: '李小斌',
-                      shortName: '李小斌',
-                      avatar: 'http://imgs.genshuixue.com/0baijiatools/8765b6bb3b04a6729db558d910c8bc5c/sidebarIcon.png'
-                    }
-                }
+        computed: {
+            userInfo () {
+                return this.$store.state.userInfo || {};
             }
         },
         components: {
@@ -65,7 +59,7 @@
              * 退出登录
              */
             logout () {
-                window.location.href = env.www + 'qrLogout.do';
+                window.location.href = '/user/logout.json';
             }
         }
     }
@@ -78,17 +72,17 @@
         left: 0;
         right: 0;
         z-index: 9;
-        height: 50px;
+        height: 60px;
         text-align: right;
         background-color: #fff;
+        box-sizing: border-box;
         border-bottom: 1px solid #e6e6e6;
-
         > ul {
             padding: 10px 0;
             > li {
                 display: inline-block;
-                height: 24px;
-                line-height: 24px;
+                height: 25px;
+                line-height: 25px;
                 padding: 0 20px;
                 &:not(:last-child) {
                     border-right: 1px solid #e6e6e6;
@@ -100,48 +94,10 @@
                     margin-right: 10px;
                     vertical-align: middle;
                 }
-                &.download {
-                    i {
-                        display: inline-block;
-                        width: 12px;
-                        height: 18px;
-                        background: url('//imgs.genshuixue.com/0baijiatools/8765b6bb3b04a6729db558d910c8bc5c/sidebarIcon.png');
-                        background-size: 72px 90px;
-                        background-position: -60px 0;
-                        vertical-align: middle;
-                        margin-right: 5px;
-                    }
-                    a {
-                        vertical-align: middle;
-                        color: #1A91F2;
-                        &:hover {
-                            color: #20a0ff;
-                        }
-                    }
-                }
-                &.campus {
-                    > p {
-                        display: inline-block;
-                        margin-left: 6px;
-                        color: #1A91F2;
-                        font-size: 12px;
-                        cursor: pointer;
-                        &:hover {
-                            color: #20a0ff;
-                        }
-                        i {
-                            font-weight: bold;
-                            margin-right: 3px;
-                            vertical-align: middle;
-                        }
-                    }
-                }
             }
-        }
-
-        ul,
-        li {
-            list-style: none;
+            .name {
+               color: #1F2D3D;
+            }
         }
     }
 </style>

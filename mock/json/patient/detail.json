@@ -1,0 +1,86 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "id": 1,
+        "name": "小小",
+        "wechatName": "小明",
+        "mobile": "15242365879",
+        "genderInfo": {
+            "id": 1,
+            "name": "男"
+        },
+        "birthday": null,
+        "birthYearPeriod": "80后",
+        "age": 23,
+        "subscribe": true,
+        "couponCnt": 3,
+        "consulterInfo": {
+            "id": 1,
+            "name": "小明"
+        },
+        "sourceInfo": {
+            "id": null,
+            "name": ""
+        },
+        "patientProjects": {
+            "cnt": 3,
+            "datas": [
+                {
+                    "projectInfo": {
+                        "id": 1,
+                        "name": "双眼皮"
+                    },
+                    "doctorInfo": {
+                        "id": 1,
+                        "name": "小明"
+                    },
+                    "patientInfo": null,
+                    "operatDate": 1508083200000
+                }
+            ]
+        },
+        "effectCoupons": {
+            "cnt": 3,
+            "datas": [
+                {
+                    "id": 11,
+                    "couponName": "脱毛体验券",
+                    "beginTime": 1111111,
+                    "endTime": 22222222222,
+                    "ruleDesc": "1:111\r\n 2:22222",
+                    "expired": false,
+                    "used": false
+                }
+            ]
+        },
+        "usedCoupons": {
+            "cnt": 3,
+            "datas": [
+                {
+                    "id": 11,
+                    "couponName": "脱毛体验券",
+                    "beginTime": 1111111,
+                    "endTime": 22222222222,
+                    "ruleDesc": "1:111\r\n 2:22222",
+                    "expired": false,
+                    "used": true
+                }
+            ]
+        },
+        "expiredCoupons": {
+            "cnt": 3,
+            "datas": [
+                {
+                    "id": 11,
+                    "couponName": "脱毛体验券",
+                    "beginTime": 1111111,
+                    "endTime": 22222222222,
+                    "ruleDesc": "1:111\r\n 2:22222",
+                    "expired": true,
+                    "used": true
+                }
+            ]
+        }
+    }
+}

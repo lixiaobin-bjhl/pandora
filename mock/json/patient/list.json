@@ -1,0 +1,30 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "list": [
+            {
+                "name": "赵敏",
+                "wechatNickName": "zhaomin",
+                "mobile": "13800000000",
+                "gender": 0, 
+                "id": 12313,
+                "age": 20, 
+                "sourceId": 1,
+                "source": "来源", 
+                "avatar": "http://omh2h1x76.bkt.clouddn.com/user.png", 
+                "subscribe": true, 
+                "hasProject": true,
+                "consulterName": "咨询顾问名称", 
+                "patientProjectCnt": 11, 
+                "createTime": 111111111111
+            }
+        ]
+    },
+    "pageInfo": {
+        "count": 100,
+        "pageNum": 1,
+        "pageSize": 20,
+        "currentSize": 18
+    }
+}
