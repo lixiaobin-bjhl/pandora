@@ -12,6 +12,13 @@ exports.routes = [
     },
     {
 		method: 'POST',
+        path: '/patient/patientSources.json',
+        handler: function (request, reply) {
+            return reply(require('./json/patient/patientSources.json'));
+        }
+    },
+    {
+		method: 'POST',
         path: '/patient/detail.json',
         handler: function (request, reply) {
             return reply(require('./json/patient/detail.json'));

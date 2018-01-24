@@ -28,3 +28,17 @@ export function getDetial (params) {
 export function update (params) {
     return post('/patient/update.json', params);
 }
+
+/**
+ * 医生列表
+ */
+export function userList (params) {
+    return post('/user/list.json', params);
+}
+
+/**
+ * 咨询来源列表
+ */
+export function patientSource (params) {
+    return post('/patient/patientSources.json', params);
+}

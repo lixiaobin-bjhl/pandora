@@ -43,15 +43,31 @@
                 {{form.birthYearPeriod}}
             </el-form-item>
             <el-form-item label="咨询顾问">
-                <el-select v-model="form.region" style="width: 360px;" placeholder="请选择顾问">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-select 
+                    v-model="form.patientConsulterId"
+                    filterable
+                    style="width: 360px;" 
+                    placeholder="请选择顾问">
+                    <el-option 
+                        v-for="item, index in userListOption"
+                        :label="item.staff.name"
+                        :value="item.staff.id"
+                        :key="index">
+                    </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="客户来源">
-                <el-select v-model="form.region" style="width: 360px;" placeholder="请选择来源">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-select 
+                    v-model="form.sourceId"
+                    filterable
+                    style="width: 360px;" 
+                    placeholder="请选择来源">
+                    <el-option 
+                        v-for="item, index in patientSourceOption"
+                        :label="item.name"
+                        :value="item.id"
+                        :key="index">
+                    </el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -65,7 +81,7 @@
 </template>
 <script>
 
-    import {getDetial, update} from '../request';
+    import {getDetial, update, patientSource, userList} from '../request';
     import config from '../config';
 
     export default {
@@ -87,6 +103,8 @@
                     sourceId: '',
                     patientConsulterId: ''
                 },
+                userListOption: [],
+                patientSourceOption: [],
                 loading: false,
                 birthdayOption: {
                     disabledDate(time) {
@@ -97,17 +115,39 @@
         },
         mounted () {
             this.getDetial();
+            this.getUserListOption();
+            this.getPatientSourceOption();
         },
         methods: {
+            /**
+             * 取咨询顾问列表
+             */
+            getUserListOption () {
+                userList()
+                    .then((res)=> {
+                        this.userListOption = res.data.users;
+                    });
+            },
+            /**
+             * 获取客户来源选项 
+             */
+            getPatientSourceOption () {
+                patientSource()
+                    .then((res)=> {
+                        this.patientSourceOption = res.data.patients.list;
+                    });
+            },
             /**
              * 获取详情 
              */
             getDetial () {
+                this.loading = true;
                 getDetial({
                     id: this.id
                 })
                 .then((res)=> {
                     var data = res.data;
+                    this.loading = false;
                     Object.assign(this.form, data);
                     this.form.gender = data.genderInfo.id;
                     if (data.birthday) {
@@ -119,6 +159,8 @@
                     if (data.sourceInfo) {
                         this.form.sourceId = data.sourceInfo.id;
                     }
+                }, ()=> {
+                    this.loading = false;
                 });
             },
             cancel () {

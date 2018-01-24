@@ -1,0 +1,69 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "users": [
+            {
+                "staff": {
+                    "id": 1,
+                    "name": "小明",
+                    "avatar": "http://oqpq939qh.bkt.clouddn.com/DEFAULT_AVATAR.png",
+                    "mobile": "15601095102",
+                    "orgId": 1,
+                    "gender": 0,
+                    "openId": "",
+                    "birthday": null,
+                    "password": "b537a06cf3bcb33206237d7149c27bc3",
+                    "isDel": false,
+                    "roleValue": 5,
+                    "createTime": 1510748551000,
+                    "updateTime": 1510748551000,
+                    "role": "Consultant",
+                    "roleType": 1
+                },
+                "roles": null
+            },
+            {
+                "staff": {
+                    "id": 2,
+                    "name": "小斌",
+                    "avatar": "http://oqpq939qh.bkt.clouddn.com/DEFAULT_AVATAR.png",
+                    "mobile": "18610720740",
+                    "orgId": 1,
+                    "gender": 1,
+                    "openId": "",
+                    "birthday": null,
+                    "password": "b537a06cf3bcb33206237d7149c27bc3",
+                    "isDel": false,
+                    "roleValue": 5,
+                    "createTime": 1508129980000,
+                    "updateTime": 1508129980000,
+                    "role": "Consultant",
+                    "roleType": 1
+                },
+                "roles": null
+            },
+            {
+                "staff": {
+                    "id": 3,
+                    "name": "亚鹏",
+                    "avatar": "http://oqpq939qh.bkt.clouddn.com/DEFAULT_AVATAR.png",
+                    "mobile": "18630357920",
+                    "orgId": 1,
+                    "gender": 0,
+                    "openId": "",
+                    "birthday": null,
+                    "password": "b537a06cf3bcb33206237d7149c27bc3",
+                    "isDel": false,
+                    "roleValue": 1,
+                    "createTime": 1501686577000,
+                    "updateTime": 1501686577000,
+                    "role": "Consultant",
+                    "roleType": 1
+                },
+                "roles": null
+            }
+        ]
+    },
+    "pageInfo": null
+}
