@@ -1,7 +1,7 @@
 <template>
     <transition name="slide-right" appear>
         <div class="material-detail-wrap">
-            <div class="wrap-content" v-loading.fullscreen.lock="fullscreenLoading">
+            <div class="wrap-content" v-loading.fullscreen.lock="loading">
                 <el-row class="module-title">
                     <el-col :span="12">
                         <breadcrumb-nav
@@ -19,32 +19,37 @@
                             @click="addItem">添加项目</el-button>
                     </el-col>
                 </el-row>
-                <div class="module-content">
+                <div class="module-content" v-if="info">
                     <section class="profile">
+                       <div class="follow-flag">已关注</div> 
                         <ul>
                             <li>
-                                <img class="avatar90" :src="'https://imgs.genshuixue.com/25267315_nlv2x0kt.png' | compressImage(90, 90)">
-                                <name-gender :name="profile.name" :isFemale="profile.gender == 1" :hideGender="profile.gender === null"></name-gender>
-                                <p class="phone">{{ profile.mobile|phone}}</p>
+                                <img class="avatar80" :src="info.avatar|compressImage(80, 80)">
+                                <name-gender 
+                                    :name="info.name" 
+                                    :isFemale="info.genderInfo.gender == 2" 
+                                    :hideGender="info.genderInfo.gender === 0">
+                                </name-gender>
+                                <p class="phone">{{ info.mobile|phone}}</p>
                             </li>
                             <li class="key-info info-list">
                                 <h3>主要信息</h3>
                                 <ul>
                                     <li>
-                                        <label>课程顾问</label>
-                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                        <label>客户年龄</label>
+                                        <span>{{ info.birthYearPeriod || '--' }}</span>
                                     </li>
                                     <li>
                                         <label>咨询顾问</label>
-                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                        <span>{{ info.consulterInfo.name || '--' }}</span>
                                     </li>
                                     <li>
                                         <label>客户来源</label>
-                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                        <span>{{ info.sourceInfo.name || '--' }}</span>
                                     </li>
                                     <li>
                                         <label>添加时间</label>
-                                        <span>{{ profile.cascadeId || '--' }}</span>
+                                        <span>{{ info.cascadeId || '--' }}</span>
                                     </li>
                                 </ul>
                             </li>
@@ -112,27 +117,29 @@
     import BreadcrumbNav from '../../../common/components/BreadcrumbNav.vue';
     import hideScroll from '../../../common/function/hideScroll';
     import NameGender from '../../../common/components/NameGender.vue';
+    import { getDetial } from '../request';
 
     export default {
         data () {
             return {
                  breadcrumb: ['客户档案', '档案详情'],
-                 fullscreenLoading: false,
+                 loading: false,
                  type: '1',
-                 profile: {
-                     name: '李小斌',
-                     gender: 1,
-                     mobile: 13211112222
-                 }
+                 info: null
             }
         },
-       
         computed: {
-           
+            id () {
+                return this.$store.state.customer.id;
+            }
         },
         components: {
             BreadcrumbNav,
             NameGender
+        },
+        mounted () {
+            this.getDetial();
+            this.bindEvent();
         },
         created () {
             // 详情页打开时，隐藏当窗口缩小时列表页出现的滚动条
@@ -145,16 +152,24 @@
         },
         methods: {
             /**
+             * 绑定事件 
+             */
+            bindEvent () {
+                this.$on('updatedetail', ()=> {
+                    this.getDetial();
+                });
+            },
+            /**
              * 编辑客户 
              */
             modifyCustomer () {
-                this.$store.commit('SHOW_ADD_CUSTOMER_DETIAL');
+                this.$store.commit('SHOW_ADD_CUSTOMER_DETIAL', this.id);
             },
             /**
              * 添加项目 
              */
             addItem () {
-                this.$store.commit('SHOW_ADD_ITEM_DETIAL');
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL', this.id);
             },
             /**
              * 优惠卷详情 
@@ -176,20 +191,17 @@
             /**
              * 获取详情
              */
-            getDetail () {
-                this.fullscreenLoading = true;
-                let params = {};
-                params[this.detailcommonConfig.idName] = this.materialId;
-
-                post(this.detailcommonConfig.getUrl, params)
+            getDetial () {
+                this.loading = true;
+                getDetial({
+                    id: this.id
+                })
                     .then((res) => {
                         this.info = res.data;
-                        this.updateData(this.info);
-                        this.fullscreenLoading = false;
+                        this.loading = false;
                     })
                     .catch(() => {
-                        this.fullscreenLoading = false;
-                        setTimeout(this.enterList);
+                        this.loading = false;
                     });
             },
             

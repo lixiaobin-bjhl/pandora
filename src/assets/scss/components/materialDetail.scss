@@ -12,6 +12,8 @@
         &.profile {
             float: left;
             width: 252px;
+            position: relative;
+            padding-top: 20px;
             > ul {
                 > li {
                     padding: $list-item-padding-large;

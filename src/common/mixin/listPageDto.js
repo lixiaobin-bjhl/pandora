@@ -13,6 +13,7 @@ export default {
          */
         refresh () {
             this.pageInfo.pageNum = 1;
+            this.fetchList();
         },
         /**
          * 翻页

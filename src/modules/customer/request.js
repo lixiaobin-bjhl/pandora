@@ -42,3 +42,17 @@ export function userList (params) {
 export function patientSource (params) {
     return post('/patient/patientSources.json', params);
 }
+
+/**
+ * 获取项目列表
+ */
+export function getProjectList (params) {
+    return post('/project/projectCategory.json', params);
+}
+
+/**
+ * 添加项目
+ */
+export function addProject (params) {
+    return post('/patient/addProject.json', params);
+}

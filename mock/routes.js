@@ -1,6 +1,5 @@
 /**
- * @file libra
- * @author XiaoBin Li(lixiaobin@baijiahulian.com)
+ * @file mock router
  */
 
 'use strict';
@@ -8,6 +7,7 @@
 var routesConfig = [
     require('./api'),
     require('./user'),
+    require('./project'),
     require('./patient')
 ];
 

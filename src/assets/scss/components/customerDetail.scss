@@ -19,6 +19,7 @@
             &.profile {
                 float: left;
                 width: 252px;
+                position: relative;
                 >ul {
                     >li {
                         padding: $list-item-padding-large;
@@ -107,4 +108,17 @@
             }
         }
     }
+}
+
+.follow-flag {
+    background: #F9A24B;
+    border-radius: 2.88px;
+    display: inline-block;
+    font-size: 12px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 2px;
+    color: #fff;
+
 }

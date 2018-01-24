@@ -9,6 +9,9 @@
 .avatar70 {
     @include circle-image(70px);
 }
+.avatar80 {
+    @include circle-image(80px);
+}
 .avatar90 {
     @include circle-image(90px);
 }

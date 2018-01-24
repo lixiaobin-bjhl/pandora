@@ -4,7 +4,8 @@
             v-if="placement == 'right'"
             :title="name">{{ name }}</span>
         <el-tooltip :content="isFemale ? '女' : '男'" :placement="placement" v-if="!hideGender">
-            <i :class="[isFemale ? 'icon-female' : 'icon-male']"></i>
+            <icon name="female" class="female" v-if="isFemale" scale="1.5"></icon>
+            <icon name="male" class="male" v-if="!isFemale" scale="1.5"></icon>
         </el-tooltip>
         <span
             v-if="placement == 'left'"

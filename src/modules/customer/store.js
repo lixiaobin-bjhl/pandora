@@ -3,7 +3,7 @@
  */
 
 const state = {
-    showDetailState: false,
+    showDetailState: true,
     showCouponState: false,
     showAddCustomerState: false,
     showAddItemState: false,

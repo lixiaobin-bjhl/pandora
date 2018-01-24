@@ -35,7 +35,7 @@
                     label="微信昵称"
                 >  
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="enterDetail">{{scope.row.wechatNickName}}</a>
+                        <a href="javascript:;" @click="enterDetail">{{scope.row.id}}</a>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -119,10 +119,12 @@
         <coupon 
             v-if="$store.state.customer.showCouponState"></coupon>
         <add-item 
-            v-if="$store.state.customer.showAddItemState"></add-item>
+            v-if="$store.state.customer.showAddItemState"
+            @save="updateList"
+            ></add-item>
         <customer 
             v-if="$store.state.customer.showAddCustomerState" 
-            @save="refresh"></customer>
+            @save="updateList"></customer>
     </div>
    
 </template>
@@ -163,8 +165,15 @@
             /**
              * 添加项目 
              */
-            addItem () {
-                this.$store.commit('SHOW_ADD_ITEM_DETIAL');
+            addItem (item) {
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL', item.id);
+            },
+            /**
+             * 更新列表 
+             */
+            updateList () {
+                this.refresh();
+                this.$refs.detail.$emit('updatedetail');
             },
             /**
              * 获取列表 
