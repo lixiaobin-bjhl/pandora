@@ -1,0 +1,110 @@
+.coupon-list {
+    margin: 20px 0;
+    .el-col {
+        margin-bottom: 10px;
+    }
+    @extend %clearfix;
+    .coupon {
+        border: 1px solid #D3DCE6;
+        border-radius: 4px;
+        position: relative;
+        box-sizing: border-box;
+        .circle-solid {
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            background: #fff;
+            &.left {
+                left: -1px;
+                top: 35px;
+                border: 1px solid #D3DCE6;
+                border-left: 0;
+                border-radius: 0 100% 100% 0;
+            }
+            &.right {
+                right: -1px;
+                top: 35px;
+                border: 1px solid #D3DCE6;
+                border-right: 0;
+                border-radius: 100% 0  0 100%;
+            }
+            &.left1 {
+                left: -1px;
+                bottom: 45px;
+                border: 1px solid #D3DCE6;
+                border-left: 0;
+                border-radius: 0 100% 100% 0;
+            }
+            &.right1 {
+                right: -1px;
+                bottom: 45px;
+                border: 1px solid #D3DCE6;
+                border-right: 0;
+                border-radius: 100% 0  0 100%;
+            }
+        }
+        .title {
+            text-align: center;
+            padding-top: 25px;
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+        &-detail {
+            background: #fff;
+            border-radius: 0 0  4px 4px;
+            li {
+                word-break: break-all;
+                overflow: hidden;
+                margin-bottom: 5px;
+                label {
+                    float: left;
+                    width: 80px;
+                    text-align: left;
+                    padding-left: 20px;
+                    color: #1F2D3D;
+                    font-size: 13px;
+                }
+                div {
+                    margin-left: 100px;
+                    overflow: hidden;
+                    color: #8492A6;
+                    padding-right: 20px;
+                }
+                &:last-of-type {
+                    padding-bottom: 20px;
+                }
+            }
+            .opt-group {
+                padding: 0 20px;
+                font-size: 13px;
+                color: #6BC0B8;
+                height: 50px;
+                line-height: 50px;
+                border-top: 1px dashed #D3DCE6;
+            }
+            .btn-share {
+                background: #6BC0B8;
+                border-radius: 4px;
+                margin-top: 10px;
+                font-size: 13px;
+                color: #FFFFFF;
+                width: 64px;
+                height: 30px;
+                text-align: center;
+                display: inline-block;
+                line-height: 30px;
+                float: right;
+            }
+        }
+        .hospotial {
+            font-weight: normal;
+            line-height: 40px;
+            font-size: 14px;
+            background: #F9FAFC;
+            color: #99A9BF;
+            padding: 0 15px;
+            border-radius: 4px 4px 0 0;
+            border-bottom: 1px dashed #D3DCE6;
+        }
+    }
+}

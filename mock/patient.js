@@ -37,5 +37,19 @@ exports.routes = [
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));
         }
+    },
+    {
+		method: 'POST',
+        path: '/patient/delPatientProject.json',
+        handler: function (request, reply) {
+            return reply(require('./json/api/success.json'));
+        }
+    },
+    {
+		method: 'POST',
+        path: '/patient/updateProject.json',
+        handler: function (request, reply) {
+            return reply(require('./json/api/success.json'));
+        }
     }
 ];

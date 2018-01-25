@@ -21,7 +21,7 @@
                 </el-row>
                 <div class="module-content" v-if="info">
                     <section class="profile">
-                       <div class="follow-flag">已关注</div> 
+                       <div class="follow-flag" v-if="info.subscribe">已关注</div> 
                         <ul>
                             <li>
                                 <img class="avatar80" :src="info.avatar|compressImage(80, 80)">
@@ -49,62 +49,188 @@
                                     </li>
                                     <li>
                                         <label>添加时间</label>
-                                        <span>{{ info.cascadeId || '--' }}</span>
+                                        <span>{{ info.createTime|date('yyyy-MM-dd')}}</span>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </section>
                     <section class="info">
-                        <h1>基本信息</h1>
-                        <el-row>
-                            <el-col :span="12">
-                                <label>微信昵称</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户姓名</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户手机</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户性别</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户生日</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户年龄</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>客户来源</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>咨询顾问</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>公众号</label><span>123</span>
-                            </el-col>
-                            <el-col :span="12">
-                                <label>添加时间</label><span>123</span>
-                            </el-col>
-                        </el-row> 
-                        <h1>卡劵信息(10)</h1>
-                        <el-radio-group v-model="type">
-                            <el-radio-button label="1">未使用(2)</el-radio-button>
-                            <el-radio-button label="2">已使用(1)</el-radio-button>
-                            <el-radio-button label="3">已过期(1)</el-radio-button>
-                        </el-radio-group> 
-                        <div>
-                            <ul>
-                                <li>脱毛免费体验劵</li>
-                                <li>有效期:123132</li>
-                                <li>使用规则:123132</li>
-                                <li>
-                                    <el-button @click="couponDetail">详情</el-button>
-                                    <el-button type="primary" @click="useCoupon">使用</el-button>
-                                </li>
-                            </ul>
+                        <div class="info-wrap">
+                            <h1>基本信息</h1>
+                            <el-row>
+                                <el-col :span="12">
+                                    <label>微信昵称</label><span>{{info.wechatName}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户姓名</label><span>{{info.name}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户手机</label><span>{{info.mobile}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户性别</label><span>{{info.genderInfo.name}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户生日</label>
+                                    <span>{{info.birthday |date('yyyy-MM-dd')}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户年龄</label><span>{{info.birthYearPeriod}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>客户来源</label><span>{{info.sourceInfo.name}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>咨询顾问</label><span>{{info.consulterInfo.name}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>公众号</label><span>{{info.subscribe ? '已关注': '未关注'}}</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <label>添加时间</label><span>{{info.createTime|date('yyyy-MM-dd')}}</span>
+                                </el-col>
+                            </el-row>
+                        </div> 
+                        <h1>卡劵信息({{info.couponCnt}})</h1>
+                        <el-radio-group v-model="type" size="small">
+                            <el-radio-button label="1">未使用({{info.effectCoupons.cnt}})</el-radio-button>
+                            <el-radio-button label="2">已使用({{info.usedCoupons.cnt}})</el-radio-button>
+                            <el-radio-button label="3">已过期({{info.expiredCoupons.cnt}})</el-radio-button>
+                        </el-radio-group>
+                        <div class="coupon-list">
+                            <template v-if="type == 1">
+                                <el-row :gutter="10" 
+                                    v-if="info.effectCoupons.datas.length">
+                                    <el-col :span="12" 
+                                        v-for="item, index in info.effectCoupons.datas" 
+                                        :key="index">
+                                        <div class="coupon">
+                                            <span class="circle-solid left"></span>
+                                            <span class="circle-solid right"></span>
+                                            <h1 class="hospotial">欧若拉医疗美容医院</h1>
+                                            <div>
+                                                <ul class="coupon-detail">
+                                                    <h1 class="title">{{item.couponName}}</h1>
+                                                    <li>
+                                                        <label>有效期</label>
+                                                        <div>
+                                                            {{item.beginTime | date('yyyy-MM-dd')}}~
+                                                            {{item.endTime | date('yyyy-MM-dd')}}
+                                                        </div>    
+                                                    </li>
+                                                    <li>
+                                                        <label>使用规则</label>
+                                                        <div><pre>{{item.ruleDesc}}</pre></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <div class="none-list" 
+                                    v-if="!info.effectCoupons.datas.length">
+                                    <span>暂无未使用优惠劵</span>
+                                </div>
+                            </template>
+
+                             <template v-if="type == 2">
+                                <el-row :gutter="10" 
+                                    v-if="info.usedCoupons.datas.length">
+                                    <el-col :span="12" 
+                                        v-for="item, index in info.usedCoupons.datas" 
+                                        :key="index">
+                                        <div class="coupon">
+                                            <span class="circle-solid left"></span>
+                                            <span class="circle-solid right"></span>
+                                            <h1 class="hospotial">欧若拉医疗美容医院</h1>
+                                            <div>
+                                                <ul class="coupon-detail">
+                                                    <h1 class="title">{{item.couponName}}</h1>
+                                                    <li>
+                                                        <label>有效期</label>
+                                                        <div>
+                                                            {{item.beginTime | date('yyyy-MM-dd')}}~
+                                                            {{item.endTime | date('yyyy-MM-dd')}}
+                                                        </div>    
+                                                    </li>
+                                                    <li>
+                                                        <label>使用规则</label>
+                                                        <div><pre>{{item.ruleDesc}}</pre></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <div class="none-list" 
+                                    v-if="!info.effectCoupons.datas.length">
+                                    <span>暂无已使用优惠劵</span>
+                                </div>
+                            </template>
+
+                             <template v-if="type == 3">
+                                <el-row :gutter="10" 
+                                    v-if="info.expiredCoupons.datas.length">
+                                    <el-col :span="12" 
+                                        v-for="item, index in info.expiredCoupons.datas" 
+                                        :key="index">
+                                        <div class="coupon">
+                                            <span class="circle-solid left"></span>
+                                            <span class="circle-solid right"></span>
+                                            <h1 class="hospotial">欧若拉医疗美容医院</h1>
+                                            <div>
+                                                <ul class="coupon-detail">
+                                                    <h1 class="title">{{item.couponName}}</h1>
+                                                    <li>
+                                                        <label>有效期</label>
+                                                        <div>
+                                                            {{item.beginTime | date('yyyy-MM-dd')}}~
+                                                            {{item.endTime | date('yyyy-MM-dd')}}
+                                                        </div>    
+                                                    </li>
+                                                    <li>
+                                                        <label>使用规则</label>
+                                                        <div><pre>{{item.ruleDesc}}</pre></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <div class="none-list" 
+                                    v-if="!info.effectCoupons.datas.length">
+                                    <span>暂无已过期优惠劵</span>
+                                </div>
+                            </template>
+                        </div>
+                        <h1>项目使用({{info.patientProjects.cnt}})</h1>
+                        <div class="timeline">
+                            <Timeline pending v-if="info.patientProjects.datas.length">
+                                <timeline-item
+                                    v-for="item, index in info.patientProjects.datas"
+                                    v-if="(index >= 3 && isShowMore ) || index < 3" 
+                                    :key="index" >
+                                    <p class="time clearfix">
+                                        {{item.operatDate|date('yyyy-MM-dd')}}&nbsp;&nbsp;{{item.projectInfo.name}}
+                                        <span class="pull-right icon-opt">
+                                            <icon name="edit" scale="2" @click.native="updateProject(item)"></icon>
+                                            <icon name="delete" scale="2" @click.native="deleteProject(item)"></icon>
+                                        </span>
+                                    </p>
+                                    <p class="content">
+                                        医生：<span class="text-gray-light">{{item.doctorInfo.name}}</span>
+                                    </p>
+                                </timeline-item>
+                                <TimelineItem  
+                                    color="#6BC0B8" 
+                                    v-if="info.patientProjects.datas.length > 3">
+                                    <a href="javascript:;" 
+                                    @click="showMore">
+                                    {{isShowMore ? '收起更多': '展开更多'}}</a>
+                                </TimelineItem>
+                            </Timeline>
+                            <div class="none-list" v-else><span>暂无项目信息</span></div>
                         </div>
                     </section>
                 </div>
@@ -117,13 +243,15 @@
     import BreadcrumbNav from '../../../common/components/BreadcrumbNav.vue';
     import hideScroll from '../../../common/function/hideScroll';
     import NameGender from '../../../common/components/NameGender.vue';
-    import { getDetial } from '../request';
+    import { getDetial, deleteProject } from '../request';
+    import Timeline from 'src/common/components/timeline';
 
     export default {
         data () {
             return {
                  breadcrumb: ['客户档案', '档案详情'],
                  loading: false,
+                 isShowMore: false,
                  type: '1',
                  info: null
             }
@@ -135,22 +263,44 @@
         },
         components: {
             BreadcrumbNav,
+            Timeline,
+            TimelineItem: Timeline.Item,
             NameGender
         },
         mounted () {
             this.getDetial();
             this.bindEvent();
         },
-        created () {
-            // 详情页打开时，隐藏当窗口缩小时列表页出现的滚动条
-
-            // this.getDetail();
-            // // 从合同次卡打开的学员详情，定位的次卡tab
-            // if (this.$store.state.student.detailFrom == 'timesCard') {
-            //     this.currentInfo = 'TimesCard';
-            // }
-        },
         methods: {
+            /**
+             * 删除项目 
+             */
+            deleteProject (item) {
+                this.$confirm('确认删除项目', '提醒', {
+                    type: 'warning'
+                })
+                .then(() => {
+                   deleteProject({
+                       id: item.projectInfo.id
+                   })
+                   .then(()=> {
+                       toast('保存成功', 'success');
+                       this.getDetial();
+                   });
+                });
+            },
+            /**
+             * 更新项目
+             */
+            updateProject (item) {
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL', {
+                    id: this.id,
+                    project: item
+                });
+            },
+            showMore () {
+                this.isShowMore = !this.isShowMore;
+            },
             /**
              * 绑定事件 
              */
@@ -169,7 +319,10 @@
              * 添加项目 
              */
             addItem () {
-                this.$store.commit('SHOW_ADD_ITEM_DETIAL', this.id);
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL', {
+                    id: this.id,
+                    project: null
+                });
             },
             /**
              * 优惠卷详情 
@@ -186,7 +339,7 @@
                 })
                 .then(() => {
                     console.log(12312);
-                })
+                });
             },
             /**
              * 获取详情

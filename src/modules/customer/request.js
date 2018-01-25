@@ -56,3 +56,17 @@ export function getProjectList (params) {
 export function addProject (params) {
     return post('/patient/addProject.json', params);
 }
+
+/**
+ * 删除项目
+ */
+export function deleteProject (params) {
+    return post('/patient/delPatientProject.json', params);
+}
+
+/**
+ * 更新项目
+ */
+export function updateProject (params) {
+    return post('/patient/updateProject.json', params);
+}

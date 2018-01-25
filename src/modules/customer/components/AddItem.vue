@@ -1,6 +1,6 @@
 <template>
     <el-dialog 
-        :title="id ? '编辑项目' : '添加项目'"
+        :title="project ? '编辑项目' : '添加项目'"
         width="550px"
         :visible.sync="$store.state.customer.showAddItemState"
         >
@@ -55,13 +55,16 @@
 </template>
 <script>
 
-    import {getProjectList, userList, addProject} from '../request';
+    import {getProjectList, userList, addProject, updateProject} from '../request';
     import config from '../config';
 
     export default {
         computed: {
             id () {
                 return this.$store.state.customer.id;
+            },
+            project () {
+                return this.$store.state.customer.project;
             }
         },
         data() {
@@ -90,6 +93,12 @@
         mounted () {
             this.getProjectOption();
             this.getUserListOption();
+            var project = this.project;
+            if (this.project) {
+                this.form.doctorId = project.doctorInfo.id;
+                this.form.projectId = [project.id, project.projectInfo.id];
+                this.form.operatDate = new Date(project.operatDate);
+            }
         },
         methods: {
             /**
@@ -128,7 +137,8 @@
                             operatDate: +form.operatDate
                         };
                         this.loading = true;
-                        addProject(params)
+                        var request = this.project ? updateProject : addProject;
+                        request(params)
                             .then((res)=> {
                                 this.$emit('save');
                                 toast('保存成功', 'success');

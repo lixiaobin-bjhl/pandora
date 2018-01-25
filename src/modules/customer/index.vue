@@ -35,7 +35,7 @@
                     label="微信昵称"
                 >  
                     <template slot-scope="scope">
-                        <a href="javascript:;" @click="enterDetail">{{scope.row.id}}</a>
+                        <a href="javascript:;" @click="enterDetail(scope.row.id)">{{scope.row.wechatNickName}}</a>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -166,7 +166,10 @@
              * 添加项目 
              */
             addItem (item) {
-                this.$store.commit('SHOW_ADD_ITEM_DETIAL', item.id);
+                this.$store.commit('SHOW_ADD_ITEM_DETIAL', {
+                    id: item.id,
+                    project: null
+                });
             },
             /**
              * 更新列表 

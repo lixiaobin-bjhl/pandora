@@ -3,21 +3,24 @@
  */
 
 const state = {
-    showDetailState: true,
+    showDetailState: false,
     showCouponState: false,
     showAddCustomerState: false,
     showAddItemState: false,
+    project: null,
     id: null
 };
 
 const mutations = {
-    'SHOW_ADD_ITEM_DETIAL' (state, id) {
+    'SHOW_ADD_ITEM_DETIAL' (state, event) {
         state.showAddItemState = true;
-        state.id = id;
+        state.id = event.id;
+        state.project = event.project;
     },
     'HIDE_ADD_ITEM_DETIAL' (state) {
         state.showAddItemState = false;
         state.id = null;
+        state.project = null;
     },
     'SHOW_ADD_CUSTOMER_DETIAL' (state, id) {
         state.showAddCustomerState = true;
