@@ -1,0 +1,22 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+        "list":[
+            {
+                "id":1,
+                "couponName": "卡券名称",
+                "concatName": "卡券拼接名称",
+                "periodStr": "20天",
+                "beginTime": 111111,
+                "endTime": 2222222,
+                "ruleDesc": "已结束",
+                "canShare": true,
+                "expired": false,
+                "used": false,
+                "useDesc": "使用说明",
+                "createTime": 1516879000442
+            }
+        ]
+    }
+}

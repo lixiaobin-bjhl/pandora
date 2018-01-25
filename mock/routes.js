@@ -8,6 +8,9 @@ var routesConfig = [
     require('./api'),
     require('./user'),
     require('./project'),
+    require('./coupon'),
+    require('./couponRule'),
+    require('./couponActivity'),
     require('./patient')
 ];
 

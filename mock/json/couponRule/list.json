@@ -1,0 +1,24 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+        "list":[
+            {
+                "id":1,
+                "name": "卡券名称",
+                "concatName": "卡券拼接名称",
+                "periodStr": "20天",
+                "sendCount": 600,
+                "usedCount": 200,
+                "ruleDesc": "已结束",
+                "createTime": 1516878140560
+            }
+        ]
+    },
+    "pageInfo": {
+        "count": 100,
+        "pageNum": 1,
+        "pageSize": 20,
+        "currentSize": 18
+    }
+}

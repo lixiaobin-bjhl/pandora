@@ -1,0 +1,22 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "id": 1,
+        "couponName": "卡券名称",
+        "shareCount": 3,
+        "expireDays": 20,
+        "ruleDesc": "已结束",
+        "qrCodeUrl": "http://ssssss",
+        "canGetCoupon": true,
+        "hasGetCoupon": false,
+        "expired": false,
+        "used": false,
+        "receiveCouponUsers": [
+            {
+                "name": "张三",
+                "avatar": "http://www.baidu.com/www"
+            }
+        ]
+    }
+}

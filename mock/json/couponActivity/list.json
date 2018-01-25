@@ -1,0 +1,46 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+        "list":[
+            {
+                "id":1,
+                "name": "活动名称",
+                "couponConcatName":"发送卡券名称",
+                "triggerTypeStr":"发券方式",
+                "hasShareCoupon":true,
+                "shareCount":10, 
+                "canFission":true,
+                "sendCount": 600, 
+                "fissionCount":350, 
+                "usedCount": 200,
+                "usedFissionCount":180,
+                "statusStr": "已结束",
+                "canRun": false,
+                "canPause":true
+            },
+            {
+                "id":2,
+                "name": "活动名称",
+                "couponConcatName":"发送卡券名称",
+                "triggerTypeStr":"发券方式",
+                "hasShareCoupon":true,
+                "shareCount":10, 
+                "canFission":true,
+                "sendCount": 600, 
+                "fissionCount":350, 
+                "usedCount": 200,
+                "usedFissionCount":180,
+                "statusStr": "已结束",
+                "canRun": true,
+                "canPause":false
+            }
+        ]
+    },
+    "pageInfo": {
+        "count": 100,
+        "pageNum": 1,
+        "pageSize": 20,
+        "currentSize": 18
+    }
+}

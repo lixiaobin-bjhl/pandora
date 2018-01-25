@@ -11,16 +11,17 @@
             <div class="filter-wrap">
                 <div class="filter-box">
                     <el-input placeholder="请输入搜索关键词" 
-                        style="width: 420px;" 
+                        style="width: 420px;"
+                        @keyup.enter.native="refresh" 
                         v-model.trim="filter.key"
-                        suffix-icon="el-icon-search"
                         class="input-with-select">
-                        <el-select v-model="type" slot="prepend">
+                        <!-- <el-select v-model="type" slot="prepend">
                             <el-option label="微信昵称" value="1"></el-option>
                             <el-option label="姓名" value="2"></el-option>
                             <el-option label="手机" value="3"></el-option>
                             <el-option label="咨询顾问" value="4"></el-option>
-                        </el-select>
+                        </el-select> -->
+                        <span slot="suffix" class="el-input__icon el-icon-search" @click="refresh"></span>
                     </el-input>
                 </div>
             </div>
