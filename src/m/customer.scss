@@ -27,7 +27,7 @@
             .name {
                 font-size: 30px;
                 color: #171616;
-                position: relative;
+				position: relative;
                 .svg-icon {
                     vertical-align: baseline;
                     margin: 0 0 -1px  10px;
@@ -52,11 +52,12 @@
                     opacity: 1;
                     right: 0;
                     zoom: 20;
-                }
+				}
+				.svg-icon {
+					color: #6BC0B8;
+				}
             }
-            .svg-icon {
-                color: #6BC0B8;
-            }
+            
         }
     }
 }

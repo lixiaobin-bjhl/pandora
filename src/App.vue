@@ -5,6 +5,7 @@
         <section id="main" class="main">
             <router-view></router-view>
         </section>
+        <back-top></back-top>
     </div>
 </template>
 
@@ -13,10 +14,12 @@
     import SideBar from './common/components/SideBar.vue';
     import TopHeader from './common/components/TopHeader.vue';
     import { getLoginUser } from './common/request';
+    import BackTop from './common/components/BackTop';
 
     export default {
         components: {
             SideBar,
+            BackTop,
             TopHeader
         },
         mounted () {

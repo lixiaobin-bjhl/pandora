@@ -37,18 +37,18 @@ module.exports = merge(baseWebpackConfig, {
 		// 	chunks: ['chat'],
 		// 	inject: true
 		// }),
-		new HtmlWebpackPlugin({
-			filename: 'main.html',
-			template: 'main.html',
-			chunks: ['app'],
-			inject: true
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'login.html',
-			template: 'login.html',
-			chunks: ['login'],
-			inject: true
-		}),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'main.html',
+		// 	template: 'main.html',
+		// 	chunks: ['app'],
+		// 	inject: true
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'login.html',
+		// 	template: 'login.html',
+		// 	chunks: ['login'],
+		// 	inject: true
+		// }),
 		// new HtmlWebpackPlugin({
 		// 	filename: 'bindTel.html',
 		// 	template: 'bindTel.html',

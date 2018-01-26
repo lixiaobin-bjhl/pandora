@@ -1,6 +1,6 @@
 /**
  * @fileOverview url
- * @author XiaoBin Li(lixiaobin@baijiahulian.com)
+ * @author XiaoBin Li(lixiaobin@huatu.com)
  */
 
 'use strict';

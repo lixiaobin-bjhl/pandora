@@ -10,6 +10,8 @@ import Toast from 'mint-ui/lib/toast';
 import 'mint-ui/lib/style.css';
 import router from './customerRouter';
 
+require('../common/filter/compressImage');
+
 import Icon from 'vue-svg-icon/Icon.vue';
 Vue.component('icon', Icon);  
 

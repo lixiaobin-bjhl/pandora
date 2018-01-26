@@ -3,7 +3,7 @@
         <div class="profile">
             <div class="info">
                 <img 
-                    src="http://omh2h1x76.bkt.clouddn.com/user.png" 
+                    :src="info.avatar|compressImage(189, 189)" 
                     class="img">
                     <div class="upload-btn">
                         <form 
@@ -19,8 +19,8 @@
                         </form>
                     </div>
                     <div class="name">
-                        赵敏<icon scale="2" style="color:E06AAC" name="female"></icon>
-                        <icon scale="2" style="color:E06AAC" name="male"></icon>
+                        {{info.name}}<icon scale="2" v-if="info.gender==2" class="female" name="female"></icon>
+                        <icon scale="2" v-if="info.gender==1" class="male" name="male"></icon>
                     </div>
             </div>
             <div class="banner"></div>
@@ -44,30 +44,58 @@
     import Vue from 'vue';
     import { Cell } from 'mint-ui';
     import { Indicator } from 'mint-ui';
+    import {getLoginUser} from '../request';
 
     Vue.component(Cell.name, Cell);
     import axios from 'axios';
 
     export default {
+        data () {
+            return {
+                info: {}
+            }
+        },
+        created () {
+			this.getLoginUser();
+		},
         methods: {
+            /**
+			 * 获取登录者信息 
+			 */
+			getLoginUser () {
+				Indicator.open('加载中…');
+				getLoginUser()
+					.then((res)=>{
+						this.info = res.data;
+						Indicator.close();
+					})
+					.catch(()=> {
+						Indicator.close();
+					});
+			},
             /**
              * 上传头像 
              */
-            uploadPhoto: function () {
+            uploadPhoto () {
                 var file = this.$refs.file.files;
                 let param = new FormData();
                 param.append('file', file);
                 let config = {
                     headers:{'Content-Type':'multipart/form-data'}
                 };
-                axios.post('/upload.json', param, config)
-                    .then(response=>{
-                        console.log(response.data);
-                    })     
-                this.reset();
+                Indicator.open('加载中…');
+                axios.post('/storage/upload.json', param, config)
+                    .then(res => {
+                        this.info.avatar = res.data.url;
+                        Indicator.close();
+                        this.reset();
+                    }, ()=> {
+                        Indicator.close();
+                        this.reset();
+                    });
             },
             reset: function () {
-               this.$ref.form.reset();
+               this.$refs.form.reset();
             },
             redirect (url) {
                 this.$router.push(url);

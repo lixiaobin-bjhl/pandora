@@ -16,8 +16,12 @@
             </el-tabs>
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入内容" style="width: 300px;" v-model.trim="key" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-input placeholder="请输入卡券名称搜索" 
+                        style="width: 360px;"
+                        @keyup.enter.native="refresh" 
+                        v-model.trim="filter.key"
+                        class="input-with-select">
+                        <span slot="suffix" class="el-input__icon el-icon-search pointer" @click="refresh"></span>
                     </el-input>
                 </div>
             </div>
@@ -61,9 +65,9 @@
         mixins: [listPageDto],
         data () {
             return {
-                key: '',
+                filter: {},
                 activeName: '1',
-                list: [{}],
+                list: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
                 breadcrumb: ['提醒设置'],
                 loading: false
             }
