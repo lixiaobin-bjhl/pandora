@@ -70,3 +70,31 @@ export function deleteProject (params) {
 export function updateProject (params) {
     return post('/patient/updateProject.json', params);
 }
+
+/**
+ * 卡券列表
+ */
+export function couponRuleList (params) {
+    return post('/couponRule/list.json', params);
+}
+
+/**
+ * 添加优惠券规则
+ */
+export function couponRuleSave (params) {
+    return post('/couponRule/save.json', params);
+}
+
+/**
+ * 删除优惠券
+ */
+export function couponRuleDelete (params) {
+    return post('/couponRule/delete.json', params);
+}
+
+/**
+ * 检测优惠券是否重复
+ */
+export function couponRuleCheckRepeat (params) {
+    return post('/couponRule/checkRepeat.json', params);
+}

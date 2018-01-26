@@ -34,5 +34,25 @@ export default {
             id: 2,
             name: '立即群发全部公众号粉丝'
         }
-    ]
+    ],
+    addCouponRule: {
+        name: [
+            {
+                required: true,
+                message: '请输入卡劵名称'
+            }
+        ],
+        duration: [
+            {
+                required: true,
+                message: '请输入有效期'
+            }
+        ],
+        ruleDesc: [
+            {
+                required: true,
+                message: '请输入使用规则'
+            }
+        ]
+    }
 }

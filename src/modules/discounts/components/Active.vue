@@ -7,11 +7,11 @@
                         @keyup.enter.native="refresh" 
                         v-model.trim="filter.key"
                         class="input-with-select">
-                        <el-select v-model="filter.queryNameType" style="width: 110px;" slot="prepend">
+                        <el-select v-model="filter.queryNameType" style="width: 100px;" slot="prepend">
                             <el-option label="活动名称" value="couponActivity"></el-option>
                             <el-option label="卡劵名称" value="couponRule"></el-option>
                         </el-select>
-                        <span slot="suffix" class="el-input__icon el-icon-search" @click="refresh"></span>
+                        <span slot="suffix" class="el-input__icon el-icon-search pointer" @click="refresh"></span>
                     </el-input>
             </div>
         </div>
@@ -19,14 +19,14 @@
             ref="table"
             v-if="list && list.length"
             :data="list"
-            empty-text="没有找到优惠券信息"
+            empty-text="没有找到活动信息"
             v-loading="loading"
             :highlight-current-row="true">
             <el-table-column
                 label="活动名称"
             >  
                 <template slot-scope="scope">
-                    <a href="javascript:;" @click="showAcitve(scope.row.id)">{{scope.row.name}}</a>
+                    <a href="javascript:;" @click="showAcitve(scope.row)">{{scope.row.name}}</a>
                 </template>
             </el-table-column>
             <el-table-column
@@ -79,10 +79,10 @@
                         <el-tooltip placement="top" content="删除">
                             <icon @click.native="del(scope.row)" scale="2" name="delete"></icon>
                         </el-tooltip>
-                        <el-tooltip placement="top" content="运行" v-if="scope.row.canRun">
+                        <el-tooltip placement="top" content="开启活动" v-if="scope.row.canRun">
                             <icon @click.native="runActivity(scope.row)" scale="2" name="enable"></icon>
                         </el-tooltip>
-                        <el-tooltip placement="top" content="停止" v-if="scope.row.canPause">
+                        <el-tooltip placement="top" content="暂停活动" v-if="scope.row.canPause">
                             <icon @click.native="pauseActivity(scope.row)" scale="2" name="stop"></icon>
                         </el-tooltip>
                     </div>
@@ -117,8 +117,6 @@
                     key: '',
                     queryNameType: 'couponActivity'
                 },
-                activeName: '1',
-                view: 'Active',
                 list: [],
                 loading: false
             }

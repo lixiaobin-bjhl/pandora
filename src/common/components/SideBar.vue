@@ -30,8 +30,8 @@
                         url: "discounts"
                     },
                     {
-                        text: "提醒设置",
-                        icon: 'notice',
+                        text: "关怀计划",
+                        icon: 'loving',
                         url: "setting"
                     }
                 ]

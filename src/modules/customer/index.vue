@@ -10,8 +10,8 @@
         <div class="list-box">
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入搜索关键词" 
-                        style="width: 420px;"
+                    <el-input placeholder="请输入微信昵称、姓名、手机或咨询顾问" 
+                        style="width: 340px;"
                         @keyup.enter.native="refresh" 
                         v-model.trim="filter.key"
                         class="input-with-select">
@@ -21,7 +21,7 @@
                             <el-option label="手机" value="3"></el-option>
                             <el-option label="咨询顾问" value="4"></el-option>
                         </el-select> -->
-                        <span slot="suffix" class="el-input__icon el-icon-search" @click="refresh"></span>
+                        <span slot="suffix" class="el-input__icon el-icon-search pointer" @click="refresh"></span>
                     </el-input>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                   
+                    fixed="left"
                     label="姓名">
                 </el-table-column>
                 <el-table-column

@@ -18,6 +18,7 @@
  @import './components/materialDetail';
  @import './components/timeline';
  @import '../../modules/setting/style';
+ @import '../../modules/discounts/style';
 
  
  .main {
@@ -193,6 +194,6 @@
     margin: 12px 0;
 }
 .pager {
-    text-align: center;
-    margin-top: 10px;
+    text-align: right;
+    margin: 20px 0;
 }
