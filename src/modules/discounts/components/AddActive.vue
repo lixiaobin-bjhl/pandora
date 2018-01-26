@@ -57,54 +57,68 @@
                     <el-radio :label="0">否</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="分享券张数">
-                <el-input
-                    style="width:360px;" 
-                    v-model="form.shareCount" 
-                    placeholder="如“3”表示每张卡券包含3张同样类型分享券"></el-input>
-            </el-form-item>
-            <el-form-item label="分享券可再裂变">
-                <el-radio-group v-model="form.hasFission">
-                    <el-radio :label="1">是</el-radio>
-                    <el-radio :label="0">否</el-radio>
-                </el-radio-group>
-            </el-form-item>
-            <el-form-item label="发券时间">
-                <el-row>
-                    <el-col :span="8">
-                        <el-radio-group v-model="form.notLimitTime">
-                            <el-radio :label="1">不限</el-radio>
-                            <el-radio :label="0">限时</el-radio>
-                        </el-radio-group>
-                    </el-col>
-                    <el-col :span="16">
-                        <el-date-picker
-                            v-model="form.timeRange"
-                            type="daterange"
-                            style="width: 300px;"
-                            range-separator="-"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期"
-                            >
-                        </el-date-picker>
-                    </el-col>
-                </el-row>
-            </el-form-item>
-            <el-form-item label="发券总数">
-                <el-row>
-                    <el-col :span="8">
-                        <el-radio-group v-model="form.notLimitCount">
-                            <el-radio :label="1">不限</el-radio>
-                            <el-radio :label="0">限时</el-radio>
-                        </el-radio-group>
-                    </el-col>
-                    <el-col :span="16">
-                        <el-input 
-                            placeholder="请输入发券总数" 
-                            v-model="form.maxCount"></el-input>
-                    </el-col>
-                </el-row>
-            </el-form-item>
+            <template v-if="form.hasChareCoupon">
+                <el-form-item 
+                    label="分享券张数" 
+                    prop="shareCount">
+                    <el-input
+                        style="width:360px;" 
+                        v-model="form.shareCount"
+                        :maxlength="5"
+                        type="number" 
+                        placeholder="如“3”表示每张卡券包含3张同样类型分享券"></el-input>
+                </el-form-item>
+                <el-form-item label="分享券可再裂变">
+                    <el-radio-group v-model="form.hasFission">
+                        <el-radio :label="1">是</el-radio>
+                        <el-radio :label="0">否</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+
+                <template v-if="form.hasFission">
+                    <el-form-item label="发券时间">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-radio-group v-model="form.notLimitTime">
+                                    <el-radio :label="1">不限</el-radio>
+                                    <el-radio :label="0">限时</el-radio>
+                                </el-radio-group>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-date-picker
+                                    v-model="form.timeRange"
+                                    type="daterange"
+                                    style="width: 300px;"
+                                    :picker-options="activityDateOption"
+                                    :disabled="form.notLimitTime? true: false"
+                                    range-separator="-"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期"
+                                    >
+                                </el-date-picker>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
+                    <el-form-item label="发券总数">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-radio-group v-model="form.notLimitCount">
+                                    <el-radio :label="1">不限</el-radio>
+                                    <el-radio :label="0">限时</el-radio>
+                                </el-radio-group>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-input
+                                    :disabled="form.notLimitCount?true:false"
+                                    style="width: 300px;"
+                                    type="number"
+                                    placeholder="请输入发券总数" 
+                                    v-model="form.maxCount"></el-input>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
+                </template>
+            </template>
         </el-form>
         <div slot="footer">
             <el-button @click="cancel">取消</el-button>
@@ -126,19 +140,24 @@
                 rules: config.addActiveRule,
                 couponRuleList: [],
                 triggerTypeOption: config.triggerTypeOption,
+                activityDateOption: {
+                    disabledDate(time) {
+                        return time.getTime() < Date.now();
+                    }
+                },
                 form: {
                     name: '',
-                    hasChareCoupon: '',
+                    hasChareCoupon: 0,
                     timeRange: '',
-                    hasFission: '',
+                    hasFission: 0,
                     couponRuleId: '',
                     triggerType: '',
                     shareCount: '',
-                    notLimitTime: '',
+                    notLimitTime: 1,
                     beginTime: '',
                     endTime: '',
                     maxCount: '',
-                    notLimitCount: '',
+                    notLimitCount: 1,
                 }
             };
         },
@@ -172,9 +191,28 @@
                         };
                         // 有分享劵
                         if (form.hasChareCoupon) {
-                            
+                            Object.assign(params, {
+                                shareCount: form.shareCount
+                            });
                         }
                         this.loading = true;
+                        if (form.notLimitTime) {
+                            Object.assign(params, {
+                                notLimitTime: notLimitTime ? true : false
+                            });
+                        }
+                        var timeRange = form.timeRange;
+                        if (timeRange) {
+                            Object.assign(params, {
+                                beginTime: +timeRange[0],
+                                endTime: +timeRange[1]
+                            });
+                        }
+                        if (form.maxCount) {
+                            Object.assign(params, {
+                                maxCount: form.maxCount
+                            });
+                        }
                         saveCouponActivity(params)
                             .then((res)=> {
                                 this.$emit('save');

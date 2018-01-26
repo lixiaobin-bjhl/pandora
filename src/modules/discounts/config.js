@@ -17,6 +17,12 @@ export default {
                 required: true,
                 message: '请选择发券方式'
             }
+        ],
+        shareCount: [
+            {
+                required: true,
+                message: '请填写分享券张数'
+            }
         ]
     },
     triggerTypeOption: [

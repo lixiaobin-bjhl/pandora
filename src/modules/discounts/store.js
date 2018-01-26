@@ -3,7 +3,7 @@
  */
 
 const state = {
-    showAddActiveState: true,
+    showAddActiveState: false,
     active: null,
     showAddCouponsState: false,
     coupons: null,
