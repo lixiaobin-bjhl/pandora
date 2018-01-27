@@ -3,17 +3,17 @@
         <ul class="tabs">
             <li :class="{active: activeTab === 1}" @click="changeTab(1)">
                 <div>
-                    <span>未使用(3)</span>
+                    <span>未使用<template v-if="effectCnt">({{effectCnt}})</template></span>
                 </div>
             </li>
             <li @click="changeTab(2)" :class="{active: activeTab === 2}">
                 <div>
-                    <span>已使用(3)</span>
+                    <span>已使用<template v-if="usedCnt">({{usedCnt}})</template></span>
                 </div>
             </li>
             <li @click="changeTab(3)" :class="{active: activeTab === 3}">
                 <div>
-                    <span>已过期(3)</span>
+                    <span>已过期<template v-if="expireCnt">({{expireCnt}})</template></span>
                 </div>
             </li>
         </ul>
@@ -59,13 +59,16 @@
     import setTitle from '../../common/function/setTitle';
     import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
     import { Indicator, Loadmore} from 'mint-ui';
-    import { couponList } from 'src/modules/customer/request';
+    import { couponList, getPatientCouponStatistics} from 'src/modules/customer/request';
     
     export default {
         mixins: [wechatJsSignMixin],
         data () {
             return {
                 activeTab: 1,
+                expireCnt: 0,
+                usedCnt: 0,
+                effectCnt: 0,
                 pageNum: 1,
                 pageSize: 20,
                 allLoaded: false,
@@ -79,8 +82,21 @@
         },
         mounted() {
             this.fetchList();
+            this.getPatientCouponStatistics();
         },
         methods: {
+            /**
+             * 获取用户优惠券使用情况统计 
+             */
+            getPatientCouponStatistics () {
+                getPatientCouponStatistics()
+                    .then((res)=> {
+                        var data = res.data;
+                        this.usedCnt = data.usedCnt;
+                        this.expireCnt = data.expireCnt;
+                        this.effectCnt = data.expireCnt;
+                    });
+            },
             /**
              * 获取列表 
              */

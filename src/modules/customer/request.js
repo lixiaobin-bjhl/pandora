@@ -105,3 +105,10 @@ export function getShareCouponInfo (params) {
 export function generateShareInfo (params) {
     return post('/coupon/getShareCouponInfo.json', params);
 }
+
+/**
+ * 获取用户优惠券使用情况统计
+ */
+export function getPatientCouponStatistics (params) {
+    return post('/coupon/getPatientCouponStatistics.json', params);
+}
