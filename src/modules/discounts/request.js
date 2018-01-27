@@ -84,32 +84,4 @@ export function couponRuleDelete (params) {
     return post('/couponRule/delete.json', params);
 }
 
-/**
- * 优惠列表
- */
-export function couponList (params) {
-    return post('/coupon/list.json', params);
-}
-
-/**
- * 抢券
- */
-export function getCoupon (params) {
-    return post('/coupon/getCoupon.json', params);
-}
-
-/**
- * 获取分享优惠券信息
- */
-export function getShareCouponInfo (params) {
-    return post('/coupon/getShareCouponInfo.json', params);
-}
-
-/**
- * 生成优惠券分享链接
- */
-export function generateShareInfo (params) {
-    return post('/coupon/getShareCouponInfo.json', params);
-}
-
 

@@ -45,6 +45,7 @@
     import { Cell } from 'mint-ui';
     import { Indicator } from 'mint-ui';
     import {getLoginUser} from '../request';
+    import {updateAvatar} from 'src/modules/customer/request';
 
     Vue.component(Cell.name, Cell);
     import axios from 'axios';
@@ -86,8 +87,18 @@
                 Indicator.open('加载中…');
                 axios.post('/storage/upload.json', param, config)
                     .then(res => {
-                        this.info.avatar = res.data.url;
-                        Indicator.close();
+                        var avatar = res.data.url;
+                        updateAvatar({
+                            avatar: avatar
+                        })
+                        .then(()=> {
+                            this.info.avatar = avatar;
+                            toast('保成成功');
+                            Indicator.close();
+                        }, ()=> {
+                            Indicator.close();
+                            this.reset();
+                        });
                         this.reset();
                     }, ()=> {
                         Indicator.close();

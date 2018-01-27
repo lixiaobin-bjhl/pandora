@@ -2,9 +2,9 @@
 	<div>
 		<div class="fields">
 			<div class="profile">
-				<img width="60" height="60" :src="info.consulter.avatar">
+				<img width="60" height="60" :src="info.avatar|compressImage(60, 60)">
 				<ul>
-					<li class="name">{{info.consulter.name}}</li>
+					<li class="name">{{info.name}}</li>
 					<li class="gray999">{{info.orgName || '医院名称'}}</li>
 				</ul>
 			</div>
@@ -16,8 +16,17 @@
 				</ol>
 			</div>
 			<div class="login-form">
-				<mt-field class="mobile-field" :disable-clear="true"  v-model="name" placeholder="姓名"></mt-field>
-				<mt-field class="mobile-field" :disable-clear="true"  v-model="mobile" placeholder="手机号" type="tel"></mt-field>
+				<mt-field class="mobile-field" 
+					:disable-clear="true"
+					:maxlength="20"  
+					v-model="name" 
+					placeholder="姓名"></mt-field>
+				<mt-field class="mobile-field" 
+					:disable-clear="true"  
+					v-model="mobile"
+					:maxlength="11"
+					placeholder="手机号" 
+					type="tel"></mt-field>
 				<div class="gender-wrap">
 					<label><input v-model="gender" :value="1" name="gender" type="radio">男</input></label>
 					<label><input v-model="gender" :value="2" name="gender" type="radio">女</input></label>
@@ -60,7 +69,8 @@
 	import 'mint-ui/lib/toast/style.css';
 	import { Indicator } from 'mint-ui';
 	import redirect from '../../common/function/redirect';
-	import  {bindWechat, getLoginUser} from '../request';
+	import  {getLoginUser} from '../request';
+	import {update} from 'src/modules/customer/request';
 
 	export default {
 		data() {
@@ -96,59 +106,12 @@
 						Indicator.close();
 					});
 			},
-			timeStep() {
-				this.count--;
-				this.codeTip = `重新获取(${this.count}s)`;
-				if (this.count < 1 && this.timer) {
-					clearInterval(this.timer);
-					this.getCoding = false;
-					this.codeTip = `获取验证码`;
-					this.waiting = false;
-				}
-			},
-			startTimer() {
-				this.waiting = true;
-				this.codeTip = `重新获取(${this.count}s)`;
-				this.timer = setInterval(() => {
-					this.timeStep();
-				}, 1000);
-				this.timeStep();
-
-            },
             /**
              * 改变年龄 
              */
             changeAge (age) {
                 this.age = age;
             },
-			getCode() {
-				if (this.getCoding || this.waiting) {
-					return;
-				} else {
-					if (this.mobile == '') {
-						Toast('请填写手机号');
-						return;
-					}
-					if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
-						Toast('请输入正确的手机号');
-						return;
-					}
-
-					let params = {
-						mobile: this.mobile,
-						userRole: this.query.userRole
-					};
-					this.count = 60;
-					this.getCoding = true;
-					sendCode(params)
-						.then((res) => {
-							Toast('验证码已发送');
-							this.startTimer();
-						}, () => {
-							this.getCoding = false;
-						});
-				}
-			},
 			bind() {
 				if (this.name == '') {
 					Toast('请填写姓名');
@@ -163,7 +126,7 @@
 					return;
 				}
 				if (this.age == '') {
-					Toast('请填写年龄');
+					Toast('请选择年龄段');
 					return;
 				}
 				if (!this.gender) {
@@ -178,10 +141,11 @@
 					age: this.age,
 					gender: this.gender
 				}
-				bindWechat(params)
+				update(params)
 					.then((res) => {
-						Toast('绑定成功');
-						redirect('chat.html');
+						Toast('保存成功');
+						Indicator.close();
+						this.$router.back();
 					})
 					.catch(() => {
 						Indicator.close();

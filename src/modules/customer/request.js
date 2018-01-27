@@ -58,6 +58,13 @@ export function addProject (params) {
 }
 
 /**
+ * 更新用户头像
+ */
+export function updateAvatar (params) {
+    return post('/patient/updateAvatar.json', params);
+}
+
+/**
  * 删除项目
  */
 export function deleteProject (params) {
@@ -72,29 +79,29 @@ export function updateProject (params) {
 }
 
 /**
- * 卡券列表
+ * 优惠列表
  */
-export function couponRuleList (params) {
-    return post('/couponRule/list.json', params);
+export function couponList (params) {
+    return post('/coupon/list.json', params);
 }
 
 /**
- * 添加优惠券规则
+ * 抢券
  */
-export function couponRuleSave (params) {
-    return post('/couponRule/save.json', params);
+export function getCoupon (params) {
+    return post('/coupon/getCoupon.json', params);
 }
 
 /**
- * 删除优惠券
+ * 获取分享优惠券信息
  */
-export function couponRuleDelete (params) {
-    return post('/couponRule/delete.json', params);
+export function getShareCouponInfo (params) {
+    return post('/coupon/getShareCouponInfo.json', params);
 }
 
 /**
- * 检测优惠券是否重复
+ * 生成优惠券分享链接
  */
-export function couponRuleCheckRepeat (params) {
-    return post('/couponRule/checkRepeat.json', params);
+export function generateShareInfo (params) {
+    return post('/coupon/getShareCouponInfo.json', params);
 }

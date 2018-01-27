@@ -33,6 +33,13 @@ exports.routes = [
     },
     {
 		method: 'POST',
+        path: '/patient/updateAvatar.json',
+        handler: function (request, reply) {
+            return reply(require('./json/api/success.json'));
+        }
+    },
+    {
+		method: 'POST',
         path: '/patient/addProject.json',
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));

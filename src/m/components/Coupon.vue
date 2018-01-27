@@ -17,63 +17,39 @@
                 </div>
             </li>
         </ul>
-        <div class="coupon-list">
-            <div class="coupon">
-                <span class="circle-solid left"></span>
-                <span class="circle-solid right"></span>
-                <h1 class="hospotial">欧若拉医疗美容医院</h1>
-                <div>
-                    <ul class="coupon-detail">
-                        <h1 class="title">脱毛免费本验券</h1>
-                        <li>
-                            <label>有效期</label>
-                            <div>2017/12-2017/9/12</div>    
-                        </li>
-                        <li>
-                            <label>使用规则</label>
-                            <div>
-                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                            </div>
-                        </li>
-                        <li>
-                            <label>使用方法</label>
-                            <div>请提前联系机构预约，并在付款时出示本券</div>
-                        </li>
-                    </ul>
+        <loadmore :auto-fill="false"  :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+            <div class="coupon-list" v-if="list && list.length">
+                <div class="coupon" 
+                    v-for="item, index in list" 
+                    :key="item.id">
+                    <span class="circle-solid left"></span>
+                    <span class="circle-solid right"></span>
+                    <h1 class="hospotial">欧若拉医疗美容医院</h1>
+                    <div>   
+                        <ul class="coupon-detail">
+                            <h1 class="title">{{item.couponName}}</h1>
+                            <li>
+                                <label>有效期</label>
+                                <div>{{item.beginTime|date('yyyy/MM/dd')}}-{{item.endTime|date('yyyy/MM/dd')}}</div>    
+                            </li>
+                            <li>
+                                <label>使用规则</label>
+                                <pre>{{item.ruleDesc}}</pre>
+                            </li>
+                            <li>
+                                <label>使用方法</label>
+                                <div><pre>{{item.ruleDesc}}</pre></div>
+                            </li>
+                            <div class="opt-group" v-if="item.canShare">
+                                再送你{{item.shareCount}}张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat">分享</span>
+                            </div> 
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div class="coupon">
-                <span class="circle-solid left"></span>
-                <span class="circle-solid right"></span>
-                 <span class="circle-solid left1"></span>
-                <span class="circle-solid right1"></span>
-                <h1 class="hospotial">欧若拉医疗美容医院</h1>
-                <div>
-                    <ul class="coupon-detail">
-                        <h1 class="title">脱毛免费本验券</h1>
-                        <li>
-                            <label>有效期</label>
-                            <div>2017/12-2017/9/12</div>    
-                        </li>
-                        <li>
-                            <label>使用规则</label>
-                            <div>
-                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                            </div>
-                        </li>
-                        <li>
-                            <label>使用方法</label>
-                            <div>请提前联系机构预约，并在付款时出示本券</div>
-                        </li>
-                        <div class="opt-group">
-                            再送你3张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat">分享</span>
-                        </div> 
-                    </ul>
-                   
-                </div>
-            </div>
-
+        </loadmore>
+        <div v-if="!list.length" class="none-list">
+            <span>暂没有找到优惠卷信息</span>
         </div>
     </div>
 </template>
@@ -82,40 +58,96 @@
 
     import setTitle from '../../common/function/setTitle';
     import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
-    import { Indicator } from 'mint-ui';
-
+    import { Indicator, Loadmore} from 'mint-ui';
+    import { couponList } from 'src/modules/customer/request';
+    
     export default {
         mixins: [wechatJsSignMixin],
         data () {
             return {
-                activeTab: 1
+                activeTab: 1,
+                pageNum: 1,
+                pageSize: 20,
+                allLoaded: false,
+                list: []
             }
         },
         created () {
             setTitle('优惠券');
             this.getWechatJsSign();
+            document.body.style.backgroundColor = '#f5f5f5';
+        },
+        mounted() {
+            this.fetchList();
         },
         methods: {
+            /**
+             * 获取列表 
+             */
+            fetchList (mid) {
+                Indicator.open('加载中…');
+                var params = {
+                    pageNum: this.pageNum,
+                    pageSize: this.pageSize
+                };
+                if (this.activeTab == 2) {
+                    params.used = true;
+                } else if (this.activeTab == 3) {
+                    params.expired = true;
+                }
+                couponList(params)
+                    .then((res)=> {
+                        Indicator.close();
+                        this.$refs.loadmore.onBottomLoaded(mid);
+                        this.list = this.list.concat(res.data.list);
+                        var pageInfo = res.pageInfo;
+                        if (pageInfo.pageNum < Math.ceil(pageInfo.count / pageInfo.pageSize)) {
+                            this.allLoaded = false;
+                        } else {
+                            this.allLoaded = true;
+                        } 
+                    }, ()=> {
+                        Indicator.close();
+                        this.$refs.loadmore.onBottomLoaded(mid);
+                    });
+            },
+            /**
+             * 获取更多优惠券 
+             */
+            loadBottom (mid) {
+                this.pageNum ++;
+                this.fetchList(mid);
+            },
             /**
              * 切换tab 
              */
             changeTab (type) {
                 this.activeTab = type;
+                this.list = [];
+                this.fetchList();
             },
             /**
              * 分享 
              */
-            shareWechat () {
-                this.share({});
+            shareWechat (item) {
+                this.share({
+                    title: item.name,
+                    imgUrl: 'https://www.baidu.com/img/superlogo_c4d7df0a003d3db9b65e9ef0fe6da1ec.png',
+                    link: '/couponShare.html',
+                    desc: item.name
+                });
             }
+        },
+        beforeDestroy () {
+            document.body.style.backgroundColor = '#fff';
+        },
+        components: {
+            Loadmore
         }
     }
 </script>
 
 <style lang="scss">
-    body {
-        background: #F5F5F5;
-    }
     .tabs {
         display: flex;
         background: #fff;
@@ -167,8 +199,7 @@
                 position: absolute;
                 width: 5px;
                 height: 10px;
-               
-                background: #F5F5F5;
+                background: #F5F5F5;;
                 &.left {
                     left: -1px;
                     top: 35px;

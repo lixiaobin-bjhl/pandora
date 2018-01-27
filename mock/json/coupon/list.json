@@ -11,6 +11,22 @@
                 "beginTime": 111111,
                 "endTime": 2222222,
                 "ruleDesc": "已结束",
+                "shareCount": 112,
+                "canShare": false,
+                "expired": false,
+                "used": false,
+                "useDesc": "使用说明",
+                "createTime": 1516879000442
+            },
+            {
+                "id":2,
+                "couponName": "卡券名称",
+                "concatName": "卡券拼接名称",
+                "periodStr": "20天",
+                "beginTime": 111111,
+                "endTime": 2222222,
+                "ruleDesc": "已结束",
+                "shareCount": 112,
                 "canShare": true,
                 "expired": false,
                 "used": false,
@@ -18,5 +34,11 @@
                 "createTime": 1516879000442
             }
         ]
+    },
+    "pageInfo": {
+        "count": 100,
+        "pageNum": 1,
+        "pageSize": 20,
+        "currentSize": 18
     }
 }

@@ -11,9 +11,10 @@ import 'mint-ui/lib/style.css';
 import router from './customerRouter';
 
 require('../common/filter/compressImage');
+require('../common/filter/date');
 
 import Icon from 'vue-svg-icon/Icon.vue';
-Vue.component('icon', Icon);  
+Vue.component('icon', Icon);
 
 window.toast = function(msg) {
     Toast(msg);
