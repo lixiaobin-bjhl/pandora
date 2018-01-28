@@ -1,0 +1,12 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+        "couponId":1, 
+        "getCoupon":true,
+        "expired": false,
+        "overSend": false
+    },
+    "pageInfo": {
+    }
+}

@@ -9,6 +9,9 @@ import Vue from 'vue';
 import compressImage from '../function/compressImage';
 
 Vue.filter('compressImage', function (storageId, width, height) {
+    if (storageId && storageId.indexOf('clouddn') < -1) {
+        return storageId;
+    }
     var storageId = storageId || 'http://omh2h1x76.bkt.clouddn.com/user.png';
     return compressImage(storageId, {
         width: width,

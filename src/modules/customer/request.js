@@ -103,7 +103,7 @@ export function getShareCouponInfo (params) {
  * 生成优惠券分享链接
  */
 export function generateShareInfo (params) {
-    return post('/coupon/getShareCouponInfo.json', params);
+    return post('/coupon/generateShareInfo.json', params);
 }
 
 /**

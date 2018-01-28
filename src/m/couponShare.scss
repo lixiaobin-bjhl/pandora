@@ -33,6 +33,7 @@ html {
     height: 351px;
     margin: 25px auto 0 auto;
     padding: 10px;
+    text-align: center;
     box-sizing: border-box;
     background: url('../assets/img/envelope.svg') no-repeat;
     .org-logo {
@@ -58,6 +59,32 @@ html {
             height: 100px;
             margin: 0 auto;
         }
+    }
+}
+
+.logo-info {
+    @include clearfix;
+    img {
+        float: left;
+    }
+    span {
+        float: right;
+        margin: 10px 10px 0 0;
+        background: #C0CCDA;
+        border-radius: 2.3px;
+        font-size: 12px;
+        width: 36px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 3px;
+        color: #FFFFFF;
+    }
+}
+
+.has-get-coupon {
+    text-align: center;
+    .qrcode {
+        margin-top: 5px;
     }
 }
 
@@ -99,7 +126,6 @@ html {
 }
 
 .coupon-result {
-    text-align: center;
     padding-top: 50px;
     .qrcode-guide {
         margin-top: 5px;
@@ -110,4 +136,11 @@ html {
         color: #1F2D3D;
         margin-top: 20px;
     }
+}
+
+.first-tip {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 50px;
 }

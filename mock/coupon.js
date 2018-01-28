@@ -26,6 +26,13 @@ exports.routes = [
     },
     {
 		method: 'POST',
+        path: '/coupon/generateShareInfo.json',
+        handler: function (request, reply) {
+            return reply(require('./json/coupon/generateShareInfo.json'));
+        }
+    },
+    {
+		method: 'POST',
         path: '/coupon/getPatientCouponStatistics.json',
         handler: function (request, reply) {
             return reply(require('./json/coupon/getPatientCouponStatistics.json'));

@@ -1,0 +1,14 @@
+{
+    "code": 0,
+    "msg": null,
+    "data":{
+        "shareUrl":"http://sssss.baidu.com/sss",
+        "orgName": "机构名称", 
+        "orgAvatar":"机构图标地址",
+        "orgShortName":"机构简称",
+        "couponName":"优惠券名称",
+        "shareCount":3 
+    },
+    "pageInfo": {
+    }
+}

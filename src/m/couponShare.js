@@ -12,6 +12,8 @@ import Toast from 'mint-ui/lib/toast';
 import 'mint-ui/lib/toast/style.css';
 import router from './couponShareRouter';
 
+require('src/common/filter/compressImage');
+
 window.toast = function(msg) {
     Toast(msg);
 }

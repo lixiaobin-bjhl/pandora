@@ -7,7 +7,7 @@
         "shareCount": 3,
         "expireDays": 20,
         "ruleDesc": "已结束",
-        "qrCodeUrl": "http://ssssss",
+        "qrCodeUrl": "http://baidu.com",
         "canGetCoupon": true,
         "hasGetCoupon": false,
         "expired": false,
@@ -15,7 +15,7 @@
         "receiveCouponUsers": [
             {
                 "name": "张三",
-                "avatar": "http://www.baidu.com/www"
+                "avatar": "http://omh2h1x76.bkt.clouddn.com/user.png"
             }
         ]
     }

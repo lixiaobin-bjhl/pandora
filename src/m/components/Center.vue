@@ -13,6 +13,7 @@
                                 type="file" 
                                 name="upload"
                                 ref="file"
+                                capture="camera"
                                 @change="uploadPhoto"
                                 id="upload"> 
                             <label for="upload"><icon name="camera" scale="2"></icon></label>

@@ -41,7 +41,7 @@
                                 <div><pre>{{item.ruleDesc}}</pre></div>
                             </li>
                             <div class="opt-group" v-if="item.canShare">
-                                再送你{{item.shareCount}}张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat">分享</span>
+                                再送你{{item.shareCount}}张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat(item)">分享</span>
                             </div> 
                         </ul>
                     </div>
@@ -59,7 +59,7 @@
     import setTitle from '../../common/function/setTitle';
     import wechatJsSignMixin from '../../common/mixin/wechatJsSignMixin';
     import { Indicator, Loadmore} from 'mint-ui';
-    import { couponList, getPatientCouponStatistics} from 'src/modules/customer/request';
+    import { couponList, getPatientCouponStatistics, generateShareInfo} from 'src/modules/customer/request';
     
     export default {
         mixins: [wechatJsSignMixin],
@@ -146,12 +146,19 @@
              * 分享 
              */
             shareWechat (item) {
-                this.share({
-                    title: item.name,
-                    imgUrl: 'https://www.baidu.com/img/superlogo_c4d7df0a003d3db9b65e9ef0fe6da1ec.png',
-                    link: '/couponShare.html',
-                    desc: item.name
+                generateShareInfo({
+                    couponId: item.id
+                })
+                    .then((res)=> {
+                        var data = res.data;
+                        this.share({
+                            imgUrl: data.orgAvatar,
+                            link: data.shareUrl,
+                            title: '在' + data.orgName + '领了' + data.shareCount + '个卡券红包分享给你，就要你美！',
+                            desc: data.orgAvatar + '卡券等你来抢，手快有，手慢无~'
+                        });
                 });
+               
             }
         },
         beforeDestroy () {
