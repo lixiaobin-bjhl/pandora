@@ -7,16 +7,15 @@
         </el-row>
          <div class="list-box">
             <el-tabs v-model="activeName" @tab-click="changeTab">
-                <el-tab-pane label="眼部" name="1"></el-tab-pane>
-                <el-tab-pane label="鼻部" name="2"></el-tab-pane>
-                <el-tab-pane label="面部" name="3"</el-tab-pane>
-                <el-tab-pane label="胸部" name="4"></el-tab-pane>
-                <el-tab-pane label="激光治疗" name="5"></el-tab-pane>
-                <el-tab-pane label="注射" name="6"></el-tab-pane>
+                <el-tab-pane 
+                    v-for="item, index in porjectList" 
+                    :label="item.categoryName" 
+                    :name="''+item.id" 
+                    :key="index"></el-tab-pane>
             </el-tabs>
             <div class="filter-wrap">
                 <div class="filter-box">
-                    <el-input placeholder="请输入卡券名称搜索" 
+                    <el-input placeholder="请输入项目名称" 
                         style="width: 360px;"
                         @keyup.enter.native="refresh" 
                         v-model.trim="filter.key"
@@ -31,15 +30,31 @@
                 :data="list"
                 :highlight-current-row="true">
                 <el-table-column
-                    label="微信昵称"
-                >  
-                    <template slot-scope="scope">
-                        <a href="javascript:;" @click="showNiticeItem(scope.row)">李小斌</a>
-                    </template>
+                    prop="name"
+                    label="项目"
+                > 
+                <template slot-scope="scope">
+                    <div>
+                        <a href="javascript:;" @click="showNiticeItem(scope.row)">{{scope.row.name}}</a>
+                    </div>
+                </template>
                 </el-table-column>
                 <el-table-column
-                    prop="date"
-                    label="项目">
+                    label="术前、术后提醒事项">
+                    <template slot-scope="scope">
+                       <template v-if="scope.row.carePlans.length"> 
+                            <ul>  
+                                <li  
+                                    v-for="item, index in scope.row.carePlans"
+                                    v-if="index < 5"
+                                    :key="index">
+                                        {{item.noticeTime}}：{{item.noticeDesc}}
+                                    </li>
+                                    <li v-if="scope.row.carePlans.length > 5">……</li>
+                            </ul>
+                        </template>
+                        <template v-else>-</template>
+                    </template>
                 </el-table-column>
             </el-table>
             <div v-if="!list.length" class="none-list">
@@ -60,30 +75,68 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import NoticeItem from './components/NoticeItem';
+    import { listProjectCarePlan } from './request';
+    import {getProjectList} from '../customer/request';
 
     export default {
         mixins: [listPageDto],
         data () {
             return {
-                filter: {},
-                activeName: '1',
-                list: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-                breadcrumb: ['提醒设置'],
+                filter: {
+                    key: ''
+                },
+                activeName: null,
+                list: [],
+                porjectList: [],
+                breadcrumb: ['关怀计划'],
                 loading: false
             }
         },
+        mounted () {
+            this.getProjectList();
+        },
         methods: {
+            getProjectList () {
+                getProjectList()
+                    .then((res)=> {
+                        var list = res.data.tree;
+                        this.porjectList = res.data.tree;
+                        this.activeName = '' + list[0].id;
+                        this.fetchList();
+                    });
+            },
+            /**
+             * 获取列表 
+             */
+            fetchList () {
+                var pageInfo = this.pageInfo;
+                var filter = this.filter;
+                this.loading = true;
+                listProjectCarePlan({
+                    nameKey: filter.key,
+                    categoryId: +this.activeName,
+                    pageNum: pageInfo.pageNum,
+                    pageSize: pageInfo.pageSize
+                })
+                .then((res)=> {
+                    this.list = res.data.list;
+                    Object.assign(this.pageInfo, res.pageInfo);
+                    this.loading = false;
+                }, ()=> {
+                    this.loading = false;
+                });
+            },
             /**
              * 改变tab 
              */
             changeTab (tab) {
-                console.log(this.activeName);
+                this.fetchList();
             },
             /**
              * 展示项目 
              */
-            showNiticeItem () {
-                this.$store.commit('SHOW_NOTICE_ITEM');
+            showNiticeItem (project) {
+                this.$store.commit('SHOW_NOTICE_ITEM', project);
             }
         },
         components: {

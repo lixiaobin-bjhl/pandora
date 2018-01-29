@@ -30,7 +30,7 @@ export default new Router({
                     component: Coupon
                 },
                 {
-                    path: 'loving',
+                    path: 'carePlan',
                     component: Loving
                 },
                 {

@@ -37,12 +37,12 @@ module.exports = merge(baseWebpackConfig, {
 		// 	chunks: ['chat'],
 		// 	inject: true
 		// }),
-		// new HtmlWebpackPlugin({
-		// 	filename: 'main.html',
-		// 	template: 'main.html',
-		// 	chunks: ['app'],
-		// 	inject: true
-		// }),
+		new HtmlWebpackPlugin({
+			filename: 'main.html',
+			template: 'main.html',
+			chunks: ['app'],
+			inject: true
+		}),
 		// new HtmlWebpackPlugin({
 		// 	filename: 'login.html',
 		// 	template: 'login.html',
@@ -78,12 +78,12 @@ module.exports = merge(baseWebpackConfig, {
 		// 	inject: true,
 		// 	chunks: ['coupon']
 		// }),
-		new HtmlWebpackPlugin({
-			filename: 'couponShare.html',
-			template: 'couponShare.html',
-			inject: true,
-			chunks: ['couponShare']
-		}),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'couponShare.html',
+		// 	template: 'couponShare.html',
+		// 	inject: true,
+		// 	chunks: ['couponShare']
+		// }),
 		new HtmlWebpackPlugin({
 			filename: 'customer.html',
 			template: 'customer.html',

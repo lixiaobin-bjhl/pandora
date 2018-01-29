@@ -11,7 +11,8 @@ var routesConfig = [
     require('./coupon'),
     require('./couponRule'),
     require('./couponActivity'),
-    require('./patient')
+    require('./patient'),
+    require('./carePlan')
 ];
 
 var routes = [];

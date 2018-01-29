@@ -1,0 +1,20 @@
+{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "projectId": 1,
+        "name": "双眼皮",
+        "carePlans": [
+            {
+                "id": 1,
+                "projectId": 1,
+                "afterOperate": true,
+                "period": 1,
+                "noticeDesc": "提醒事项",
+                "createTime": 11111111111111,
+                "noticeTime": "术后1天"
+            }
+        ]
+    },
+    "pageInfo": {}
+}

@@ -4,17 +4,17 @@
 
 const state = {
     showNoticeItem: false,
-    noticeItem: null
+    projectItem: null
 };
 
 const mutations = {
-    'SHOW_NOTICE_ITEM' (state, noticeItem) {
+    'SHOW_NOTICE_ITEM' (state, projectItem) {
         state.showNoticeItem = true;
-        state.noticeItem = noticeItem;
+        state.projectItem = projectItem;
     },
     'HIDE_NOTICE_ITEM' (state) {
         state.showNoticeItem = false;
-        state.noticeItem = null;
+        state.projectItem = null;
     }
 };
 

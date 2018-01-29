@@ -33,7 +33,7 @@
             <mt-cell title="优惠券" is-link @click.native="redirect('/coupon')">
                 <icon slot="icon" name="coupon" style="color:#20A0FF" scale="2.5"></icon>
             </mt-cell>
-            <mt-cell title="关怀计划" is-link @click.native="redirect('/loving')">
+            <mt-cell title="关怀计划" is-link @click.native="redirect('/carePlan')">
                 <icon slot="icon" name="loving" style="color:#F9A24B" scale="2.5"></icon>
             </mt-cell>
         </div>
