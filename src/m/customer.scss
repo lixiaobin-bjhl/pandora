@@ -247,9 +247,19 @@
 		}
 	}
 	&.select-item {
-		.select {
-			.mint-cell {
-				min-height: 50px;
+		li {
+			height: 50px;
+			line-height: 50px;
+			padding: 0 15px;
+			@include clearfix;
+			background: #fff;
+			border-bottom: 1px solid #d7d7d7;
+			&:last-of-type {
+				border-bottom: 0;
+			}
+			.svg-icon {
+				float: right;
+				margin-top: 24px;
 			}
 		}
 	}
@@ -261,10 +271,21 @@
 			color: #8492A6;
 		}
 		.content {
-			font-size: 17px;
-			color: #1F2D3D;
+			font-size: 14px;
+			color: #8492A6;
 			letter-spacing: 0;
+			margin-top: 10px;
 			line-height: 24px;
+			&.active {
+				color: #333;
+			}
 		}
+	}
+	.care-notice {
+		position: absolute;
+		bottom: 20px;
+		text-align: center;
+		width: 100%;
+		color: #999;
 	}
 }

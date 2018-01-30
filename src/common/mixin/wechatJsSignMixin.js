@@ -82,13 +82,13 @@ export default {
          * @param {string} options.imgUrl 分享图片
          */
         share (options) {
-            wechatApi.showOptionMenu();
-            wechatApi.share({
-                title: options.title,
-                imgUrl: options.imageUrl,
-                link: options.shareUrl,
-                desc: options.content
-            });
+            var shareData = Object.assign({}, options);
+            wx.onMenuShareTimeline(shareData);
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareQQ(shareData);
+            wx.onMenuShareWeibo(shareData);
+            wx.onMenuShareQZone(shareData);
+            wx.showOptionMenu();
         }
     }
 }

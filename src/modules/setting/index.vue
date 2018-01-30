@@ -5,7 +5,7 @@
                 <breadcrumb-nav :data="breadcrumb"></breadcrumb-nav>
             </el-col>
         </el-row>
-         <div class="list-box">
+        <div class="list-box">
             <el-tabs v-model="activeName" @tab-click="changeTab">
                 <el-tab-pane 
                     v-for="item, index in porjectList" 
@@ -38,6 +38,7 @@
                         <a href="javascript:;" @click="showNiticeItem(scope.row)">{{scope.row.name}}</a>
                     </div>
                 </template>
+
                 </el-table-column>
                 <el-table-column
                     label="术前、术后提醒事项">
@@ -75,6 +76,7 @@
     import BreadcrumbNav from '../../common/components/BreadcrumbNav.vue';
     import listPageDto from '../../common/mixin/listPageDto';
     import NoticeItem from './components/NoticeItem';
+    import xxx from './components/xxx.vue';
     import { listProjectCarePlan } from './request';
     import {getProjectList} from '../customer/request';
 
@@ -141,7 +143,8 @@
         },
         components: {
             BreadcrumbNav,
-            NoticeItem
+            NoticeItem,
+            xxx
         }
     }
 </script>

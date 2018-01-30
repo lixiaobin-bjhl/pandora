@@ -1,12 +1,11 @@
 <template>
     <div class="loving select-item">
         <div class="select">
-            <mt-radio
-                title=""
-                align="right"
-                v-model="value"
-                :options="options">
-            </mt-radio>
+           <ul>
+               <li v-for="item, n in options" @click="changeProject(n)">
+                   {{item.name}} <icon name="male" v-if="n==value" scale="1.3"></icon>
+               </li>
+           </ul>
         </div>
     </div>
 </template>
@@ -22,26 +21,27 @@
     export default {
         data () {
             return {
-                value: '1',
-                options: [
-                    {
-                        label: '双眼皮关怀计划',
-                        value: '1'
-                    },
-                    {
-                        label: '隆鼻关怀计划',
-                        value: '2'
-                    }
-                ]
+                value: this.$root.index || 0,
+                // options: this.$root.porjectOption
+                options: [{
+                    name: 12312
+                },{
+                    name: 12312
+                }]
             };
         },
         created () {
             setTitle('选择项目');
+            document.body.style.backgroundColor = '#f5f5f5';
         },
-        watch: {
-            value () {
+        methods: {
+            changeProject (n) {
+                this.$root.index = n;
                 this.$router.back();
             }
+        },
+        beforeDestroy () {
+            document.body.style.backgroundColor = '#fff';
         }
     }
 </script>

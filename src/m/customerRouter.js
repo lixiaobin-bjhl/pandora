@@ -5,7 +5,7 @@ import Center from './components/Center';
 import Customer from './components/Customer';
 import Profile from './components/Profile';
 import Coupon from './components/Coupon';
-import Loving from './components/Loving';
+import CarePlan from './components/CarePlan';
 import SelectItem from './components/SelectItem';
 
 Vue.use(Router);
@@ -31,7 +31,7 @@ export default new Router({
                 },
                 {
                     path: 'carePlan',
-                    component: Loving
+                    component: CarePlan
                 },
                 {
                     path: 'selectItem',

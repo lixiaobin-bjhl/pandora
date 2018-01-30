@@ -18,6 +18,68 @@
                         "active":true,
                         "createTime":11111111111111,
                         "noticeTime": "术后1天"
+                    },
+                    {
+                        "id":1,
+                        "projectId":1,
+                        "afterOperate":true,
+                        "period":1,
+                        "noticeDesc":"提醒事项",
+                        "lastCarePlan":true,
+                        "active":true,
+                        "createTime":11111111111111,
+                        "noticeTime": "术后1天"
+                    },
+                    {
+                        "id":1,
+                        "projectId":1,
+                        "afterOperate":true,
+                        "period":1,
+                        "noticeDesc":"提醒事项",
+                        "lastCarePlan":true,
+                        "active":true,
+                        "createTime":11111111111111,
+                        "noticeTime": "术后1天"
+                    }
+                ]
+            },
+            {
+                "projectId":1,
+                "name":"双眼皮2",
+                "active": true,
+                "carePlans":[
+                    {
+                        "id":1,
+                        "projectId":1,
+                        "afterOperate":true,
+                        "period":1,
+                        "noticeDesc":"提醒事项",
+                        "lastCarePlan":true,
+                        "active":true,
+                        "createTime":11111111111111,
+                        "noticeTime": "术后1天"
+                    },
+                    {
+                        "id":1,
+                        "projectId":1,
+                        "afterOperate":true,
+                        "period":1,
+                        "noticeDesc":"提醒事项",
+                        "lastCarePlan":true,
+                        "active":true,
+                        "createTime":11111111111111,
+                        "noticeTime": "术后1天"
+                    },
+                    {
+                        "id":1,
+                        "projectId":1,
+                        "afterOperate":true,
+                        "period":1,
+                        "noticeDesc":"提醒事项",
+                        "lastCarePlan":true,
+                        "active":true,
+                        "createTime":11111111111111,
+                        "noticeTime": "术后1天"
                     }
                 ]
             }
