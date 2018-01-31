@@ -4,6 +4,6 @@ git pull origin pc
 
 rm -rf /app/pandora/webroot/static
 
-cp dist/* /app/pandora/webroot/
+cp -rf dist/* /app/pandora/webroot/
 
 echo 'build end'
