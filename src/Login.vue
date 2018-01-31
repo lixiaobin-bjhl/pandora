@@ -86,20 +86,29 @@
         methods: {
             login() {
                 this.$refs['form'].validate((valid) => {
-                    var form = this.form;
-                    this.loading = true;
-                    login({
-                        mobile: form.name,
-                        password: md5(form.password)
-                    })
-                    .then(()=> {
-                        this.loading = false;
-                        window.location.href = '/main.html';
-                    }, ()=> {
-                        this.loading = false;
-                    })
+                    if (valid) {
+                        var form = this.form;
+                        this.loading = true;
+                        login({
+                            mobile: form.name,
+                            password: md5(form.password)
+                        })
+                        .then(()=> {
+                            this.loading = false;
+                            window.location.href = '/main.html';
+                        }, ()=> {
+                            this.loading = false;
+                        });
+                    }
                 });
             }
         }
     }
 </script>
+
+
+<style lang="scss">
+
+    @import './assets/scss/login';
+    
+</style>

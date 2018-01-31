@@ -48,51 +48,51 @@ module.exports = merge(baseWebpackConfig, {
 			chunks: ['login'],
 			inject: true
 		}),
-		new HtmlWebpackPlugin({
-			filename: 'bindTel.html',
-			template: 'bindTel.html',
-			inject: true,
-			chunks: ['bindTel']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'card.html',
-			template: 'card.html',
-			inject: true,
-			chunks: ['card']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'patientIndex.html',
-			template: 'patientIndex.html',
-			inject: true,
-			chunks: ['patientIndex']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'browserError.html',
-			template: 'browserError.html',
-			inject: false
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'coupon.html',
-			template: 'coupon.html',
-			inject: true,
-			chunks: ['coupon']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'couponShare.html',
-			template: 'couponShare.html',
-			inject: true,
-			chunks: ['couponShare']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'customer.html',
-			template: 'customer.html',
-			inject: true,
-			chunks: ['customer']
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'upgrade.html',
-			template: 'upgrade.html',
-			inject: false
-		})
+		// new HtmlWebpackPlugin({
+		// 	filename: 'bindTel.html',
+		// 	template: 'bindTel.html',
+		// 	inject: true,
+		// 	chunks: ['bindTel']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'card.html',
+		// 	template: 'card.html',
+		// 	inject: true,
+		// 	chunks: ['card']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'patientIndex.html',
+		// 	template: 'patientIndex.html',
+		// 	inject: true,
+		// 	chunks: ['patientIndex']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'browserError.html',
+		// 	template: 'browserError.html',
+		// 	inject: false
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'coupon.html',
+		// 	template: 'coupon.html',
+		// 	inject: true,
+		// 	chunks: ['coupon']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'couponShare.html',
+		// 	template: 'couponShare.html',
+		// 	inject: true,
+		// 	chunks: ['couponShare']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'customer.html',
+		// 	template: 'customer.html',
+		// 	inject: true,
+		// 	chunks: ['customer']
+		// }),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'upgrade.html',
+		// 	template: 'upgrade.html',
+		// 	inject: false
+		// })
 	]
 })

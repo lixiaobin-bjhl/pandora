@@ -8,7 +8,7 @@ import Vue from 'vue';
 import ElementUI from 'element-ui/src/index';
 import Login from './Login.vue';
 import store from './store';
-// import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css';
 import toast from './common/function/toast';
 import Icon from 'vue-svg-icon/Icon.vue';
 Vue.component('icon', Icon);  
