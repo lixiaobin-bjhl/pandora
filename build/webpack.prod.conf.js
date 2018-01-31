@@ -15,16 +15,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     // loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
-  output: {
+   output: {
     path: config.build.assetsRoot,
+    publicPath: '/',
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-  },
-  vue: {
-    loaders: utils.cssLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -37,6 +32,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -111,8 +107,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       template: 'login.html',
       inject: true,
       chunksSortMode: 'dependency',
-      chunks: ['vendor', 'login'],
-      
+      chunks: ['vendor', 'login']
     }),
     new HtmlWebpackPlugin({
       filename: 'card.html',
