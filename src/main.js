@@ -9,7 +9,6 @@ import ElementUI from 'element-ui/src/index';
 import App from './App';
 import router from './router';
 import store from './store';
-import 'element-ui/lib/theme-chalk/index.css';
 import toast from './common/function/toast';
 
 import Icon from 'vue-svg-icon/Icon.vue';
