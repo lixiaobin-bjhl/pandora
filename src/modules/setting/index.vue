@@ -68,7 +68,9 @@
                 @sizechange="changeSize"
                 v-model="pageInfo">
             </pager>
-            <notice-item v-if="$store.state.notice.showNoticeItem"></notice-item>
+            <notice-item 
+                v-if="$store.state.notice.showNoticeItem" 
+                @save="refresh"></notice-item>
         </div>
     </div>
 </template>

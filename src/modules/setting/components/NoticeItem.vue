@@ -261,6 +261,7 @@
                                 this.loading = false;
                                 this.showAddForm = false;
                                 this.projectCarePlan();
+                                this.$emit('save');
                                 if (item.id) {
                                     this.cancelModify(item);
                                 }  
