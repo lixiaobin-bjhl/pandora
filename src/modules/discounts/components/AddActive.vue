@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        width="580px"
+        width="720px"
         :title="item ? '查看活动' : '添加活动'" 
         :visible.sync="$store.state.discounts.showAddActiveState"
         >
@@ -134,11 +134,11 @@
                                         <el-radio :label="0">限时</el-radio>
                                     </el-radio-group>
                                 </el-col>
-                                <el-col :span="16">
+                                <el-col :span="12">
                                     <el-date-picker
                                         v-model="form.timeRange"
                                         type="daterange"
-                                        style="width: 300px;"
+                                        style="width: 280px;"
                                         :picker-options="activityDateOption"
                                         :disabled="form.notLimitTime? true: false"
                                         range-separator="-"
@@ -162,10 +162,10 @@
                                         <el-radio :label="0">限时</el-radio>
                                     </el-radio-group>
                                 </el-col>
-                                <el-col :span="16">
+                                <el-col :span="12">
                                     <el-input
                                         :disabled="form.notLimitCount?true:false"
-                                        style="width: 300px;"
+                                        style="width: 280px;"
                                         type="number"
                                         placeholder="请输入发券总数" 
                                         v-model="form.maxCount"></el-input>
@@ -198,6 +198,7 @@
                         return time.getTime() < Date.now();
                     }
                 },
+                loading: false,
                 form: {
                     name: '',
                     hasShareCoupon: 0,
