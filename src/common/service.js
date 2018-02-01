@@ -29,6 +29,11 @@ axios.interceptors.response.use(function (response) {
     if (data.code === 0) {
         return data;
     } else {
+        // 未登录状态
+        if (code === 501) {
+            window.location.href = '/login.html';
+            return;
+        }
         toast(data.msg || '系统异常', 'error');
         return Promise.reject(data);
     }

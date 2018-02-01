@@ -134,7 +134,7 @@
             getPatientSourceOption () {
                 patientSource()
                     .then((res)=> {
-                        this.patientSourceOption = res.data.patients.list;
+                        this.patientSourceOption = res.data.list;
                     });
             },
             /**
