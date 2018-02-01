@@ -168,7 +168,7 @@
             projectCarePlan () {
                 this.loading = true;
                 projectCarePlan({
-                    id: this.project.projectId
+                    projectId: this.project.projectId
                 })
                 .then((res)=> {
                     this.loading = false;

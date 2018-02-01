@@ -96,7 +96,7 @@
             var project = this.project;
             if (this.project) {
                 this.form.doctorId = project.doctorInfo.id;
-                this.form.projectId = [project.id, project.projectInfo.id];
+                this.form.projectId = [project.projectInfo.parentId, project.projectInfo.id];
                 this.form.operatDate = new Date(project.operatDate);
             }
         },
@@ -138,6 +138,11 @@
                         };
                         this.loading = true;
                         var request = this.project ? updateProject : addProject;
+                        if (this.project) {
+                            Object.assign(params, {
+                                id: this.project.id
+                            });
+                        }
                         request(params)
                             .then((res)=> {
                                 this.$emit('save');
