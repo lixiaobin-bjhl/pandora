@@ -115,8 +115,7 @@
                                                     <li>
                                                         <label>有效期</label>
                                                         <div>
-                                                            {{item.beginTime | date('yyyy-MM-dd')}}~
-                                                            {{item.endTime | date('yyyy-MM-dd')}}
+                                                            {{item.beginTime | date('yyyy-MM-dd')}}&nbsp;~&nbsp;{{item.endTime | date('yyyy-MM-dd')}}
                                                         </div>    
                                                     </li>
                                                     <li>
