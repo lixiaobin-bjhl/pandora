@@ -42,7 +42,7 @@
                             </li>
                             <div class="opt-group" v-if="item.canShare">
                                 再送你{{item.shareCount}}张好友专用券，快去分享吧~<span class="btn-share" @click="shareWechat(item)">分享</span>
-                            </div> 
+                            </div>
                         </ul>
                     </div>
                 </div>

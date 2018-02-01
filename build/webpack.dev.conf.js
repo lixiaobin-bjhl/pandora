@@ -83,12 +83,12 @@ module.exports = merge(baseWebpackConfig, {
 		// 	inject: true,
 		// 	chunks: ['couponShare']
 		// }),
-		// new HtmlWebpackPlugin({
-		// 	filename: 'customer.html',
-		// 	template: 'customer.html',
-		// 	inject: true,
-		// 	chunks: ['customer']
-		// }),
+		new HtmlWebpackPlugin({
+			filename: 'customer.html',
+			template: 'customer.html',
+			inject: true,
+			chunks: ['customer']
+		}),
 		// new HtmlWebpackPlugin({
 		// 	filename: 'upgrade.html',
 		// 	template: 'upgrade.html',

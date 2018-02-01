@@ -18,7 +18,7 @@ import  { post, form, get } from 'src/common/service'
  * @return {Promise} 
  */
 export function patientCarePlan (params) {
-    return post('/carePlan/patientCarePlan.json', params);
+    return get('/carePlan/patientCarePlan.json', params);
 }
 
 /** 

@@ -89,21 +89,21 @@ export function couponList (params) {
  * 抢券
  */
 export function getCoupon (params) {
-    return post('/coupon/getCoupon.json', params);
+    return get('/coupon/getCoupon.json', params);
 }
 
 /**
  * 获取分享优惠券信息
  */
 export function getShareCouponInfo (params) {
-    return post('/coupon/getShareCouponInfo.json', params);
+    return get('/coupon/getShareCouponInfo.json', params);
 }
 
 /**
  * 生成优惠券分享链接
  */
 export function generateShareInfo (params) {
-    return post('/coupon/generateShareInfo.json', params);
+    return get('/coupon/generateShareInfo.json', params);
 }
 
 /**
@@ -111,4 +111,11 @@ export function generateShareInfo (params) {
  */
 export function getPatientCouponStatistics (params) {
     return post('/coupon/getPatientCouponStatistics.json', params);
+}
+
+/**
+ * 使用优惠券
+ */
+export function useCoupon (params) {
+    return get('/coupon/useCoupon.json', params);
 }

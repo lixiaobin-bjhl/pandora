@@ -5,6 +5,7 @@
 const state = {
     showDetailState: false,
     showCouponState: false,
+    couponRule: null,
     showAddCustomerState: false,
     showAddItemState: false,
     project: null,
@@ -30,13 +31,13 @@ const mutations = {
         state.showAddCustomerState = false;
         state.id = null;
     },
-    'SHOW_COUPON_DETIAL' (state, id) {
+    'SHOW_COUPON_DETIAL' (state, couponRule) {
         state.showCouponState = true;
-        state.id = id;
+        state.couponRule = couponRule;
     },
     'HIDE_COUPON_DETIAL' (state) {
         state.showCouponState = false;
-        state.id = null;
+        state.couponRule = null;
     },
     'SHOW_CUSTOMER_DETIAL' (state, id) {
         state.showDetailState = true;

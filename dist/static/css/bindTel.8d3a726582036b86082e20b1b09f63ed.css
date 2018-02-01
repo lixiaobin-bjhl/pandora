@@ -179,7 +179,8 @@ pre {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   white-space: pre-wrap;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+  overflow: hidden; }
 
 .confirm-message-box {
   padding-bottom: 0; }
@@ -652,4 +653,4 @@ pre {
     opacity: 0
 }
 
-/*# sourceMappingURL=bindTel.c010115a9c188806a94bceb053dd5fdb.css.map*/
+/*# sourceMappingURL=bindTel.8d3a726582036b86082e20b1b09f63ed.css.map*/

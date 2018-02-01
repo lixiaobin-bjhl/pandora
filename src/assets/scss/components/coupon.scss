@@ -43,6 +43,15 @@
                 border-radius: 100% 0  0 100%;
             }
         }
+        .btns {
+            text-align: center;
+            border-top: 1px dashed #D3DCE6;
+            padding-top: 10px;
+            margin: 0 0 10px 0;
+            .el-bottom {
+                margin: 0 3px;
+            }
+        }
         .title {
             text-align: center;
             padding-top: 25px;

@@ -223,7 +223,8 @@ pre {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   white-space: pre-wrap;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+  overflow: hidden; }
 
 .confirm-message-box {
   padding-bottom: 0; }
@@ -377,4 +378,4 @@ html {
   font-size: 20px;
   margin-top: 50px; }
 
-/*# sourceMappingURL=couponShare.edf3dd4c99ebd11eb76a78dc55423725.css.map*/
+/*# sourceMappingURL=couponShare.033859dcb75b2525ab85efcedba3cea6.css.map*/

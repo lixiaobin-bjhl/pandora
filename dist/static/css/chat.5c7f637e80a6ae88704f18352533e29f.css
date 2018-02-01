@@ -2187,7 +2187,8 @@ pre {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   white-space: pre-wrap;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+  overflow: hidden; }
 
 .confirm-message-box {
   padding-bottom: 0; }
@@ -2500,4 +2501,4 @@ pre {
   100% {
     height: 110px; } }
 
-/*# sourceMappingURL=chat.1c072073de757455da9091ec59e8247b.css.map*/
+/*# sourceMappingURL=chat.5c7f637e80a6ae88704f18352533e29f.css.map*/

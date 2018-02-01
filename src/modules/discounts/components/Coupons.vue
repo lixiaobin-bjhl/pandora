@@ -33,7 +33,7 @@
                 prop="ruleDesc"
                 label="卡券规则">
                 <template slot-scope="scope">
-                   <pre>{{scope.row.name}}</pre>
+                   <pre>{{scope.row.ruleDesc}}</pre>
                 </template>
             </el-table-column>
             <el-table-column

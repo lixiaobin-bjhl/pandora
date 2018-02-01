@@ -124,6 +124,16 @@
                                                         <div><pre>{{item.ruleDesc}}</pre></div>
                                                     </li>
                                                 </ul>
+                                                <div class="btns">
+                                                    <el-button 
+                                                        type="default" 
+                                                        size="small" 
+                                                        @click="couponDetail(item)">详情</el-button>
+                                                    <el-button 
+                                                        type="primary" 
+                                                        size="small" 
+                                                        @click="useCoupon(item)">使用</el-button>
+                                                </div> 
                                             </div>
                                         </div>
                                     </el-col>
@@ -243,7 +253,7 @@
     import BreadcrumbNav from '../../../common/components/BreadcrumbNav.vue';
     import hideScroll from '../../../common/function/hideScroll';
     import NameGender from '../../../common/components/NameGender.vue';
-    import { getDetial, deleteProject } from '../request';
+    import { getDetial, deleteProject, useCoupon } from '../request';
     import Timeline from 'src/common/components/timeline';
 
     export default {
@@ -327,17 +337,24 @@
             /**
              * 优惠卷详情 
              */
-            couponDetail () {
-                this.$store.commit('SHOW_COUPON_DETIAL');
+            couponDetail (item) {
+                this.$store.commit('SHOW_COUPON_DETIAL', item);
             },
             /**
              * 使用优惠券 
              */
-            useCoupon () {
+            useCoupon (item) {
                 this.$confirm('确认使用优惠券?客户将在机构公众号收到使用提醒', '提醒', {
                     type: 'warning'
                 })
                 .then(() => {
+                    useCoupon({
+                        id: item.id
+                    })
+                    .then(()=> {
+                        toast('保存成功', 'success');
+                        this.getDetial();
+                    })
                 });
             },
             /**

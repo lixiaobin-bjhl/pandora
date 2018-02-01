@@ -11,21 +11,28 @@ exports.routes = [
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/coupon/getCoupon.json',
         handler: function (request, reply) {
             return reply(require('./json/coupon/getCoupon.json'));
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
+        path: '/coupon/useCoupon.json',
+        handler: function (request, reply) {
+            return reply(require('./json/api/success.json'));
+        }
+    },
+    {
+		method: 'GET',
         path: '/coupon/getShareCouponInfo.json',
         handler: function (request, reply) {
             return reply(require('./json/coupon/getShareCouponInfo.json'));
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/coupon/generateShareInfo.json',
         handler: function (request, reply) {
             return reply(require('./json/coupon/generateShareInfo.json'));
