@@ -70,7 +70,7 @@
             </pager>
             <notice-item 
                 v-if="$store.state.notice.showNoticeItem" 
-                @save="refresh"></notice-item>
+                @save="fetchList"></notice-item>
         </div>
     </div>
 </template>

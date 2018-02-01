@@ -47,8 +47,8 @@
                         </el-row>
                     </el-form-item>
                     
-                    <el-row :gutter="10">
-                        <el-col :offset="12">
+                    <el-row :gutter="-10">
+                        <el-col :offset="13">
                         <el-button 
                             size="small" 
                             @click="cancelModify(item)">取消</el-button>
