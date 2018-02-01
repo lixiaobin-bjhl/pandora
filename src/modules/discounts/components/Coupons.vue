@@ -13,8 +13,8 @@
         </div>
         <el-table
             ref="table"
-            v-if="list && list.length"
             empty-text="没有找到优惠券信息"
+            :data="list"
             v-loading="loading"
             :highlight-current-row="true">
             <el-table-column
@@ -62,9 +62,6 @@
                 </template>
             </el-table-column>
         </el-table>
-        <!-- <div v-if="!list.length" class="none-list">
-            <span>暂无优惠券信息</span>
-        </div> -->
         <pager 
             @currentchange="changePage"
             @sizechange="changeSize"
@@ -101,15 +98,17 @@
              * 获取列表 
              */
             fetchList () {
+
                 var pageInfo = this.pageInfo;
                 var filter = this.filter;
+
                 this.loading = true;
                 couponRuleList({
                     nameKey: filter.key,
                     pageNum: pageInfo.pageNum,
                     pageSize: pageInfo.pageSize
                 })
-                .then((res)=> {
+                .then((res) => {
                     this.list = res.data.list;
                     Object.assign(this.pageInfo, res.pageInfo);
                     this.loading = false;

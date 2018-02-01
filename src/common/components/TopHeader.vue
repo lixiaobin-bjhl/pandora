@@ -7,7 +7,7 @@
     <header>
         <ul>
             <li class="campus">
-                <span class="name">{{ userInfo.orgName }}</span>
+                <span class="name">{{ userInfo.orgName || '--' }}</span>
             </li>
             <li class="role">
                 <el-dropdown :hide-on-click="false">
