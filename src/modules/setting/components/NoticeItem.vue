@@ -65,8 +65,12 @@
                     <el-form-item prop="newPwd" label="发送时间" class="el-form-text clearfix">
                             {{item.noticeTime}}
                             <span class="pull-right">
-                                <span class="icon el-icon-edit-outline" @click="editItem(item)"></span>
-                                <span class="icon el-icon-delete" @click="delItem(item)"></span>
+                                <el-tooltip content="编辑事项" placement="top">
+                                    <span class="icon el-icon-edit-outline" @click="editItem(item)"></span>
+                                </el-tooltip>
+                                <el-tooltip content="删除事项" placement="top">
+                                    <span class="icon el-icon-delete" @click="delItem(item)"></span>
+                                </el-tooltip>
                             </span>
                     </el-form-item>
                     <el-form-item prop="newPwd" label="提醒事项" class="el-form-text">

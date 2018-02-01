@@ -8,8 +8,8 @@
                         v-model.trim="filter.key"
                         class="input-with-select">
                         <el-select v-model="filter.queryNameType" style="width: 100px;" slot="prepend">
-                            <el-option label="活动名称" value="couponActivity"></el-option>
-                            <el-option label="卡劵名称" value="couponRule"></el-option>
+                            <el-option label="活动名称" value="CouponActivity"></el-option>
+                            <el-option label="卡劵名称" value="CouponRule"></el-option>
                         </el-select>
                         <span slot="suffix" class="el-input__icon el-icon-search pointer" @click="refresh"></span>
                     </el-input>
@@ -115,7 +115,7 @@
             return {
                 filter: {
                     key: '',
-                    queryNameType: 'couponActivity'
+                    queryNameType: 'CouponActivity'
                 },
                 list: [],
                 loading: false

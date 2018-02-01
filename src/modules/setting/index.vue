@@ -6,7 +6,9 @@
             </el-col>
         </el-row>
         <div class="list-box">
-            <el-tabs v-model="activeName" @tab-click="changeTab">
+            <el-tabs v-model="activeName" 
+                @tab-click="changeTab" 
+                style="margin-bottom: 16px;">
                 <el-tab-pane 
                     v-for="item, index in porjectList" 
                     :label="item.categoryName" 

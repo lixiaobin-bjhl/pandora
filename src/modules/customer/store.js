@@ -20,7 +20,6 @@ const mutations = {
     },
     'HIDE_ADD_ITEM_DETIAL' (state) {
         state.showAddItemState = false;
-        state.id = null;
         state.project = null;
     },
     'SHOW_ADD_CUSTOMER_DETIAL' (state, id) {

@@ -6,9 +6,9 @@
             color: $link-hover-color;
         }
     }
-    .unit-item {
+    .unit-item {  
         .el-form-text {
-            margin-bottom: 10px;
+            margin-bottom: 0;
             .el-form-item__label {
                 // float: left;
             }
@@ -16,7 +16,7 @@
                 overflow: hidden;
             }
         }
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         .icon {
             font-size: 20px;
             color: #99A9BF;
