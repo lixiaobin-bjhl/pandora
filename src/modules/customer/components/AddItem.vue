@@ -7,7 +7,8 @@
         <el-form
             :rules="rules" 
             ref="form"
-            :model="form" 
+            :model="form"
+            v-loading="loading"
             label-width="80px">
             <el-form-item label="项目名称" prop="projectId">
                 <el-cascader

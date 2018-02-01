@@ -28,8 +28,8 @@
             </div>
             <el-table
                 ref="table"
-                v-if="list && list.length"
                 :data="list"
+                empty-text="没有找到关怀计划信息"
                 :highlight-current-row="true">
                 <el-table-column
                     prop="name"
@@ -60,9 +60,9 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div v-if="!list.length" class="none-list">
+            <!-- <div v-if="!list.length" class="none-list">
                 <span>暂无设置信息</span>
-            </div>
+            </div> -->
             <pager 
                 @currentchange="changePage"
                 @sizechange="changeSize"

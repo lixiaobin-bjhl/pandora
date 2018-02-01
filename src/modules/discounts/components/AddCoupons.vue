@@ -7,7 +7,8 @@
         <el-form
             :rules="rules" 
             ref="form"
-            :model="form" 
+            :model="form"
+            v-loading="loading"
             label-width="100px">
             <el-form-item 
                 label="卡券名称"
