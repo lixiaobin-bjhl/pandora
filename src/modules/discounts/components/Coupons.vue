@@ -14,7 +14,6 @@
         <el-table
             ref="table"
             v-if="list && list.length"
-            :data="list"
             empty-text="没有找到优惠券信息"
             v-loading="loading"
             :highlight-current-row="true">
@@ -63,9 +62,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div v-if="!list.length" class="none-list">
-            <span>暂无设置信息</span>
-        </div>
+        <!-- <div v-if="!list.length" class="none-list">
+            <span>暂无优惠券信息</span>
+        </div> -->
         <pager 
             @currentchange="changePage"
             @sizechange="changeSize"

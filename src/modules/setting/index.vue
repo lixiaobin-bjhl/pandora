@@ -46,7 +46,7 @@
                     label="术前、术后提醒事项">
                     <template slot-scope="scope">
                        <template v-if="scope.row.carePlans.length"> 
-                            <ul>  
+                            <ul style="padding: 5px 0;">  
                                 <li  
                                     v-for="item, index in scope.row.carePlans"
                                     v-if="index < 5"

@@ -17,7 +17,6 @@
         </div>
         <el-table
             ref="table"
-            v-if="list && list.length"
             :data="list"
             empty-text="没有找到活动信息"
             v-loading="loading"
@@ -89,9 +88,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div v-if="!list.length" class="none-list">
-            <span>暂无设置信息</span>
-        </div>
+        <!-- <div v-if="!list.length" class="none-list">
+            <span>暂无活动信息</span>
+        </div> -->
         <pager 
             @currentchange="changePage"
             @sizechange="changeSize"
