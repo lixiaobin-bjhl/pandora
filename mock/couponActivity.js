@@ -18,28 +18,28 @@ exports.routes = [
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/couponActivity/detail.json',
         handler: function (request, reply) {
             return reply(require('./json/couponActivity/detail.json'));
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/couponActivity/delete.json',
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/couponActivity/runActivity.json',
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/couponActivity/pauseActivity.json',
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));

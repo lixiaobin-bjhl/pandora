@@ -224,6 +224,7 @@
                         var project = this.project;
                         var form = this.form;
                         var params = {
+                            projectId: this.project.projectId,
                             afterOperate: form.afterOperate,
                             period: form.period,
                             noticeDesc: form.noticeDesc

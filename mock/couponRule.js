@@ -18,7 +18,7 @@ exports.routes = [
         }
     },
     {
-		method: 'POST',
+		method: 'GET',
         path: '/couponRule/delete.json',
         handler: function (request, reply) {
             return reply(require('./json/api/success.json'));

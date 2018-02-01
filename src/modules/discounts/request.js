@@ -24,28 +24,28 @@ export function getActivityList (params) {
  * 删除优惠活动 
  */
 export function delActivity (params) {
-    return post('/couponActivity/delete.json', params);
+    return get('/couponActivity/delete.json', params);
 }
 
 /**
  * 优惠活动详情 
  */
 export function activityDetail (params) {
-    return post('/couponActivity/detail.json', params);
+    return get('/couponActivity/detail.json', params);
 }
 
 /**
  * 运行优惠活动
  */
 export function runActivity(params) {
-    return post('/couponActivity/runActivity.json', params);
+    return get('/couponActivity/runActivity.json', params);
 }
 
 /**
  * 暂停优惠活动
  */
 export function pauseActivity(params) {
-    return post('/couponActivity/pauseActivity.json', params);
+    return get('/couponActivity/pauseActivity.json', params);
 }
 
 /**
@@ -81,7 +81,7 @@ export function couponRuleSave (params) {
  * 删除优惠券
  */
 export function couponRuleDelete (params) {
-    return post('/couponRule/delete.json', params);
+    return get('/couponRule/delete.json', params);
 }
 
 

@@ -32,7 +32,7 @@ exports.routes = [
         }
     },
     {
-        method: 'POST',
+        method: 'GET',
         path: '/carePlan/projectCarePlan.json',
         handler: function (request, h) {
         	return h(require('./json/carePlan/projectCarePlan.json'));

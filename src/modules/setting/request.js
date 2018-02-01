@@ -58,12 +58,12 @@ export function listProjectCarePlan (params) {
 }
 
 /** 
- * 项目关怀计划列表
+ * 项目关怀计划详情
  * 
  * @param {number} params.id 项目ID
  * 
  * @return {Promise} 
  */
 export function projectCarePlan (params) {
-    return post('/carePlan/projectCarePlan.json', params);
+    return get('/carePlan/projectCarePlan.json', params);
 }
