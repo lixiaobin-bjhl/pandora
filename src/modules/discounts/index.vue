@@ -11,7 +11,7 @@
             </el-col>
         </el-row>
          <div class="list-box">
-            <el-tabs v-model="activeName">
+            <el-tabs v-model="activeName" style="margin-bottom: 16px;">
                 <el-tab-pane label="活动" name="Active"></el-tab-pane>
                 <el-tab-pane label="卡劵" name="Coupons"></el-tab-pane>
             </el-tabs>
