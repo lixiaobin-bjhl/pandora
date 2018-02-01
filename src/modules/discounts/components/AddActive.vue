@@ -12,6 +12,7 @@
             type="warning">
         </el-alert>
         <el-form
+            v-loading="loading"
             :rules="item ? {} : rules" 
             ref="form"
             :model="form" 
@@ -32,7 +33,7 @@
                 prop="couponRuleId">
                 <template v-if="item">
                     {{item.couponConcatName}}&nbsp;&nbsp;&nbsp;&nbsp;
-                    <el-tooltip>
+                    <el-tooltip placement="top">
                         <pre slot="content">{{form.ruleDesc}}</pre>
                         <a href="javascript:;">使用规则</a>
                     </el-tooltip>
@@ -75,7 +76,7 @@
             <p class="span-line"></p>
             <el-form-item label="是否有分享券">
                 <span slot="label" v-if="!item">是否有分享券
-                    <el-tooltip content="是否有分享券">
+                    <el-tooltip content="是否有分享券" placement="top">
                         <span class="el-icon-question text-warning"></span>
                     </el-tooltip>
                 </span>
@@ -276,7 +277,7 @@
 
                         if (form.notLimitTime) {
                             Object.assign(params, {
-                                notLimitTime: notLimitTime ? true : false
+                                notLimitTime: form.notLimitTime ? true : false
                             });
                         }
                         var timeRange = form.timeRange;
