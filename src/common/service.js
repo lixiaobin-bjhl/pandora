@@ -30,7 +30,7 @@ axios.interceptors.response.use(function (response) {
         return data;
     } else {
         // 未登录状态
-        if (code === 501) {
+        if (data.code === 501) {
             window.location.href = '/login.html';
             return;
         }
