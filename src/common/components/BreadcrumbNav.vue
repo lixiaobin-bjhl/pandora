@@ -10,9 +10,11 @@
             :key="index">
             <span v-if="index">/</span>
             <span
-                :class="{'clickable-text': index != data.length -1}"
+                :class="{'clickable-text': index != data.length -1, 'text-gray-light': index == data.length -1 && data.length > 1}"
                 @click="back(index + 1)"
-            >{{ item }}</span>
+            >
+                <icon name="arrow-left" scale="1.8" v-if="index != data.length -1"></icon>{{ item }}
+            </span>
         </p>
     </div>
 </template>

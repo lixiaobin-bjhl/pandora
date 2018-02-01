@@ -66,7 +66,7 @@
                                     <label>客户姓名</label><span>{{info.name}}</span>
                                 </el-col>
                                 <el-col :span="12">
-                                    <label>客户手机</label><span>{{info.mobile}}</span>
+                                    <label>客户手机</label><span>{{info.mobile || '--'}}</span>
                                 </el-col>
                                 <el-col :span="12">
                                     <label>客户性别</label><span>{{info.genderInfo.name}}</span>
@@ -76,13 +76,13 @@
                                     <span>{{info.birthday |date('yyyy-MM-dd')}}</span>
                                 </el-col>
                                 <el-col :span="12">
-                                    <label>客户年龄</label><span>{{info.birthYearPeriod}}</span>
+                                    <label>客户年龄</label><span>{{info.birthYearPeriod || '--'}}</span>
                                 </el-col>
                                 <el-col :span="12">
-                                    <label>客户来源</label><span>{{info.sourceInfo.name}}</span>
+                                    <label>客户来源</label><span>{{info.sourceInfo.name || '--'}}</span>
                                 </el-col>
                                 <el-col :span="12">
-                                    <label>咨询顾问</label><span>{{info.consulterInfo.name}}</span>
+                                    <label>咨询顾问</label><span>{{info.consulterInfo.name || '--'}}</span>
                                 </el-col>
                                 <el-col :span="12">
                                     <label>公众号</label><span>{{info.subscribe ? '已关注': '未关注'}}</span>
@@ -281,7 +281,7 @@
                 })
                 .then(() => {
                    deleteProject({
-                       id: item.projectInfo.id
+                       id: item.id
                    })
                    .then(()=> {
                        toast('保存成功', 'success');
@@ -338,7 +338,6 @@
                     type: 'warning'
                 })
                 .then(() => {
-                    console.log(12312);
                 });
             },
             /**

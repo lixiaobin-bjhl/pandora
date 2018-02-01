@@ -132,7 +132,7 @@
                         var form = this.form;
                         var params = {
                             patientId: this.id,
-                            projectId: form.projectId[1],
+                            id: form.projectId[1],
                             doctorId: form.doctorId,
                             operatDate: +form.operatDate
                         };

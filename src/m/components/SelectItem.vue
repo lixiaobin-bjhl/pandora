@@ -3,7 +3,7 @@
         <div class="select">
            <ul>
                <li v-for="item, n in options" @click="changeProject(n)">
-                   {{item.name}} <icon name="male" v-if="n==value" scale="1.3"></icon>
+                   {{item.name}} <icon name="check" style="color:#6BC0B8" v-if="n==value" scale="1.3"></icon>
                </li>
            </ul>
         </div>

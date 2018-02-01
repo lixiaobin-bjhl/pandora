@@ -177,7 +177,10 @@
              */
             updateList () {
                 this.refresh();
-                this.$refs.detail.$emit('updatedetail');
+                var detail = this.$refs.detail;
+                if (detail) {
+                    detail.$emit('updatedetail');
+                }
             },
             /**
              * 获取列表 

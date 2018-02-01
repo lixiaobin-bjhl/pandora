@@ -2150,7 +2150,7 @@ textarea {
   clear: both; }
 
 .clickable-text {
-  color: #666;
+  color: #475669;
   cursor: pointer; }
   .clickable-text:hover {
     color: #4db3ff; }
@@ -2500,4 +2500,4 @@ pre {
   100% {
     height: 110px; } }
 
-/*# sourceMappingURL=chat.b65ba3c56d74dbc35c7d9d5300e8b754.css.map*/
+/*# sourceMappingURL=chat.1c072073de757455da9091ec59e8247b.css.map*/
