@@ -104,13 +104,10 @@
                 Indicator.open('加载中…');
                 var params = {
                     pageNum: this.pageNum,
-                    pageSize: this.pageSize
+                    pageSize: this.pageSize,
+                    used: this.activeTab == 2 ? true : false,
+                    expired: this.activeTab == 3 ? true : false
                 };
-                if (this.activeTab == 2) {
-                    params.used = true;
-                } else if (this.activeTab == 3) {
-                    params.expired = true;
-                }
                 couponList(params)
                     .then((res)=> {
                         Indicator.close();

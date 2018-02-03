@@ -43,11 +43,14 @@
     import Timeline from 'src/common/components/timeline';
     import { patientCarePlan } from 'src/modules/setting/request';
     import { Indicator, Loadmore } from 'mint-ui';
+    import getUrlSearch from '../../common/function/getUrlSearch';
 
     export default {
         data () {
+            var search = getUrlSearch();
             return {
                 list: [],
+                projectId: search.projectId || null,
                 index: this.$root.index || 0,
                 pageNum: 1,
                 pageSize: 20,
@@ -67,17 +70,31 @@
              */
             fetchList (mid) {
                 Indicator.open('加载中…');
-                patientCarePlan()
+                var params = {};
+                if (this.projectId) {
+                    Object.assign(params, {
+                        projectId: this.projectId
+                    });
+                }
+                patientCarePlan(params)
                     .then((res)=> {
                         Indicator.close();
                         this.$refs.loadmore.onBottomLoaded(mid);
-                        this.list = this.list.concat(res.data.list);
-                        var pageInfo = res.pageInfo;
-                        if (pageInfo.pageNum < Math.ceil(pageInfo.count / pageInfo.pageSize)) {
-                            this.allLoaded = false;
-                        } else {
-                            this.allLoaded = true;
-                        } 
+                        var list = res.data.list;
+                        // this.list = this.list.concat(res.data.list);
+                        this.list = list;
+                        list.some((item, index)=> {
+                            if (item.active) {
+                                this.index  = index;
+                                return true;
+                            }
+                        });
+                        this.allLoaded = true;
+                        // if (pageInfo.pageNum < Math.ceil(pageInfo.count / pageInfo.pageSize)) {
+                        //     this.allLoaded = false;
+                        // } else {
+                        //     this.allLoaded = true;
+                        // } 
                     }, ()=> {
                         Indicator.close();
                         this.$refs.loadmore.onBottomLoaded(mid);

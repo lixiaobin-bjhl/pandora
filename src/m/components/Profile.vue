@@ -2,7 +2,11 @@
 	<div>
 		<div class="fields">
 			<div class="profile">
-				<img width="60" height="60" :src="info.avatar|compressImage(60, 60)">
+				<img 
+					width="60"
+					v-if="info.avatar"
+					height="60" 
+					:src="info.avatar|compressImage(60, 60)">
 				<ul>
 					<li class="name">{{info.name}}</li>
 					<li class="gray999">{{info.orgName || '医院名称'}}</li>
@@ -138,7 +142,7 @@
 				let params = {
 					mobile: this.mobile,
 					name: this.name,
-					age: this.age,
+					age: this.age + '后',
 					gender: this.gender
 				}
 				update(params)

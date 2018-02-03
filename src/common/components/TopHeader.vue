@@ -12,7 +12,7 @@
             <li class="role">
                 <el-dropdown :hide-on-click="false">
                     <span class="el-dropdown-link pointer">
-                        <img :src="userInfo.avatar|compressImage(30, 30)"> {{ userInfo.name || '--' }}<i class="el-icon-arrow-down el-icon--right"></i>
+                        <img v-if="user.avatar" :src="userInfo.avatar|compressImage(30, 30)"> {{ userInfo.name || '--' }}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>

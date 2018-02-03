@@ -24,7 +24,9 @@
                        <div class="follow-flag" v-if="info.subscribe">已关注</div> 
                         <ul>
                             <li>
-                                <img class="avatar80" :src="info.avatar|compressImage(80, 80)">
+                                <img class="avatar80"
+                                    v-if="info.avatar" 
+                                    :src="info.avatar|compressImage(80, 80)">
                                 <name-gender 
                                     :name="info.name" 
                                     :isFemale="info.genderInfo.gender == 2" 

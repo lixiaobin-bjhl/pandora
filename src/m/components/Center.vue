@@ -2,7 +2,8 @@
     <div class="center">
         <div class="profile">
             <div class="info">
-                <img 
+                <img
+                    v-if="info.avatar"
                     :src="info.avatar|compressImage(189, 189)" 
                     class="img">
                     <div class="upload-btn">

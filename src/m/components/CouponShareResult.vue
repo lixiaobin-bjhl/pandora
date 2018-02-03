@@ -44,6 +44,7 @@
                     <img 
                     width="50"
                     height="50"
+                    v-if="item.avatar"
                     :src="item.avatar|compressImage(50, 50)">
                     <div>{{item.name}}</div>
                 </li>
